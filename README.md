@@ -52,7 +52,7 @@ repo — it is cross-checked there against the app's privacy manifest and App St
 
 1. Edit `docs/privacy-policy.md` in `green18` and merge it.
 2. Re-render the same text into `privacy.html` here, section for section (headings, tables and lists map
-   1:1; the two operator tokens become the effective date and `support@green18.app`).
+   1:1; the two operator tokens become the effective date and `manager@green18.app`).
 3. **Change the effective date whenever the text changes** (`<time datetime="YYYY-MM-DD">` in
    `privacy.html`, and the corresponding line in the markdown source).
 4. Commit and push `main`; Pages redeploys in about a minute.
@@ -62,4 +62,4 @@ and users read. `green18/docs/legal-site.md` documents this from the app repo's 
 
 ## Contact
 
-`support@green18.app` — appears on the support page and in the policy.
+`manager@green18.app` — appears on the support page and in the policy.
