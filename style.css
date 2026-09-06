@@ -1,0 +1,95 @@
+/* Green18 public site — tokens mirror Sources/DesignSystem/Tokens.swift (dark scheme). */
+:root {
+  --bg: #040E07;          /* surfacePrimaryDark */
+  --bg-2: #0B1A0F;        /* surfaceSecondary (dark) */
+  --ink: #F5F2E3;         /* Tokens.white */
+  --ink-2: #B4BFB2;       /* onSurfaceSecondary — 9.6:1 on --bg */
+  --accent: #75DC49;      /* accentDark — 11.5:1 on --bg */
+  --border: #1F3324;
+  --max: 44rem;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+html { background: var(--bg); }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 17px/1.6 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+}
+
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 0.15em; }
+a:hover, a:focus-visible { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+.skip {
+  position: absolute; left: -999px; top: 0.5rem;
+  background: var(--accent); color: var(--bg); padding: 0.5rem 0.75rem; border-radius: 4px; font-weight: 600;
+}
+.skip:focus { left: 0.5rem; z-index: 10; }
+
+header.site {
+  border-bottom: 1px solid var(--border);
+}
+header.site .row {
+  max-width: var(--max); margin: 0 auto; padding: 0.9rem 1.25rem;
+  display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem; align-items: baseline; justify-content: space-between;
+}
+.wordmark {
+  font-weight: 800; font-size: 1.15rem; letter-spacing: 0.02em; color: var(--ink); text-decoration: none;
+}
+.wordmark b { color: var(--accent); font-weight: 800; }
+header.site nav a { margin-left: 1rem; color: var(--ink-2); text-decoration: none; }
+header.site nav a:first-child { margin-left: 0; }
+header.site nav a[aria-current="page"] { color: var(--ink); border-bottom: 2px solid var(--accent); }
+header.site nav a:hover, header.site nav a:focus-visible { color: var(--ink); }
+
+main { max-width: var(--max); margin: 0 auto; padding: 1.5rem 1.25rem 3rem; }
+
+h1 { font-size: 2rem; line-height: 1.15; letter-spacing: -0.01em; margin: 0.5rem 0 0.75rem; }
+h2 { font-size: 1.35rem; line-height: 1.25; margin: 2.25rem 0 0.6rem; }
+h3 { font-size: 1.1rem; margin: 1.75rem 0 0.5rem; }
+p, ul, ol { margin: 0 0 1rem; }
+li { margin: 0.35rem 0; }
+.lede { color: var(--ink-2); font-size: 1.05rem; }
+.meta { color: var(--ink-2); font-size: 0.95rem; }
+hr { border: 0; border-top: 1px solid var(--border); margin: 2.5rem 0; }
+
+code {
+  font: 0.9em ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  background: var(--bg-2); border: 1px solid var(--border); border-radius: 4px; padding: 0.05em 0.35em;
+  overflow-wrap: anywhere;
+}
+
+.table-wrap { overflow-x: auto; margin: 0 0 1.25rem; border: 1px solid var(--border); border-radius: 6px; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { text-align: left; vertical-align: top; padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--border); }
+th { background: var(--bg-2); font-weight: 600; }
+tr:last-child td { border-bottom: 0; }
+
+.card {
+  background: var(--bg-2); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.15rem; margin: 0 0 1.25rem;
+}
+.card p:last-child { margin-bottom: 0; }
+
+dl.faq dt { font-weight: 600; margin-top: 1.25rem; }
+dl.faq dd { margin: 0.35rem 0 0; color: var(--ink); }
+
+footer.site {
+  border-top: 1px solid var(--border);
+}
+footer.site .row {
+  max-width: var(--max); margin: 0 auto; padding: 1.25rem; color: var(--ink-2); font-size: 0.9rem;
+  display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem; justify-content: space-between;
+}
+footer.site a { color: var(--ink-2); }
+
+@media (min-width: 600px) {
+  body { font-size: 18px; }
+  h1 { font-size: 2.4rem; }
+}

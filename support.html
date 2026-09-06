@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#040E07">
+  <meta name="description" content="Green18 support: contact email and answers about offline use, accounts, where your data lives, league export/import, data refresh and reporting a data error.">
+  <title>Support — Green18</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site">
+    <div class="row">
+      <a class="wordmark" href="./">GREEN<b>18</b></a>
+      <nav aria-label="Site">
+        <a href="./">Home</a>
+        <a href="privacy">Privacy</a>
+        <a href="support" aria-current="page">Support</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <h1>Support</h1>
+
+    <div class="card">
+      <p>
+        <strong>Contact:</strong> <a href="mailto:support@green18.app">support@green18.app</a><br>
+        Include the app version (Settings → About) and, for a draft problem, an export of the league
+        (Settings → Data → <em>Export league</em>) if you are comfortable sharing it. Exports contain only what
+        you entered — league settings, picks, your preference answers — never anything about you.
+      </p>
+    </div>
+
+    <h2 id="faq">Frequently asked questions</h2>
+    <dl class="faq">
+      <dt id="offline">Does Green18 work offline?</dt>
+      <dd>
+        Yes. Every player, projection and rule the app needs ships inside the app, so it runs fully in
+        airplane mode — including on draft day. Being online only lets it pick up a newer copy of the
+        shared player data (see below).
+      </dd>
+
+      <dt id="account">Do I need an account?</dt>
+      <dd>
+        No. There is no sign-in, no account and nothing to create. The app has no idea who you are.
+      </dd>
+
+      <dt id="data">Where does my data live?</dt>
+      <dd>
+        On your iPhone, in the app's own storage: your leagues, each draft's pick-by-pick log and queue,
+        your draft-philosophy answers, and your appearance preference. Green18 never uploads any of it.
+        If you use iCloud Backup or back up to a computer, iOS may include the app's data in that backup
+        under Apple's terms. Settings → Data → <em>Delete all local data</em> removes everything; so does
+        uninstalling. The <a href="privacy">Privacy Policy</a> lists exactly what is stored and where.
+      </dd>
+
+      <dt id="export">How do I export or import a league?</dt>
+      <dd>
+        <strong>Export:</strong> Settings → Data → <em>Export league</em> writes the league (settings, draft log,
+        preferences) to a JSON file and opens the iOS share sheet — save it to Files, AirDrop it, or send
+        it wherever you like. <strong>Import:</strong> Settings → Data → <em>Import league</em>, then pick a Green18
+        export file. This is how you move a league to a new phone or share a set-up with a co-manager.
+      </dd>
+
+      <dt id="refresh">How is the shared player data refreshed?</dt>
+      <dd>
+        When the app is online it may ask Green18's server for a newer copy of the shared football data —
+        player status, injuries, depth charts, projections, schedule. That request is anonymous: it asks
+        for the same file everyone gets and carries nothing about you or your league — no account, no
+        identifier, no cookies. If the request fails or you are offline, the app keeps using the copy it
+        already has. The data is compiled from open sources (the nflverse community, CC-BY 4.0); the
+        credits are under Settings → Data sources.
+      </dd>
+
+      <dt id="data-error">How do I report a data error?</dt>
+      <dd>
+        Email <a href="mailto:support@green18.app">support@green18.app</a> with the player, what the app
+        shows, what you believe is correct, and a link to a public source (a team announcement, the
+        official NFL injury report, a beat report). Availability facts in Green18 come from the
+        official reports; when a fact is public before it reaches those reports, we can publish a
+        dated, source-cited <strong>editorial note</strong> that is delivered through the same anonymous refresh
+        and shown in the app as a hollow badge marked "editorial note, not an official designation".
+        Editorial notes expire on their own once the official report catches up, so a correction never
+        outlives its source.
+      </dd>
+    </dl>
+
+    <p class="meta">
+      Green18 is not affiliated with, endorsed by or sponsored by the NFL, the NFL Players Association,
+      any NFL club or any fantasy platform.
+    </p>
+  </main>
+
+  <footer class="site">
+    <div class="row">
+      <span>© 2026 Interplore</span>
+      <span><a href="privacy">Privacy</a> · <a href="support">Support</a></span>
+    </div>
+  </footer>
+</body>
+</html>

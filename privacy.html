@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#040E07">
+  <meta name="description" content="Green18 privacy policy. Green18 collects no personal data: no accounts, no analytics, no advertising, no third-party SDKs.">
+  <title>Privacy Policy — Green18</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site">
+    <div class="row">
+      <a class="wordmark" href="./">GREEN<b>18</b></a>
+      <nav aria-label="Site">
+        <a href="./">Home</a>
+        <a href="privacy" aria-current="page">Privacy</a>
+        <a href="support">Support</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <h1>Green18 — Privacy Policy</h1>
+
+    <p><strong>Effective date:</strong> <time datetime="2026-09-06">6 September 2026</time></p>
+
+    <p>
+      This is the policy <code>SourceAllowlist</code> (<code>Sources/DraftEngine/Data/SourceAllowlist.swift</code>,
+      the <code>user-owned</code> entry) has forward-referenced since 2026-08-30, and the document the App Store
+      Connect <strong>Privacy Policy URL</strong> must point at. It is written to say exactly what the shipped
+      code does — no more, no less — and is cross-checked against <code>Sources/Green18App/PrivacyInfo.xcprivacy</code>
+      and the App Privacy answers in <code>docs/app-store-metadata.md</code> (three artifacts, one claim).
+    </p>
+
+    <h2 id="short-version">The short version</h2>
+    <p>
+      Green18 collects <strong>no</strong> personal data. It has no accounts, no sign-in, no analytics, no
+      advertising and no third-party SDKs. When it is online it may make <strong>anonymous requests for
+      shared player data</strong> (the same football facts for everyone) — nothing about you or your league
+      is sent. Everything you enter stays on your device unless you choose to export it yourself.
+    </p>
+
+    <h2 id="what-is-stored">What Green18 stores, and where</h2>
+    <p>
+      Green18 is a local-first app (TELOS T5). The following is stored <strong>on your device only</strong>, in
+      the app's own sandbox:
+    </p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th scope="col">Data</th><th scope="col">What it is</th><th scope="col">Where</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Leagues</td><td>The league parameters you enter (name, scoring, roster, draft order, team labels)</td><td>App documents (per-league store)</td></tr>
+          <tr><td>Drafts</td><td>The pick-by-pick draft event log, your queue/favourites, and the derived board state</td><td>App documents (per-league store, with a last-known-good backup)</td></tr>
+          <tr><td>Draft philosophy</td><td>Your answers to the five preference questions</td><td>App documents (part of the league record)</td></tr>
+          <tr><td>Preferences</td><td>Appearance (system / light / dark) and league setup progress</td><td><code>UserDefaults</code> (app-private)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      None of this is transmitted anywhere by Green18. Green18 does not read your contacts, location,
+      photos, calendar, microphone, camera, health data, or any other system data, and asks for no
+      permissions. (If you use iCloud Backup or back your iPhone up to a computer, iOS may include
+      Green18's data in that backup under Apple's terms — that is your device backup, not something
+      Green18 sends or syncs.)
+    </p>
+
+    <h2 id="what-it-does-not-do">What Green18 does NOT do</h2>
+    <ul>
+      <li>
+        <strong>No collection.</strong> No name, email, phone number, identifier, usage data, diagnostics or crash
+        reports are collected by the developer. (Apple may collect crash and diagnostics data under
+        Apple's own policies if you have opted in to share it with developers in iOS Settings; Green18
+        itself contains no crash-reporting code.)
+      </li>
+      <li>
+        <strong>No tracking.</strong> No advertising identifier, no tracking across apps or websites, no tracking
+        domains (<code>NSPrivacyTracking</code> is <code>false</code>; <code>NSPrivacyTrackingDomains</code> is empty).
+      </li>
+      <li>
+        <strong>No accounts.</strong> There is nothing to sign in to. Deleting the app's local data is the only
+        "sign out" (see below).
+      </li>
+      <li>
+        <strong>No data about you goes anywhere.</strong> The app ships with all of its football data inside the app
+        bundle and works with airplane mode on. When you are online, Green18 may fetch a newer copy of
+        that <strong>shared</strong> football data (player status, injuries, depth charts, projections, schedule) from
+        Green18's own server. Those requests are anonymous: they ask for the same file everyone gets and
+        carry nothing about you, your league, your roster, your picks or your preferences — no account,
+        no identifier, no cookies. Like any internet request they reveal your IP address to the server
+        while they are in flight, and the standard iOS request header names the app version and iOS
+        version. Green18 never uploads anything. (<code>DesignSystem</code>'s <code>PlayerImage</code> also contains a dormant
+        remote-image code path with no caller in this app, disabled by the compile-time flag
+        <code>PortraitResolver.remoteFetchEnabled = false</code>.)
+      </li>
+      <li>
+        <strong>No third-party SDKs.</strong> Zero third-party packages are linked (<code>project.yml</code>; three first-party
+        targets only).
+      </li>
+    </ul>
+
+    <h2 id="your-controls">Your controls</h2>
+    <ul>
+      <li>
+        <strong>Export.</strong> Settings → Data → <em>Export league</em> writes your league (parameters, draft log,
+        preferences) to a JSON file and offers the iOS share sheet. Where that file goes is your choice;
+        Green18 never sees it again.
+      </li>
+      <li>
+        <strong>Import.</strong> Settings → Data → <em>Import league</em> reads a Green18 export you select. Files are read
+        once and are not retained beyond what you imported.
+      </li>
+      <li>
+        <strong>Delete.</strong> Settings → Data → <em>Delete all local data</em> removes every league, draft and
+        preference from the device. Uninstalling the app also removes all of it. There is no copy
+        anywhere else to delete.
+      </li>
+    </ul>
+
+    <h2 id="children">Children</h2>
+    <p>
+      Green18 is rated for all ages and collects no data from anyone, including children. It is not
+      directed at children.
+    </p>
+
+    <h2 id="third-party-data">Third-party data inside the app (not about you)</h2>
+    <p>
+      The app bundle contains football facts licensed from a third party. None of it is personal data
+      about you:
+    </p>
+    <ul>
+      <li>
+        Player, team and schedule facts via the nflverse open-source community (CC-BY 4.0; MIT code).
+        The CC-BY-SA 4.0 (share-alike) FTN-charting data nflverse also distributes is not ingested by
+        Green18, so no share-alike term applies to anything shipped.
+      </li>
+    </ul>
+    <p>
+      This build carries no data from Fantasy Football Calculator or any other market-data provider —
+      Average Draft Position is not shipped or shown (redistribution terms for that data are UNCLEAR
+      under the provider's own terms of service, so it stays out of the shipped product). It also
+      carries no player photographs: Green18 shows a synthesized initials tile for every player and
+      team, never a photograph of a real person.
+    </p>
+    <p>
+      Attribution for the data above is shown in the app under Settings → Data sources, alongside a
+      statement that player photographs are not included. Green18 is not affiliated with, endorsed by
+      or sponsored by the NFL, the NFL Players Association, any NFL club or any fantasy platform.
+    </p>
+
+    <h2 id="changes">Changes to this policy</h2>
+    <p>
+      If a future version of Green18 changes what it stores or transmits, this policy and the app's
+      privacy manifest will change together, and the App Store listing's privacy answers will be
+      updated before that version ships.
+    </p>
+
+    <h2 id="contact">Contact</h2>
+    <p>
+      Questions about this policy or about your data: <a href="mailto:support@green18.app">support@green18.app</a>.
+      See also the <a href="support">Support page</a>.
+    </p>
+
+    <hr>
+
+    <h3 id="appendix">Appendix — technical cross-check (for reviewers and for the build gate)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Claim above</th>
+            <th scope="col"><code>PrivacyInfo.xcprivacy</code></th>
+            <th scope="col">Code</th>
+            <th scope="col">ASC App Privacy (<code>docs/app-store-metadata.md</code>)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>No tracking</td>
+            <td><code>NSPrivacyTracking = false</code>, <code>NSPrivacyTrackingDomains = []</code></td>
+            <td>the only networking API in <code>Sources/</code> is the board-refresh transport (<code>Sources/DraftEngine/Refresh/BoardTransport.swift</code>): anonymous <code>GET</code> of shared board files, no cookies, no identifiers, no query — pinned by <code>PrivacyInvariantTests</code></td>
+            <td>"Data Not Collected"</td>
+          </tr>
+          <tr>
+            <td>No data collected</td>
+            <td><code>NSPrivacyCollectedDataTypes = []</code></td>
+            <td>no analytics/telemetry code; no third-party SDKs; requests carry no user datum (<code>docs/privacy-invariant-audit.md</code> §1–2)</td>
+            <td>"Data Not Collected"</td>
+          </tr>
+          <tr>
+            <td>Preferences in <code>UserDefaults</code></td>
+            <td><code>NSPrivacyAccessedAPICategoryUserDefaults</code>, reason <code>CA92.1</code></td>
+            <td><code>AppAppearance.swift:64,68</code>, <code>SettingsScreen.swift:23</code>, <code>Green18App.swift:33</code>, <code>AppShell.swift:98,109-111</code></td>
+            <td>n/a (on-device, not collected)</td>
+          </tr>
+          <tr>
+            <td>No other required-reason APIs</td>
+            <td>only one entry in <code>NSPrivacyAccessedAPITypes</code></td>
+            <td>grep of <code>Sources/</code>, <code>Tools/</code> for file-timestamp / disk-space / boot-time / keyboard APIs: none</td>
+            <td>n/a</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <footer class="site">
+    <div class="row">
+      <span>© 2026 Interplore</span>
+      <span><a href="privacy">Privacy</a> · <a href="support">Support</a></span>
+    </div>
+  </footer>
+</body>
+</html>
