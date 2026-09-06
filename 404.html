@@ -7,34 +7,28 @@
   <meta name="theme-color" content="#040E07">
   <meta name="robots" content="noindex">
   <title>Page not found — Green18</title>
-  <link rel="stylesheet" href="/style.css">
+  <style>
+    /* Self-contained: a 404 can be served at any path depth, so no relative stylesheet. */
+    html { background: #040E07; }
+    body { margin: 0; background: #040E07; color: #F5F2E3; font: 18px/1.6 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    a { color: #75DC49; text-underline-offset: 0.15em; }
+    :focus-visible { outline: 2px solid #75DC49; outline-offset: 3px; }
+    main { max-width: 44rem; margin: 0 auto; padding: 3rem 1.25rem; }
+    h1 { font-size: 2rem; margin: 0 0 0.75rem; }
+    .wordmark { font-weight: 800; color: #F5F2E3; text-decoration: none; display: inline-block; margin-bottom: 2rem; }
+    .wordmark b { color: #75DC49; }
+    .card { background: #0B1A0F; border: 1px solid #1F3324; border-radius: 8px; padding: 1rem 1.15rem; }
+    .meta { color: #B4BFB2; }
+  </style>
 </head>
 <body>
-  <a class="skip" href="#main">Skip to content</a>
-  <header class="site">
-    <div class="row">
-      <a class="wordmark" href="/">GREEN<b>18</b></a>
-      <nav aria-label="Site">
-        <a href="/">Home</a>
-        <a href="/privacy">Privacy</a>
-        <a href="/support">Support</a>
-      </nav>
-    </div>
-  </header>
-
   <main id="main">
+    <a class="wordmark" href="./">GREEN<b>18</b></a>
     <h1>Page not found</h1>
-    <p class="lede">There is nothing at this address.</p>
+    <p class="meta">There is nothing at this address.</p>
     <div class="card">
-      <p><a href="/privacy">Privacy Policy</a> · <a href="/support">Support</a> · <a href="/">Home</a></p>
+      <a href="./privacy">Privacy Policy</a> · <a href="./support">Support</a> · <a href="./">Home</a>
     </div>
   </main>
-
-  <footer class="site">
-    <div class="row">
-      <span>© 2026 Interplore</span>
-      <span><a href="/privacy">Privacy</a> · <a href="/support">Support</a></span>
-    </div>
-  </footer>
 </body>
 </html>

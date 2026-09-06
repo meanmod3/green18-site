@@ -11,7 +11,7 @@ Served by GitHub Pages from the `main` branch root; custom domain **green18.app*
 | `support.html` | `/support` | Contact email + FAQ — the App Store Connect **Support URL** |
 | `404.html` | — | Not-found page (GitHub Pages serves it automatically) |
 | `style.css` | — | Shared stylesheet; colours mirror the app's `Sources/DesignSystem/Tokens.swift` |
-| `CNAME` | — | `green18.app` — tells GitHub Pages the custom domain |
+| `CNAME` | — | **Not present yet, on purpose** — see "DNS records" below |
 | `robots.txt` | — | Allows all crawlers |
 | `.nojekyll` | — | Disables Jekyll processing; files are served as-is |
 
@@ -20,9 +20,11 @@ GitHub Pages serves `privacy.html` at both `/privacy` and `/privacy.html`.
 ## URLs
 
 - Custom domain (once DNS is pointed): `https://green18.app/privacy`, `https://green18.app/support`
-- GitHub default: `https://meanmod3.github.io/green18-site/privacy`, `https://meanmod3.github.io/green18-site/support`
-  — note that while `CNAME` is present GitHub redirects the default URL to the custom domain, so the
-  default URL is only a standalone fallback if `CNAME` is removed.
+- GitHub default (live now): `https://meanmod3.github.io/green18-site/privacy`,
+  `https://meanmod3.github.io/green18-site/support`
+
+The moment a `CNAME` file exists GitHub 301-redirects the default URL to the custom domain, so the
+`CNAME` is held out of this repo until the DNS below resolves — otherwise neither URL would work.
 
 ## DNS records (registrar for green18.app)
 
@@ -34,9 +36,14 @@ GitHub Pages serves `privacy.html` at both `/privacy` and `/privacy.html`.
 | A | `@` | `185.199.111.153` |
 | CNAME (optional) | `www` | `meanmod3.github.io` |
 
-After DNS propagates: repository **Settings → Pages** → confirm the custom domain shows a green check,
-then tick **Enforce HTTPS** (GitHub provisions the certificate; this can take up to an hour after DNS is
-visible). Verify with `curl -sI https://green18.app/privacy` → `HTTP/2 200`.
+After DNS propagates (`dig +short green18.app` shows the four addresses):
+
+1. Add the domain: `gh api -X PUT repos/meanmod3/green18-site/pages -f cname=green18.app`
+   (GitHub commits the `CNAME` file), or commit a `CNAME` file containing `green18.app` to `main`.
+2. Repository **Settings → Pages** → confirm the custom domain shows a green check, then tick
+   **Enforce HTTPS** (GitHub provisions the certificate; up to an hour after DNS is visible).
+3. Verify with `curl -sI https://green18.app/privacy` → `HTTP/2 200`, then switch the App Store Connect
+   URLs from the GitHub default to `https://green18.app/privacy` and `https://green18.app/support`.
 
 ## Updating the Privacy Policy
 
