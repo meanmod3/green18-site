@@ -24,7 +24,7 @@ GitHub Pages serves `privacy.html` at both `/privacy` and `/privacy.html`.
   `https://meanmod3.github.io/green18-site/support`
 
 The moment a `CNAME` file exists GitHub 301-redirects the default URL to the custom domain, so the
-`CNAME` is held out of this repo until the DNS below resolves — otherwise neither URL would work.
+`CNAME `green18.app` committed 2026-09-06 once DNS resolved; HTTPS enforced.
 
 ## DNS records (registrar for green18.app)
 
