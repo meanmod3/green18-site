@@ -305,7 +305,11 @@ footer.site { border-top: 1px solid var(--border); background: var(--bg); paddin
    everywhere else. */
 .hero-grid { display: grid; gap: 2.5rem; align-items: center; }
 @media (min-width: 900px) {
-  .hero-grid { grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 3.5rem; }
+  /* The demo column is now a fixed 17rem (its cap), so the text column takes
+     everything else instead of splitting the row near-evenly. A longer
+     headline was wrapping to five lines against a ~512px column; this gives
+     it roughly 760px at the page's max width. */
+  .hero-grid { grid-template-columns: minmax(0, 1fr) 17rem; gap: 3.5rem; }
   .hero-split .measure { max-width: none; }
 }
 

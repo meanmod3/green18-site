@@ -7,7 +7,7 @@ export default {
 
   hero: {
     eyebrow: 'Live Fantasy Draft Intelligence',
-    h1: 'A Draft Assistant That Changes While You Draft.',
+    h1: 'Your Draft Board Should Move When Your Draft Moves.',
     lede: [
       'Your fantasy draft isn’t static.',
       'Your draft tool shouldn’t be either.',
