@@ -319,6 +319,11 @@ function structuredData(page, url) {
       url,
       ...(page.answer ? { abstract: page.answer.replace(/\*\*/g, '').replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') } : {}),
       ...(page.dateModified ? { dateModified: page.dateModified } : {}),
+      // Authorship is organisational, not personal: no named individual writes
+      // these, so claiming a Person would be a fabricated credential. An
+      // Organization author is the honest form and is what AI retrieval layers
+      // read for provenance.
+      author: { '@id': ORIGIN + '/#org' },
       publisher: { '@id': ORIGIN + '/#org' },
       isPartOf: { '@id': ORIGIN + '/#website' },
       isAccessibleForFree: true,
