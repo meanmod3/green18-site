@@ -40,6 +40,22 @@
       "mainEntity": [
         {
           "@type": "Question",
+          "name": "What is the difference between a fantasy football cheat sheet and GREEN18?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A traditional cheat sheet is a snapshot: players are ranked before the draft, and the list stays in that order while names are crossed off. GREEN18 keeps recalculating instead. It applies the league settings, records each selection, recalculates the remaining opportunity, and re-ranks the available board after every pick."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does removing one player change the rest of the cheat sheet?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Because value on a draft board is relative. Removing a player reduces the depth remaining at his position, changes which alternatives are left, and changes the odds that a comparable player is still available at the next pick. The names that remain are worth something different than they were a pick earlier."
+          }
+        },
+        {
+          "@type": "Question",
           "name": "Is GREEN18 a fantasy football cheat sheet?",
           "acceptedAnswer": {
             "@type": "Answer",
@@ -136,6 +152,36 @@
 
       <section>
         <div class="wrap measure">
+          <h2>A Cheat Sheet That Understands What Just Happened.</h2>
+          
+          <p class="beat">Traditional cheat sheets are snapshots.</p>
+        <p class="beat">Someone does the research before the draft.</p>
+        <p class="beat">Players are ranked.</p>
+        <p class="beat">The list gets printed, downloaded, screenshotted, or opened in another tab.</p>
+        <p class="beat">Then the draft starts.</p>
+        <p class="beat">And the sheet immediately begins falling behind reality.</p>
+        <p class="beat">GREEN18 starts with the same basic purpose:</p>
+          <blockquote class="pull"><p>Help me know who to draft.</p></blockquote>
+          
+          <p class="beat">But instead of freezing the answer before Pick 1, GREEN18 keeps recalculating it through the entire draft.</p>
+        <p class="beat"><strong>A cheat sheet that recalculates after every pick.</strong></p>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap">
+          <h2>The Old Cheat Sheet vs. the GREEN18 Cheat Sheet</h2>
+          <p class="lede measure">Same purpose. Four steps against eight — and the last one is the difference.</p>
+          <div class="grid grid-3 mt-lg">
+            <div class="card"><h3>The Old Cheat Sheet</h3><p>1. Rank players. 2. Start the draft. 3. Cross names off. 4. Keep following approximately the same order.</p></div>
+            <div class="card"><h3>The GREEN18 Cheat Sheet</h3><p>1. Understand the league. 2. Understand your preferences. 3. Establish the available player market. 4. Start the draft. 5. Observe every selection. 6. Recalculate the remaining opportunity. 7. Re-rank the board. 8. Repeat after every pick.</p></div>
+            <div class="card"><h3>Why the Extra Steps Matter</h3><p>Crossing a player off the board isn’t enough. The players below him just changed too. The sheet becomes part of the draft instead of merely being brought into it.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
           <h2>Your Screenshot Can’t React.</h2>
           
           <p class="beat">A printed ranking can’t see that six running backs just disappeared.</p>
@@ -173,6 +219,22 @@
         </div>
       </section>
 
+      <section>
+        <div class="wrap measure">
+          <h2>Every Name Removed Changes the Value of the Names That Remain.</h2>
+          
+          <p class="beat">That is the whole argument for a sheet that moves.</p>
+        <p class="beat">A run at one position thins the depth behind it and makes waiting more expensive.</p>
+        <p class="beat">A player who falls further than expected becomes a different decision than he was two picks ago.</p>
+        <p class="beat">Your own roster keeps changing what you still need.</p>
+        <p class="beat">Your cheat sheet shouldn’t stop thinking when the draft starts.</p>
+        <p class="beat">The board is re-ranked using your league settings and the picks you record — the full method is on <a href="/fantasy-football-draft-algorithm">how the draft model works</a>.</p>
+          
+          
+          
+        </div>
+      </section>
+
       <section id="how-it-works">
         <div class="wrap">
           <h2>How GREEN18 Works</h2>
@@ -204,6 +266,8 @@
         <div class="wrap measure">
           <h2>Questions</h2>
           <div class="faq mt-md">
+            <details><summary>What is the difference between a fantasy football cheat sheet and GREEN18?</summary><div><p>A traditional cheat sheet is a snapshot: players are ranked before the draft, and the list stays in that order while names are crossed off. GREEN18 keeps recalculating instead. It applies the league settings, records each selection, recalculates the remaining opportunity, and re-ranks the available board after every pick.</p></div></details>
+            <details><summary>Why does removing one player change the rest of the cheat sheet?</summary><div><p>Because value on a draft board is relative. Removing a player reduces the depth remaining at his position, changes which alternatives are left, and changes the odds that a comparable player is still available at the next pick. The names that remain are worth something different than they were a pick earlier.</p></div></details>
             <details><summary>Is GREEN18 a fantasy football cheat sheet?</summary><div><p>GREEN18 can serve the same purpose, but it is designed to be more responsive than a traditional static cheat sheet.</p></div></details>
             <details><summary>Do the rankings change?</summary><div><p>The product is built around a changing player board that responds to the draft as available players and team context change.</p></div></details>
             <details><summary>Can beginners use it?</summary><div><p>Yes. GREEN18 can simplify the draft by concentrating the available player pool into one decision-focused view.</p></div></details>
@@ -236,7 +300,7 @@
         <div class="foot-cols">
             <div>
               <h2>Product</h2>
-              <ul><li><a href="/fantasy-football-draft-assistant">How GREEN18 Works</a></li><li><a href="/live-fantasy-football-draft-assistant">Live Draft Assistant</a></li><li><a href="/dynamic-fantasy-football-adp">Dynamic ADP</a></li><li><a href="/fantasy-football-cheat-sheet-app">Fantasy Cheat Sheet</a></li><li><a href="/fantasy-football-draft-strategy-app">Draft Strategy</a></li></ul>
+              <ul><li><a href="/fantasy-football-draft-assistant">How GREEN18 Works</a></li><li><a href="/live-fantasy-football-draft-assistant">Live Draft Assistant</a></li><li><a href="/dynamic-fantasy-football-adp">Dynamic ADP</a></li><li><a href="/fantasy-football-cheat-sheet-app">Fantasy Cheat Sheet</a></li><li><a href="/personalized-fantasy-football-rankings">Personalized Rankings</a></li><li><a href="/fantasy-football-positional-scarcity">Positional Scarcity</a></li><li><a href="/fantasy-football-draft-strategy-app">Draft Strategy</a></li></ul>
             </div>
             <div>
               <h2>Draft Formats</h2>
@@ -244,7 +308,7 @@
             </div>
             <div>
               <h2>Draft Help</h2>
-              <ul><li><a href="/fantasy-football-for-beginners">Beginners</a></li><li><a href="/competitive-fantasy-football-draft">Competitive Players</a></li><li><a href="/office-fantasy-football-draft">Office Leagues</a></li><li><a href="/home-league-draft-assistant">Home Leagues</a></li><li><a href="/last-minute-fantasy-football-draft">Last-Minute Drafts</a></li></ul>
+              <ul><li><a href="/fantasy-football-for-beginners">Beginners</a></li><li><a href="/competitive-fantasy-football-draft">Competitive Players</a></li><li><a href="/office-fantasy-football-draft">Office Leagues</a></li><li><a href="/home-league-draft-assistant">Home Leagues</a></li><li><a href="/last-minute-fantasy-football-draft">Last-Minute Drafts</a></li><li><a href="/fantasy-football-without-research">Without the Research</a></li></ul>
             </div>
             <div>
               <h2>The Model</h2>

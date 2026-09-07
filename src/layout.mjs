@@ -59,6 +59,48 @@ function block(b) {
         </div>
       </section>`;
 
+    case 'model':
+      // The input -> revaluation -> output diagram (product-science doc §32).
+      // Built from real elements rather than an image so it reflows on a
+      // phone and stays readable to a screen reader in source order.
+      return `      <section${b.id ? ` id="${b.id}"` : ''}>
+        <div class="wrap">
+          ${b.h2 ? `<h2>${inline(b.h2)}</h2>` : ''}
+          ${b.sub ? `<p class="lede measure">${inline(b.sub)}</p>` : ''}
+          <div class="model mt-lg">
+            <div class="model-inputs">
+              ${b.inputs.map((i) => `<div class="model-in">
+                <h3>${inline(i.h3)}</h3>
+                <ul>${i.items.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
+              </div>`).join('\n              ')}
+            </div>
+            <div class="model-arrow" aria-hidden="true"></div>
+            <div class="model-core">
+              <p class="model-brand">GREEN<b>18</b></p>
+              <p class="model-core-line">${inline(b.core)}</p>
+            </div>
+            <div class="model-arrow" aria-hidden="true"></div>
+            <div class="model-out">
+              <h3>${inline(b.output.h3)}</h3>
+              <p>${inline(b.output.body)}</p>
+            </div>
+          </div>
+        </div>
+      </section>`;
+
+    case 'trust':
+      // Verified product facts only — each of these is checkable against the
+      // App Privacy label and the privacy policy, and none is a performance
+      // claim. See docs/privacy-consistency-audit.md.
+      return `      <section class="trust">
+        <div class="wrap">
+          <ul class="trust-row">
+            ${b.items.map((i) => `<li><strong>${inline(i.h)}</strong><span>${inline(i.body)}</span></li>`).join('\n            ')}
+          </ul>
+          ${b.note ? `<p class="trust-note">${inline(b.note)}</p>` : ''}
+        </div>
+      </section>`;
+
     case 'convert':
       return `      <section class="convert">
         <div class="wrap measure">

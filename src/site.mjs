@@ -30,6 +30,8 @@ export const FOOTER = [
     ['Live Draft Assistant', '/live-fantasy-football-draft-assistant'],
     ['Dynamic ADP', '/dynamic-fantasy-football-adp'],
     ['Fantasy Cheat Sheet', '/fantasy-football-cheat-sheet-app'],
+    ['Personalized Rankings', '/personalized-fantasy-football-rankings'],
+    ['Positional Scarcity', '/fantasy-football-positional-scarcity'],
     ['Draft Strategy', '/fantasy-football-draft-strategy-app'],
   ]},
   { heading: 'Draft Formats', links: [
@@ -42,6 +44,7 @@ export const FOOTER = [
     ['Office Leagues', '/office-fantasy-football-draft'],
     ['Home Leagues', '/home-league-draft-assistant'],
     ['Last-Minute Drafts', '/last-minute-fantasy-football-draft'],
+    ['Without the Research', '/fantasy-football-without-research'],
   ]},
   { heading: 'The Model', links: [
     ['AI Draft Assistant', '/ai-fantasy-football-draft-assistant'],
@@ -80,6 +83,9 @@ export const LINK_TITLES = {
   'office-fantasy-football-draft': 'Office League Draft',
   'home-league-draft-assistant': 'Home League Draft Assistant',
   'last-minute-fantasy-football-draft': 'Last-Minute Fantasy Football Draft',
+  'personalized-fantasy-football-rankings': 'Personalized Fantasy Football Rankings',
+  'fantasy-football-without-research': 'Fantasy Football Without the Research',
+  'fantasy-football-positional-scarcity': 'Positional Scarcity and Replacement Value',
   'ai-fantasy-football-draft-assistant': 'AI Fantasy Football Draft Assistant',
   'chatgpt-fantasy-football-draft': 'ChatGPT and Your Fantasy Draft',
   'fantasy-football-draft-algorithm': 'How the Draft Model Works',
@@ -87,4 +93,8 @@ export const LINK_TITLES = {
   'espn-fantasy-football-draft-helper': 'ESPN Draft Helper',
   'yahoo-fantasy-football-draft-helper': 'Yahoo Draft Helper',
   'sleeper-fantasy-football-draft-helper': 'Sleeper Draft Helper',
+};
+
+export const REDIRECTS = {
+  'beat-your-coworkers-fantasy-football': '/office-fantasy-football-draft',
 };

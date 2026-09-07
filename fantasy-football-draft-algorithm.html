@@ -72,6 +72,22 @@
         },
         {
           "@type": "Question",
+          "name": "What is a stateful draft model?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A stateful draft model evaluates players against the current condition of the draft rather than against a fixed list. GREEN18 reads five kinds of state: league settings, the market of selected and available players, the roster drafted so far, the user’s own preferences, and the distance until the user’s next pick. The board is recomputed against that combined state, which is why it can change after every selection."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does a player’s value change when someone else is drafted?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Fantasy value is relative to the board around it. When a player is removed, the alternatives at that position change, the depth remaining changes, and the odds that a comparable player survives until the next pick change. The drafted player’s expected production did not change; the situation the decision is made in did."
+          }
+        },
+        {
+          "@type": "Question",
           "name": "How do league settings change player value?",
           "acceptedAnswer": {
             "@type": "Answer",
@@ -175,6 +191,48 @@
 
       <section>
         <div class="wrap">
+          <h2>The Draft Has a State.</h2>
+          <p class="lede measure">At any moment a draft holds a unique combination of information. These are the five parts of it the model reads, and why the board can change after every selection.</p>
+          <div class="grid grid-3 mt-lg">
+            <div class="card"><h3>League State</h3><p>Scoring rules, league size, roster requirements, flex structure, Superflex or 2QB requirements, starting positions, bench depth.</p></div>
+            <div class="card"><h3>Market State</h3><p>Players selected, players available, positional runs, unexpected falls, unexpected reaches, and the depth remaining at each position.</p></div>
+            <div class="card"><h3>Team State</h3><p>Players already drafted, positions filled, positions still needed, roster balance, and the flexibility you keep for later rounds.</p></div>
+            <div class="card"><h3>User State</h3><p>Target players, preferred profiles, risk tolerance, positional preferences, strategic tendencies. These live in your personal rank.</p></div>
+            <div class="card"><h3>Draft Position State</h3><p>The current pick, the distance until your next pick, and how many opportunities sit between the two.</p></div>
+            <div class="card"><h3>The Combined State</h3><p>The board is recomputed against all five together, not against any one of them. That is what makes it stateful rather than a re-sorted list.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
+          <h2>Why Does the Board Keep Moving?</h2>
+          
+          <p class="beat">Because fantasy value is relative.</p>
+        <p class="beat">A player’s expected production matters. But so do:</p>
+          
+          <ul class="ticks"><li>the alternatives available</li><li>the <a href="/fantasy-football-positional-scarcity">position scarcity</a> behind him</li><li>your roster</li><li>your scoring</li><li>your next pick</li><li>the managers drafting between your picks</li><li>the players already gone</li></ul>
+          <p class="beat">GREEN18 recomputes the remaining board as those variables change.</p>
+        <p class="beat">The player didn’t change.</p>
+        <p class="beat"><strong>Your situation did.</strong></p>
+        <p class="beat">And that changes his value to you.</p>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
+          <h2>How GREEN18 Thinks About a Pick.</h2>
+          
+          <p class="beat">When your turn approaches, the model is effectively asking several questions at once.</p>
+          
+          <ul class="ticks"><li><strong>How good is the player?</strong> Start with fundamental player value.</li><li><strong>How does this league score him?</strong> Scoring changes the value of production.</li><li><strong>How badly does your roster need him?</strong> The same player creates different value for different team constructions.</li><li><strong>What happens if you wait?</strong> Replacement options matter.</li><li><strong>How scarce is the position?</strong> Remaining depth matters.</li><li><strong>What has the league been doing?</strong> The actual draft matters.</li><li><strong>When do you pick again?</strong> Opportunity matters.</li><li><strong>What do you prefer?</strong> Your strategy matters, and it stays in your own <a href="/personalized-fantasy-football-rankings">personalized rankings</a>.</li></ul>
+          <p class="beat">Then the board reorganizes around the combined answer.</p>
+        <p class="beat">None of those eight answers is written prose. Each is a named, computed component.</p>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap">
           <h2>Three Properties Worth Naming.</h2>
           
           <div class="grid grid-3 mt-lg">
@@ -229,6 +287,21 @@
         </div>
       </section>
 
+      <section>
+        <div class="wrap measure">
+          <h2>Rankings Are Inputs. Draft Decisions Are Outputs.</h2>
+          
+          <p class="beat">GREEN18 treats drafting as a continuously changing allocation problem rather than a static player-ranking problem.</p>
+        <p class="beat">Each selection alters the remaining player pool, positional replacement options, scarcity, roster construction, and future opportunity.</p>
+        <p class="beat">The model combines those changing conditions with your league settings and your draft preferences to reassess the situational value of the players still available.</p>
+        <p class="beat">The objective is not to produce one universal ranking.</p>
+        <p class="beat">The objective is to produce a useful ranking for <strong>this manager, in this league, at this pick, given this draft.</strong></p>
+          <blockquote class="pull"><p>The best available player is a moving target.</p></blockquote>
+          
+          
+        </div>
+      </section>
+
       <section class="convert">
         <div class="wrap measure">
           <h2>See the Model Run.</h2>
@@ -251,6 +324,8 @@
             <details><summary>What data does the GREEN18 model use?</summary><div><p>Player facts come from open football data — nflverse, credited under its CC-BY licence — combined with the draft picks the user records during their own draft. A hard allowlist rejects any source that has not been approved, and it is enforced when the app is built.</p></div></details>
             <details><summary>Is the GREEN18 model deterministic?</summary><div><p>Yes. The same league settings and the same sequence of recorded picks always produce the same recommendation. Recommendations are replayable, which means any change in the board can be traced to a change in the inputs rather than to randomness in the model.</p></div></details>
             <details><summary>Do a user’s own player preferences change the objective values?</summary><div><p>No. Subjective preferences are confined to the user’s personal rank. They are displayed alongside the computed values but never alter them, so the objective view of the market stays independent of what the user hopes is true.</p></div></details>
+            <details><summary>What is a stateful draft model?</summary><div><p>A stateful draft model evaluates players against the current condition of the draft rather than against a fixed list. GREEN18 reads five kinds of state: league settings, the market of selected and available players, the roster drafted so far, the user’s own preferences, and the distance until the user’s next pick. The board is recomputed against that combined state, which is why it can change after every selection.</p></div></details>
+            <details><summary>Why does a player’s value change when someone else is drafted?</summary><div><p>Fantasy value is relative to the board around it. When a player is removed, the alternatives at that position change, the depth remaining changes, and the odds that a comparable player survives until the next pick change. The drafted player’s expected production did not change; the situation the decision is made in did.</p></div></details>
             <details><summary>How do league settings change player value?</summary><div><p>Scoring rules and quarterback format are applied before the board is built, so they re-rank players rather than relabel them. A Superflex league, for example, changes how quarterbacks compare against every other position, not just how they are grouped.</p></div></details>
           </div>
         </div>
@@ -263,8 +338,8 @@
             <li><a href="/fantasy-football-draft-assistant">Fantasy Football Draft Assistant</a></li>
             <li><a href="/ai-fantasy-football-draft-assistant">AI Fantasy Football Draft Assistant</a></li>
             <li><a href="/dynamic-fantasy-football-adp">Dynamic Fantasy Football ADP</a></li>
-            <li><a href="/superflex-draft-assistant">Superflex Draft Assistant</a></li>
-            <li><a href="/automated-fantasy-football-draft-tool">Automated Draft Tool</a></li>
+            <li><a href="/fantasy-football-positional-scarcity">Positional Scarcity and Replacement Value</a></li>
+            <li><a href="/personalized-fantasy-football-rankings">Personalized Fantasy Football Rankings</a></li>
           </ul>
         </div>
       </section>
@@ -282,7 +357,7 @@
         <div class="foot-cols">
             <div>
               <h2>Product</h2>
-              <ul><li><a href="/fantasy-football-draft-assistant">How GREEN18 Works</a></li><li><a href="/live-fantasy-football-draft-assistant">Live Draft Assistant</a></li><li><a href="/dynamic-fantasy-football-adp">Dynamic ADP</a></li><li><a href="/fantasy-football-cheat-sheet-app">Fantasy Cheat Sheet</a></li><li><a href="/fantasy-football-draft-strategy-app">Draft Strategy</a></li></ul>
+              <ul><li><a href="/fantasy-football-draft-assistant">How GREEN18 Works</a></li><li><a href="/live-fantasy-football-draft-assistant">Live Draft Assistant</a></li><li><a href="/dynamic-fantasy-football-adp">Dynamic ADP</a></li><li><a href="/fantasy-football-cheat-sheet-app">Fantasy Cheat Sheet</a></li><li><a href="/personalized-fantasy-football-rankings">Personalized Rankings</a></li><li><a href="/fantasy-football-positional-scarcity">Positional Scarcity</a></li><li><a href="/fantasy-football-draft-strategy-app">Draft Strategy</a></li></ul>
             </div>
             <div>
               <h2>Draft Formats</h2>
@@ -290,7 +365,7 @@
             </div>
             <div>
               <h2>Draft Help</h2>
-              <ul><li><a href="/fantasy-football-for-beginners">Beginners</a></li><li><a href="/competitive-fantasy-football-draft">Competitive Players</a></li><li><a href="/office-fantasy-football-draft">Office Leagues</a></li><li><a href="/home-league-draft-assistant">Home Leagues</a></li><li><a href="/last-minute-fantasy-football-draft">Last-Minute Drafts</a></li></ul>
+              <ul><li><a href="/fantasy-football-for-beginners">Beginners</a></li><li><a href="/competitive-fantasy-football-draft">Competitive Players</a></li><li><a href="/office-fantasy-football-draft">Office Leagues</a></li><li><a href="/home-league-draft-assistant">Home Leagues</a></li><li><a href="/last-minute-fantasy-football-draft">Last-Minute Drafts</a></li><li><a href="/fantasy-football-without-research">Without the Research</a></li></ul>
             </div>
             <div>
               <h2>The Model</h2>

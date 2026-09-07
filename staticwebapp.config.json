@@ -2,6 +2,11 @@
   "trailingSlash": "auto",
   "routes": [
     {
+      "route": "/beat-your-coworkers-fantasy-football",
+      "redirect": "/office-fantasy-football-draft",
+      "statusCode": 301
+    },
+    {
       "route": "/fantasy-football-draft-assistant",
       "rewrite": "/fantasy-football-draft-assistant.html"
     },
@@ -76,6 +81,18 @@
     {
       "route": "/automated-fantasy-football-draft-tool",
       "rewrite": "/automated-fantasy-football-draft-tool.html"
+    },
+    {
+      "route": "/personalized-fantasy-football-rankings",
+      "rewrite": "/personalized-fantasy-football-rankings.html"
+    },
+    {
+      "route": "/fantasy-football-without-research",
+      "rewrite": "/fantasy-football-without-research.html"
+    },
+    {
+      "route": "/fantasy-football-positional-scarcity",
+      "rewrite": "/fantasy-football-positional-scarcity.html"
     },
     {
       "route": "/privacy",

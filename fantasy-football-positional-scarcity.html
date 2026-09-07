@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#041306">
+  <title>Positional Scarcity and Replacement Value in Fantasy Drafts | GREEN18</title>
+  <meta name="description" content="How positional scarcity, replacement value and opportunity cost decide a fantasy draft pick — and why every selection changes the value of the players left.">
+  <link rel="canonical" href="https://green18.app/fantasy-football-positional-scarcity">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="GREEN18">
+  <meta property="og:url" content="https://green18.app/fantasy-football-positional-scarcity">
+  <meta property="og:title" content="Positional Scarcity and Replacement Value in Fantasy Drafts | GREEN18">
+  <meta property="og:description" content="How positional scarcity, replacement value and opportunity cost decide a fantasy draft pick — and why every selection changes the value of the players left.">
+  <meta property="og:image" content="https://green18.app/assets/green18-card.png">
+  <meta property="og:image:alt" content="GREEN18 — live fantasy football draft intelligence for iPhone.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Positional Scarcity and Replacement Value in Fantasy Drafts | GREEN18">
+  <meta name="twitter:description" content="How positional scarcity, replacement value and opportunity cost decide a fantasy draft pick — and why every selection changes the value of the players left.">
+  <meta name="twitter:image" content="https://green18.app/assets/green18-card.png">
+  <link rel="icon" href="/assets/icon.png" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/icon.png">
+  <link rel="stylesheet" href="/assets/site.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "MobileApplication",
+      "name": "GREEN18",
+      "applicationCategory": "SportsApplication",
+      "operatingSystem": "iOS",
+      "url": "https://green18.app/",
+      "installUrl": "https://apps.apple.com/us/app/id6805706417",
+      "description": "A live fantasy football draft assistant for iPhone that reorganizes the remaining player board as the draft develops."
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is positional scarcity in fantasy football?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Positional scarcity is the condition in which the useful remaining players at a position are running out relative to demand. It is contextual rather than fixed: a position is scarce when the remaining options are disappearing compared with a manager’s roster needs, the other teams’ needs, how long until that manager picks again, and the quality of the alternatives still on the board."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is replacement value in a fantasy draft?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Replacement value is the quality of the player a manager could realistically get at the same position later in the draft. A player is worth more when the alternatives behind him are weak and worth less when similar options remain plentiful, so the gap between a player and his likely replacement often matters more than his position in a generic ranking."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is opportunity cost in a fantasy football draft?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Opportunity cost is everything a manager gives up by making one pick instead of another or instead of waiting. Beyond the specific player not taken, it can include losing access to a scarce position, passing on a player who has fallen below his expected draft position, duplicating existing roster strength, reducing roster flexibility, or being forced into a weaker pick later."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does a player’s value change when other players are drafted?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Because fantasy draft value is relative rather than absolute. When several players at one position are selected, the remaining players at that position become harder to replace, which raises their situational value even though their talent and expected production are unchanged. The same logic works in reverse when a position stays deep."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Should you always draft the best player available?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Not necessarily, because the best available player is a moving target that depends on the roster, the league’s scoring, and when the manager picks again. A highly ranked player at a deep position can be the wrong pick if a similar player is likely to be available at the next turn, while a lower-ranked player at a thinning position can be the right one."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "GREEN18",
+          "item": "https://green18.app/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Positional Scarcity",
+          "item": "https://green18.app/fantasy-football-positional-scarcity"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site">
+    <div class="wrap">
+      <a class="wordmark" href="/">GREEN<b>18</b></a>
+      <nav aria-label="Primary">
+        <a href="/fantasy-football-draft-assistant#how-it-works">How It Works</a>
+          <a href="/live-fantasy-football-draft-assistant">Draft Assistant</a>
+          <a href="/superflex-draft-assistant">Draft Formats</a>
+          <a href="/fantasy-football-draft-algorithm">How It Decides</a>
+          <a href="/fantasy-football-for-beginners">Who It's For</a>
+      </nav>
+      <a class="btn" href="https://apps.apple.com/us/app/id6805706417">Download</a>
+    </div>
+  </header>
+
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <div class="wrap"><a href="/">GREEN18</a><span>/</span>Positional Scarcity</div>
+    </nav>
+
+  <main id="main">
+      <section class="hero">
+        <div class="wrap">
+          <div class="">
+          <div class="measure">
+            <p class="eyebrow">Draft Science</p>
+            <h1>Positional Scarcity, Replacement Value, and the Real Cost of a Pick.</h1>
+            <div class="lede">
+              <p>A fantasy player’s value does not exist in isolation. The moment another player is drafted, something changes.</p>
+              <p>One fewer starting quarterback remains. A running-back tier nearly empties. Receiver depth stays unusually strong. Your next turn moves further away.</p>
+              <p><strong>Every pick changes the value of the next one.</strong></p>
+            </div>
+            
+        <div class="cta-group">
+          <a class="btn btn-lg" href="https://apps.apple.com/us/app/id6805706417">Download GREEN18</a>
+          <a class="btn btn-ghost" href="#how-it-works">Start With the Quarterback Run</a>
+        </div>
+        <p class="cta-sub">Available for iPhone. Built for the 2026 fantasy football draft.</p>
+          </div>
+          
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
+          <h2>One Player Leaves. More Than One Player Changes.</h2>
+          
+          <p class="beat">Suppose the last strong quarterback in a tier is selected.</p>
+        <p class="beat">The obvious result: that quarterback disappears.</p>
+        <p class="beat">The less obvious result: every remaining quarterback may become more important. A running back may become relatively less urgent. A wide receiver might stay valuable but become easier to defer.</p>
+        <p class="beat">Your expected options at your next pick change. Your roster’s flexibility changes.</p>
+        <p class="beat">This is why crossing a name off a static ranking is incomplete. The removal changes the relationships between the players who remain.</p>
+          <blockquote class="pull"><p>Every name removed changes the value of the names that remain.</p></blockquote>
+          
+          
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
+          <h2>Example: The Quarterback Run.</h2>
+          
+          <p class="beat">Say your board reads quarterback A, receiver A, running back A, quarterback B, receiver B.</p>
+        <p class="beat">Then three quarterbacks are selected in a row.</p>
+        <p class="beat">A static sheet simply removes those three names. The order below them is unchanged.</p>
+        <p class="beat">GREEN18 reevaluates the surviving quarterback pool instead. The remaining quarterback may rise because:</p>
+          
+          <ul class="ticks"><li>replacement quality has fallen</li><li>the next viable tier is farther away</li><li>competing teams may also need quarterbacks</li><li>your next pick is distant</li><li>your roster still requires the position</li></ul>
+          <p class="beat"><strong>The player did not suddenly become more talented. His situational value changed.</strong></p>
+        <p class="beat">That distinction is central to GREEN18.</p>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
+          <h2>Example: Position Depth.</h2>
+          
+          <p class="beat">The opposite happens just as often.</p>
+        <p class="beat">Imagine strong wide receivers keep falling. Your roster already has two. Plenty remain. Your next pick is relatively close.</p>
+        <p class="beat">A highly ranked receiver may move <strong>down</strong> your recommendation board — because the cost of waiting is low.</p>
+        <p class="beat">Again, the player’s talent did not change. The opportunity cost of drafting him now changed.</p>
+        <p class="beat">This is the case a consensus ranking structurally cannot make, because it does not know your roster or when you pick again.</p>
+          
+          
+          
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap">
+          <h2>Three Ideas Doing the Work.</h2>
+          <p class="lede measure">Scarcity, replacement value and opportunity cost are the same question asked from three directions.</p>
+          <div class="grid grid-3 mt-lg">
+            <div class="card"><h3>Positional Scarcity</h3><p>Scarcity isn’t “running backs are valuable.” A position becomes scarce when the useful remaining options are disappearing relative to your roster needs, the league’s needs, your next opportunity to draft, and the quality of what is left behind.</p></div>
+            <div class="card"><h3>Replacement Value</h3><p>A player’s value rises when the alternatives behind him are weak and falls when similar options remain abundant. The gap between a player and the one you can probably still get later often matters more than the gap between him and the next name on a generic list.</p></div>
+            <div class="card"><h3>Opportunity Cost</h3><p>Taking player A means not taking player B. It can also mean losing access to a scarce position, passing on a falling value, duplicating roster strength, sacrificing flexibility, or forcing a weaker future pick.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
+          <h2>The Question Isn’t Just “Who Is Best?”</h2>
+          
+          <p class="beat">The real draft question is: what do I give up by taking this player instead of waiting?</p>
+        <p class="beat">Draft value is relational. GREEN18 is built around that second-order question rather than the first-order one.</p>
+        <p class="beat">Scarcity is also contextual and live. GREEN18 responds to scarcity as it develops, not only as it was predicted before the draft began.</p>
+          <blockquote class="pull"><p>What do I give up by taking this player instead of waiting?</p></blockquote>
+          
+          
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
+          <h2>A Falling Player Is Information.</h2>
+          
+          <p class="beat">A player dropping below his expected draft position does not automatically make him the right pick. But it changes the calculation.</p>
+        <p class="beat">GREEN18 evaluates the fall against your roster, the other available players, positional depth, your league settings, upcoming scarcity, and the rest of the board.</p>
+        <p class="beat">The model is not chasing discounts. It is deciding whether a discount actually matters to you.</p>
+        <p class="beat">That is the difference between a market price and your value — the subject of <a href="/dynamic-fantasy-football-adp">dynamic ADP</a>.</p>
+          
+          
+          
+        </div>
+      </section>
+
+      <section id="how-it-works">
+        <div class="wrap">
+          <h2>How GREEN18 Thinks About a Pick</h2>
+          
+          <ol class="steps mt-lg">
+            <li><h3>How good is the player?</h3><p class="beat">Start with fundamental player value, computed from open football data.</p></li>
+            <li><h3>How does this league score him?</h3><p class="beat">Scoring changes the value of production, so it is applied before the board is built.</p></li>
+            <li><h3>How badly does your roster need him?</h3><p class="beat">The same player creates different value for different team constructions.</p></li>
+            <li><h3>What happens if you wait?</h3><p class="beat">Replacement options matter. The model estimates who is likely to survive until your next turn.</p></li>
+            <li><h3>How scarce is the position?</h3><p class="beat">Remaining depth matters, measured against the league’s needs as well as your own.</p></li>
+            <li><h3>What has the league been doing?</h3><p class="beat">The actual draft matters — runs, reaches and falls are all recorded picks.</p></li>
+            <li><h3>When do you pick again?</h3><p class="beat">Opportunity matters. The distance to your next turn changes what you can afford to defer.</p></li>
+            <li><h3>What do you prefer?</h3><p class="beat">Your strategy matters. Preferences are an input to the valuation, <a href="/personalized-fantasy-football-rankings">never an override</a>.</p></li>
+          </ol>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
+          <h2>Why Does the Board Keep Moving?</h2>
+          
+          <p class="beat">Because fantasy value is relative.</p>
+        <p class="beat">A player’s expected production matters. So do the alternatives available, the scarcity behind him, your roster, your scoring, your next pick, the managers drafting between your picks, and the players already gone.</p>
+        <p class="beat">GREEN18 recalculates the remaining board as those variables change.</p>
+        <p class="beat"><strong>The player didn’t change. Your situation did.</strong> And that changes his value to you.</p>
+        <p class="beat">The calculation itself is deterministic — <a href="/fantasy-football-draft-algorithm">the same board always produces the same answer</a>.</p>
+          
+          
+          
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
+          <h2>Experts Have This Problem Too.</h2>
+          
+          <p class="beat">Experienced managers usually already understand scarcity, tiers, replacement value and roster construction.</p>
+        <p class="beat">Their problem isn’t conceptual. It’s computational.</p>
+        <p class="beat">There are too many interacting variables to manually recompute after every single pick, on the clock, in a room full of people waiting.</p>
+        <p class="beat">The manager supplies the philosophy. The model keeps recalculating the board.</p>
+          
+          
+          
+        </div>
+      </section>
+
+      <section class="convert">
+        <div class="wrap measure">
+          <h2>Every Selection Creates a New Draft.</h2>
+          <p class="beat">A static sheet can tell you who was best in August. It cannot tell you what waiting costs tonight.</p>
+        <p class="beat"><strong>Download GREEN18 for iPhone and draft against the board as it actually is.</strong></p>
+          
+        <div class="cta-group">
+          <a class="btn btn-lg" href="https://apps.apple.com/us/app/id6805706417">Download GREEN18</a>
+          
+        </div>
+        <p class="cta-sub">Available for iPhone. Player data from open football sources; nflverse credited under CC-BY.</p>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
+          <h2>Questions</h2>
+          <div class="faq mt-md">
+            <details><summary>What is positional scarcity in fantasy football?</summary><div><p>Positional scarcity is the condition in which the useful remaining players at a position are running out relative to demand. It is contextual rather than fixed: a position is scarce when the remaining options are disappearing compared with a manager’s roster needs, the other teams’ needs, how long until that manager picks again, and the quality of the alternatives still on the board.</p></div></details>
+            <details><summary>What is replacement value in a fantasy draft?</summary><div><p>Replacement value is the quality of the player a manager could realistically get at the same position later in the draft. A player is worth more when the alternatives behind him are weak and worth less when similar options remain plentiful, so the gap between a player and his likely replacement often matters more than his position in a generic ranking.</p></div></details>
+            <details><summary>What is opportunity cost in a fantasy football draft?</summary><div><p>Opportunity cost is everything a manager gives up by making one pick instead of another or instead of waiting. Beyond the specific player not taken, it can include losing access to a scarce position, passing on a player who has fallen below his expected draft position, duplicating existing roster strength, reducing roster flexibility, or being forced into a weaker pick later.</p></div></details>
+            <details><summary>Why does a player’s value change when other players are drafted?</summary><div><p>Because fantasy draft value is relative rather than absolute. When several players at one position are selected, the remaining players at that position become harder to replace, which raises their situational value even though their talent and expected production are unchanged. The same logic works in reverse when a position stays deep.</p></div></details>
+            <details><summary>Should you always draft the best player available?</summary><div><p>Not necessarily, because the best available player is a moving target that depends on the roster, the league’s scoring, and when the manager picks again. A highly ranked player at a deep position can be the wrong pick if a similar player is likely to be available at the next turn, while a lower-ranked player at a thinning position can be the right one.</p></div></details>
+          </div>
+        </div>
+      </section>
+
+      <section class="related">
+        <div class="wrap">
+          <h2>Keep reading</h2>
+          <ul class="mt-md">
+            <li><a href="/fantasy-football-draft-assistant">Fantasy Football Draft Assistant</a></li>
+            <li><a href="/fantasy-football-draft-algorithm">How the Draft Model Works</a></li>
+            <li><a href="/dynamic-fantasy-football-adp">Dynamic Fantasy Football ADP</a></li>
+            <li><a href="/personalized-fantasy-football-rankings">Personalized Fantasy Football Rankings</a></li>
+            <li><a href="/fantasy-football-draft-strategy-app">Draft Strategy App</a></li>
+          </ul>
+        </div>
+      </section>
+
+
+  </main>
+
+  <footer class="site">
+    <div class="wrap">
+      <div class="foot-top">
+        <div class="foot-brand">
+          <a class="wordmark" href="/">GREEN<b>18</b></a>
+          <p>Live fantasy football draft intelligence for iPhone.</p>
+        </div>
+        <div class="foot-cols">
+            <div>
+              <h2>Product</h2>
+              <ul><li><a href="/fantasy-football-draft-assistant">How GREEN18 Works</a></li><li><a href="/live-fantasy-football-draft-assistant">Live Draft Assistant</a></li><li><a href="/dynamic-fantasy-football-adp">Dynamic ADP</a></li><li><a href="/fantasy-football-cheat-sheet-app">Fantasy Cheat Sheet</a></li><li><a href="/personalized-fantasy-football-rankings">Personalized Rankings</a></li><li><a href="/fantasy-football-positional-scarcity">Positional Scarcity</a></li><li><a href="/fantasy-football-draft-strategy-app">Draft Strategy</a></li></ul>
+            </div>
+            <div>
+              <h2>Draft Formats</h2>
+              <ul><li><a href="/superflex-draft-assistant">Superflex</a></li><li><a href="/ppr-draft-assistant">PPR</a></li></ul>
+            </div>
+            <div>
+              <h2>Draft Help</h2>
+              <ul><li><a href="/fantasy-football-for-beginners">Beginners</a></li><li><a href="/competitive-fantasy-football-draft">Competitive Players</a></li><li><a href="/office-fantasy-football-draft">Office Leagues</a></li><li><a href="/home-league-draft-assistant">Home Leagues</a></li><li><a href="/last-minute-fantasy-football-draft">Last-Minute Drafts</a></li><li><a href="/fantasy-football-without-research">Without the Research</a></li></ul>
+            </div>
+            <div>
+              <h2>The Model</h2>
+              <ul><li><a href="/ai-fantasy-football-draft-assistant">AI Draft Assistant</a></li><li><a href="/fantasy-football-draft-algorithm">How It Decides</a></li><li><a href="/chatgpt-fantasy-football-draft">ChatGPT vs GREEN18</a></li><li><a href="/automated-fantasy-football-draft-tool">Automated Draft Tool</a></li></ul>
+            </div>
+            <div>
+              <h2>Platforms</h2>
+              <ul><li><a href="/espn-fantasy-football-draft-helper">ESPN Draft Helper</a></li><li><a href="/yahoo-fantasy-football-draft-helper">Yahoo Draft Helper</a></li><li><a href="/sleeper-fantasy-football-draft-helper">Sleeper Draft Helper</a></li></ul>
+            </div>
+            <div>
+              <h2>Legal</h2>
+              <ul><li><a href="/privacy">Privacy</a></li><li><a href="/support">Support</a></li></ul>
+            </div>
+        </div>
+      </div>
+      <div class="foot-legal">
+        <p>GREEN18 is an independent fantasy football application. References to third-party fantasy platforms, leagues, teams, players, or trademarks are descriptive only and do not imply affiliation, sponsorship, or endorsement.</p>
+        <p>&copy; 2026 Interplore. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="sticky-cta" id="stickyCta" aria-hidden="true">
+    <span class="lbl">Get GREEN18<small>Open in App Store</small></span>
+    <a class="btn" href="https://apps.apple.com/us/app/id6805706417" tabindex="-1">Get GREEN18</a>
+  </div>
+
+  <script src="/assets/site.js" defer></script>
+</body>
+</html>

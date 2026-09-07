@@ -342,3 +342,65 @@ footer.site { border-top: 1px solid var(--border); background: var(--bg); paddin
 @media (max-width: 899px) {
   .phone-wrap { max-width: 17rem; margin-top: .5rem; }
 }
+
+/* ------------------------------------------------ model diagram (§32) -- */
+.model { display: grid; gap: 1rem; align-items: stretch; }
+@media (min-width: 1000px) {
+  .model { grid-template-columns: 2.1fr auto 1.15fr auto 1.15fr; gap: 1.25rem; align-items: center; }
+}
+
+.model-inputs { display: grid; gap: .75rem; grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 460px) { .model-inputs { grid-template-columns: 1fr; } }
+
+.model-in {
+  background: var(--bg-2); border: 1px solid var(--border);
+  border-radius: 10px; padding: .95rem 1rem;
+}
+.model-in h3 {
+  font-size: .74rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--accent); margin: 0 0 .5rem; font-weight: 700;
+}
+.model-in ul { list-style: none; margin: 0; padding: 0; }
+.model-in li { color: var(--ink-2); font-size: .92rem; line-height: 1.5; }
+
+/* the connector: a chevron down on narrow, a chevron right on wide */
+.model-arrow {
+  justify-self: center; align-self: center;
+  width: .7rem; height: .7rem;
+  border-right: 2px solid var(--accent); border-bottom: 2px solid var(--accent);
+  transform: rotate(45deg);
+  margin: .35rem 0;
+}
+@media (min-width: 1000px) { .model-arrow { transform: rotate(-45deg); margin: 0; } }
+
+.model-core {
+  background: var(--pill-fill);
+  border: 1px solid var(--border-2);
+  border-radius: 12px; padding: 1.35rem 1.2rem; text-align: center;
+  box-shadow: 0 0 3rem -1rem rgba(117,220,73,.5);
+}
+.model-brand {
+  margin: 0 0 .5rem; font-weight: 800; letter-spacing: .05em;
+  font-size: 1.05rem; color: var(--ink);
+}
+.model-brand b { color: var(--accent); }
+.model-core-line { margin: 0; color: var(--pill-ink); font-size: .92rem; font-weight: 600; line-height: 1.45; }
+
+.model-out {
+  background: var(--bg-2); border: 1px solid var(--accent);
+  border-radius: 12px; padding: 1.35rem 1.2rem;
+}
+.model-out h3 { margin: 0 0 .45rem; font-size: 1rem; }
+.model-out p { margin: 0; color: var(--ink-2); font-size: .93rem; }
+
+/* -------------------------------------------------------- trust strip -- */
+.trust { background: var(--bg-2); padding: 2.25rem 0; }
+.trust-row {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; gap: 1.25rem; grid-template-columns: 1fr;
+}
+@media (min-width: 720px) { .trust-row { grid-template-columns: repeat(3, 1fr); gap: 2rem; } }
+.trust-row li { display: flex; flex-direction: column; gap: .2rem; }
+.trust-row strong { color: var(--ink); font-size: 1rem; }
+.trust-row span { color: var(--ink-2); font-size: .93rem; line-height: 1.5; }
+.trust-note { margin: 1.5rem 0 0; color: var(--ink-3); font-size: .86rem; max-width: 52rem; }

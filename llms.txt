@@ -45,6 +45,9 @@ iPhone only. Not currently available on Android.
 - [Can ChatGPT Do Your Fantasy Football Draft? | GREEN18](https://green18.app/chatgpt-fantasy-football-draft): A general chatbot is good at explaining fantasy football and blind to your live draft board. Here is the honest line, and what to use instead.
 - [How a Fantasy Football Draft Algorithm Works | GREEN18](https://green18.app/fantasy-football-draft-algorithm): The GREEN18 draft model in plain language: open football data, your league settings, recorded picks, survival odds, and take-now-or-wait.
 - [Automated Fantasy Football Draft Tool | GREEN18](https://green18.app/automated-fantasy-football-draft-tool): GREEN18 automates the math, not the decision. It does not auto-draft or connect to any platform — you record picks and you make the call.
+- [Personalized Fantasy Football Rankings | GREEN18](https://green18.app/personalized-fantasy-football-rankings): GREEN18 creates a live player board calibrated to your league, roster, preferences, and the players still available.
+- [Fantasy Football Without Hours of Research | GREEN18](https://green18.app/fantasy-football-without-research): Joining a fantasy league without weeks of preparation? GREEN18 helps turn league settings and live draft context into a usable player board.
+- [Positional Scarcity and Replacement Value in Fantasy Drafts | GREEN18](https://green18.app/fantasy-football-positional-scarcity): How positional scarcity, replacement value and opportunity cost decide a fantasy draft pick — and why every selection changes the value of the players left.
 - [Privacy Policy](https://green18.app/privacy): What the app stores on the device and what it never sends.
 - [Support](https://green18.app/support): Contact and common questions.
 

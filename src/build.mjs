@@ -3,7 +3,7 @@ import { readdir, writeFile, mkdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { render } from './layout.mjs';
-import { ORIGIN } from './site.mjs';
+import { ORIGIN, REDIRECTS } from './site.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, '..');
@@ -89,6 +89,26 @@ for (const p of pages) {
   if (h1s !== 1) { console.error(`FAILED ${p.slug}: ${h1s} H1 elements`); process.exit(1); }
 }
 
+// ---- redirects -------------------------------------------------------------
+// A real 301 on Azure; a canonical-bearing stub for GitHub Pages, which has no
+// server-side redirect. Both point search engines at the one canonical page.
+for (const [from, to] of Object.entries(REDIRECTS)) {
+  if (slugs.has(from)) throw new Error(`redirect ${from} collides with a real page`);
+  await writeFile(join(root, `${from}.html`),
+`<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Redirecting…</title>
+<link rel="canonical" href="${ORIGIN}${to}">
+<meta name="robots" content="noindex, follow">
+<meta http-equiv="refresh" content="0; url=${to}">
+</head>
+<body><p>This page has moved to <a href="${to}">${ORIGIN}${to}</a>.</p></body>
+</html>
+`, 'utf8');
+}
+
 // ---- sitemap + robots -----------------------------------------------------
 const today = new Date().toISOString().slice(0, 10);
 const urls = [...pages.map((p) => (p.slug ? `/${p.slug}` : '/')), '/privacy', '/support'];
@@ -157,9 +177,11 @@ await writeFile(join(root, 'llms.txt'), llms, 'utf8');
 // SWA does not strip `.html` on its own, so every clean URL gets an explicit
 // rewrite. GitHub Pages already serves these extensionless, so the same tree
 // works on both hosts.
-const routes = urls
-  .filter((u) => u !== '/')
-  .map((u) => ({ route: u, rewrite: `${u}.html` }));
+const routes = [
+  ...Object.entries(REDIRECTS).map(([from, to]) =>
+    ({ route: `/${from}`, redirect: to, statusCode: 301 })),
+  ...urls.filter((u) => u !== '/').map((u) => ({ route: u, rewrite: `${u}.html` })),
+];
 
 const swa = {
   trailingSlash: 'auto',
