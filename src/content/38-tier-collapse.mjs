@@ -54,6 +54,11 @@ export default {
       'This is the same mechanism as [replacement value](/draft-science/replacement-value), observed at its sharpest point. Replacement quality usually declines gradually. At a tier boundary it declines all at once.',
     ]},
 
+    { type: 'diagram', name: 'tierCollapse',
+      h2: 'The Tier Empties, Then the Cliff Appears',
+      sub: 'A tier drains to its final member, and the drop to the tier beneath it becomes the whole decision.',
+      caption: 'The top row is a tier: players close enough in value that which one you get barely matters. They go one at a time, and nothing about the position changes while several remain. Then one is left. Taking him is worth far more than his rank suggests, because the alternative is no longer the player beside him — it is the row below, across a gap that nobody in the draft can bridge. When the last block goes, everyone still waiting on the position starts the round at the lower row.' },
+
     { type: 'table', h2: 'What Changes When a Tier Empties?', sub: 'The same eight players, before and after the tier above them is exhausted.',
       columns: ['Board state', 'Best available at the position', 'Cost of waiting one round', 'Urgency'],
       rows: [

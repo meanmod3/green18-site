@@ -199,3 +199,15 @@ export const DISPLACEMENT = {
   nextHighestMedian: 6,    // the next-highest position on that same axis (RB)
   measuredOn: '2026-09-07',
 };
+
+// The tagline. Operator proposed "Every selection, calculated against your
+// league and preferences." Kept the shape and the verb — "calculated" is the
+// word the whole site earns — with two changes:
+//   - "preferences" -> "your roster, and what's left". Preferences are the
+//     input we deliberately BOUND (they shape, never replace, the model), so
+//     leading with them oversells the weakest lever. League and preferences
+//     are also both configuration; without the draft state the line describes
+//     a customised ranking, which is exactly what GREEN18 argues it is not.
+//   - "selection" -> "pick", the site's established term (pick horizon,
+//     picks recorded), and free of the "whose selection?" ambiguity.
+export const TAGLINE = 'Every pick, calculated against your league, your roster, and what\u2019s left.';

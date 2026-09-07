@@ -78,9 +78,10 @@ img { max-width: 100%; height: auto; }
 
 header.site {
   position: sticky; top: 0; z-index: 40;
-  background: rgba(4,19,6,.86);
-  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--border);
+  /* Exactly the page background — no translucency, no blur, no divider. A
+     translucent header over a tinted hero rendered as a visibly different
+     shade, and the border read as a seam. */
+  background: var(--bg);
 }
 header.site .wrap {
   display: flex; align-items: center; gap: 1rem;
@@ -99,6 +100,9 @@ header.site nav a {
 }
 header.site nav a:hover, header.site nav a:focus-visible { color: var(--ink); }
 header.site .btn { margin-left: auto; }
+/* The header CTA is a control in the row, not the row itself — it was filling
+   the full header height. */
+header.site .btn { padding: .45rem 1.05rem; font-size: .92rem; min-height: 0; }
 header.site nav ~ .btn { margin-left: 0; }
 @media (min-width: 860px) { header.site nav { display: flex; } }
 @media (max-width: 520px) { header.site .btn { padding: .5rem .8rem; font-size: .9rem; } }
@@ -178,12 +182,9 @@ section h2 + p, section h2 + .beat { margin-top: 1rem; }
 .hero .lede { margin-top: 1.25rem; }
 @media (min-width: 860px) { .hero { padding: 5.5rem 0 4.5rem; } }
 
-/* subtle field glow behind the hero — the scoreboard the icon evokes */
-.hero {
-  background:
-    radial-gradient(60rem 26rem at 12% -10%, rgba(117,220,73,.10), transparent 60%),
-    radial-gradient(40rem 20rem at 92% 0%, rgba(117,220,73,.05), transparent 65%);
-}
+/* The hero previously carried a radial glow. It made the band under the
+   sticky header measurably lighter than the header itself (rgb(7,24,7) vs
+   rgb(4,19,6)), which read as a mismatch. The page is now one flat field. */
 
 .grid { display: grid; gap: 1rem; }
 @media (min-width: 700px)  { .grid-3 { grid-template-columns: repeat(2, 1fr); } }
@@ -565,9 +566,95 @@ ul.keypoints li::before {
    image itself is decorative (alt="") and must not be announced twice. */
 .wordmark { display: inline-flex; align-items: center; line-height: 0; }
 .wordmark img {
-  display: block; width: 40px; height: 40px;
+  display: block; width: auto; height: 26px;
   /* The mark is pre-trimmed with transparent corners (assets/mark.png), so it
      needs no radius of its own — the tile's own rounding is in the artwork. */
 }
-footer.site .wordmark img { width: 36px; height: 36px; }
-@media (max-width: 520px) { .wordmark img { width: 34px; height: 34px; } }
+footer.site .wordmark img { width: auto; height: 22px; }
+@media (max-width: 520px) { .wordmark img { height: 22px; } }
+
+/* ------------------------------------------------------ explanatory art -- */
+.diagram { margin: 0; }
+.diagram-art { max-width: 44rem; }
+.diagram-art svg { display: block; width: 100%; height: auto; }
+.diagram figcaption {
+  margin: 1rem 0 0; color: var(--ink-2); font-size: .95rem;
+  line-height: 1.6; max-width: var(--measure);
+}
+/* Motion is an enhancement. Under reduced motion every diagram holds its
+   final, meaningful frame rather than animating. */
+@media (prefers-reduced-motion: reduce) {
+  .diagram-art * { animation: none !important; transition: none !important; }
+}
+
+/* ---------------------------------- diagram motion (§33-§38 draft science) --
+   Every diagram is authored in its FINAL, explanatory frame. These keyframes
+   start elements in the "before" state and land them on the authored one, so
+   the reduced-motion rule above (which kills animation outright) leaves the
+   frame that carries the point. One shared 12s cycle, ~30% of it a hold. */
+.dg-s { font-size: 15px; }
+.dg-m { font-size: 19px; }
+
+/* a pool member that drains at step N of the cycle */
+.dg-fade-1, .dg-fade-2, .dg-fade-3, .dg-fade-4,
+.dg-fade-5, .dg-fade-6, .dg-fade-7, .dg-fade-8 {
+  opacity: 0;
+  animation: 12s linear infinite both;
+}
+.dg-fade-1 { animation-name: dgFade1; }
+.dg-fade-2 { animation-name: dgFade2; }
+.dg-fade-3 { animation-name: dgFade3; }
+.dg-fade-4 { animation-name: dgFade4; }
+.dg-fade-5 { animation-name: dgFade5; }
+.dg-fade-6 { animation-name: dgFade6; }
+.dg-fade-7 { animation-name: dgFade7; }
+.dg-fade-8 { animation-name: dgFade8; }
+@keyframes dgFade1 { 0%, 12% { opacity: 1; } 17%, 100% { opacity: 0; } }
+@keyframes dgFade2 { 0%, 18% { opacity: 1; } 23%, 100% { opacity: 0; } }
+@keyframes dgFade3 { 0%, 24% { opacity: 1; } 29%, 100% { opacity: 0; } }
+@keyframes dgFade4 { 0%, 30% { opacity: 1; } 35%, 100% { opacity: 0; } }
+@keyframes dgFade5 { 0%, 36% { opacity: 1; } 41%, 100% { opacity: 0; } }
+@keyframes dgFade6 { 0%, 42% { opacity: 1; } 47%, 100% { opacity: 0; } }
+@keyframes dgFade7 { 0%, 48% { opacity: 1; } 53%, 100% { opacity: 0; } }
+@keyframes dgFade8 { 0%, 54% { opacity: 1; } 59%, 100% { opacity: 0; } }
+
+/* a label or annotation that only makes sense once the motion has resolved */
+.dg-in-late { animation: dgInLate 12s linear infinite both; }
+@keyframes dgInLate { 0%, 66% { opacity: 0; } 76%, 100% { opacity: 1; } }
+
+.dg-flash { animation: dgFlash 12s linear infinite both; }
+@keyframes dgFlash { 0%, 16% { opacity: 0; } 24%, 100% { opacity: 1; } }
+
+.dg-pulse { animation: dgPulse 12s ease-in-out infinite both; }
+@keyframes dgPulse {
+  0%, 50% { opacity: 0; }
+  62% { opacity: 1; }
+  74% { opacity: .35; }
+  86%, 100% { opacity: 1; }
+}
+
+/* §33 board re-order: the taken row leaves, the rows below change ORDER */
+.br-out { animation: dgBrOut 12s ease-in-out infinite both; }
+@keyframes dgBrOut {
+  0%, 24% { opacity: 1; transform: translateX(0); }
+  34%     { opacity: .3; transform: translateX(0); }
+  48%, 100% { opacity: 0; transform: translateX(80px); }
+}
+.br-qbb, .br-wra { animation: 12s cubic-bezier(.4, 0, .2, 1) infinite both; }
+.br-qbb { animation-name: dgBrUp; }
+.br-wra { animation-name: dgBrDown; }
+@keyframes dgBrUp   { 0%, 36% { transform: translateY(192px); } 58%, 100% { transform: translateY(0); } }
+@keyframes dgBrDown { 0%, 36% { transform: translateY(-64px); } 58%, 100% { transform: translateY(0); } }
+
+/* §35 replacement: both bars dim, the band between their tops stays lit */
+.rp-dim { fill-opacity: .22; animation: dgRpDim 12s linear infinite both; }
+@keyframes dgRpDim { 0%, 30% { fill-opacity: 1; } 46%, 100% { fill-opacity: .22; } }
+.rp-gap { animation: dgRpGap 12s linear infinite both; }
+@keyframes dgRpGap { 0%, 30% { fill-opacity: 1; } 46%, 100% { fill-opacity: 1; } }
+
+/* §37 pick horizon: the wait between your two selections opens up */
+.ph-band {
+  transform-box: fill-box; transform-origin: left center;
+  animation: dgPhBand 12s cubic-bezier(.4, 0, .2, 1) infinite both;
+}
+@keyframes dgPhBand { 0%, 8% { transform: scaleX(0); } 34%, 100% { transform: scaleX(1); } }

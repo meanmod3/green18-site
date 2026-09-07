@@ -71,6 +71,11 @@ export default {
       'That sentence is the whole method in miniature — and it is worked through pick by pick in [the Superflex quarterback run](/scenarios/superflex-quarterback-run).',
     ], quote: 'The player did not suddenly become more talented. His situational value changed.' },
 
+    { type: 'diagram', name: 'boardReorders',
+      h2: 'The Same Board, One Pick Later',
+      sub: 'A selection is recorded and the remaining players change places — not merely close ranks.',
+      caption: 'Five players sit on the board. Quarterback A is taken by another manager, and his row leaves. Under a static ranking that is the end of it: everyone below simply moves up one slot. Under Draft-State Valuation the order itself changes — quarterback B rises past both receivers, because the pool behind him thinned and the cost of not taking him rose. He is the same football player he was a moment ago.' },
+
     { type: 'prose', h2: 'Does This Mean the Board Is Unpredictable?', body: [
       'No — and this is the distinction that matters most.',
       'A moving board is not a random board. GREEN18 is **deterministic**: the same draft state always produces the same valuation. Feed the identical league settings, identical picks, identical roster and identical preferences into the model twice and you get the identical ordering twice.',

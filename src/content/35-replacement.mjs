@@ -47,6 +47,11 @@ export default {
       'The gap that decides the pick is vertical — down through the position pool to your next turn — not horizontal across one line of a list.',
     ], quote: 'The list compares rank 18 with rank 19. Your draft compares rank 18 with whoever is left in twenty picks.' },
 
+    { type: 'diagram', name: 'replacement',
+      h2: 'The Answer Is Neither Bar',
+      sub: 'A player, the best alternative at his position, and the only part of either that a pick actually buys you.',
+      caption: 'The left bar is the player you are considering; the right bar is the best alternative still available at the same position. Both dim, because neither height is the decision. What the pick actually adds to your starting lineup is the band between their tops — everything below that line you were going to get anyway from the alternative. A taller bar with a small band is a worse pick than a shorter bar with a large one.' },
+
     { type: 'table', h2: 'What Does That Look Like With Real Numbers?',
       sub: 'Two players, adjacent on a list, at positions with different shapes behind them. All figures are illustrative and used only to show the arithmetic.',
       columns: ['', 'Player A', 'Player B'],

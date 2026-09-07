@@ -40,6 +40,11 @@ export default {
       '**The horizon converts a ranking into a decision, because it is the only thing that says how much of the board you are actually allowed to wait for.**',
     ], quote: 'Your pick horizon is how much of the board you are allowed to wait for.' },
 
+    { type: 'diagram', name: 'pickHorizon',
+      h2: 'What the Wait Costs',
+      sub: 'Your two selections on the draft clock, and the picks that happen in between them.',
+      caption: 'The two tall marks are your turns; every mark between them belongs to somebody else. Above the timeline sit the players you would happily take. As the intervening picks are made, most of them go, and only the ones nobody else wanted are still there when you are back on the clock. The longer the span between your marks, the more of that row you have to write off in advance — which is why the same board is a different decision from a different seat.' },
+
     { type: 'table', h2: 'What Do the Horizons Actually Look Like?',
       sub: 'Selections between consecutive picks, 12-team snake draft. The alternation is what makes seats behave differently even in the same round.',
       columns: ['Seat', 'Round 1 → 2', 'Round 2 → 3', 'What it feels like'],

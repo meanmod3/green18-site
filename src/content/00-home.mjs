@@ -6,14 +6,15 @@ export default {
   breadcrumb: 'Home',
 
   hero: {
-    eyebrow: 'Live Fantasy Draft Intelligence',
+    eyebrow: 'Draft-State Valuation',
     h1: 'Your Draft Board Should Move When Your Draft Moves.',
     lede: [
       'Static rankings can’t see your draft. GREEN18 can.',
-      'Configure your league, start drafting, and watch your player board react as picks come off the board.',
+      'A ranking is built before your draft exists. **Draft-State Valuation (DSV)** values a player against the draft you are actually in — your league’s rules, your roster, who is already gone, and how long until you pick again.',
+      'It does not replace the draft you are having. It upgrades the board you are having it on.',
     ],
     cta: 'Download GREEN18',
-    micro: 'Available for iPhone · Built for the 2026 fantasy football draft',
+    micro: '**Every pick, calculated against your league, your roster, and what’s left.** Available for iPhone.',
     secondary: { label: 'See How GREEN18 Works', href: '#how-it-works' },
   },
 
@@ -29,6 +30,14 @@ export default {
   },
 
   blocks: [
+    { type: 'prose', h2: 'What Draft-State Valuation Means.',
+      body: [
+        'Draft-state valuation is a method of valuing a fantasy football player according to the current state of a specific draft, rather than treating preseason rank or ADP as a fixed measure of that player’s worth.',
+        'The state includes your league’s scoring and roster rules, the players already selected, the players still available, what your own roster still needs, and how many picks stand between you and your next turn.',
+        'Change any one of those and the same player is worth something different. That is not a flaw in ranking — it is what a ranking cannot express.',
+        'The [full method is set out here](/draft-science/draft-state-valuation), and the [eight stages are here](/how-green18-ranks-fantasy-players).',
+      ] },
+
     { type: 'prose', h2: 'The Draft Changes Everything.', body: [
       'Before the draft, rankings are predictions.',
       'Once the draft begins, every pick becomes information.',

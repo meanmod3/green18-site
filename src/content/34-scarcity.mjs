@@ -49,6 +49,11 @@ export default {
       'You draft for the difference, not for the total. The scarce position is the one where the *gap* behind the player is widest — which is why scarcity and [replacement value](/draft-science/replacement-value) are two views of the same measurement.',
     ], quote: 'Value is how good the players are. Scarcity is how much worse the next one is.' },
 
+    { type: 'diagram', name: 'scarcity',
+      h2: 'Scarcity Is a Rate, Not a Count',
+      sub: 'Two positions that start the draft with the same number of startable players, drawn down at different speeds.',
+      caption: 'Both columns begin with an identical pool. Position A empties block after block as the draft runs; position B loses two in the same span. At no point does either position have more players than it started with, and the count alone never told you which one to take first. What separates them is the rate of decline: waiting on position A costs you almost the whole pool, and waiting on position B costs you almost nothing.' },
+
     { type: 'table', h2: 'Which Combination Are You Actually Looking At?',
       sub: 'Value and scarcity vary independently, which produces four genuinely different situations and four different correct responses.',
       columns: ['Value at the position', 'Scarcity at the position', 'What the board is telling you'],

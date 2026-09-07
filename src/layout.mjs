@@ -1,6 +1,7 @@
 // GREEN18 — page renderer. Turns a content module into a complete HTML page.
+import { DIAGRAMS } from './diagrams.mjs';
 import { APP_STORE_URL, ORIGIN, BRAND, COPYRIGHT_OWNER, NAV, FOOTER,
-         FOOTER_DISCLAIMER, LINK_TITLES, CANON, VERIFICATION } from './site.mjs';
+         FOOTER_DISCLAIMER, LINK_TITLES, CANON, VERIFICATION, TAGLINE } from './site.mjs';
 
 const esc = (s) => String(s)
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -95,6 +96,25 @@ function block(b) {
           ${b.note ? `<p class="calc-note measure">${inline(b.note)}</p>` : ''}
         </div>
       </section>`;
+
+    case 'diagram': {
+      // A named animated SVG from src/diagrams.mjs. Motion is decorative: the
+      // caption below states the same thing in words, and the whole figure is
+      // aria-hidden with the caption carrying the meaning, so nothing is lost
+      // when animation is off or the image fails.
+      const render = DIAGRAMS[b.name];
+      if (!render) throw new Error(`unknown diagram: ${b.name}`);
+      return `      <section${b.id ? ` id="${b.id}"` : ''}>
+        <div class="wrap">
+          ${b.h2 ? `<h2>${inline(b.h2)}</h2>` : ''}
+          ${b.sub ? `<p class="lede measure">${inline(b.sub)}</p>` : ''}
+          <figure class="diagram mt-lg">
+            <div class="diagram-art" aria-hidden="true">${render()}</div>
+            <figcaption>${inline(b.caption)}</figcaption>
+          </figure>
+        </div>
+      </section>`;
+    }
 
     case 'pipeline':
       // The public Draft-State Valuation pipeline. Rendered as an ordered
@@ -496,11 +516,11 @@ ${structuredData(page, url)}
 
   <header class="site">
     <div class="wrap">
-      <a class="wordmark" href="/" aria-label="GREEN18 — home"><img src="/assets/mark.png" alt="" width="40" height="40" decoding="async"></a>
+      <a class="wordmark" href="/" aria-label="GREEN18 — home"><img src="/assets/mark.png" alt="" width="40" height="26" decoding="async"></a>
       <nav aria-label="Primary">
         ${nav}
       </nav>
-      <a class="btn" href="${APP_STORE_URL}">Download</a>
+      <a class="btn" href="${APP_STORE_URL}">iOS App</a>
     </div>
   </header>
 
@@ -554,8 +574,8 @@ ${disclaimer}
     <div class="wrap">
       <div class="foot-top">
         <div class="foot-brand">
-          <a class="wordmark" href="/" aria-label="GREEN18 — home"><img src="/assets/mark.png" alt="" width="36" height="36" decoding="async"></a>
-          <p>Live fantasy football draft intelligence for iPhone.</p>
+          <a class="wordmark" href="/" aria-label="GREEN18 — home"><img src="/assets/mark.png" alt="" width="34" height="22" decoding="async"></a>
+          <p>${esc(TAGLINE)}</p>
         </div>
         <div class="foot-cols">
             ${foot}
