@@ -1,0 +1,83 @@
+# GREEN18 topic-cluster site — build, deploy, and what is deliberately absent
+
+## What this is
+
+17 conversion-focused landing pages (homepage + pillar + 14 cluster pages) built from
+`GREEN18 Topic Cluster Website Build — Landing Page Copy System.md`. Every page's single
+conversion objective is the App Store download.
+
+The legal pages (`privacy.html`, `support.html`) are **not generated** and were not touched by
+this build — their URLs are already registered with Apple.
+
+## Build
+
+```bash
+node src/build.mjs
+```
+
+Content lives in `src/content/*.mjs` (one module per page). `src/layout.mjs` renders a module to
+HTML; `src/site.mjs` holds global config. Output is written to the repo root, so both GitHub Pages
+and Azure Static Web Apps serve the tree with no build step.
+
+The build **fails closed** on the §23 SEO invariants: one H1 per page, unique title/slug/description,
+description ≤ 165 chars, a final conversion block, ≥ 2 resolving internal links, no self-links, and
+no forbidden brand rendering ("Green 18", "Draft Buddy", …).
+
+### The App Store URL
+
+`APP_STORE_URL` in `src/site.mjs` is the **only** place the link is written; every CTA on every page
+resolves through it. As of 2026-09-07 that URL 404s because the app is not released yet. On release
+day it needs no change (the id is already correct) — but if the id ever changes, it is a one-line
+edit plus a rebuild.
+
+## Deploy — Azure Static Web Apps
+
+Account guard first, always:
+
+```bash
+cd /Users/Ben/meanmode && python3.12 src/dispatch/cloud_account_guard.py assert --project green18 || exit 1
+```
+
+| | |
+| --- | --- |
+| Subscription | `0472ac5e-…` (the green18 account, `manager@green18.app`) |
+| Resource group | `green18-site-prod` (eastus2) |
+| Resource | `green18-site` (Static Web Apps, **Free** tier) |
+| Default host | `https://jolly-bay-0f7b9d60f.3.azurestaticapps.net` |
+
+```bash
+node src/build.mjs
+TOKEN=$(az staticwebapp secrets list -n green18-site -g green18-site-prod --query "properties.apiKey" -o tsv)
+npx @azure/static-web-apps-cli deploy . --deployment-token "$TOKEN" --env production
+```
+
+`staticwebapp.config.json` is **generated** by the build — do not hand-edit it. It carries an explicit
+rewrite per clean URL (SWA does not strip `.html` on its own), a real `404` status for unknown paths
+(a fallback rewrite would return `200` — a soft 404 that search engines treat as a duplicate page),
+and the security headers below.
+
+Do not ship the `CNAME` file to Azure — it belongs to GitHub Pages.
+
+## Privacy posture — read before adding anything
+
+Per `privacyquestionnairehandoff.md` §4: **this site has no analytics and makes no third-party
+requests.** No Plausible, no GA, no Cloudflare Insights, no web fonts, no embeds. Every stylesheet,
+script and image is same-origin. The one outbound *link* is the App Store CTA, which is navigation,
+not a resource load.
+
+That is enforced, not merely observed. The generated CSP is:
+
+```
+default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self';
+form-action 'none'; frame-ancestors 'none'; base-uri 'self'
+```
+
+No `'unsafe-inline'` anywhere — which is why the sticky-CTA script lives in `assets/site.js` and the
+layout uses utility classes instead of inline `style=` attributes.
+
+**If anyone ever adds site analytics, the privacy policy must gain a section separating the website
+from the app in the same sitting** — the app's App Privacy label is "Data Not Collected", and the
+policy page is what Apple audits that label against. Adding a snippet without that edit makes a
+sentence in the published policy false.
+
+See `docs/privacy-consistency-audit.md` for the evidence.
