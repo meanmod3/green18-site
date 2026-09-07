@@ -1,6 +1,6 @@
 // GREEN18 — page renderer. Turns a content module into a complete HTML page.
 import { APP_STORE_URL, ORIGIN, BRAND, COPYRIGHT_OWNER, NAV, FOOTER,
-         FOOTER_DISCLAIMER, LINK_TITLES, CANON } from './site.mjs';
+         FOOTER_DISCLAIMER, LINK_TITLES, CANON, VERIFICATION } from './site.mjs';
 
 const esc = (s) => String(s)
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -352,6 +352,8 @@ export function render(page) {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="dark">
+${VERIFICATION.bing ? `  <meta name="msvalidate.01" content="${esc(VERIFICATION.bing)}">\n` : ''}\
+${VERIFICATION.google ? `  <meta name="google-site-verification" content="${esc(VERIFICATION.google)}">\n` : ''}\
   <meta name="theme-color" content="#041306">
   <title>${esc(page.title)}</title>
   <meta name="description" content="${esc(page.description)}">

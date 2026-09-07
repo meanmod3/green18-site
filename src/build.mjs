@@ -3,7 +3,7 @@ import { readdir, readFile, writeFile, mkdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { render } from './layout.mjs';
-import { ORIGIN, REDIRECTS, CANON, CANON_SHORT } from './site.mjs';
+import { ORIGIN, REDIRECTS, CANON, CANON_SHORT, VERIFICATION } from './site.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, '..');
@@ -161,6 +161,21 @@ for (const p of pages) {
   // exactly one H1
   const h1s = (html.match(/<h1[ >]/g) || []).length;
   if (h1s !== 1) { console.error(`FAILED ${p.slug}: ${h1s} H1 elements`); process.exit(1); }
+}
+
+// ---- search console verification files -------------------------------------
+// Emitted only when a code is present, so an unverified site ships no stubs.
+if (VERIFICATION.bing) {
+  await writeFile(join(root, 'BingSiteAuth.xml'),
+    `<?xml version="1.0"?>\n<users>\n  <user>${VERIFICATION.bing}</user>\n</users>\n`, 'utf8');
+}
+if (VERIFICATION.googleFile) {
+  if (!/^google[a-z0-9]+\.html$/.test(VERIFICATION.googleFile)) {
+    console.error(`BUILD FAILED: googleFile "${VERIFICATION.googleFile}" is not the google<hash>.html form Search Console issues.`);
+    process.exit(1);
+  }
+  await writeFile(join(root, VERIFICATION.googleFile),
+    `google-site-verification: ${VERIFICATION.googleFile}\n`, 'utf8');
 }
 
 // ---- redirects -------------------------------------------------------------

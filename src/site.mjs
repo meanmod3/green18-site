@@ -22,6 +22,25 @@ export const CANON = 'GREEN18 is an iPhone fantasy football live draft assistant
 export const CANON_SHORT = 'GREEN18 is an iPhone fantasy football live draft assistant that '
   + 'continuously recalculates player valuations from your league, your roster and the live draft.';
 
+// ---------------------------------------------------------------------------
+// SEARCH CONSOLE VERIFICATION
+//
+// Paste the code from each console here and rebuild — the build emits both the
+// meta tag and the verification file for whichever methods are filled in, so
+// no other file needs touching. Empty string = that method is not used.
+// Step-by-step instructions: docs/measurement-setup.md
+// ---------------------------------------------------------------------------
+export const VERIFICATION = {
+  // Bing Webmaster Tools -> Add site -> "HTML Meta Tag": the content="..." value.
+  // Also used for BingSiteAuth.xml, which the build emits from the same code.
+  bing: '',
+  // Google Search Console -> URL prefix property -> "HTML tag": the content="..." value.
+  google: '',
+  // Google Search Console -> "HTML file" method: the full filename it gives you,
+  // e.g. 'google1a2b3c4d5e6f7890.html'. Leave empty if using the meta tag.
+  googleFile: '',
+};
+
 export const ORIGIN = 'https://green18.app';
 export const BRAND = 'GREEN18';
 export const COPYRIGHT_OWNER = 'Interplore';
