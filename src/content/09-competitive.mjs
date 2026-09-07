@@ -39,14 +39,14 @@ export default {
     { type: 'steps', h2: 'How GREEN18 Works', steps: [
       { h3: 'Set Your League.', body: ['Configure the scoring, roster structure and format that set replacement level at every position.'] },
       { h3: 'Shape Your Draft.', body: ['Set the preferences that matter to you instead of drafting from a universal list.'] },
-      { h3: 'Start Drafting.', body: ['Remove players as they are selected. GREEN18 recalculates the margin over replacement across the remaining board.'] },
+      { h3: 'Start Drafting.', body: ['Remove players as they are selected. GREEN18 recalculates the remaining board from the picks recorded in your room — survival odds, position velocity and tier structure across everyone still available.'] },
       { h3: 'Make the Pick.', body: ['One live view of the players that still matter. The model is deterministic — same board in, same answer out, every time.'] },
     ]},
 
     { type: 'cards', h2: 'Where the Margins Are.', cards: [
       { h3: 'The Pick Horizon', body: 'The distance to your next selection is an input, not trivia. Scarcity that resolves before you pick again costs you nothing; scarcity that arrives during the eighteen picks in between must be paid for now or not at all.' },
       { h3: 'Tier Boundaries, Not Ranks', body: 'The best available player can change because of what happened five picks ago. What matters is whether the pick in front of you is the last one above a cliff.' },
-      { h3: 'Your Replacement Level, Not the Consensus One', body: 'Scoring and roster construction decide how deep a position stays startable in your league. A ranking has to assume one answer to that. Your board does not.' },
+      { h3: 'Your League, Not the Consensus One', body: 'Scoring and roster construction decide how deep a position stays startable in your league. A ranking has to assume one answer to that. Your board is built for the settings you actually entered.' },
     ]},
 
     { type: 'prose', h2: 'Best Player Available, or the Roster You Need?', body: [

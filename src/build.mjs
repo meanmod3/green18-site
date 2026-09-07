@@ -3,7 +3,7 @@ import { readdir, readFile, writeFile, mkdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { render } from './layout.mjs';
-import { ORIGIN, REDIRECTS, CANON, CANON_SHORT, VERIFICATION } from './site.mjs';
+import { ORIGIN, REDIRECTS, CANON, CANON_SHORT, VERIFICATION, PROTECTED_LINES } from './site.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, '..');
@@ -103,6 +103,68 @@ for (const p of pages) {
   const text = JSON.stringify(p);
   for (const bad of ['Green 18', 'Draft Buddy', 'DraftBuddy', 'Green18 ']) {
     if (text.includes(bad)) problems.push(`${id}: forbidden brand rendering "${bad.trim()}"`);
+  }
+}
+
+// ---- §24: "What is GREEN18?" must be answerable from the citable layer -----
+// The canon lived in llms.txt and in the schema description but in no page's
+// `answer`, claims, FAQ or definitions — so the single most important question
+// about the product was not answerable from the text a retrieval layer
+// actually quotes. It must appear VERBATIM somewhere citable.
+{
+  const citable = pages.map((p) => [
+    p.answer || '',
+    ...(p.claims || []),
+    ...(p.faq || []).map((f) => f.a),
+    ...(p.blocks || []).filter((b) => b.type === 'definitions')
+      .flatMap((b) => b.terms.map((t) => t.definition)),
+  ].join(' ')).join('\n');
+  if (!citable.includes(CANON)) {
+    console.error('BUILD FAILED: the product canon does not appear verbatim in any page\'s '
+      + 'answer, claims, FAQ or definitions — so "What is GREEN18?" is not answerable '
+      + 'from the layer a retrieval system quotes.');
+    process.exit(1);
+  }
+}
+
+// ---- claims regression pins ------------------------------------------------
+// Each of these phrasings was on the live site and each was FALSE against the
+// shipped Swift. They are pinned by phrase because that is what they are — a
+// record of specific defects, not a general truth check. A general "is this
+// claim true" guard is not something a build can do; only the audit in
+// docs/claims-audit.md can, and it has to be re-run when the app changes.
+//
+//  1. Value over replacement is never computed for any shipped player value:
+//     DraftSessionStore.swift:1247 declines to call it, deliberately.
+//  2. The default board is ordered by .adp — live-adjusted market position —
+//     not by any situational value (DraftSessionStore.swift:3989-3998).
+//  3. No per-position "cost of waiting" comparison exists anywhere in Sources/.
+{
+  const FALSE_CLAIMS = [
+    [/(GREEN18|the (?:app|model|board))[^.]{0,70}(?:recalculat|comput|rank|order|pric)\w*[^.]{0,70}(?:margin|value) (?:over|above) replacement/i,
+     'claims GREEN18 computes or ranks by value over replacement (it does not — DraftSessionStore.swift:1247)'],
+    [/(?:ordered|ranked) by[^.]{0,45}replacement/i,
+     'claims the board is ordered by replacement (it is ordered by live ADP — DraftSessionStore.swift:3989)'],
+    [/cost of waiting (?:one full turn )?at every position|compares those (?:costs|numbers)/i,
+     'claims a per-position cost-of-waiting comparison (no such computation exists)'],
+  ];
+  for (const p of pages) {
+    const copy = JSON.stringify(p);
+    for (const [re, why] of FALSE_CLAIMS) {
+      if (re.test(copy)) problems.push(`${p._file}: ${why}`);
+    }
+  }
+}
+
+// ---- protected language (§4) ----------------------------------------------
+// These four statements each do a different job in the product thesis. They
+// must exist somewhere on the site.
+{
+  const all = pages.map((p) => JSON.stringify(p)).join('\n');
+  for (const line of PROTECTED_LINES) {
+    if (!all.includes(line)) {
+      problems.push(`PROTECTED LANGUAGE MISSING from the whole site: "${line}"`);
+    }
   }
 }
 

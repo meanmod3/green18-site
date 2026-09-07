@@ -33,7 +33,7 @@ export default {
     { type: 'steps', h2: 'How GREEN18 Works', steps: [
       { h3: 'Set Your League.', body: ['Configure the scoring, roster structure and format your league has always used.'] },
       { h3: 'Shape Your Draft.', body: ['Set the preferences that matter to you rather than assuming every manager drafts from the same list.'] },
-      { h3: 'Start Drafting.', body: ['As players are selected, remove them from the board. GREEN18 recalculates margin over replacement across everyone still available.'] },
+      { h3: 'Start Drafting.', body: ['As players are selected, remove them from the board. GREEN18 recalculates the board from the picks you record — survival odds, position velocity and tier structure across everyone still available.'] },
       { h3: 'Make the Pick.', body: ['One live view of the players that still matter, instead of rankings, notes and tabs. Deterministic: the same board always produces the same answer.'] },
     ]},
 

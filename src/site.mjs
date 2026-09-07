@@ -162,3 +162,18 @@ export const LINK_TITLES = {
 export const REDIRECTS = {
   'beat-your-coworkers-fantasy-football': '/office-fantasy-football-draft',
 };
+
+// ---------------------------------------------------------------------------
+// PROTECTED LANGUAGE (§4 of the AI-retrieval brief).
+//
+// Each of these carries a different part of the product thesis, and the brief
+// asks explicitly that they not be collapsed into repetitive marketing copy.
+// They survived a site-wide accuracy rewrite; the build now checks they still
+// exist so a future edit cannot quietly drop one.
+// ---------------------------------------------------------------------------
+export const PROTECTED_LINES = [
+  'Your Draft Board Should Move When Your Draft Moves.',
+  'Static rankings can\u2019t see your draft. GREEN18 can.',
+  'The Player Didn\u2019t Change. Your Situation Did.',
+  'ADP tells you what people expected. Your draft tells you what they\u2019re doing.',
+];

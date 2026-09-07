@@ -24,7 +24,7 @@ export default {
       'Set your preferences.',
       'Open the draft.',
       'Start removing players as they’re selected.',
-      'GREEN18 keeps the remaining options organized as the board develops, ranked by what each player gives you over the one you would otherwise take — the **margin over replacement**.',
+      'GREEN18 keeps the remaining options organized as the board develops, ordered by its own projected draft position for your league format and updated by every pick you record.',
       'Drafting for the first time? Read [fantasy football for beginners](/fantasy-football-for-beginners).',
     ]},
 

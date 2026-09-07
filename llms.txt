@@ -45,18 +45,18 @@ iPhone only. Not currently available on Android.
 - [Automated Fantasy Football Draft Tool | GREEN18](https://green18.app/automated-fantasy-football-draft-tool): GREEN18 automates the math, not the decision. It does not auto-draft or connect to any platform — you record picks and you make the call.
 - [Personalized Fantasy Football Rankings | GREEN18](https://green18.app/personalized-fantasy-football-rankings): GREEN18 creates a live player board calibrated to your league, roster, preferences, and the players still available.
 - [Fantasy Football Without Hours of Research | GREEN18](https://green18.app/fantasy-football-without-research): Joining a fantasy league without weeks of preparation? GREEN18 helps turn league settings and live draft context into a usable player board.
-- [Drafting With Positional Scarcity | GREEN18](https://green18.app/fantasy-football-positional-scarcity): Scarcity is easy to understand and hard to compute on the clock. How GREEN18 prices the cost of waiting at every position, after every pick.
+- [Drafting With Positional Scarcity | GREEN18](https://green18.app/fantasy-football-positional-scarcity): Scarcity is easy to understand and hard to track on the clock. How GREEN18 measures position velocity and survival odds at every position, after every pick.
 - [About GREEN18 | Who Makes It and What It Is](https://green18.app/about): GREEN18 is an independent iPhone fantasy football live draft assistant published by Interplore. No accounts, no platform connection, nothing collected.
 - [Contact GREEN18](https://green18.app/contact): Reach GREEN18 at manager@green18.app — bug reports, data corrections and questions. What to include so a problem can be reproduced on the first reply.
 - [Page Not Found | GREEN18](https://green18.app/404): That page does not exist. Here is where to find what you were probably looking for.
 
 ## Reference
 
-- [How GREEN18 Values a Fantasy Player | GREEN18](https://green18.app/how-green18-ranks-fantasy-players): GREEN18 recalculates a player’s situational draft value from baseline value, league scoring, scarcity, replacement availability, roster fit and pick horizon.
+- [How GREEN18 Values a Fantasy Player | GREEN18](https://green18.app/how-green18-ranks-fantasy-players): GREEN18 recalculates a player’s situational draft value from baseline value, league scoring, scarcity, availability pressure, roster fit and pick horizon.
 - [Why Fantasy Rankings Change During a Draft | GREEN18](https://green18.app/why-fantasy-rankings-change-during-a-draft): Drafting removes alternatives. Every pick changes scarcity, replacement quality, roster need and opportunity cost — so the correct ranking changes with it.
 - [Fantasy Draft Glossary | GREEN18](https://green18.app/glossary): Plain-language definitions of the fantasy draft terms that actually govern decisions: scarcity, replacement value, pick horizon, tiers, formats and more.
 - [GREEN18 Methodology | Inputs, Determinism and Limits](https://green18.app/methodology): How GREEN18 arrives at a number: open football data, your league settings and your recorded picks, computed deterministically — and what the model cannot do.
-- [The Science of Draft-State Valuation | GREEN18](https://green18.app/draft-science): How eight ideas — scarcity, replacement, opportunity cost, horizon, tiers, roster, format — compose into a single valuation of a player at one pick.
+- [The Science of Draft-State Valuation | GREEN18](https://green18.app/draft-science): How these ideas — scarcity, replacement, horizon, tiers, roster, format — compose into a single valuation of a player at one pick.
 - [Fantasy Draft Scenarios | GREEN18](https://green18.app/scenarios): Twenty in-draft situations answered as conditions, not commands: runs, roster state, draft position and the endgame, each with the variable that decides it.
 - [Fantasy Football League Formats | GREEN18](https://green18.app/formats): How scoring rules and roster requirements change what a fantasy player is worth, and why format is a valuation input rather than a detail.
 

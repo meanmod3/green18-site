@@ -11,7 +11,7 @@ export default {
     h1: 'An Automated Draft Tool That Automates the Right Half of the Draft.',
     lede: [
       'Straight answer first: GREEN18 does not draft for you. It does not connect to your fantasy platform and it never submits a pick.',
-      'What it automates is the part you cannot do on a sixty-second clock — recomputing every remaining player’s **margin over replacement** the instant the board changes.',
+      'What it automates is the part you cannot do on a sixty-second clock — recomputing every remaining player’s **projected draft position and survival odds** the instant the board changes.',
       '**The arithmetic is automatic. The pick is yours.**',
     ],
     cta: 'Download GREEN18',
@@ -31,7 +31,7 @@ export default {
     { type: 'prose', h2: 'Why Autopilot Is the Wrong Ask.', body: [
       'An autodraft already exists in every league. It is what happens when you fall asleep.',
       'Nobody wants it. They want the work removed, not the judgement.',
-      'The work is the recalculation: [replacement level](/draft-science/replacement-value) moves at every position after every pick, and nobody tracks eight of those in their head while a room waits.',
+      'The work is the recalculation: every position is being consumed at its own rate and every player’s survival odds move after every pick — which is [replacement level](/draft-science/replacement-value) in motion, and nobody tracks eight of those in their head while a room waits.',
     ], quote: 'You don’t want the pick made for you. You want the math done before you decide.' },
 
     { type: 'cards', h2: 'Automated. Manual. On Purpose.', cards: [

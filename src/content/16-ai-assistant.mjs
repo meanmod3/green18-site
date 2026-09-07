@@ -37,7 +37,7 @@ export default {
 
     { type: 'cards', h2: 'Computed vs. Generated.', cards: [
       { h3: 'Repeatable', body: 'Every recommendation is replayable from the board that produced it. Nothing is improvised on the spot.' },
-      { h3: 'Accountable', body: 'The result is assembled from named components — league value, **margin over replacement**, board movement, survival to your next pick — not from prose about a player. Each is inspectable in [how GREEN18 ranks fantasy players](/how-green18-ranks-fantasy-players).' },
+      { h3: 'Accountable', body: 'The result is assembled from named components — your league’s scoring and roster requirements, board movement, position velocity, survival to your next pick — not from prose about a player. Each is inspectable in [how GREEN18 ranks fantasy players](/how-green18-ranks-fantasy-players).' },
       { h3: 'Current', body: 'It reads the draft in front of you. Not a snapshot of the internet from some earlier date.' },
     ]},
 
@@ -51,7 +51,7 @@ export default {
     { type: 'prose', h2: 'Where the Numbers Come From.', body: [
       'Player facts come from open football data — nflverse, credited under CC-BY — plus the picks you record during your own draft.',
       'A hard allowlist rejects unapproved sources at build time.',
-      'GREEN18 computes its own projected draft value from that base, expressed as each player’s margin over replacement in your league’s scoring.',
+      'GREEN18 computes its own projected draft position from that base, for your league’s scoring and roster requirements, and updates it from the picks recorded in your room.',
       'It does not scrape a chatbot and it does not guess.',
       'If you want the mechanism in full, read [how the draft model works](/fantasy-football-draft-algorithm).',
     ]},

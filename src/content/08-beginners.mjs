@@ -40,7 +40,7 @@ export default {
       'Here it is, and it is the whole game: **a player is only worth what he gives you over the player you could take instead.**',
       'That second player is the **replacement** — the next-best option at the same position when your turn comes back around. The gap between them is your **margin over replacement**, and it is the only number that actually wins you a week.',
       'This is why the loudest name is not always the right pick. Six equally good running backs on the board means taking one costs you almost nothing in the way of missed opportunity. Two good ones left and a steep drop after them means waiting is expensive. That drop-off is [positional scarcity](/draft-science/positional-scarcity), and it moves every single pick.',
-      'You do not have to compute any of this. You just have to know that it is what the board is doing while you look at it. Anything you want spelled out is in the [glossary](/glossary).',
+      'You do not have to compute any of this. You just have to know that it is what the draft is doing while you look at it. Anything you want spelled out is in the [glossary](/glossary).',
     ], quote: 'Not “is he good?” — “how much better is he than what I’d get instead?”' },
 
     { type: 'steps', h2: 'How GREEN18 Works', steps: [

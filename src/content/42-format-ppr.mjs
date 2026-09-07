@@ -90,7 +90,7 @@ export default {
     { type: 'prose', h2: 'How Does GREEN18 Apply Reception Scoring?', body: [
       'GREEN18 is an iPhone fantasy football live draft assistant that continuously recalculates player valuations according to league settings, roster construction, player availability, draft state, and user preferences.',
       'Scoring is applied before the board is built rather than as an adjustment on top of a generic ranking, because reception scoring re-ranks players against each other rather than relabeling them. Full PPR, half PPR, and custom per-position reception values all produce genuinely different orderings from the same player pool.',
-      'From there the usual draft-state effects apply on top of the format: scarcity, replacement availability, your roster and your pick horizon.',
+      'From there the usual draft-state effects apply on top of the format: scarcity, replacement level, your roster and your pick horizon.',
       'If you want the product overview for this format rather than the scoring explanation, that is the [PPR draft assistant](/ppr-draft-assistant) page.',
     ]},
 

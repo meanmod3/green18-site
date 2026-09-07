@@ -67,7 +67,7 @@ export default {
     ]},
 
     { type: 'convert', h2: 'A Rule of Thumb Is a Measurement Someone Stopped Taking.',
-      body: ['GREEN18 computes the drop behind every remaining player at every position under your own league’s scoring, so whether waiting is cheap at kicker and defense is something your board shows you rather than something you assume.', '**Download GREEN18 for iPhone and price the last two slots like every other one.**'],
+      body: ['GREEN18 computes, under your own league’s scoring, the chance each remaining player survives to your next turn and how fast each position is being consumed — so whether waiting is safe at kicker and defense is something your board shows you rather than something you assume.', '**Download GREEN18 for iPhone and price the last two slots like every other one.**'],
       label: 'Download GREEN18', sub: 'Available for iPhone. Player data from open football sources; nflverse credited under CC-BY.' },
   ],
 

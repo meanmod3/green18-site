@@ -59,7 +59,7 @@ export default {
     ], list: [
       'player value',
       'league value',
-      'margin over replacement',
+      'projected draft position for your league’s format',
       'positional scarcity',
       'survival to your pick horizon',
       '[roster construction](/draft-science/roster-construction)',
@@ -72,7 +72,7 @@ export default {
     { type: 'cards', h2: 'The Market Has a Price. You Have a Value.', sub: 'Average draft position approximates what other managers tend to pay. GREEN18 asks a different question: what should you pay?',
       cards: [
         { h3: 'Where They Agree', body: 'When the market price and your situational value line up, the decision is easy and the board says so.' },
-        { h3: 'Where They Diverge', body: 'A player can be a bargain for the league and still be wrong for your roster — his margin over replacement on your team is what decides it. The gap is where the interesting decisions live, as in [best player available versus need](/scenarios/best-player-available-vs-roster-need).' },
+        { h3: 'Where They Diverge', body: 'A player can be a bargain for the league and still be wrong for your roster — what your roster still has to fill, and who survives to your next turn, is what decides it. The gap is where the interesting decisions live, as in [best player available versus need](/scenarios/best-player-available-vs-roster-need).' },
         { h3: 'Why It Moves', body: 'Market value comes from how the draft is actually going. Personal value comes from your league, roster and next pick. Both update as picks are recorded.' },
       ]},
 

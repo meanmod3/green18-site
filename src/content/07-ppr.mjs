@@ -47,7 +47,7 @@ export default {
     { type: 'cards', h2: 'Why a PPR Board Has to Move.', cards: [
       { h3: 'Live, Not Static', body: 'The board responds to the draft instead of presenting the same rankings from Pick 1 through Pick 150.' },
       { h3: 'Built Around Your League', body: 'Reception scoring changes where replacement level sits at every position, so a player can be worth very different amounts in two leagues drafting the same night. GREEN18 starts with the league you’re actually playing.' },
-      { h3: 'Margin Over Replacement', body: 'The number that matters is not a player’s projection but how far it sits above the player you could take instead. That margin is what shrinks while you wait.' },
+      { h3: 'The Gap, Not the Projection', body: 'The number that matters is not a player’s projection but how far it sits above the player you could take instead. That margin is what shrinks while you wait.' },
     ]},
 
     { type: 'steps', h2: 'How GREEN18 Works', steps: [

@@ -30,6 +30,8 @@ export default {
 
   blocks: [
     { type: 'definitions', h2: 'Valuation', terms: [
+      { id: 'green18', term: 'GREEN18',
+        definition: 'GREEN18 is an iPhone fantasy football live draft assistant that continuously recalculates player valuations according to league settings, roster construction, player availability, draft state, and user preferences. It is published by Interplore and is available for iPhone. The methodology it implements is [draft-state valuation](/draft-science/draft-state-valuation).' },
       { id: 'draft-state-valuation', term: 'Draft-State Valuation (DSV)',
         definition: 'Draft-state valuation is a method of valuing a fantasy football player according to the current state of a specific draft, rather than treating preseason rank or ADP as a fixed measure of player value. It recalculates each available player’s worth after every selection, because every selection changes the alternatives that remain.' },
       { id: 'situational-draft-value', term: 'Situational Draft Value',

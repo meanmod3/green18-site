@@ -14,20 +14,20 @@
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="theme-color" content="#041306">
   <title>Drafting With Positional Scarcity | GREEN18</title>
-  <meta name="description" content="Scarcity is easy to understand and hard to compute on the clock. How GREEN18 prices the cost of waiting at every position, after every pick.">
+  <meta name="description" content="Scarcity is easy to understand and hard to track on the clock. How GREEN18 measures position velocity and survival odds at every position, after every pick.">
   <link rel="canonical" href="https://green18.app/fantasy-football-positional-scarcity">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="GREEN18">
   <meta property="og:url" content="https://green18.app/fantasy-football-positional-scarcity">
   <meta property="og:title" content="Drafting With Positional Scarcity | GREEN18">
-  <meta property="og:description" content="Scarcity is easy to understand and hard to compute on the clock. How GREEN18 prices the cost of waiting at every position, after every pick.">
+  <meta property="og:description" content="Scarcity is easy to understand and hard to track on the clock. How GREEN18 measures position velocity and survival odds at every position, after every pick.">
   <meta property="og:image" content="https://green18.app/assets/green18-card.png">
   <meta property="og:image:alt" content="GREEN18 — live fantasy football draft intelligence for iPhone.">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Drafting With Positional Scarcity | GREEN18">
-  <meta name="twitter:description" content="Scarcity is easy to understand and hard to compute on the clock. How GREEN18 prices the cost of waiting at every position, after every pick.">
+  <meta name="twitter:description" content="Scarcity is easy to understand and hard to track on the clock. How GREEN18 measures position velocity and survival odds at every position, after every pick.">
   <meta name="twitter:image" content="https://green18.app/assets/green18-card.png">
   <link rel="icon" href="/assets/icon.png" type="image/png">
   <link rel="apple-touch-icon" href="/assets/icon.png">
@@ -73,7 +73,7 @@
           "name": "How does GREEN18 handle positional scarcity during a draft?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "GREEN18 computes the cost of waiting one full turn at every position and compares those costs against each other, then recomputes the comparison each time a pick is recorded. The board is ordered by each remaining player’s margin over replacement in the league’s own scoring, so the position whose slope is steepening rises without the manager having to notice it."
+            "text": "GREEN18 measures how fast each position is being consumed and estimates, for every remaining player, the probability he survives to the manager’s next turn — recomputing both each time a pick is recorded. The board is ordered by GREEN18’s own projected draft position for the league’s format, updated by the picks recorded in the room, so a position that is emptying shows up on the board without the manager having to notice it."
           }
         },
         {
@@ -89,7 +89,7 @@
           "name": "Should a highly ranked player ever move down my board?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes, when his position stays deep and the manager’s next pick is close. If a comparable player is likely to survive until the next turn, the margin over replacement is small and the pick is better spent where the drop-off is steeper, even though a consensus ranking places the first player higher."
+            "text": "Yes, when his position stays deep and the manager’s next pick is close. If a comparable player is likely to survive until the next turn, the pick is better spent where the drop-off is steeper, even though a consensus ranking places the first player higher."
           }
         },
         {
@@ -97,7 +97,7 @@
           "name": "Does GREEN18 tell me which position to draft?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. GREEN18 orders the players still available by what they are worth to a specific roster at a specific pick and shows the components behind each valuation, including the cost of waiting. The manager makes every selection and enters it in whichever platform hosts the league."
+            "text": "No. GREEN18 orders the players still available by its own projected draft position for the league’s format and shows the components behind each valuation, including how likely a player is to survive to the next turn. The manager makes every selection and enters it in whichever platform hosts the league."
           }
         },
         {
@@ -162,12 +162,12 @@
             <div class="lede">
               <p>Every manager knows the idea: when the useful players at a position start disappearing, waiting gets expensive.</p>
               <p>Knowing that does not tell you which position is steepening right now, in your league, with your roster, nineteen picks from your next turn.</p>
-              <p><strong>GREEN18 prices the cost of waiting at every position, after every pick.</strong></p>
+              <p><strong>GREEN18 measures how fast every position is being consumed, and how likely each player is to survive to your next turn, after every pick.</strong></p>
             </div>
             
         <div class="cta-group">
           <a class="btn btn-lg" href="https://apps.apple.com/us/app/id6805706417">Download GREEN18</a>
-          <a class="btn btn-ghost" href="#how-it-works">See How GREEN18 Prices Waiting</a>
+          <a class="btn btn-ghost" href="#how-it-works">See How GREEN18 Reads Scarcity</a>
         </div>
         <p class="cta-sub">Available for iPhone. Built for the 2026 fantasy football draft.</p>
           </div>
@@ -184,10 +184,10 @@
         <div class="wrap measure">
           <h2>What Does GREEN18 Actually Do About Scarcity?</h2>
           
-          <p class="beat">It computes, for every position, what one full turn of waiting costs you — and then compares those numbers against each other.</p>
-        <p class="beat">That comparison is the whole of <a href="/draft-science/positional-scarcity">positional scarcity</a>: a rate of decline measured across positions, never a property that a position permanently owns. The definition, the four value-and-scarcity quadrants and the measurement steps live on that page, and this one does not repeat them.</p>
-        <p class="beat">What GREEN18 adds is that the comparison is re-run after every recorded selection, across the whole board, faster than you can read a name off a printed sheet.</p>
-        <p class="beat">The number it hands you is a <strong>margin over replacement</strong>: this player, minus the one you can realistically still get at your next turn, in your league’s scoring.</p>
+          <p class="beat">It measures, for every position, how fast that position is being consumed — and, for every player, the probability he is still there when your turn comes back around.</p>
+        <p class="beat">That reading is the whole of <a href="/draft-science/positional-scarcity">positional scarcity</a>: a rate of decline measured across positions, never a property that a position permanently owns. The definition, the four value-and-scarcity quadrants and the measurement steps live on that page, and this one does not repeat them.</p>
+        <p class="beat">What GREEN18 adds is that the reading is re-run after every recorded selection, across the whole board, faster than you can read a name off a printed sheet.</p>
+        <p class="beat">The number it hands you is the <strong>probability this player is still available at your next turn</strong>, computed from the picks actually recorded in your room and the needs of the teams selecting before you.</p>
           <blockquote class="pull"><p>Understanding scarcity is free. Recomputing it after every pick is the work.</p></blockquote>
           
           
@@ -199,7 +199,7 @@
           <h2>What Changes on Your Board During a Run?</h2>
           
           <p class="beat">Three quarterbacks go in a row. A static sheet crosses off three names and leaves the order below them untouched.</p>
-        <p class="beat">GREEN18 moves the surviving quarterbacks up — not because they became better players, but because <strong>replacement level</strong> at the position just fell and the next viable tier moved farther away.</p>
+        <p class="beat">GREEN18 moves the surviving quarterbacks up — not because they became better players, but because the position is emptying fast and their odds of surviving to your next turn just fell — which is what a falling <strong>replacement level</strong> looks like from the board.</p>
         <p class="beat"><strong>The player did not suddenly become more talented. His situational value changed.</strong></p>
         <p class="beat">That is <a href="/draft-science/draft-state-valuation">Draft-State Valuation</a> doing its job, and <a href="/scenarios/superflex-quarterback-run">the Superflex quarterback run</a> walks the same sequence through pick by pick.</p>
           
@@ -213,7 +213,7 @@
           <h2>What About the Position That Is Getting *Cheaper*?</h2>
           
           <p class="beat">The mirror case decides as many picks, and almost nobody plays it.</p>
-        <p class="beat">Strong receivers keep falling. You already start two. Plenty remain and your next pick is close. A highly ranked receiver moves <strong>down</strong> your board, because his margin over replacement is small — a comparable player will survive your <strong>pick horizon</strong>.</p>
+        <p class="beat">Strong receivers keep falling. You already start two. Plenty remain and your next pick is close. A highly ranked receiver moves <strong>down</strong> your board, because a comparable player is likely to survive your <strong>pick horizon</strong>.</p>
         <p class="beat">The talent did not change. The opportunity cost of spending this pick on him did.</p>
         <p class="beat">A consensus ranking structurally cannot make this call: it does not know your roster and it does not know when you pick again. <a href="/draft-science/pick-horizon">How far away your next turn is</a> is the input that converts every valuation into a decision.</p>
           <blockquote class="pull"><p>The scarce position is not the one with the best players. It is the one where waiting hurts most.</p></blockquote>
@@ -224,13 +224,13 @@
 
       <section id="how-it-works">
         <div class="wrap">
-          <h2>How GREEN18 Prices a Pick</h2>
+          <h2>How GREEN18 Reads a Pick</h2>
           
           <ol class="steps mt-lg">
             <li><h3>How good is the player?</h3><p class="beat">Start with fundamental player value, computed from open football data.</p></li>
             <li><h3>How does this league score him?</h3><p class="beat">Scoring changes the value of production, so it is applied before the board is built.</p></li>
             <li><h3>How badly does your roster need him?</h3><p class="beat">The same player creates different value for different <a href="/draft-science/roster-construction">roster constructions</a>.</p></li>
-            <li><h3>What happens if you wait?</h3><p class="beat">The model estimates who is likely to survive until your next turn, and takes the difference. That difference is the margin over replacement.</p></li>
+            <li><h3>What happens if you wait?</h3><p class="beat">The model estimates the probability each player survives until your next turn, from the real replayed draft state.</p></li>
             <li><h3>How scarce is the position?</h3><p class="beat">Remaining depth is measured as a slope and compared against every other position, not judged on its own.</p></li>
             <li><h3>What has the league been doing?</h3><p class="beat">Runs, reaches and falls are all recorded picks, and each one moves a tier.</p></li>
             <li><h3>When do you pick again?</h3><p class="beat">Your pick horizon sets what you can afford to defer and what must be decided now.</p></li>
@@ -285,10 +285,10 @@
         <div class="wrap measure">
           <h2>Questions</h2>
           <div class="faq mt-md">
-            <details><summary>How does GREEN18 handle positional scarcity during a draft?</summary><div><p>GREEN18 computes the cost of waiting one full turn at every position and compares those costs against each other, then recomputes the comparison each time a pick is recorded. The board is ordered by each remaining player’s margin over replacement in the league’s own scoring, so the position whose slope is steepening rises without the manager having to notice it.</p></div></details>
+            <details><summary>How does GREEN18 handle positional scarcity during a draft?</summary><div><p>GREEN18 measures how fast each position is being consumed and estimates, for every remaining player, the probability he survives to the manager’s next turn — recomputing both each time a pick is recorded. The board is ordered by GREEN18’s own projected draft position for the league’s format, updated by the picks recorded in the room, so a position that is emptying shows up on the board without the manager having to notice it.</p></div></details>
             <details><summary>Why does a player rise on my board when nobody drafted him?</summary><div><p>Because his replacement got worse. When several players at a position are selected, the best player still available at that position after the manager’s next turn drops several tiers, which widens the gap between the player and his likely replacement. The player’s expected production is unchanged; the cost of not taking him has risen.</p></div></details>
-            <details><summary>Should a highly ranked player ever move down my board?</summary><div><p>Yes, when his position stays deep and the manager’s next pick is close. If a comparable player is likely to survive until the next turn, the margin over replacement is small and the pick is better spent where the drop-off is steeper, even though a consensus ranking places the first player higher.</p></div></details>
-            <details><summary>Does GREEN18 tell me which position to draft?</summary><div><p>No. GREEN18 orders the players still available by what they are worth to a specific roster at a specific pick and shows the components behind each valuation, including the cost of waiting. The manager makes every selection and enters it in whichever platform hosts the league.</p></div></details>
+            <details><summary>Should a highly ranked player ever move down my board?</summary><div><p>Yes, when his position stays deep and the manager’s next pick is close. If a comparable player is likely to survive until the next turn, the pick is better spent where the drop-off is steeper, even though a consensus ranking places the first player higher.</p></div></details>
+            <details><summary>Does GREEN18 tell me which position to draft?</summary><div><p>No. GREEN18 orders the players still available by its own projected draft position for the league’s format and shows the components behind each valuation, including how likely a player is to survive to the next turn. The manager makes every selection and enters it in whichever platform hosts the league.</p></div></details>
             <details><summary>Do I need to understand scarcity to use GREEN18?</summary><div><p>No. The board is ordered by the calculation, so a manager can read the top of it without first learning how the slope is measured. Managers who want the underlying definitions can read the draft-science pages, which set out positional scarcity, replacement value, opportunity cost and pick horizon in full.</p></div></details>
           </div>
         </div>

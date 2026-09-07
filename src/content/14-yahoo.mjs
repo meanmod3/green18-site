@@ -22,7 +22,7 @@ export default {
     { type: 'prose', h2: 'Yahoo Handles the League. GREEN18 Handles Your Board.', body: [
       'Keep GREEN18 open beside your Yahoo draft and use it to evaluate the remaining player landscape as your league makes its picks.',
       'Nothing about your league has to change.',
-      'The board beside it does the moving — the way a [live draft assistant](/live-fantasy-football-draft-assistant) should. Every recorded pick updates each remaining player’s **margin over replacement**, because [replacement level](/draft-science/replacement-value) drops the moment a tier thins.',
+      'The board beside it does the moving — the way a [live draft assistant](/live-fantasy-football-draft-assistant) should. Every recorded pick updates each remaining player’s **projected draft position** for your league’s format, and the odds he survives to your next turn — because a position empties fast once a tier thins, which is what [replacement level](/draft-science/replacement-value) describes.',
     ]},
 
     { type: 'prose', h2: 'The Draft Creates New Questions.', body: [

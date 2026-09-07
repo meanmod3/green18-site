@@ -44,7 +44,7 @@ export default {
       { h3: '1. Set the League.', body: ['Enter how your league scores and how many of each position you start. That is most of the setup.'] },
       { h3: '2. Say What Matters.', body: ['Add any players you want to target or avoid. If you have no opinions yet, skip it — the board works fine without them.'] },
       { h3: '3. Follow the Draft.', body: ['Record each player as they come off the board. GREEN18 recalculates what’s left after every pick.'] },
-      { h3: '4. Make the Pick.', body: ['When your turn arrives, look at the top of the board. It is ordered by margin over replacement for your roster, so you don’t need to know every player — you need to know which of the available ones makes sense right now.'] },
+      { h3: '4. Make the Pick.', body: ['When your turn arrives, look at the top of the board. It is ordered by GREEN18’s projected draft position for your league’s format, updated by the picks you record, so you don’t need to know every player — you need to know which of the available ones makes sense right now.'] },
     ]},
 
     { type: 'cards', h2: 'Look Prepared, Without Pretending You Were.', sub: 'Your friends can debate preseason depth charts. You can look at the live board.',
@@ -75,7 +75,7 @@ export default {
   faq: [
     { q: 'Can you draft a fantasy football team without doing research?', a: 'Yes. A draft is a series of choices between the players who are still available, so the practical requirement is being able to compare the remaining options rather than having memorized every player. A live draft board that accounts for league scoring, roster needs and the picks already made supplies that comparison during the draft itself.' },
     { q: 'How long does GREEN18 take to set up before a draft?', a: 'Setup is entering the league’s scoring rules and roster requirements, which typically takes a few minutes. Adding target players or players to avoid is optional. There is no account to create and no sign-in step.' },
-    { q: 'Is GREEN18 useful if I have never played fantasy football?', a: 'Yes. GREEN18 shows the players still available ordered for the specific league and roster, so a first-time manager can make reasonable picks without first learning positional scarcity, tiers and replacement value. The manager still makes every selection themselves.' },
+    { q: 'Is GREEN18 useful if I have never played fantasy football?', a: 'Yes. GREEN18 shows the players still available ordered by its own projected draft position for the specific league format, so a first-time manager can make reasonable picks without first learning positional scarcity, tiers and replacement value. The manager still makes every selection themselves.' },
     { q: 'Does GREEN18 draft for me automatically?', a: 'No. GREEN18 does not auto-draft and does not connect to, sync with, or import from any fantasy platform. The user records each pick as it happens and makes every selection themselves in whichever platform hosts their league.' },
     { q: 'What do I actually need to know during the draft?', a: 'You need to know which of the currently available players best fits your roster and your league’s scoring, and whether waiting is likely to cost you. GREEN18 computes both from the picks recorded so far, so the decision on the clock is reading the board rather than recalling player research.' },
   ],

@@ -22,7 +22,7 @@ export default {
     { type: 'prose', h2: 'Your League Platform and Your Draft Assistant Don’t Have to Be the Same Thing.', body: [
       'Keep your league where it is.',
       'Configure GREEN18 around your league settings and use it as the decision layer beside your draft.',
-      'As players come off the board, keep GREEN18 aligned with the remaining player pool. Each pick you record changes the **margin over replacement** at every position, and the board re-sorts.',
+      'As players come off the board, keep GREEN18 aligned with the remaining player pool. Each pick you record updates GREEN18’s own projected draft position for your league’s format, and the board re-sorts.',
       'That is what a [live draft assistant](/live-fantasy-football-draft-assistant) is for, and the method behind it is [Draft-State Valuation](/draft-science/draft-state-valuation).',
     ]},
 
@@ -31,7 +31,7 @@ export default {
     ], quote: 'Who looked valuable before the draft started?',
       after: [
         'Your real draft creates different questions.',
-        'Which position’s [replacement level](/draft-science/replacement-value) is falling fastest?',
+        'Which position is being consumed fastest — and what does that do to [replacement level](/draft-science/replacement-value)?',
         'Who survives to your next pick — the question your [pick horizon](/draft-science/pick-horizon) decides?',
         'What does your roster need, and what does taking this player cost you elsewhere?',
         'Which player is worth taking now instead of later?',

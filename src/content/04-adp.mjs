@@ -34,6 +34,7 @@ export default {
         'its own opportunities',
       ],
       after: [
+        'GREEN18 does not license or scrape anyone’s draft-position feed. It computes its own projected draft position from open football data, then moves it with the picks you record — a deliberate choice, so that what you are watching is your room rather than an average of strangers’ drafts.',
         'ADP is a price — what the market tends to pay. What you need is a value: what this pick is worth to **your** roster. [Draft-State Valuation](/draft-science/draft-state-valuation) is the difference, and the gap between the two is where the best decisions live.',
       ] },
 
@@ -67,7 +68,7 @@ export default {
   ],
 
   faq: [
-    { q: 'What does ADP mean in fantasy football?', a: 'ADP means Average Draft Position. It represents approximately where a player tends to be selected across a collection of drafts.' },
+    { q: 'What does ADP mean in fantasy football?', a: 'ADP means Average Draft Position. As a general term it represents approximately where a player tends to be selected across a collection of drafts. GREEN18 does not license or scrape such a feed: it computes its own projected draft position from open football data and then moves it with the picks recorded in your draft.' },
     { q: 'Why isn’t ADP enough?', a: 'ADP reflects an average market. Your particular scoring format, roster structure, picks, and available players can create opportunities that an average number cannot fully represent.' },
     { q: 'Does GREEN18 ignore ADP?', a: 'No. Market value can be useful. The GREEN18 philosophy is that market value should be combined with live draft context rather than treated as an unquestionable final ranking.' },
   ],

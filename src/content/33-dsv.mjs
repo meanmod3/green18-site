@@ -50,7 +50,7 @@ export default {
         { h3: 'User State', items: ['target players', 'preferred player profiles', 'risk tolerance', 'positional preferences', 'strategic tendencies'] },
         { h3: 'Draft-Position State', items: ['current pick', 'distance until next pick', 'expected picks before your next turn'] },
       ],
-      core: 'Baseline value → league scoring adjustment → positional scarcity → replacement availability → roster fit → pick-horizon risk → market movement → user preference',
+      core: 'Baseline value → league scoring adjustment → positional scarcity → availability pressure → roster fit → pick-horizon risk → market movement → user preference',
       output: { h3: 'Situational Draft Value', body: 'A single ordering of the players still on the board, valid for this manager, in this league, at this exact pick — and recomputed the moment the board changes.' },
     },
 
@@ -81,6 +81,7 @@ export default {
     { type: 'prose', h2: 'How Is DSV Different From Dynamic ADP?', body: [
       'They answer adjacent questions, and confusing them is the most common mistake here.',
       'Average draft position estimates what the market tends to pay for a player. It is a price. A *dynamic* ADP updates that price as the market moves — which is genuinely useful, and it is one input among many.',
+      'One clarification, because it matters here: GREEN18 does not license or scrape anyone’s draft-position feed. It computes its own projected draft position from open football data and then moves it with the picks you record. The price it shows you is its own projection of your room, not an average of strangers’ drafts.',
       'Draft-State Valuation asks what **you** should pay, in this league, with this roster, at this pick. It is a value, not a price.',
       'The two frequently disagree, and the disagreement is the point: the gap between the market price and your situational value is where the best available decisions live. [Dynamic ADP](/dynamic-fantasy-football-adp) covers the market side of that gap in full.',
     ], quote: 'ADP is a price. Draft-State Valuation is a value. The gap between them is the opportunity.' },
@@ -104,7 +105,7 @@ export default {
     { q: 'What is Draft-State Valuation?', a: 'Draft-State Valuation (DSV) is a method of valuing a fantasy football player according to the current state of a specific draft, rather than treating preseason rank or ADP as a fixed measure of player value. It combines five components — league state, market state, team state, user state and draft-position state — into a single situational value for each remaining player, and recalculates that value after every selection.' },
     { q: 'What are the five components of a draft state?', a: 'The five components are league state (scoring, league size, roster and flex requirements), market state (which players have been selected, which remain, and how each position pool has thinned), team state (the roster already assembled and the positions still needed), user state (the manager\'s targets, preferences and risk tolerance), and draft-position state (the current pick and the distance to the next one).' },
     { q: 'Why can two managers correctly value the same player differently?', a: 'Because valuation depends on state that differs between them. Two managers can face an identical remaining player pool while holding different rosters, different scoring settings and different distances to their next pick, and each of those differences changes what the same player is worth as a use of the next selection.' },
-    { q: 'Is Draft-State Valuation the same thing as dynamic ADP?', a: 'No. Average draft position estimates what the market tends to pay for a player, so a dynamic ADP is a moving price. Draft-State Valuation estimates what a specific manager should pay given their league, roster and pick position, so it is a value. Market movement is one input into a draft-state valuation rather than the whole of it.' },
+    { q: 'Is Draft-State Valuation the same thing as dynamic ADP?', a: 'No. Average draft position estimates what the market tends to pay for a player, so a dynamic ADP is a moving price. GREEN18 computes its own projected draft position from open football data rather than licensing a feed, and moves it with the picks recorded in the room. Draft-State Valuation estimates what a specific manager should pay given their league, roster and pick position, so it is a value. Market movement is one input into a draft-state valuation rather than the whole of it.' },
     { q: 'If the board keeps changing, is the model unpredictable?', a: 'No. The model is deterministic: the same draft state always produces the same valuation. The board changes because the draft state changes with every selection, not because the calculation is uncertain, which means any movement on the board can be traced back to a specific change in the draft.' },
   ],
 

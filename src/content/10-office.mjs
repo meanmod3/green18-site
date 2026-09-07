@@ -71,7 +71,7 @@ export default {
       'When your pick arrives, the decision still reduces to one question:',
     ], quote: 'Which available player creates the most value for my roster?',
       after: [
-        'The technical version of that question is **margin over replacement**: how much this player gives you above whoever you would take instead. GREEN18 keeps the answer focused there.',
+        'The technical version of that question is **margin over replacement**: how much this player gives you above whoever you would take instead. GREEN18 keeps you pointed at that question — who is actually left, who survives until your next turn, and how fast your position is emptying out.',
         'Draft the roster.',
         'You can do it [without spending the summer on research](/fantasy-football-without-research).',
       ] },

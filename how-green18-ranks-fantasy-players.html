@@ -14,20 +14,20 @@
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="theme-color" content="#041306">
   <title>How GREEN18 Values a Fantasy Player | GREEN18</title>
-  <meta name="description" content="GREEN18 recalculates a player’s situational draft value from baseline value, league scoring, scarcity, replacement availability, roster fit and pick horizon.">
+  <meta name="description" content="GREEN18 recalculates a player’s situational draft value from baseline value, league scoring, scarcity, availability pressure, roster fit and pick horizon.">
   <link rel="canonical" href="https://green18.app/how-green18-ranks-fantasy-players">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="GREEN18">
   <meta property="og:url" content="https://green18.app/how-green18-ranks-fantasy-players">
   <meta property="og:title" content="How GREEN18 Values a Fantasy Player | GREEN18">
-  <meta property="og:description" content="GREEN18 recalculates a player’s situational draft value from baseline value, league scoring, scarcity, replacement availability, roster fit and pick horizon.">
+  <meta property="og:description" content="GREEN18 recalculates a player’s situational draft value from baseline value, league scoring, scarcity, availability pressure, roster fit and pick horizon.">
   <meta property="og:image" content="https://green18.app/assets/og/reference.png">
   <meta property="og:image:alt" content="GREEN18 — the method, the glossary and the limits.">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="How GREEN18 Values a Fantasy Player | GREEN18">
-  <meta name="twitter:description" content="GREEN18 recalculates a player’s situational draft value from baseline value, league scoring, scarcity, replacement availability, roster fit and pick horizon.">
+  <meta name="twitter:description" content="GREEN18 recalculates a player’s situational draft value from baseline value, league scoring, scarcity, availability pressure, roster fit and pick horizon.">
   <meta name="twitter:image" content="https://green18.app/assets/og/reference.png">
   <link rel="icon" href="/assets/icon.png" type="image/png">
   <link rel="apple-touch-icon" href="/assets/icon.png">
@@ -57,9 +57,9 @@
       "@type": "TechArticle",
       "@id": "https://green18.app/how-green18-ranks-fantasy-players#article",
       "headline": "How GREEN18 Values a Fantasy Player",
-      "description": "GREEN18 recalculates a player’s situational draft value from baseline value, league scoring, scarcity, replacement availability, roster fit and pick horizon.",
+      "description": "GREEN18 recalculates a player’s situational draft value from baseline value, league scoring, scarcity, availability pressure, roster fit and pick horizon.",
       "url": "https://green18.app/how-green18-ranks-fantasy-players",
-      "abstract": "GREEN18 does not treat a fantasy player's ranking as fixed. It starts with baseline player value and continuously recalculates the player's situational value using league scoring, roster construction, positional scarcity, replacement availability, draft position, user preferences, and the players selected before the manager's next decision.",
+      "abstract": "GREEN18 does not treat a fantasy player's ranking as fixed. It starts with baseline player value and continuously recalculates the player's situational value using league scoring, roster construction, positional scarcity, availability pressure, draft position, user preferences, and the players selected before the manager's next decision.",
       "dateModified": "2026-09-07",
       "publisher": {
         "@id": "https://green18.app/#org"
@@ -89,7 +89,7 @@
           "name": "How does GREEN18 rank fantasy football players?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "GREEN18 starts from a baseline player value built on open football data, then recalculates that value against the current state of the draft using league scoring, positional scarcity, replacement availability, roster fit, pick horizon, recorded market movement, and the user's own preferences. The result is a situational draft value for one manager at one pick rather than a universal ranking."
+            "text": "GREEN18 starts from a baseline player value built on open football data, then recalculates that value against the current state of the draft using league scoring, positional scarcity, availability pressure, roster fit, pick horizon, recorded market movement, and the user's own preferences. The result is a situational draft value for one manager at one pick rather than a universal ranking."
           }
         },
         {
@@ -113,7 +113,7 @@
           "name": "Does GREEN18 publish the weights in its model?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. The structure of the model is public — baseline value, league scoring adjustment, positional scarcity, replacement availability, roster fit, pick-horizon risk, market movement, and user preference — but the specific weighting of those components is proprietary."
+            "text": "No. The structure of the model is public — baseline value, league scoring adjustment, positional scarcity, availability pressure, roster fit, pick-horizon risk, market movement, and user preference — but the specific weighting of those components is proprietary."
           }
         },
         {
@@ -194,7 +194,7 @@
 
       <section class="answer-wrap">
         <div class="wrap measure">
-          <p class="answer">GREEN18 does not treat a fantasy player's ranking as fixed. It starts with baseline player value and continuously recalculates the player's situational value using league scoring, roster construction, positional scarcity, replacement availability, draft position, user preferences, and the players selected before the manager's next decision.</p>
+          <p class="answer">GREEN18 does not treat a fantasy player's ranking as fixed. It starts with baseline player value and continuously recalculates the player's situational value using league scoring, roster construction, positional scarcity, availability pressure, draft position, user preferences, and the players selected before the manager's next decision.</p>
         </div>
       </section>
 
@@ -258,8 +258,8 @@
               <span class="pipe-desc">Measures how quickly quality is disappearing at the player’s position relative to the other positions still available on the board.</span>
             </li>
             <li>
-              <span class="pipe-name">Replacement Availability</span>
-              <span class="pipe-desc">Estimates the quality of the best realistic substitute you could get instead, which is what determines the true cost of passing on this player.</span>
+              <span class="pipe-name">Availability Pressure</span>
+              <span class="pipe-desc">Prices how thin the position has become — how fast quality is leaving it, how close the next tier cliff is, and how much of it the room has already consumed.</span>
             </li>
             <li>
               <span class="pipe-name">Roster Fit</span>
@@ -279,7 +279,7 @@
             </li>
             <li class="pipeline-end"><span class="pipe-name">SITUATIONAL DRAFT VALUE</span></li>
           </ol>
-          <div class="measure" style="margin-top:1.5rem"><p class="beat">Read as a sentence: a player enters with a baseline worth, that worth is conditioned by your rules, pressured by scarcity and replacement quality, shaped by your roster and your next pick, moved by the picks that have already happened, and finally displayed next to what you personally prefer.</p>
+          <div class="measure" style="margin-top:1.5rem"><p class="beat">Read as a sentence: a player enters with a baseline worth, that worth is conditioned by your rules, pressured by scarcity and how thin the position has become, shaped by your roster and your next pick, moved by the picks that have already happened, and finally displayed next to what you personally prefer.</p>
         <p class="beat">The output is not a universal ranking. The output is a ranking for <strong>this manager, in this league, at this pick, given this draft.</strong></p></div>
         </div>
       </section>
@@ -358,10 +358,10 @@
         <div class="wrap measure">
           <h2>Questions</h2>
           <div class="faq mt-md">
-            <details><summary>How does GREEN18 rank fantasy football players?</summary><div><p>GREEN18 starts from a baseline player value built on open football data, then recalculates that value against the current state of the draft using league scoring, positional scarcity, replacement availability, roster fit, pick horizon, recorded market movement, and the user's own preferences. The result is a situational draft value for one manager at one pick rather than a universal ranking.</p></div></details>
+            <details><summary>How does GREEN18 rank fantasy football players?</summary><div><p>GREEN18 starts from a baseline player value built on open football data, then recalculates that value against the current state of the draft using league scoring, positional scarcity, availability pressure, roster fit, pick horizon, recorded market movement, and the user's own preferences. The result is a situational draft value for one manager at one pick rather than a universal ranking.</p></div></details>
             <details><summary>What is Draft-State Valuation?</summary><div><p>Draft-State Valuation is a method of valuing a fantasy football player according to the current state of a specific draft, rather than treating preseason rank or ADP as a fixed measure of player value. It recomputes each available player's worth after every selection, because each selection changes the alternatives that remain.</p></div></details>
             <details><summary>Why does GREEN18 disagree with a published ranking?</summary><div><p>A published ranking is computed once, before any pick exists, and is identical for every manager in every league. A situational draft value is computed for one league's scoring, one manager's roster, and one specific position in the draft order, so the two answer different questions and will frequently differ.</p></div></details>
-            <details><summary>Does GREEN18 publish the weights in its model?</summary><div><p>No. The structure of the model is public — baseline value, league scoring adjustment, positional scarcity, replacement availability, roster fit, pick-horizon risk, market movement, and user preference — but the specific weighting of those components is proprietary.</p></div></details>
+            <details><summary>Does GREEN18 publish the weights in its model?</summary><div><p>No. The structure of the model is public — baseline value, league scoring adjustment, positional scarcity, availability pressure, roster fit, pick-horizon risk, market movement, and user preference — but the specific weighting of those components is proprietary.</p></div></details>
             <details><summary>Can a player become more valuable without his projection changing?</summary><div><p>Yes. When comparable players at his position are drafted, the quality of the best available substitute falls, which raises the cost of passing on him. His projected production is unchanged; the value of having him rather than the alternative has increased.</p></div></details>
           </div>
         </div>
