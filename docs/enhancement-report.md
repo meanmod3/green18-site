@@ -129,11 +129,26 @@ the citable layer.
 
 ## Remaining opportunities (deferred, not forgotten)
 
-1. **Ten underclaimed capabilities**, led by a measured Superflex displacement
-   of a median 21 draft slots for QBs against 2–5 for every other position.
-   Real original data from the repo's own test suite and exactly the
-   information gain §8 wants — but publishing measured figures is a disclosure
-   decision. **Operator ruling required.**
+1. ~~Ten underclaimed capabilities~~ — **DONE**, with one deliberate exclusion.
+   Published: the 24 separately compiled markets; the one-draft-slot bright
+   line; owned/correlation-grouped/bounded score components; reasons extracted
+   from the components that moved rather than written; the self-contradiction
+   guard; fail-closed per-field licence provenance; determinism as a repaired
+   and pinned property; realized production as the value substrate; bounded
+   preference dials.
+
+   **Not published: any displacement figure.** The Superflex "median 21 draft
+   slots" number is PRINTED by `LeagueConditioningDisplacementSweepTests`, not
+   asserted by it — its only assertions are `n > 300` and `median > 0` — so the
+   value moves whenever the shipped player data moves, and it moved on
+   2026-09-04/05. A number on the site that no test defends is a number that
+   rots silently. The method and the threshold are published; the figure is
+   pinned out of the build in both digit and spelled-out form.
+
+   *Recommended follow-up in the app repo:* pin the sweep's per-axis medians in
+   the test. Then the figure becomes publishable, because the site and the code
+   can no longer diverge without CI saying so. Patch for a publication-guard
+   comment is at `/tmp/green18-publication-guard.patch` (operator's call).
 2. `/data/draft-market-index` — held on provenance.
 3. `sameAs` on Organization — the App Store URL still 404s; adding it would
    repeat the `/formats/` defect. Queued for release.
