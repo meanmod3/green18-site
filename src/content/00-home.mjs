@@ -9,9 +9,7 @@ export default {
     eyebrow: 'Draft-State Valuation',
     h1: 'Every Pick, Calculated Against Your League, Your Roster, and What’s Left.',
     lede: [
-      'Static rankings can’t see your draft. GREEN18 can.',
-      'A ranking is built before your draft exists. **Draft-State Valuation (DSV)** values a player against the draft you are actually in — your league’s rules, your roster, who is already gone, and how long until you pick again.',
-      'It does not replace the draft you are having. It upgrades the board you are having it on.',
+      'An ADP ranking is built before your draft exists. **Draft-State Valuation (DSV)** reevaluates player value after each selection.',
     ],
     cta: 'Download GREEN18',
     micro: 'Available for iPhone · Built for the 2026 fantasy football draft',

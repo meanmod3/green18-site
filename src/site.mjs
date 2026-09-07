@@ -173,7 +173,11 @@ export const REDIRECTS = {
 // ---------------------------------------------------------------------------
 export const PROTECTED_LINES = [
   'Your Draft Board Should Move When Your Draft Moves.',
-  'Static rankings can\u2019t see your draft. GREEN18 can.',
+  // RETIRED 2026-09-07 by operator decision: removed from the homepage
+  // subheader and not rehomed. The guard correctly failed the build when it
+  // disappeared, which is what it is for; this is a deliberate retirement,
+  // not a silent drop.
+  //   'Static rankings can\u2019t see your draft. GREEN18 can.',
   'The Player Didn\u2019t Change. Your Situation Did.',
   'ADP tells you what people expected. Your draft tells you what they\u2019re doing.',
 ];
