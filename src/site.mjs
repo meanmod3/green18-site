@@ -16,11 +16,11 @@ export const CONTACT = 'manager@green18.app';
 
 // Primary navigation (§17: do not overload with every SEO page).
 export const NAV = [
-  { label: 'How It Works', href: '/fantasy-football-draft-assistant#how-it-works' },
-  { label: 'Draft Assistant', href: '/live-fantasy-football-draft-assistant' },
-  { label: 'Draft Formats', href: '/superflex-draft-assistant' },
-  { label: 'How It Decides', href: '/fantasy-football-draft-algorithm' },
-  { label: "Who It's For", href: '/fantasy-football-for-beginners' },
+  { label: 'How It Works', href: '/how-green18-ranks-fantasy-players' },
+  { label: 'Draft Science', href: '/draft-science/draft-state-valuation' },
+  { label: 'Scenarios', href: '/scenarios/five-running-backs-go-in-a-row' },
+  { label: 'Tools', href: '/tools/scarcity-calculator' },
+  { label: 'Glossary', href: '/glossary' },
 ];
 
 // Footer clusters (§18).
@@ -57,9 +57,34 @@ export const FOOTER = [
     ['Yahoo Draft Helper', '/yahoo-fantasy-football-draft-helper'],
     ['Sleeper Draft Helper', '/sleeper-fantasy-football-draft-helper'],
   ]},
+  { heading: 'Draft Science', links: [
+    ['Draft-State Valuation', '/draft-science/draft-state-valuation'],
+    ['Positional Scarcity', '/draft-science/positional-scarcity'],
+    ['Replacement Value', '/draft-science/replacement-value'],
+    ['Opportunity Cost', '/draft-science/opportunity-cost'],
+    ['Pick Horizon', '/draft-science/pick-horizon'],
+    ['Tier Collapse', '/draft-science/player-tier-collapse'],
+    ['Roster Construction', '/draft-science/roster-construction'],
+    ['Superflex QB Value', '/draft-science/superflex-quarterback-value'],
+  ]},
+  { heading: 'Tools', links: [
+    ['Scarcity Calculator', '/tools/scarcity-calculator'],
+    ['Pick Horizon Calculator', '/tools/pick-horizon-calculator'],
+    ['Replacement Level', '/tools/league-value-calculator'],
+    ['Superflex QB Demand', '/tools/superflex-qb-demand-calculator'],
+    ['PPR Value Adjustment', '/tools/ppr-value-adjustment-calculator'],
+  ]},
+  { heading: 'Reference', links: [
+    ['How GREEN18 Ranks Players', '/how-green18-ranks-fantasy-players'],
+    ['Why Rankings Change', '/why-fantasy-rankings-change-during-a-draft'],
+    ['Glossary', '/glossary'],
+    ['Methodology', '/methodology'],
+    ['About', '/about'],
+  ]},
   { heading: 'Legal', links: [
     ['Privacy', '/privacy'],
     ['Support', '/support'],
+    ['Contact', '/contact'],
   ]},
 ];
 

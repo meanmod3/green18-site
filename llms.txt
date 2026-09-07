@@ -24,7 +24,7 @@ makes the pick themselves.
 
 iPhone only. Not currently available on Android.
 
-## Pages
+## Product
 
 - [Fantasy Football Draft Assistant for 2026 | GREEN18](https://green18.app/fantasy-football-draft-assistant): GREEN18 is a live fantasy football draft assistant for iPhone that adjusts your player board as your real draft unfolds.
 - [Live Fantasy Football Draft Assistant | GREEN18](https://green18.app/live-fantasy-football-draft-assistant): Use GREEN18 during your fantasy football draft and watch your player board adjust as picks come off the board.
@@ -48,6 +48,53 @@ iPhone only. Not currently available on Android.
 - [Personalized Fantasy Football Rankings | GREEN18](https://green18.app/personalized-fantasy-football-rankings): GREEN18 creates a live player board calibrated to your league, roster, preferences, and the players still available.
 - [Fantasy Football Without Hours of Research | GREEN18](https://green18.app/fantasy-football-without-research): Joining a fantasy league without weeks of preparation? GREEN18 helps turn league settings and live draft context into a usable player board.
 - [Positional Scarcity and Replacement Value in Fantasy Drafts | GREEN18](https://green18.app/fantasy-football-positional-scarcity): How positional scarcity, replacement value and opportunity cost decide a fantasy draft pick — and why every selection changes the value of the players left.
+- [About GREEN18 | Who Makes It and What It Is](https://green18.app/about): GREEN18 is an independent iPhone fantasy football live draft assistant published by Interplore. No accounts, no platform connection, nothing collected.
+- [Contact GREEN18](https://green18.app/contact): Reach GREEN18 at manager@green18.app — bug reports, data corrections and questions. What to include so a problem can be reproduced on the first reply.
+
+## Reference
+
+- [How GREEN18 Values a Fantasy Player | GREEN18](https://green18.app/how-green18-ranks-fantasy-players): GREEN18 recalculates a player’s situational draft value from baseline value, league scoring, scarcity, replacement availability, roster fit and pick horizon.
+- [Why Fantasy Rankings Change During a Draft | GREEN18](https://green18.app/why-fantasy-rankings-change-during-a-draft): Drafting removes alternatives. Every pick changes scarcity, replacement quality, roster need and opportunity cost — so the correct ranking changes with it.
+- [Fantasy Draft Glossary | GREEN18](https://green18.app/glossary): Plain-language definitions of the fantasy draft terms that actually govern decisions: scarcity, replacement value, pick horizon, tiers, formats and more.
+- [GREEN18 Methodology | Inputs, Determinism and Limits](https://green18.app/methodology): How GREEN18 arrives at a number: open football data, your league settings and your recorded picks, computed deterministically — and what the model cannot do.
+
+## Draft Science
+
+- [Draft-State Valuation (DSV) Explained | GREEN18](https://green18.app/draft-science/draft-state-valuation): Draft-State Valuation values a fantasy player by the current state of a specific draft rather than by a fixed preseason rank. The five state components, defined.
+- [Positional Scarcity: A Precise Definition | GREEN18](https://green18.app/draft-science/positional-scarcity): Positional scarcity is a rate of decline, not a ranking of positions. How scarcity is defined, why it is not the same as value, and how it changes mid-draft.
+- [Replacement Value in a Fantasy Draft | GREEN18](https://green18.app/draft-science/replacement-value): Replacement value is the quality of the player you can probably still get later. Why that gap decides picks better than the gap between two adjacent names on a list.
+- [Opportunity Cost in a Fantasy Draft | GREEN18](https://green18.app/draft-science/opportunity-cost): What a pick actually costs: a scarce position, a falling value, duplicated roster strength, lost flexibility, a weaker future pick. The five costs, defined.
+- [Pick Horizon: Why the Turn Changes Everything | GREEN18](https://green18.app/draft-science/pick-horizon): Distance to your next selection is a valuation input, not a scheduling detail. Why pick 3 and pick 10 produce different correct picks from an identical board.
+- [Player Tier Collapse in a Fantasy Draft | GREEN18](https://green18.app/draft-science/player-tier-collapse): Why the last player in a fantasy tier is worth more than his rank suggests, and what happens to every remaining player once that tier empties.
+- [Roster Construction and Fantasy Draft Value | GREEN18](https://green18.app/draft-science/roster-construction): How the players you already drafted change what the next player is worth to you — positional balance, flexibility, and why two managers should not share one board.
+- [Superflex Quarterback Value: Why the Position Reprices | GREEN18](https://green18.app/draft-science/superflex-quarterback-value): Superflex re-prices quarterbacks structurally, not cosmetically: more starting slots than viable starters moves replacement level for the whole position.
+
+## Formats
+
+- [Superflex Format Explained | GREEN18](https://green18.app/formats/superflex): What the Superflex roster rule is, how it differs from 2QB and standard flex, and how one extra eligible slot reorders every position on the draft board.
+- [PPR Scoring Explained: How Receptions Reprice a Draft | GREEN18](https://green18.app/formats/ppr): What PPR scoring is, why a point per catch reorders players within positions rather than lifting everyone, and how it moves replacement level for skill players.
+- [Standard Scoring Explained: Drafting Without PPR | GREEN18](https://green18.app/formats/standard): What standard fantasy scoring is, why removing reception points concentrates value in touchdowns and workload, and how that reshapes the draft board.
+
+## Draft Scenarios
+
+- [A Quarterback Run Just Started in Superflex | GREEN18](https://green18.app/scenarios/superflex-quarterback-run): A superflex quarterback run has begun. How to tell whether joining it is correct, using replacement quality, pick horizon and the number of starting slots left.
+- [Five Running Backs Just Went in a Row | GREEN18](https://green18.app/scenarios/five-running-backs-go-in-a-row): A run cleared the running backs off the board. How to work out whether the position actually got scarcer, or whether the room simply moved together.
+- [Quarterbacks Are Falling in My Superflex Draft | GREEN18](https://green18.app/scenarios/quarterbacks-falling-in-superflex): Nobody in your superflex league is drafting quarterbacks. How to tell whether the room is misvaluing the position, and when to be the manager who corrects it.
+- [An Elite Tight End Just Fell to Me | GREEN18](https://green18.app/scenarios/elite-tight-end-falls): A top tight end slipped past his expected pick. How to value a positional edge honestly: against the tight end you would otherwise start, not the whole field.
+- [I Already Have Two Wide Receivers | GREEN18](https://green18.app/scenarios/already-have-two-wide-receivers): Does owning two starters at a position lower the value of a third? How roster fit, flexible starting slots and bench value actually change the calculation.
+- [Is an Early Draft Pick Better Than a Late One? | GREEN18](https://green18.app/scenarios/pick-three-vs-pick-ten): Drawing an early or a late slot changes the shape of your draft, not its quality. How pick horizon, tier timing and the turn decide which slot suits which board.
+- [I Started My Draft Without a Running Back | GREEN18](https://green18.app/scenarios/rb-zero-start): Skipping a position early is a bet on the board, not a strategy that survives on its own. How to tell whether the bet is still paying and when to abandon it.
+- [How Long Can I Wait to Draft a Quarterback? | GREEN18](https://green18.app/scenarios/waiting-on-quarterback): The answer is not a round number. How to convert “can I wait” into a survival question about the tier you intend to draft from, and read the answer live.
+- [The Last Player in a Tier Is on the Board | GREEN18](https://green18.app/scenarios/last-player-in-a-tier): A tier is about to close. How to check whether the boundary is real, whether it will survive to your next pick, and what a genuine boundary is worth.
+- [How to Draft Back-to-Back Picks at the Turn | GREEN18](https://green18.app/scenarios/drafting-from-the-turn): Two adjacent picks are one decision, not two. How to plan a pair at the turn, straddle a closing tier, and survive the long wait that follows.
+
+## Tools
+
+- [Positional Scarcity Calculator | GREEN18](https://green18.app/tools/scarcity-calculator): Estimate whether a position is scarce enough to take now, from your league size, starting slots, players already drafted, and the gap to your next pick.
+- [Pick Horizon Calculator for Snake Drafts | GREEN18](https://green18.app/tools/pick-horizon-calculator): Work out how many players come off the board before your next turn in a snake draft, and what that distance means for the pick you are making now.
+- [Replacement Level Calculator by League Size | GREEN18](https://green18.app/tools/league-value-calculator): Find the replacement baseline at any position for your league size and starting lineup, and see why that line decides what a player is actually worth.
+- [Superflex Quarterback Demand Calculator | GREEN18](https://green18.app/tools/superflex-qb-demand-calculator): See how many starting quarterback slots your Superflex league still has to fill, and why that number re-prices the position rather than just raising it.
+- [PPR Value Adjustment Calculator | GREEN18](https://green18.app/tools/ppr-value-adjustment-calculator): See how many points a scoring format’s reception rule adds to a player’s season, and why that changes the order of your board rather than just the numbers.
 - [Privacy Policy](https://green18.app/privacy): What the app stores on the device and what it never sends.
 - [Support](https://green18.app/support): Contact and common questions.
 

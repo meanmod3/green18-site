@@ -1,28 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://green18.app/</loc><lastmod>2026-09-07</lastmod></url>
-  <url><loc>https://green18.app/fantasy-football-draft-assistant</loc><lastmod>2026-09-07</lastmod></url>
-  <url><loc>https://green18.app/live-fantasy-football-draft-assistant</loc><lastmod>2026-09-07</lastmod></url>
-  <url><loc>https://green18.app/fantasy-football-cheat-sheet-app</loc><lastmod>2026-09-07</lastmod></url>
-  <url><loc>https://green18.app/dynamic-fantasy-football-adp</loc><lastmod>2026-09-07</lastmod></url>
-  <url><loc>https://green18.app/fantasy-football-draft-strategy-app</loc><lastmod>2026-09-07</lastmod></url>
-  <url><loc>https://green18.app/superflex-draft-assistant</loc><lastmod>2026-09-07</lastmod></url>
-  <url><loc>https://green18.app/ppr-draft-assistant</loc><lastmod>2026-09-07</lastmod></url>
-  <url><loc>https://green18.app/fantasy-football-for-beginners</loc><lastmod>2026-09-07</lastmod></url>
-  <url><loc>https://green18.app/competitive-fantasy-football-draft</loc><lastmod>2026-09-07</lastmod></url>
-  <url><loc>https://green18.app/office-fantasy-football-draft</loc><lastmod>2026-09-07</lastmod></url>
-  <url><loc>https://green18.app/home-league-draft-assistant</loc><lastmod>2026-09-07</lastmod></url>
-  <url><loc>https://green18.app/last-minute-fantasy-football-draft</loc><lastmod>2026-09-07</lastmod></url>
-  <url><loc>https://green18.app/espn-fantasy-football-draft-helper</loc><lastmod>2026-09-07</lastmod></url>
-  <url><loc>https://green18.app/yahoo-fantasy-football-draft-helper</loc><lastmod>2026-09-07</lastmod></url>
-  <url><loc>https://green18.app/sleeper-fantasy-football-draft-helper</loc><lastmod>2026-09-07</lastmod></url>
-  <url><loc>https://green18.app/ai-fantasy-football-draft-assistant</loc><lastmod>2026-09-07</lastmod></url>
-  <url><loc>https://green18.app/chatgpt-fantasy-football-draft</loc><lastmod>2026-09-07</lastmod></url>
-  <url><loc>https://green18.app/fantasy-football-draft-algorithm</loc><lastmod>2026-09-07</lastmod></url>
-  <url><loc>https://green18.app/automated-fantasy-football-draft-tool</loc><lastmod>2026-09-07</lastmod></url>
-  <url><loc>https://green18.app/personalized-fantasy-football-rankings</loc><lastmod>2026-09-07</lastmod></url>
-  <url><loc>https://green18.app/fantasy-football-without-research</loc><lastmod>2026-09-07</lastmod></url>
-  <url><loc>https://green18.app/fantasy-football-positional-scarcity</loc><lastmod>2026-09-07</lastmod></url>
-  <url><loc>https://green18.app/privacy</loc><lastmod>2026-09-07</lastmod></url>
-  <url><loc>https://green18.app/support</loc><lastmod>2026-09-07</lastmod></url>
-</urlset>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap><loc>https://green18.app/sitemap-pages.xml</loc><lastmod>2026-09-07</lastmod></sitemap>
+  <sitemap><loc>https://green18.app/sitemap-draft-science.xml</loc><lastmod>2026-09-07</lastmod></sitemap>
+  <sitemap><loc>https://green18.app/sitemap-formats.xml</loc><lastmod>2026-09-07</lastmod></sitemap>
+  <sitemap><loc>https://green18.app/sitemap-scenarios.xml</loc><lastmod>2026-09-07</lastmod></sitemap>
+  <sitemap><loc>https://green18.app/sitemap-tools.xml</loc><lastmod>2026-09-07</lastmod></sitemap>
+</sitemapindex>

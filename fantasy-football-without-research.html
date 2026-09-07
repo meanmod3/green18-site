@@ -27,13 +27,23 @@
   "@context": "https://schema.org",
   "@graph": [
     {
+      "@type": "Organization",
+      "@id": "https://green18.app/#org",
+      "name": "GREEN18",
+      "url": "https://green18.app/",
+      "logo": "https://green18.app/assets/icon.png"
+    },
+    {
       "@type": "MobileApplication",
       "name": "GREEN18",
       "applicationCategory": "SportsApplication",
       "operatingSystem": "iOS",
       "url": "https://green18.app/",
       "installUrl": "https://apps.apple.com/us/app/id6805706417",
-      "description": "A live fantasy football draft assistant for iPhone that reorganizes the remaining player board as the draft develops."
+      "description": "A live fantasy football draft assistant for iPhone that reorganizes the remaining player board as the draft develops.",
+      "publisher": {
+        "@id": "https://green18.app/#org"
+      }
     },
     {
       "@type": "FAQPage",
@@ -108,11 +118,11 @@
     <div class="wrap">
       <a class="wordmark" href="/">GREEN<b>18</b></a>
       <nav aria-label="Primary">
-        <a href="/fantasy-football-draft-assistant#how-it-works">How It Works</a>
-          <a href="/live-fantasy-football-draft-assistant">Draft Assistant</a>
-          <a href="/superflex-draft-assistant">Draft Formats</a>
-          <a href="/fantasy-football-draft-algorithm">How It Decides</a>
-          <a href="/fantasy-football-for-beginners">Who It's For</a>
+        <a href="/how-green18-ranks-fantasy-players">How It Works</a>
+          <a href="/draft-science/draft-state-valuation">Draft Science</a>
+          <a href="/scenarios/five-running-backs-go-in-a-row">Scenarios</a>
+          <a href="/tools/scarcity-calculator">Tools</a>
+          <a href="/glossary">Glossary</a>
       </nav>
       <a class="btn" href="https://apps.apple.com/us/app/id6805706417">Download</a>
     </div>
@@ -145,6 +155,10 @@
           </div>
         </div>
       </section>
+
+
+
+
 
       <section>
         <div class="wrap measure">
@@ -297,8 +311,20 @@
               <ul><li><a href="/espn-fantasy-football-draft-helper">ESPN Draft Helper</a></li><li><a href="/yahoo-fantasy-football-draft-helper">Yahoo Draft Helper</a></li><li><a href="/sleeper-fantasy-football-draft-helper">Sleeper Draft Helper</a></li></ul>
             </div>
             <div>
+              <h2>Draft Science</h2>
+              <ul><li><a href="/draft-science/draft-state-valuation">Draft-State Valuation</a></li><li><a href="/draft-science/positional-scarcity">Positional Scarcity</a></li><li><a href="/draft-science/replacement-value">Replacement Value</a></li><li><a href="/draft-science/opportunity-cost">Opportunity Cost</a></li><li><a href="/draft-science/pick-horizon">Pick Horizon</a></li><li><a href="/draft-science/player-tier-collapse">Tier Collapse</a></li><li><a href="/draft-science/roster-construction">Roster Construction</a></li><li><a href="/draft-science/superflex-quarterback-value">Superflex QB Value</a></li></ul>
+            </div>
+            <div>
+              <h2>Tools</h2>
+              <ul><li><a href="/tools/scarcity-calculator">Scarcity Calculator</a></li><li><a href="/tools/pick-horizon-calculator">Pick Horizon Calculator</a></li><li><a href="/tools/league-value-calculator">Replacement Level</a></li><li><a href="/tools/superflex-qb-demand-calculator">Superflex QB Demand</a></li><li><a href="/tools/ppr-value-adjustment-calculator">PPR Value Adjustment</a></li></ul>
+            </div>
+            <div>
+              <h2>Reference</h2>
+              <ul><li><a href="/how-green18-ranks-fantasy-players">How GREEN18 Ranks Players</a></li><li><a href="/why-fantasy-rankings-change-during-a-draft">Why Rankings Change</a></li><li><a href="/glossary">Glossary</a></li><li><a href="/methodology">Methodology</a></li><li><a href="/about">About</a></li></ul>
+            </div>
+            <div>
               <h2>Legal</h2>
-              <ul><li><a href="/privacy">Privacy</a></li><li><a href="/support">Support</a></li></ul>
+              <ul><li><a href="/privacy">Privacy</a></li><li><a href="/support">Support</a></li><li><a href="/contact">Contact</a></li></ul>
             </div>
         </div>
       </div>
@@ -315,5 +341,6 @@
   </div>
 
   <script src="/assets/site.js" defer></script>
+
 </body>
 </html>

@@ -404,3 +404,88 @@ footer.site { border-top: 1px solid var(--border); background: var(--bg); paddin
 .trust-row strong { color: var(--ink); font-size: 1rem; }
 .trust-row span { color: var(--ink-2); font-size: .93rem; line-height: 1.5; }
 .trust-note { margin: 1.5rem 0 0; color: var(--ink-3); font-size: .86rem; max-width: 52rem; }
+
+/* -------------------------------------------------------- calculators -- */
+.calc-grid { display: grid; gap: 1.25rem; }
+@media (min-width: 860px) { .calc-grid { grid-template-columns: minmax(0,.85fr) minmax(0,1.15fr); gap: 2rem; align-items: start; } }
+
+.calc-form {
+  background: var(--bg-2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 1.25rem; display: grid; gap: .9rem;
+}
+.calc-field { display: grid; gap: .35rem; }
+.calc-field > span { font-size: .85rem; font-weight: 600; color: var(--ink-2); }
+.calc-field select, .calc-field input {
+  font: inherit; font-size: 1rem; color: var(--ink);
+  background: var(--bg-3); border: 1px solid var(--border-2);
+  border-radius: 7px; padding: .55rem .7rem; width: 100%;
+}
+.calc-field select:focus-visible, .calc-field input:focus-visible { border-color: var(--accent); }
+.calc-hint { margin: .2rem 0 0; color: var(--ink-3); font-size: .82rem; }
+
+.calc-out {
+  background: var(--bg-2); border: 1px solid var(--accent);
+  border-radius: 10px; padding: 1.35rem 1.4rem;
+}
+.calc-label {
+  margin: 0 0 .4rem; font-size: .74rem; font-weight: 700;
+  letter-spacing: .13em; text-transform: uppercase; color: var(--ink-3);
+}
+.calc-verdict {
+  margin: 0 0 .8rem; font-size: clamp(1.3rem, 3vw, 1.7rem);
+  font-weight: 800; letter-spacing: -.015em; color: var(--accent); line-height: 1.15;
+}
+.calc-why { margin: 0; color: var(--ink-2); font-size: .96rem; line-height: 1.6; }
+.calc-note { margin: 1.5rem 0 0; color: var(--ink-3); font-size: .88rem; }
+
+/* -------------------------------------------------- pipeline + glossary -- */
+.pipeline { list-style: none; counter-reset: st; padding: 0; margin: 0; display: grid; gap: .5rem; max-width: 46rem; }
+.pipeline li {
+  display: grid; gap: .15rem; padding: .8rem 1rem;
+  background: var(--bg-2); border: 1px solid var(--border); border-radius: 8px;
+  position: relative;
+}
+.pipeline li + li::before {
+  content: ""; position: absolute; left: 1.5rem; top: -.45rem;
+  width: .42rem; height: .42rem; border-right: 2px solid var(--accent);
+  border-bottom: 2px solid var(--accent); transform: rotate(45deg);
+}
+.pipeline .pipe-name { font-weight: 700; color: var(--ink); font-size: .98rem; }
+.pipeline .pipe-desc { color: var(--ink-2); font-size: .92rem; line-height: 1.5; }
+.pipeline-start, .pipeline-end { background: var(--pill-fill); border-color: var(--border-2); }
+.pipeline-start .pipe-name, .pipeline-end .pipe-name {
+  color: var(--pill-ink); letter-spacing: .1em; text-transform: uppercase; font-size: .82rem;
+}
+
+.glossary { display: grid; gap: 0; margin: 0; }
+.glossary .term { padding: 1.1rem 0; border-bottom: 1px solid var(--border); scroll-margin-top: 5rem; }
+.glossary dt { font-weight: 700; color: var(--ink); font-size: 1.02rem; margin: 0 0 .3rem; }
+.glossary dd { margin: 0; color: var(--ink-2); line-height: 1.6; }
+
+/* --------------------------------------------- answer + key points + tables */
+.answer-wrap { padding: 0; border-top: 0; }
+.answer {
+  margin: 0; padding: 1.25rem 1.4rem;
+  background: var(--bg-2); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0;
+  font-size: clamp(1.02rem, 2vw, 1.12rem); line-height: 1.6; color: var(--ink);
+}
+.keypoints-wrap { padding-top: 2rem; border-top: 0; }
+.keypoints-h {
+  font-size: .78rem !important; font-weight: 700; letter-spacing: .13em;
+  text-transform: uppercase; color: var(--ink-3); margin: 0 0 .8rem;
+}
+ul.keypoints { list-style: none; padding: 0; margin: 0; display: grid; gap: .6rem; }
+ul.keypoints li {
+  position: relative; padding-left: 1.5rem; color: var(--ink-2); line-height: 1.55;
+}
+ul.keypoints li::before {
+  content: ""; position: absolute; left: 0; top: .58em;
+  width: .5rem; height: .5rem; border-radius: 1px; background: var(--accent);
+}
+
+.table-scroll { overflow-x: auto; border: 1px solid var(--border); border-radius: 10px; }
+.table-scroll table { border-collapse: collapse; width: 100%; font-size: .93rem; }
+.table-scroll th, .table-scroll td { text-align: left; padding: .7rem .9rem; border-bottom: 1px solid var(--border); white-space: nowrap; }
+.table-scroll th { background: var(--bg-2); font-size: .76rem; letter-spacing: .09em; text-transform: uppercase; color: var(--ink-3); }
+.table-scroll tr:last-child td { border-bottom: 0; }
+.table-note { margin: .9rem 0 0; color: var(--ink-3); font-size: .87rem; }

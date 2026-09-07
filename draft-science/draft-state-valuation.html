@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#041306">
+  <title>Draft-State Valuation (DSV) Explained | GREEN18</title>
+  <meta name="description" content="Draft-State Valuation values a fantasy player by the current state of a specific draft rather than by a fixed preseason rank. The five state components, defined.">
+  <link rel="canonical" href="https://green18.app/draft-science/draft-state-valuation">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="GREEN18">
+  <meta property="og:url" content="https://green18.app/draft-science/draft-state-valuation">
+  <meta property="og:title" content="Draft-State Valuation (DSV) Explained | GREEN18">
+  <meta property="og:description" content="Draft-State Valuation values a fantasy player by the current state of a specific draft rather than by a fixed preseason rank. The five state components, defined.">
+  <meta property="og:image" content="https://green18.app/assets/green18-card.png">
+  <meta property="og:image:alt" content="GREEN18 — live fantasy football draft intelligence for iPhone.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Draft-State Valuation (DSV) Explained | GREEN18">
+  <meta name="twitter:description" content="Draft-State Valuation values a fantasy player by the current state of a specific draft rather than by a fixed preseason rank. The five state components, defined.">
+  <meta name="twitter:image" content="https://green18.app/assets/green18-card.png">
+  <link rel="icon" href="/assets/icon.png" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/icon.png">
+  <link rel="stylesheet" href="/assets/site.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://green18.app/#org",
+      "name": "GREEN18",
+      "url": "https://green18.app/",
+      "logo": "https://green18.app/assets/icon.png"
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://green18.app/draft-science/draft-state-valuation#article",
+      "headline": "What Is Draft-State Valuation?",
+      "description": "Draft-State Valuation values a fantasy player by the current state of a specific draft rather than by a fixed preseason rank. The five state components, defined.",
+      "url": "https://green18.app/draft-science/draft-state-valuation",
+      "abstract": "Draft-State Valuation (DSV) is a method of valuing a fantasy football player according to the current state of a specific draft, rather than treating preseason rank or ADP as a fixed measure of player value. The draft state is the combination of five things that are all true at the moment of a pick: the league state (scoring, size, roster and flex requirements), the market state (who has been selected, who remains, and how the position pools have thinned), the team state (the roster already assembled and the holes still open), the user state (the manager's targets, preferences and risk tolerance), and the draft-position state (the current pick and the distance until the next one). Because a valuation that ignores any one of these can be confidently wrong, DSV treats player value as a function of all five and recalculates it after every selection.",
+      "dateModified": "2026-09-07",
+      "publisher": {
+        "@id": "https://green18.app/#org"
+      },
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "MobileApplication",
+      "name": "GREEN18",
+      "applicationCategory": "SportsApplication",
+      "operatingSystem": "iOS",
+      "url": "https://green18.app/",
+      "installUrl": "https://apps.apple.com/us/app/id6805706417",
+      "description": "A live fantasy football draft assistant for iPhone that reorganizes the remaining player board as the draft develops.",
+      "publisher": {
+        "@id": "https://green18.app/#org"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is Draft-State Valuation?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Draft-State Valuation (DSV) is a method of valuing a fantasy football player according to the current state of a specific draft, rather than treating preseason rank or ADP as a fixed measure of player value. It combines five components — league state, market state, team state, user state and draft-position state — into a single situational value for each remaining player, and recalculates that value after every selection."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What are the five components of a draft state?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The five components are league state (scoring, league size, roster and flex requirements), market state (which players have been selected, which remain, and how each position pool has thinned), team state (the roster already assembled and the positions still needed), user state (the manager's targets, preferences and risk tolerance), and draft-position state (the current pick and the distance to the next one)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why can two managers correctly value the same player differently?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Because valuation depends on state that differs between them. Two managers can face an identical remaining player pool while holding different rosters, different scoring settings and different distances to their next pick, and each of those differences changes what the same player is worth as a use of the next selection."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Draft-State Valuation the same thing as dynamic ADP?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Average draft position estimates what the market tends to pay for a player, so a dynamic ADP is a moving price. Draft-State Valuation estimates what a specific manager should pay given their league, roster and pick position, so it is a value. Market movement is one input into a draft-state valuation rather than the whole of it."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "If the board keeps changing, is the model unpredictable?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. The model is deterministic: the same draft state always produces the same valuation. The board changes because the draft state changes with every selection, not because the calculation is uncertain, which means any movement on the board can be traced back to a specific change in the draft."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "GREEN18",
+          "item": "https://green18.app/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Draft-State Valuation",
+          "item": "https://green18.app/draft-science/draft-state-valuation"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site">
+    <div class="wrap">
+      <a class="wordmark" href="/">GREEN<b>18</b></a>
+      <nav aria-label="Primary">
+        <a href="/how-green18-ranks-fantasy-players">How It Works</a>
+          <a href="/draft-science/draft-state-valuation">Draft Science</a>
+          <a href="/scenarios/five-running-backs-go-in-a-row">Scenarios</a>
+          <a href="/tools/scarcity-calculator">Tools</a>
+          <a href="/glossary">Glossary</a>
+      </nav>
+      <a class="btn" href="https://apps.apple.com/us/app/id6805706417">Download</a>
+    </div>
+  </header>
+
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <div class="wrap"><a href="/">GREEN18</a><span>/</span>Draft-State Valuation</div>
+    </nav>
+
+  <main id="main">
+      <section class="hero">
+        <div class="wrap">
+          <div class="">
+          <div class="measure">
+            <p class="eyebrow">Draft Science</p>
+            <h1>What Is Draft-State Valuation?</h1>
+            <div class="lede">
+              <p>A preseason ranking is a valuation of a player. It is not a valuation of your pick.</p>
+              <p>The same player is worth different amounts at pick 14 of a 10-team PPR league and pick 14 of a 12-team Superflex league — and worth different amounts to you at pick 14 than he was worth to you eleven picks ago.</p>
+              <p><strong>Draft-State Valuation is the method that makes those differences explicit.</strong></p>
+            </div>
+            
+        <div class="cta-group">
+          <a class="btn btn-lg" href="https://apps.apple.com/us/app/id6805706417">Download GREEN18</a>
+          <a class="btn btn-ghost" href="#how-it-works">See the five state components</a>
+        </div>
+        <p class="cta-sub">Available for iPhone.</p>
+          </div>
+          
+          </div>
+        </div>
+      </section>
+
+      <section class="answer-wrap">
+        <div class="wrap measure">
+          <p class="answer">Draft-State Valuation (DSV) is a method of valuing a fantasy football player according to the current state of a specific draft, rather than treating preseason rank or ADP as a fixed measure of player value. The draft state is the combination of five things that are all true at the moment of a pick: the league state (scoring, size, roster and flex requirements), the market state (who has been selected, who remains, and how the position pools have thinned), the team state (the roster already assembled and the holes still open), the user state (the manager's targets, preferences and risk tolerance), and the draft-position state (the current pick and the distance until the next one). Because a valuation that ignores any one of these can be confidently wrong, DSV treats player value as a function of all five and recalculates it after every selection.</p>
+        </div>
+      </section>
+
+      <section class="keypoints-wrap">
+        <div class="wrap measure">
+          <h2 class="keypoints-h">In short</h2>
+          <ul class="keypoints">
+            <li>Draft-State Valuation values a fantasy football player according to the current state of a specific draft, rather than treating preseason rank or ADP as a fixed measure of player value.</li>
+            <li>The state of a fantasy draft consists of five components: league state, market state, team state, user state, and draft-position state.</li>
+            <li>A preseason ranking is a valuation of a player in the abstract, whereas a draft-state valuation is a valuation of a specific decision by a specific manager at a specific moment.</li>
+            <li>Two managers looking at an identical remaining player pool can have correct and different valuations of the same player, because their roster state and pick-horizon state differ.</li>
+            <li>A valuation method that ignores any one of the five state components can produce a confidently wrong recommendation, because the omitted component may be the one that dominates the decision.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
+          <h2>Why Doesn’t a Ranking Already Answer This?</h2>
+          
+          <p class="beat">Because a ranking answers a different question than the one you are asking at the podium.</p>
+        <p class="beat">A ranking answers: *who is the better football player, in general, over a season?* That question has one answer, and it is stable for weeks at a time.</p>
+        <p class="beat">The question you are actually asking is: *what is the best use of this pick, in this league, with this roster, given that my next turn is nineteen picks away?* That question has a different answer at pick 1 than at pick 40, and a different answer for you than for the manager sitting beside you looking at the identical board.</p>
+        <p class="beat">A ranking is not wrong. It is under-specified. Draft-State Valuation is the method of specifying the rest.</p>
+          <blockquote class="pull"><p>A ranking is a valuation of a player. Draft-State Valuation is a valuation of a decision.</p></blockquote>
+          
+          
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap">
+          <h2>What Goes Into a Draft-State Valuation?</h2>
+          <p class="lede measure">The public structure of the model. Baseline value enters at the top; the five state components adjust it into a situational value.</p>
+          <div class="model mt-lg">
+            <div class="model-inputs">
+              <div class="model-in">
+                <h3>League State</h3>
+                <ul><li>scoring rules</li><li>league size</li><li>roster requirements</li><li>flex structure</li><li>Superflex or 2QB requirements</li><li>bench depth</li></ul>
+              </div>
+              <div class="model-in">
+                <h3>Market State</h3>
+                <ul><li>players selected</li><li>players available</li><li>positional runs</li><li>unexpected falls</li><li>unexpected reaches</li><li>position depth remaining</li></ul>
+              </div>
+              <div class="model-in">
+                <h3>Team State</h3>
+                <ul><li>players already drafted</li><li>positions filled</li><li>positions still needed</li><li>roster balance</li><li>future flexibility</li></ul>
+              </div>
+              <div class="model-in">
+                <h3>User State</h3>
+                <ul><li>target players</li><li>preferred player profiles</li><li>risk tolerance</li><li>positional preferences</li><li>strategic tendencies</li></ul>
+              </div>
+              <div class="model-in">
+                <h3>Draft-Position State</h3>
+                <ul><li>current pick</li><li>distance until next pick</li><li>expected picks before your next turn</li></ul>
+              </div>
+            </div>
+            <div class="model-arrow" aria-hidden="true"></div>
+            <div class="model-core">
+              <p class="model-brand">GREEN<b>18</b></p>
+              <p class="model-core-line">Baseline value → league scoring adjustment → positional scarcity → replacement availability → roster fit → pick-horizon risk → market movement → user preference</p>
+            </div>
+            <div class="model-arrow" aria-hidden="true"></div>
+            <div class="model-out">
+              <h3>Situational Draft Value</h3>
+              <p>A single ordering of the players still on the board, valid for this manager, in this league, at this exact pick — and recomputed the moment the board changes.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap">
+          <h2>What Does Each State Component Actually Change?</h2>
+          <p class="lede measure">Each answers a question the others structurally cannot.</p>
+          <div class="grid grid-3 mt-lg">
+            <div class="card"><h3>League state — “what is production worth here?”</h3><p>Scoring converts football events into fantasy points, and different conversions rank players differently. A reception-heavy receiver and a touchdown-dependent one can swap places purely on the scoring rules, before a single pick is made. League size and starting requirements then set how much of the player pool is actually startable, which is what makes a position scarce or deep in the first place.</p></div>
+            <div class="card"><h3>Market state — “what is actually left?”</h3><p>The market state is the only component that is unknowable in advance. Runs, falls and reaches happen in a specific order in your room, and that order determines which tiers survive. A position can be projected as deep in August and be functionally empty by pick 30 in your league, and no preseason artifact can have known that.</p></div>
+            <div class="card"><h3>Team state — “what do I still need?”</h3><p>The same player creates different value on different rosters. A third strong receiver adds less to a team that already starts two than the first does, because starting slots are finite. Team state is why the correct pick can be a lower-ranked player: rank measures the player, roster fit measures the marginal points he actually adds to your lineup.</p></div>
+            <div class="card"><h3>User state — “what do I believe?”</h3><p>Managers hold real opinions about players and real preferences about risk. Draft-State Valuation treats those as inputs to the valuation rather than as overrides of it, so a target moves up the board by a defensible amount instead of jumping to the top of it. Your queue is a signal, not a command.</p></div>
+            <div class="card"><h3>Draft-position state — “when do I pick again?”</h3><p>Distance to your next selection converts every valuation into a decision. If you pick again in three selections, almost nothing must be taken now. If you pick again in nineteen, everything you are willing to lose must be decided now. This is the component most often left out entirely, and it is frequently the one that decides the pick.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
+          <h2>What Does It Look Like When the State Changes?</h2>
+          
+          <p class="beat">Take a concrete case. Your board reads quarterback A, receiver A, running back A, quarterback B, receiver B. Then three quarterbacks are selected in a row before your turn.</p>
+        <p class="beat">Under a static ranking, exactly one thing happened: three names were crossed off. The order of everyone below them is unchanged.</p>
+        <p class="beat">Under Draft-State Valuation, four of the five state components moved at once. Market state: the quarterback pool thinned and the next viable tier is now farther away. Team state: if you still need the position, your remaining path to filling it just narrowed. Draft-position state: the picks between you and your next turn now sit in front of teams that also still need quarterbacks. Only league state and your own preferences are untouched.</p>
+        <p class="beat"><strong>The surviving quarterback did not become a better football player. The cost of not taking him rose.</strong></p>
+        <p class="beat">That sentence is the whole method in miniature — and it is worked through pick by pick in <a href="/scenarios/superflex-quarterback-run">the Superflex quarterback run</a>.</p>
+          <blockquote class="pull"><p>The player did not suddenly become more talented. His situational value changed.</p></blockquote>
+          
+          
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
+          <h2>Does This Mean the Board Is Unpredictable?</h2>
+          
+          <p class="beat">No — and this is the distinction that matters most.</p>
+        <p class="beat">A moving board is not a random board. GREEN18 is <strong>deterministic</strong>: the same draft state always produces the same valuation. Feed the identical league settings, identical picks, identical roster and identical preferences into the model twice and you get the identical ordering twice.</p>
+        <p class="beat">What changes is not the method. What changes is the state the method is applied to. The board moves because the draft moved.</p>
+        <p class="beat">This is why the model can be explained, audited and disagreed with. A recommendation that cannot be traced back to a specific state change is not a Draft-State Valuation — it is a guess. The full computation is described in <a href="/how-green18-ranks-fantasy-players">how GREEN18 ranks fantasy players</a>.</p>
+          
+          
+          
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
+          <h2>How Is DSV Different From Dynamic ADP?</h2>
+          
+          <p class="beat">They answer adjacent questions, and confusing them is the most common mistake here.</p>
+        <p class="beat">Average draft position estimates what the market tends to pay for a player. It is a price. A *dynamic* ADP updates that price as the market moves — which is genuinely useful, and it is one input among many.</p>
+        <p class="beat">Draft-State Valuation asks what <strong>you</strong> should pay, in this league, with this roster, at this pick. It is a value, not a price.</p>
+        <p class="beat">The two frequently disagree, and the disagreement is the point: the gap between the market price and your situational value is where the best available decisions live. <a href="/dynamic-fantasy-football-adp">Dynamic ADP</a> covers the market side of that gap in full.</p>
+          <blockquote class="pull"><p>ADP is a price. Draft-State Valuation is a value. The gap between them is the opportunity.</p></blockquote>
+          
+          
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
+          <h2>Who Needs This If They Already Understand Draft Theory?</h2>
+          
+          <p class="beat">Experienced managers usually already know all of it — scarcity, tiers, replacement level, roster construction, the value of the turn.</p>
+        <p class="beat">Their constraint is not conceptual. It is computational, and it is enforced by a ninety-second clock.</p>
+        <p class="beat">Recomputing five interacting state components across roughly two hundred remaining players, after every single selection, in a room full of people waiting on you, is not a thing a human does reliably at pick 84 on a Tuesday night.</p>
+        <p class="beat">Draft-State Valuation does not supply the philosophy. It supplies the arithmetic, continuously, so the philosophy can actually be applied.</p>
+          
+          
+          
+        </div>
+      </section>
+
+      <section class="convert">
+        <div class="wrap measure">
+          <h2>Draft Against the Board You Actually Have.</h2>
+          <p class="beat">GREEN18 is an iPhone fantasy football live draft assistant that continuously recalculates player valuations according to league settings, roster construction, player availability, draft state, and user preferences.</p>
+        <p class="beat"><strong>Download GREEN18 and draft against the state of your draft, not against a ranking written in August.</strong></p>
+          
+        <div class="cta-group">
+          <a class="btn btn-lg" href="https://apps.apple.com/us/app/id6805706417">Download GREEN18</a>
+          
+        </div>
+        <p class="cta-sub">Available for iPhone. Player data from open football sources; nflverse credited under CC-BY.</p>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
+          <h2>Questions</h2>
+          <div class="faq mt-md">
+            <details><summary>What is Draft-State Valuation?</summary><div><p>Draft-State Valuation (DSV) is a method of valuing a fantasy football player according to the current state of a specific draft, rather than treating preseason rank or ADP as a fixed measure of player value. It combines five components — league state, market state, team state, user state and draft-position state — into a single situational value for each remaining player, and recalculates that value after every selection.</p></div></details>
+            <details><summary>What are the five components of a draft state?</summary><div><p>The five components are league state (scoring, league size, roster and flex requirements), market state (which players have been selected, which remain, and how each position pool has thinned), team state (the roster already assembled and the positions still needed), user state (the manager's targets, preferences and risk tolerance), and draft-position state (the current pick and the distance to the next one).</p></div></details>
+            <details><summary>Why can two managers correctly value the same player differently?</summary><div><p>Because valuation depends on state that differs between them. Two managers can face an identical remaining player pool while holding different rosters, different scoring settings and different distances to their next pick, and each of those differences changes what the same player is worth as a use of the next selection.</p></div></details>
+            <details><summary>Is Draft-State Valuation the same thing as dynamic ADP?</summary><div><p>No. Average draft position estimates what the market tends to pay for a player, so a dynamic ADP is a moving price. Draft-State Valuation estimates what a specific manager should pay given their league, roster and pick position, so it is a value. Market movement is one input into a draft-state valuation rather than the whole of it.</p></div></details>
+            <details><summary>If the board keeps changing, is the model unpredictable?</summary><div><p>No. The model is deterministic: the same draft state always produces the same valuation. The board changes because the draft state changes with every selection, not because the calculation is uncertain, which means any movement on the board can be traced back to a specific change in the draft.</p></div></details>
+          </div>
+        </div>
+      </section>
+
+      <section class="related">
+        <div class="wrap">
+          <h2>Keep reading</h2>
+          <ul class="mt-md">
+            <li><a href="/draft-science/positional-scarcity">draft-science/positional-scarcity</a></li>
+            <li><a href="/scenarios/superflex-quarterback-run">scenarios/superflex-quarterback-run</a></li>
+            <li><a href="/tools/scarcity-calculator">tools/scarcity-calculator</a></li>
+            <li><a href="/how-green18-ranks-fantasy-players">how-green18-ranks-fantasy-players</a></li>
+            <li><a href="/dynamic-fantasy-football-adp">Dynamic Fantasy Football ADP</a></li>
+          </ul>
+        </div>
+      </section>
+
+
+  </main>
+
+  <footer class="site">
+    <div class="wrap">
+      <div class="foot-top">
+        <div class="foot-brand">
+          <a class="wordmark" href="/">GREEN<b>18</b></a>
+          <p>Live fantasy football draft intelligence for iPhone.</p>
+        </div>
+        <div class="foot-cols">
+            <div>
+              <h2>Product</h2>
+              <ul><li><a href="/fantasy-football-draft-assistant">How GREEN18 Works</a></li><li><a href="/live-fantasy-football-draft-assistant">Live Draft Assistant</a></li><li><a href="/dynamic-fantasy-football-adp">Dynamic ADP</a></li><li><a href="/fantasy-football-cheat-sheet-app">Fantasy Cheat Sheet</a></li><li><a href="/personalized-fantasy-football-rankings">Personalized Rankings</a></li><li><a href="/fantasy-football-positional-scarcity">Positional Scarcity</a></li><li><a href="/fantasy-football-draft-strategy-app">Draft Strategy</a></li></ul>
+            </div>
+            <div>
+              <h2>Draft Formats</h2>
+              <ul><li><a href="/superflex-draft-assistant">Superflex</a></li><li><a href="/ppr-draft-assistant">PPR</a></li></ul>
+            </div>
+            <div>
+              <h2>Draft Help</h2>
+              <ul><li><a href="/fantasy-football-for-beginners">Beginners</a></li><li><a href="/competitive-fantasy-football-draft">Competitive Players</a></li><li><a href="/office-fantasy-football-draft">Office Leagues</a></li><li><a href="/home-league-draft-assistant">Home Leagues</a></li><li><a href="/last-minute-fantasy-football-draft">Last-Minute Drafts</a></li><li><a href="/fantasy-football-without-research">Without the Research</a></li></ul>
+            </div>
+            <div>
+              <h2>The Model</h2>
+              <ul><li><a href="/ai-fantasy-football-draft-assistant">AI Draft Assistant</a></li><li><a href="/fantasy-football-draft-algorithm">How It Decides</a></li><li><a href="/chatgpt-fantasy-football-draft">ChatGPT vs GREEN18</a></li><li><a href="/automated-fantasy-football-draft-tool">Automated Draft Tool</a></li></ul>
+            </div>
+            <div>
+              <h2>Platforms</h2>
+              <ul><li><a href="/espn-fantasy-football-draft-helper">ESPN Draft Helper</a></li><li><a href="/yahoo-fantasy-football-draft-helper">Yahoo Draft Helper</a></li><li><a href="/sleeper-fantasy-football-draft-helper">Sleeper Draft Helper</a></li></ul>
+            </div>
+            <div>
+              <h2>Draft Science</h2>
+              <ul><li><a href="/draft-science/draft-state-valuation">Draft-State Valuation</a></li><li><a href="/draft-science/positional-scarcity">Positional Scarcity</a></li><li><a href="/draft-science/replacement-value">Replacement Value</a></li><li><a href="/draft-science/opportunity-cost">Opportunity Cost</a></li><li><a href="/draft-science/pick-horizon">Pick Horizon</a></li><li><a href="/draft-science/player-tier-collapse">Tier Collapse</a></li><li><a href="/draft-science/roster-construction">Roster Construction</a></li><li><a href="/draft-science/superflex-quarterback-value">Superflex QB Value</a></li></ul>
+            </div>
+            <div>
+              <h2>Tools</h2>
+              <ul><li><a href="/tools/scarcity-calculator">Scarcity Calculator</a></li><li><a href="/tools/pick-horizon-calculator">Pick Horizon Calculator</a></li><li><a href="/tools/league-value-calculator">Replacement Level</a></li><li><a href="/tools/superflex-qb-demand-calculator">Superflex QB Demand</a></li><li><a href="/tools/ppr-value-adjustment-calculator">PPR Value Adjustment</a></li></ul>
+            </div>
+            <div>
+              <h2>Reference</h2>
+              <ul><li><a href="/how-green18-ranks-fantasy-players">How GREEN18 Ranks Players</a></li><li><a href="/why-fantasy-rankings-change-during-a-draft">Why Rankings Change</a></li><li><a href="/glossary">Glossary</a></li><li><a href="/methodology">Methodology</a></li><li><a href="/about">About</a></li></ul>
+            </div>
+            <div>
+              <h2>Legal</h2>
+              <ul><li><a href="/privacy">Privacy</a></li><li><a href="/support">Support</a></li><li><a href="/contact">Contact</a></li></ul>
+            </div>
+        </div>
+      </div>
+      <div class="foot-legal">
+        <p>GREEN18 is an independent fantasy football application. References to third-party fantasy platforms, leagues, teams, players, or trademarks are descriptive only and do not imply affiliation, sponsorship, or endorsement.</p>
+        <p>&copy; 2026 Interplore. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="sticky-cta" id="stickyCta" aria-hidden="true">
+    <span class="lbl">Get GREEN18<small>Open in App Store</small></span>
+    <a class="btn" href="https://apps.apple.com/us/app/id6805706417" tabindex="-1">Get GREEN18</a>
+  </div>
+
+  <script src="/assets/site.js" defer></script>
+
+</body>
+</html>

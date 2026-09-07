@@ -48,6 +48,29 @@ for (const p of pages) {
     if (l === p.slug) problems.push(`${id}: links to itself`);
   }
   if (p.slug && (p.links || []).length < 2) problems.push(`${id}: fewer than 2 internal links`);
+  // Citation acceptance criteria. An explanatory page that cannot be quoted
+  // cleanly has failed at its only job, so these are build errors.
+  const EXPLANATORY = ['science', 'scenario', 'tool', 'data'];
+  if (EXPLANATORY.includes(p.pageType)) {
+    if (!p.answer) problems.push(`${id}: ${p.pageType} page has no canonical \`answer\``);
+    if ((p.claims || []).length < 3) {
+      problems.push(`${id}: ${p.pageType} page needs >=3 atomic claims, has ${(p.claims || []).length}`);
+    }
+    for (const c of p.claims || []) {
+      if (c.length < 40) problems.push(`${id}: claim too short to stand alone -> "${c}"`);
+      if (/^(it|this|that|they|he|she)\b/i.test(c)) {
+        problems.push(`${id}: claim opens with a pronoun, so it cannot survive being quoted -> "${c}"`);
+      }
+    }
+  }
+  // Every draft-science page must reach a scenario, a tool and a product page.
+  if (p.slug?.startsWith('draft-science/')) {
+    const ls = p.links || [];
+    if (!ls.some((l) => l.startsWith('scenarios/'))) problems.push(`${id}: draft-science page links no scenario`);
+    if (!ls.some((l) => l.startsWith('tools/'))) problems.push(`${id}: draft-science page links no tool`);
+    if (!ls.some((l) => !l.includes('/'))) problems.push(`${id}: draft-science page links no product page`);
+  }
+
   // forbidden brand renderings (§1)
   const text = JSON.stringify(p);
   for (const bad of ['Green 18', 'Draft Buddy', 'DraftBuddy', 'Green18 ']) {
@@ -58,6 +81,24 @@ for (const p of pages) {
 if (problems.length) {
   console.error('BUILD FAILED — content invariants:\n' + problems.map((s) => '  - ' + s).join('\n'));
   process.exit(1);
+}
+
+// ---- calculator defaults --------------------------------------------------
+// The server-rendered default result and explanation are produced by the SAME
+// functions the browser runs, so the indexable copy cannot disagree with the
+// interactive tool. Hand-written defaults drifted once and shipped a wrong
+// pick count into the text an AI would quote; this removes the possibility.
+const { CALCS } = await import('../assets/calculators.js');
+for (const p of pages) {
+  for (const b of p.blocks || []) {
+    if (b.type !== 'calculator') continue;
+    const fn = CALCS[b.calc];
+    if (!fn) throw new Error(`${p._file}: unknown calculator "${b.calc}"`);
+    const inputs = Object.fromEntries(b.fields.map((f) => [f.name, String(f.value)]));
+    const r = fn(inputs);
+    b.defaultVerdict = r.verdict;
+    b.defaultExplanation = r.why;
+  }
 }
 
 // ---- hero media gate ------------------------------------------------------
@@ -82,6 +123,7 @@ let written = 0;
 for (const p of pages) {
   const html = render(p);
   const out = p.slug ? join(root, `${p.slug}.html`) : join(root, 'index.html');
+  if (p.slug.includes('/')) await mkdir(dirname(out), { recursive: true });
   await writeFile(out, html, 'utf8');
   written++;
   // exactly one H1
@@ -112,23 +154,74 @@ for (const [from, to] of Object.entries(REDIRECTS)) {
 // ---- sitemap + robots -----------------------------------------------------
 const today = new Date().toISOString().slice(0, 10);
 const urls = [...pages.map((p) => (p.slug ? `/${p.slug}` : '/')), '/privacy', '/support'];
-const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+
+// Segmented sitemaps behind an index: each section can be resubmitted on its
+// own cadence, which matters because the data pages change far faster than
+// the explanatory ones.
+const SECTIONS = ['draft-science', 'scenarios', 'tools', 'formats', 'data'];
+const sectionOf = (u) => SECTIONS.find((sec) => u.startsWith(`/${sec}/`)) || 'pages';
+const bySection = new Map();
+for (const u of urls) {
+  const k = sectionOf(u);
+  if (!bySection.has(k)) bySection.set(k, []);
+  bySection.get(k).push(u);
+}
+const urlset = (list) => `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.map((u) => `  <url><loc>${ORIGIN}${u}</loc><lastmod>${today}</lastmod></url>`).join('\n')}
+${list.map((u) => `  <url><loc>${ORIGIN}${u}</loc><lastmod>${today}</lastmod></url>`).join('\n')}
 </urlset>
 `;
-await writeFile(join(root, 'sitemap.xml'), sitemap, 'utf8');
+const sitemapFiles = [];
+for (const [sec, list] of bySection) {
+  const name = `sitemap-${sec}.xml`;
+  await writeFile(join(root, name), urlset(list), 'utf8');
+  sitemapFiles.push(name);
+}
+await writeFile(join(root, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${sitemapFiles.map((f) => `  <sitemap><loc>${ORIGIN}/${f}</loc><lastmod>${today}</lastmod></sitemap>`).join('\n')}
+</sitemapindex>
+`, 'utf8');
+
+// IndexNow: the key is published as a file at the site root whose NAME is the
+// key and whose BODY is the same key. Submitting is a separate step (see
+// Tools/indexnow.sh) — publishing the key is what makes the site eligible.
 // Answer engines are a first-class audience for this site: people research
 // fantasy football by asking an assistant. Named stanzas make the permission
 // explicit rather than leaving it to the wildcard's interpretation.
-const AI_AGENTS = ['GPTBot', 'OAI-SearchBot', 'ChatGPT-User', 'ClaudeBot', 'Claude-User',
-                   'anthropic-ai', 'PerplexityBot', 'Perplexity-User', 'Google-Extended',
-                   'Applebot-Extended', 'CCBot', 'Bingbot', 'DuckAssistBot'];
+// Operator ruling 2026-09-07 (Ben): ALLOW BOTH search-grounding and training.
+// The two are separate decisions and every major operator now separates them —
+// see docs/crawler-audit.md for the classification and its sources. Grounding
+// access is what AI citation share depends on; training access was ruled a
+// deliberate long-term bet, not a default.
+//
+// Verified and worth keeping in mind if this is ever revisited:
+//   - Google-Extended does NOT affect Google Search or AI Overviews ranking.
+//     AI Overviews are served from the regular Search index via Googlebot, so
+//     blocking Google-Extended costs no search visibility.
+//   - Applebot-Extended is a training opt-out token only; it does not crawl,
+//     so disallowing it would cost no Apple search visibility either.
+//   - The user-triggered fetchers (ChatGPT-User, Perplexity-User, Claude-User)
+//     largely ignore robots.txt by their operators' own admission, so listing
+//     them is a statement of intent rather than an enforceable control.
+const AI_AGENTS = [
+  // search / answer grounding — these earn citations
+  'Googlebot', 'Bingbot', 'OAI-SearchBot', 'PerplexityBot', 'Claude-SearchBot',
+  'Applebot', 'DuckAssistBot',
+  // user-triggered fetches
+  'ChatGPT-User', 'Perplexity-User', 'Claude-User',
+  // model training
+  'GPTBot', 'ClaudeBot', 'Google-Extended', 'Applebot-Extended', 'CCBot',
+  'anthropic-ai',
+];
 await writeFile(join(root, 'robots.txt'),
   `User-agent: *\nAllow: /\n\n`
   + AI_AGENTS.map((a) => `User-agent: ${a}\nAllow: /\n`).join('\n')
-  + `\nSitemap: ${ORIGIN}/sitemap.xml\n`, 'utf8');
+  + `\n` + [`sitemap.xml`, ...sitemapFiles].map((f) => `Sitemap: ${ORIGIN}/${f}`).join('\n') + `\n`, 'utf8');
 
+
+const INDEXNOW_KEY = 'a7f3c1e9b48d4a2f9c6e0b5d3a81f742';
+await writeFile(join(root, `${INDEXNOW_KEY}.txt`), INDEXNOW_KEY + '\n', 'utf8');
 // llms.txt — a plain-text brief for assistants summarising what GREEN18 is,
 // what it is NOT, and where the authoritative pages are. Everything here is
 // generated from the same content modules the pages render, so it cannot
@@ -159,9 +252,29 @@ makes the pick themselves.
 
 iPhone only. Not currently available on Android.
 
-## Pages
+## Product
 
-${pages.filter((p) => p.slug).map((p) => `- [${p.title}](${ORIGIN}/${p.slug}): ${p.description}`).join('\n')}
+${pages.filter((p) => p.slug && !p.slug.includes('/') && (p.pageType === 'product' || !p.pageType)).map((p) => `- [${p.title}](${ORIGIN}/${p.slug}): ${p.description}`).join('\n')}
+
+## Reference
+
+${pages.filter((p) => p.slug && !p.slug.includes('/') && (p.pageType === 'science' || p.pageType === 'glossary')).map((p) => `- [${p.title}](${ORIGIN}/${p.slug}): ${p.description}`).join('\n')}
+
+## Draft Science
+
+${pages.filter((p) => p.slug?.startsWith('draft-science/')).map((p) => `- [${p.title}](${ORIGIN}/${p.slug}): ${p.description}`).join('\n')}
+
+## Formats
+
+${pages.filter((p) => p.slug?.startsWith('formats/')).map((p) => `- [${p.title}](${ORIGIN}/${p.slug}): ${p.description}`).join('\n')}
+
+## Draft Scenarios
+
+${pages.filter((p) => p.slug?.startsWith('scenarios/')).map((p) => `- [${p.title}](${ORIGIN}/${p.slug}): ${p.description}`).join('\n')}
+
+## Tools
+
+${pages.filter((p) => p.slug?.startsWith('tools/')).map((p) => `- [${p.title}](${ORIGIN}/${p.slug}): ${p.description}`).join('\n')}
 - [Privacy Policy](${ORIGIN}/privacy): What the app stores on the device and what it never sends.
 - [Support](${ORIGIN}/support): Contact and common questions.
 
@@ -205,4 +318,4 @@ const swa = {
 };
 await writeFile(join(root, 'staticwebapp.config.json'), JSON.stringify(swa, null, 2) + '\n', 'utf8');
 
-console.log(`OK: ${written} pages + sitemap (${urls.length} urls) + robots.txt + llms.txt + SWA config (${routes.length} routes)`);
+console.log(`OK: ${written} pages + ${sitemapFiles.length} sitemaps (${urls.length} urls) + robots.txt + llms.txt + SWA config (${routes.length} routes)`);

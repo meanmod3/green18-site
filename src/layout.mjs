@@ -59,6 +59,86 @@ function block(b) {
         </div>
       </section>`;
 
+    case 'calculator':
+      // Server-rendered first: the default case's result AND its explanation
+      // are in the initial HTML, so the reasoning is indexable and quotable
+      // even though the controls only work with JS. Interactivity is an
+      // enhancement, never the only way to read the page.
+      return `      <section class="calc" id="${esc(b.id)}" data-calc="${esc(b.calc)}">
+        <div class="wrap">
+          <h2>${inline(b.h2)}</h2>
+          ${b.sub ? `<p class="lede measure">${inline(b.sub)}</p>` : ''}
+          <div class="calc-grid mt-lg">
+            <form class="calc-form" novalidate>
+              ${b.fields.map((f) => `<label class="calc-field">
+                <span>${esc(f.label)}</span>
+                ${f.options
+                  ? `<select name="${esc(f.name)}">${f.options.map((o) =>
+                      `<option value="${esc(String(o.value))}"${o.value === f.value ? ' selected' : ''}>${esc(o.label)}</option>`).join('')}</select>`
+                  : `<input type="number" name="${esc(f.name)}" value="${esc(String(f.value))}" min="${esc(String(f.min))}" max="${esc(String(f.max))}" step="1" inputmode="numeric">`}
+              </label>`).join('\n              ')}
+              <p class="calc-hint">${inline(b.hint)}</p>
+            </form>
+            <div class="calc-out" aria-live="polite">
+              <p class="calc-label">${esc(b.resultLabel)}</p>
+              <p class="calc-verdict" data-verdict>${esc(b.defaultVerdict)}</p>
+              <p class="calc-why" data-why>${inline(b.defaultExplanation)}</p>
+            </div>
+          </div>
+          ${b.note ? `<p class="calc-note measure">${inline(b.note)}</p>` : ''}
+        </div>
+      </section>`;
+
+    case 'pipeline':
+      // The public Draft-State Valuation pipeline. Rendered as an ordered
+      // list, not an image, so the stages are readable by a crawler, a screen
+      // reader and a quoting model alike. Weights are never exposed.
+      return `      <section${b.id ? ` id="${b.id}"` : ''}>
+        <div class="wrap">
+          ${b.h2 ? `<h2>${inline(b.h2)}</h2>` : ''}
+          ${b.sub ? `<p class="lede measure">${inline(b.sub)}</p>` : ''}
+          <ol class="pipeline mt-lg">
+            <li class="pipeline-start"><span class="pipe-name">${esc(b.start)}</span></li>
+            ${b.stages.map((st) => `<li>
+              <span class="pipe-name">${inline(st.name)}</span>
+              <span class="pipe-desc">${inline(st.body)}</span>
+            </li>`).join('\n            ')}
+            <li class="pipeline-end"><span class="pipe-name">${esc(b.end)}</span></li>
+          </ol>
+          ${b.after ? `<div class="measure" style="margin-top:1.5rem">${beats(b.after)}</div>` : ''}
+        </div>
+      </section>`;
+
+    case 'definitions':
+      // Glossary entries. Each definition is one to two self-contained
+      // sentences so it survives being quoted verbatim and out of context.
+      return `      <section${b.id ? ` id="${b.id}"` : ''}>
+        <div class="wrap">
+          ${b.h2 ? `<h2>${inline(b.h2)}</h2>` : ''}
+          <dl class="glossary mt-md">
+            ${b.terms.map((t) => `<div class="term" id="${esc(t.id)}">
+              <dt>${inline(t.term)}</dt>
+              <dd>${inline(t.definition)}</dd>
+            </div>`).join('\n            ')}
+          </dl>
+        </div>
+      </section>`;
+
+    case 'table':
+      return `      <section${b.id ? ` id="${b.id}"` : ''}>
+        <div class="wrap">
+          ${b.h2 ? `<h2>${inline(b.h2)}</h2>` : ''}
+          ${b.sub ? `<p class="lede measure">${inline(b.sub)}</p>` : ''}
+          <div class="table-scroll mt-md">
+            <table>
+              <thead><tr>${b.columns.map((c) => `<th>${esc(c)}</th>`).join('')}</tr></thead>
+              <tbody>${b.rows.map((r) => `<tr>${r.map((c) => `<td>${inline(String(c))}</td>`).join('')}</tr>`).join('')}</tbody>
+            </table>
+          </div>
+          ${b.note ? `<p class="table-note">${inline(b.note)}</p>` : ''}
+        </div>
+      </section>`;
+
     case 'model':
       // The input -> revaluation -> output diagram (product-science doc §32).
       // Built from real elements rather than an image so it reflows on a
@@ -118,7 +198,53 @@ function block(b) {
 // ------------------------------------------------------------- structured --
 
 function structuredData(page, url) {
-  const graph = [{
+  const graph = [];
+
+  // Organization identity, stated once per page so every surface agrees.
+  graph.push({
+    '@type': 'Organization',
+    '@id': ORIGIN + '/#org',
+    name: 'GREEN18',
+    url: ORIGIN + '/',
+    logo: ORIGIN + '/assets/icon.png',
+  });
+
+  // A glossary page publishes its terms as a DefinedTermSet so each
+  // definition is machine-addressable on its own.
+  const defs = page.blocks?.filter((b) => b.type === 'definitions') ?? [];
+  if (defs.length) {
+    graph.push({
+      '@type': 'DefinedTermSet',
+      '@id': url + '#glossary',
+      name: page.title,
+      url,
+      hasDefinedTerm: defs.flatMap((b) => b.terms.map((t) => ({
+        '@type': 'DefinedTerm',
+        '@id': `${url}#${t.id}`,
+        name: t.term,
+        description: t.definition.replace(/\*\*/g, '').replace(/\[([^\]]+)\]\([^)]+\)/g, '$1'),
+        inDefinedTermSet: url + '#glossary',
+      }))),
+    });
+  }
+
+  // Explanatory pages are TechArticles: they teach a method, and the
+  // canonical answer is the thing worth quoting.
+  if (page.pageType === 'science' || page.pageType === 'scenario') {
+    graph.push({
+      '@type': 'TechArticle',
+      '@id': url + '#article',
+      headline: page.hero.h1.replace(/\*\*/g, ''),
+      description: page.description,
+      url,
+      ...(page.answer ? { abstract: page.answer.replace(/\*\*/g, '').replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') } : {}),
+      ...(page.dateModified ? { dateModified: page.dateModified } : {}),
+      publisher: { '@id': ORIGIN + '/#org' },
+      isAccessibleForFree: true,
+    });
+  }
+
+  graph.push({
     '@type': 'MobileApplication',
     name: 'GREEN18',
     applicationCategory: 'SportsApplication',
@@ -127,8 +253,9 @@ function structuredData(page, url) {
     installUrl: APP_STORE_URL,
     description: 'A live fantasy football draft assistant for iPhone that reorganizes the '
       + 'remaining player board as the draft develops.',
-    // No aggregateRating, no reviewCount, no price: §24 forbids fabricating them.
-  }];
+    // No aggregateRating, no reviewCount, no price: fabricating them is banned.
+    publisher: { '@id': ORIGIN + '/#org' },
+  });
 
   if (page.faq?.length) {
     graph.push({
@@ -275,6 +402,21 @@ ${crumbs}
         </div>
       </section>
 
+${page.answer ? `      <section class="answer-wrap">
+        <div class="wrap measure">
+          <p class="answer">${inline(page.answer)}</p>
+        </div>
+      </section>` : ''}
+
+${page.claims?.length ? `      <section class="keypoints-wrap">
+        <div class="wrap measure">
+          <h2 class="keypoints-h">In short</h2>
+          <ul class="keypoints">
+            ${page.claims.map((c) => `<li>${inline(c)}</li>`).join('\n            ')}
+          </ul>
+        </div>
+      </section>` : ''}
+
 ${page.blocks.map(block).join('\n\n')}
 
 ${faq}
@@ -308,6 +450,7 @@ ${disclaimer}
   </div>
 
   <script src="/assets/site.js" defer></script>
+${page.blocks.some((b) => b.type === "calculator") ? '  <script type="module" src="/assets/tools.js"></script>' : ''}
 </body>
 </html>
 `;

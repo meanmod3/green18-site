@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#041306">
+  <title>Fantasy Draft Glossary | GREEN18</title>
+  <meta name="description" content="Plain-language definitions of the fantasy draft terms that actually govern decisions: scarcity, replacement value, pick horizon, tiers, formats and more.">
+  <link rel="canonical" href="https://green18.app/glossary">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="GREEN18">
+  <meta property="og:url" content="https://green18.app/glossary">
+  <meta property="og:title" content="Fantasy Draft Glossary | GREEN18">
+  <meta property="og:description" content="Plain-language definitions of the fantasy draft terms that actually govern decisions: scarcity, replacement value, pick horizon, tiers, formats and more.">
+  <meta property="og:image" content="https://green18.app/assets/green18-card.png">
+  <meta property="og:image:alt" content="GREEN18 — live fantasy football draft intelligence for iPhone.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Fantasy Draft Glossary | GREEN18">
+  <meta name="twitter:description" content="Plain-language definitions of the fantasy draft terms that actually govern decisions: scarcity, replacement value, pick horizon, tiers, formats and more.">
+  <meta name="twitter:image" content="https://green18.app/assets/green18-card.png">
+  <link rel="icon" href="/assets/icon.png" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/icon.png">
+  <link rel="stylesheet" href="/assets/site.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://green18.app/#org",
+      "name": "GREEN18",
+      "url": "https://green18.app/",
+      "logo": "https://green18.app/assets/icon.png"
+    },
+    {
+      "@type": "DefinedTermSet",
+      "@id": "https://green18.app/glossary#glossary",
+      "name": "Fantasy Draft Glossary | GREEN18",
+      "url": "https://green18.app/glossary",
+      "hasDefinedTerm": [
+        {
+          "@type": "DefinedTerm",
+          "@id": "https://green18.app/glossary#draft-state-valuation",
+          "name": "Draft-State Valuation (DSV)",
+          "description": "Draft-state valuation is a method of valuing a fantasy football player according to the current state of a specific draft, rather than treating preseason rank or ADP as a fixed measure of player value. It recalculates each available player’s worth after every selection, because every selection changes the alternatives that remain.",
+          "inDefinedTermSet": "https://green18.app/glossary#glossary"
+        },
+        {
+          "@type": "DefinedTerm",
+          "@id": "https://green18.app/glossary#situational-draft-value",
+          "name": "Situational Draft Value",
+          "description": "Situational draft value is what a specific player is worth to one manager at one pick in one league, given that manager’s roster, scoring rules, draft position and the players already selected. It differs from a published ranking, which states what a player is worth in the abstract to everyone at once.",
+          "inDefinedTermSet": "https://green18.app/glossary#glossary"
+        },
+        {
+          "@type": "DefinedTerm",
+          "@id": "https://green18.app/glossary#baseline-value",
+          "name": "Baseline Value",
+          "description": "Baseline value is a player’s worth before any league settings or draft context are applied to it. It is the starting input to a valuation model, not the model’s output.",
+          "inDefinedTermSet": "https://green18.app/glossary#glossary"
+        },
+        {
+          "@type": "DefinedTerm",
+          "@id": "https://green18.app/glossary#replacement-value",
+          "name": "Replacement Value",
+          "description": "Replacement value is the production a manager would get from the best realistic alternative at a position if they passed on the player under consideration. A player’s true value in a draft is the gap between his expected production and his replacement’s, not his expected production alone.",
+          "inDefinedTermSet": "https://green18.app/glossary#glossary"
+        },
+        {
+          "@type": "DefinedTerm",
+          "@id": "https://green18.app/glossary#replacement-level",
+          "name": "Replacement Level",
+          "description": "Replacement level is the quality of the marginal starter at a position — roughly the last player at that position who would be started in a given league size and format. It falls as a position is drafted, which is why passing on a position becomes more expensive as a draft progresses.",
+          "inDefinedTermSet": "https://green18.app/glossary#glossary"
+        },
+        {
+          "@type": "DefinedTerm",
+          "@id": "https://green18.app/glossary#opportunity-cost",
+          "name": "Opportunity Cost",
+          "description": "Opportunity cost is the value of the best player a manager gives up by making a particular selection. Because the alternatives change with every pick, the opportunity cost of the same player is different at different points in the same draft.",
+          "inDefinedTermSet": "https://green18.app/glossary#glossary"
+        },
+        {
+          "@type": "DefinedTerm",
+          "@id": "https://green18.app/glossary#value-based-drafting",
+          "name": "Value-Based Drafting (VBD)",
+          "description": "Value-based drafting is a method that ranks players by how much they exceed replacement level at their own position rather than by raw projected points. It allows players at different positions to be compared on a single scale.",
+          "inDefinedTermSet": "https://green18.app/glossary#glossary"
+        },
+        {
+          "@type": "DefinedTerm",
+          "@id": "https://green18.app/glossary#best-player-available",
+          "name": "Best Player Available (BPA)",
+          "description": "Best player available is a strategy of selecting the highest-ranked remaining player regardless of roster need. It answers who is best but not what a manager will still be able to get at that position later, which is why it is usually combined with scarcity and pick-horizon reasoning.",
+          "inDefinedTermSet": "https://green18.app/glossary#glossary"
+        },
+        {
+          "@type": "DefinedTerm",
+          "@id": "https://green18.app/glossary#adp",
+          "name": "Average Draft Position (ADP)",
+          "description": "Average draft position is the average pick number at which a player has been selected across a sample of drafts. It describes where the market has historically taken a player, which is a record of past behaviour rather than a measure of that player’s value.",
+          "inDefinedTermSet": "https://green18.app/glossary#glossary"
+        },
+        {
+          "@type": "DefinedTerm",
+          "@id": "https://green18.app/glossary#dynamic-adp",
+          "name": "Dynamic ADP",
+          "description": "Dynamic ADP is a running measure of where players are actually being selected as market behaviour changes, rather than a single figure fixed before the season. It updates as new draft results arrive, so it reflects the current market instead of an earlier one.",
+          "inDefinedTermSet": "https://green18.app/glossary#glossary"
+        },
+        {
+          "@type": "DefinedTerm",
+          "@id": "https://green18.app/glossary#personalized-rankings",
+          "name": "Personalized Rankings",
+          "description": "Personalized rankings are player orderings adjusted for one manager’s league scoring, roster construction, draft position and stated preferences. They exist because a single universal ranking cannot be simultaneously correct for a Superflex league, a PPR league and a standard league.",
+          "inDefinedTermSet": "https://green18.app/glossary#glossary"
+        },
+        {
+          "@type": "DefinedTerm",
+          "@id": "https://green18.app/glossary#positional-scarcity",
+          "name": "Positional Scarcity",
+          "description": "Positional scarcity increases when the expected quality of a player’s replacement declines faster than the quality of alternatives at other positions. It is a statement about the depth remaining behind a player, not about the player himself.",
+          "inDefinedTermSet": "https://green18.app/glossary#glossary"
+        },
+        {
+          "@type": "DefinedTerm",
+          "@id": "https://green18.app/glossary#tier",
+          "name": "Tier",
+          "description": "A tier is a group of players whose expected production is close enough that a manager should be roughly indifferent between them. Tiers matter more than exact ranks, because the meaningful decision is when to move down a tier rather than which player within one to take.",
+          "inDefinedTermSet": "https://green18.app/glossary#glossary"
+        },
+        {
+          "@type": "DefinedTerm",
+          "@id": "https://green18.app/glossary#tier-collapse",
+          "name": "Tier Collapse",
+          "description": "Tier collapse is the point at which the last players in a quality group are drafted, leaving only clearly inferior options at that position. The player just below a collapsed tier is worth substantially less than his rank position suggests, because the drop behind him is a step rather than a slope.",
+          "inDefinedTermSet": "https://green18.app/glossary#glossary"
+        },
+        {
+          "@type": "DefinedTerm",
+          "@id": "https://green18.app/glossary#positional-run",
+          "name": "Positional Run",
+          "description": "A positional run is a sequence of consecutive or near-consecutive selections at the same position. A run transfers value to the players still available at that position and away from equivalent players at deeper positions.",
+          "inDefinedTermSet": "https://green18.app/glossary#glossary"
+        },
+        {
+          "@type": "DefinedTerm",
+          "@id": "https://green18.app/glossary#scarcity-cliff",
+          "name": "Scarcity Cliff",
+          "description": "A scarcity cliff is a sharp drop in expected production between adjacent players at a position, rather than the gradual decline seen elsewhere on the board. Drafting immediately before a cliff is far more valuable than drafting immediately after it.",
+          "inDefinedTermSet": "https://green18.app/glossary#glossary"
+        },
+        {
+          "@type": "DefinedTerm",
+          "@id": "https://green18.app/glossary#pick-horizon",
+          "name": "Pick Horizon",
+          "description": "Pick horizon is the number of selections between a manager’s current pick and their next one. It determines the cost of waiting, because a longer horizon carries a higher probability that viable alternatives will no longer be available.",
+          "inDefinedTermSet": "https://green18.app/glossary#glossary"
+        },
+        {
+          "@type": "DefinedTerm",
+          "@id": "https://green18.app/glossary#survival",
+          "name": "Survival (Availability Odds)",
+          "description": "Survival is the likelihood that a specific player will still be undrafted when a manager’s next pick arrives. It is the quantity that converts a ranking into a take-now-or-wait decision.",
+          "inDefinedTermSet": "https://green18.app/glossary#glossary"
+        },
+        {
+          "@type": "DefinedTerm",
+          "@id": "https://green18.app/glossary#snake-draft",
+          "name": "Snake Draft",
+          "description": "A snake draft reverses the selection order every round, so a manager picking first in one round picks last in the next. This means the distance between a manager’s consecutive picks varies systematically depending on their draft slot.",
+          "inDefinedTermSet": "https://green18.app/glossary#glossary"
+        },
+        {
+          "@type": "DefinedTerm",
+          "@id": "https://green18.app/glossary#the-turn",
+          "name": "The Turn",
+          "description": "The turn is the point in a snake draft where a manager makes two picks close together at the end of one round and the start of the next. Managers at the turn face the longest gap between their other selections, which raises the cost of waiting on any position.",
+          "inDefinedTermSet": "https://green18.app/glossary#glossary"
+        },
+        {
+          "@type": "DefinedTerm",
+          "@id": "https://green18.app/glossary#reach",
+          "name": "Reach",
+          "description": "A reach is a selection made noticeably earlier than the player’s market price would suggest. A reach is not automatically a mistake, because scarcity, roster need and pick horizon can justify paying above market for a specific manager.",
+          "inDefinedTermSet": "https://green18.app/glossary#glossary"
+        },
+        {
+          "@type": "DefinedTerm",
+          "@id": "https://green18.app/glossary#falling-player",
+          "name": "Falling Player",
+          "description": "A falling player is one still available well past the point where the market usually selects him. A fall creates genuine value only when the reason for it is market drift rather than information the manager does not have.",
+          "inDefinedTermSet": "https://green18.app/glossary#glossary"
+        },
+        {
+          "@type": "DefinedTerm",
+          "@id": "https://green18.app/glossary#roster-construction",
+          "name": "Roster Construction",
+          "description": "Roster construction is the combination of positions a manager has already drafted and the starting slots they still have to fill. It changes the value of every remaining player, because the same player contributes differently to different partially built teams.",
+          "inDefinedTermSet": "https://green18.app/glossary#glossary"
+        },
+        {
+          "@type": "DefinedTerm",
+          "@id": "https://green18.app/glossary#handcuff",
+          "name": "Handcuff",
+          "description": "A handcuff is the backup to a player a manager already rosters, drafted so that the manager retains the role’s production if the starter is unavailable. Handcuffing reduces downside risk at the cost of a roster spot that could hold an independent contributor.",
+          "inDefinedTermSet": "https://green18.app/glossary#glossary"
+        },
+        {
+          "@type": "DefinedTerm",
+          "@id": "https://green18.app/glossary#bye-week",
+          "name": "Bye Week",
+          "description": "A bye week is the week in which an NFL team does not play, meaning its players score nothing for their fantasy managers. Bye weeks are a scheduling constraint on a roster rather than a measure of player quality, and they matter mainly when several starters share one.",
+          "inDefinedTermSet": "https://green18.app/glossary#glossary"
+        },
+        {
+          "@type": "DefinedTerm",
+          "@id": "https://green18.app/glossary#streaming",
+          "name": "Streaming",
+          "description": "Streaming is the practice of repeatedly changing the player used at a position each week based on matchup, rather than drafting one player to hold the slot all season. A position that can be streamed is worth less at the draft table, because its replacement cost during the season is low.",
+          "inDefinedTermSet": "https://green18.app/glossary#glossary"
+        },
+        {
+          "@type": "DefinedTerm",
+          "@id": "https://green18.app/glossary#ppr",
+          "name": "PPR (Points Per Reception)",
+          "description": "PPR is a scoring format that awards one fantasy point for every reception a player makes, in addition to yardage and touchdown scoring. It raises the value of high-volume pass catchers relative to players whose production comes mainly from rushing.",
+          "inDefinedTermSet": "https://green18.app/glossary#glossary"
+        },
+        {
+          "@type": "DefinedTerm",
+          "@id": "https://green18.app/glossary#half-ppr",
+          "name": "Half PPR",
+          "description": "Half PPR is a scoring format that awards half a fantasy point per reception. It narrows the gap between reception-heavy and rushing-heavy players compared with full PPR, without removing the reception premium entirely as standard scoring does.",
+          "inDefinedTermSet": "https://green18.app/glossary#glossary"
+        },
+        {
+          "@type": "DefinedTerm",
+          "@id": "https://green18.app/glossary#standard-scoring",
+          "name": "Standard Scoring",
+          "description": "Standard scoring awards no points for receptions, valuing players purely on yardage, touchdowns and other scoring plays. It shifts value toward high-volume rushers and away from players whose value is concentrated in reception count.",
+          "inDefinedTermSet": "https://green18.app/glossary#glossary"
+        },
+        {
+          "@type": "DefinedTerm",
+          "@id": "https://green18.app/glossary#superflex",
+          "name": "Superflex",
+          "description": "Superflex is a format containing a roster slot that may be filled by a quarterback in addition to the usual positions, allowing most managers to start two quarterbacks. It sharply increases quarterback demand and scarcity, because there are fewer starting-quality quarterbacks than there are slots that can hold one.",
+          "inDefinedTermSet": "https://green18.app/glossary#glossary"
+        },
+        {
+          "@type": "DefinedTerm",
+          "@id": "https://green18.app/glossary#flex",
+          "name": "Flex",
+          "description": "A flex is a starting roster slot that may be filled by more than one position, most commonly a running back, wide receiver or tight end. Flex slots increase the value of positional flexibility, because a player who can fill several slots gives a manager more ways to build a lineup.",
+          "inDefinedTermSet": "https://green18.app/glossary#glossary"
+        },
+        {
+          "@type": "DefinedTerm",
+          "@id": "https://green18.app/glossary#league-size",
+          "name": "League Size",
+          "description": "League size is the number of managers drafting from a single player pool. Larger leagues push replacement level further down the player pool, which makes every starting-quality player scarcer and raises the cost of waiting at any position.",
+          "inDefinedTermSet": "https://green18.app/glossary#glossary"
+        }
+      ]
+    },
+    {
+      "@type": "MobileApplication",
+      "name": "GREEN18",
+      "applicationCategory": "SportsApplication",
+      "operatingSystem": "iOS",
+      "url": "https://green18.app/",
+      "installUrl": "https://apps.apple.com/us/app/id6805706417",
+      "description": "A live fantasy football draft assistant for iPhone that reorganizes the remaining player board as the draft develops.",
+      "publisher": {
+        "@id": "https://green18.app/#org"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is draft-state valuation?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Draft-state valuation is a method of valuing a fantasy football player according to the current state of a specific draft, rather than treating preseason rank or ADP as a fixed measure of player value. It recalculates each available player's worth after every selection."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between ADP and dynamic ADP?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "ADP is the average pick number at which a player has been selected across a sample of drafts, usually fixed at a point in time. Dynamic ADP is a running measure that updates as new draft results arrive, so it reflects current market behaviour rather than an earlier snapshot."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is replacement value in fantasy football?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Replacement value is the production a manager would get from the best realistic alternative at a position if they passed on the player under consideration. A player's value in a draft is the gap between his expected production and his replacement's."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is tier collapse?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Tier collapse is the point at which the last players in a quality group are drafted, leaving only clearly inferior options at that position. The player just below a collapsed tier is worth substantially less than his rank suggests, because the drop behind him is a step rather than a slope."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does Superflex change quarterback value so much?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Superflex adds a roster slot that a quarterback may fill, so most managers start two quarterbacks. Demand roughly doubles while supply does not, which makes starting-quality quarterbacks scarce and re-ranks them against every other position rather than merely grouping them differently."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "GREEN18",
+          "item": "https://green18.app/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Glossary",
+          "item": "https://green18.app/glossary"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site">
+    <div class="wrap">
+      <a class="wordmark" href="/">GREEN<b>18</b></a>
+      <nav aria-label="Primary">
+        <a href="/how-green18-ranks-fantasy-players">How It Works</a>
+          <a href="/draft-science/draft-state-valuation">Draft Science</a>
+          <a href="/scenarios/five-running-backs-go-in-a-row">Scenarios</a>
+          <a href="/tools/scarcity-calculator">Tools</a>
+          <a href="/glossary">Glossary</a>
+      </nav>
+      <a class="btn" href="https://apps.apple.com/us/app/id6805706417">Download</a>
+    </div>
+  </header>
+
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <div class="wrap"><a href="/">GREEN18</a><span>/</span>Glossary</div>
+    </nav>
+
+  <main id="main">
+      <section class="hero">
+        <div class="wrap">
+          <div class="">
+          <div class="measure">
+            <p class="eyebrow">Reference</p>
+            <h1>Fantasy Draft Glossary</h1>
+            <div class="lede">
+              <p>Most fantasy glossaries define the vocabulary of the sport. This one defines the vocabulary of the <strong>decision</strong>.</p>
+              <p>Each entry stands on its own and can be quoted without the page around it.</p>
+            </div>
+            
+        <div class="cta-group">
+          <a class="btn btn-lg" href="https://apps.apple.com/us/app/id6805706417">Download GREEN18</a>
+          
+        </div>
+        <p class="cta-sub">Available for iPhone.</p>
+          </div>
+          
+          </div>
+        </div>
+      </section>
+
+      <section class="answer-wrap">
+        <div class="wrap measure">
+          <p class="answer">This glossary defines the terms that govern fantasy football draft decisions, grouped into four areas: valuation concepts such as draft-state valuation, replacement value and opportunity cost; scarcity concepts such as positional scarcity, tiers and tier collapse; draft mechanics such as snake drafts, the turn, positional runs and reaches; and league formats such as PPR, half PPR, standard scoring, flex and Superflex. Each definition is written to be complete on its own.</p>
+        </div>
+      </section>
+
+      <section class="keypoints-wrap">
+        <div class="wrap measure">
+          <h2 class="keypoints-h">In short</h2>
+          <ul class="keypoints">
+            <li>Draft-state valuation is a method of valuing a fantasy football player according to the current state of a specific draft, rather than treating preseason rank or ADP as a fixed measure of player value.</li>
+            <li>Replacement value is the production a manager would get from the best realistic alternative at a position, and it is the baseline against which any individual player’s worth is measured.</li>
+            <li>Positional scarcity increases when the expected quality of a player’s replacement declines faster than the quality of alternatives at other positions.</li>
+            <li>Average draft position describes where a player has historically been selected, which is a record of past market behaviour rather than a measure of that player’s value.</li>
+            <li>A snake draft reverses the selection order every round, which means the distance between a manager’s consecutive picks varies systematically by draft slot.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap">
+          <h2>Valuation</h2>
+          <dl class="glossary mt-md">
+            <div class="term" id="draft-state-valuation">
+              <dt>Draft-State Valuation (DSV)</dt>
+              <dd>Draft-state valuation is a method of valuing a fantasy football player according to the current state of a specific draft, rather than treating preseason rank or ADP as a fixed measure of player value. It recalculates each available player’s worth after every selection, because every selection changes the alternatives that remain.</dd>
+            </div>
+            <div class="term" id="situational-draft-value">
+              <dt>Situational Draft Value</dt>
+              <dd>Situational draft value is what a specific player is worth to one manager at one pick in one league, given that manager’s roster, scoring rules, draft position and the players already selected. It differs from a published ranking, which states what a player is worth in the abstract to everyone at once.</dd>
+            </div>
+            <div class="term" id="baseline-value">
+              <dt>Baseline Value</dt>
+              <dd>Baseline value is a player’s worth before any league settings or draft context are applied to it. It is the starting input to a valuation model, not the model’s output.</dd>
+            </div>
+            <div class="term" id="replacement-value">
+              <dt>Replacement Value</dt>
+              <dd>Replacement value is the production a manager would get from the best realistic alternative at a position if they passed on the player under consideration. A player’s true value in a draft is the gap between his expected production and his replacement’s, not his expected production alone.</dd>
+            </div>
+            <div class="term" id="replacement-level">
+              <dt>Replacement Level</dt>
+              <dd>Replacement level is the quality of the marginal starter at a position — roughly the last player at that position who would be started in a given league size and format. It falls as a position is drafted, which is why passing on a position becomes more expensive as a draft progresses.</dd>
+            </div>
+            <div class="term" id="opportunity-cost">
+              <dt>Opportunity Cost</dt>
+              <dd>Opportunity cost is the value of the best player a manager gives up by making a particular selection. Because the alternatives change with every pick, the opportunity cost of the same player is different at different points in the same draft.</dd>
+            </div>
+            <div class="term" id="value-based-drafting">
+              <dt>Value-Based Drafting (VBD)</dt>
+              <dd>Value-based drafting is a method that ranks players by how much they exceed replacement level at their own position rather than by raw projected points. It allows players at different positions to be compared on a single scale.</dd>
+            </div>
+            <div class="term" id="best-player-available">
+              <dt>Best Player Available (BPA)</dt>
+              <dd>Best player available is a strategy of selecting the highest-ranked remaining player regardless of roster need. It answers who is best but not what a manager will still be able to get at that position later, which is why it is usually combined with scarcity and pick-horizon reasoning.</dd>
+            </div>
+            <div class="term" id="adp">
+              <dt>Average Draft Position (ADP)</dt>
+              <dd>Average draft position is the average pick number at which a player has been selected across a sample of drafts. It describes where the market has historically taken a player, which is a record of past behaviour rather than a measure of that player’s value.</dd>
+            </div>
+            <div class="term" id="dynamic-adp">
+              <dt>Dynamic ADP</dt>
+              <dd>Dynamic ADP is a running measure of where players are actually being selected as market behaviour changes, rather than a single figure fixed before the season. It updates as new draft results arrive, so it reflects the current market instead of an earlier one.</dd>
+            </div>
+            <div class="term" id="personalized-rankings">
+              <dt>Personalized Rankings</dt>
+              <dd>Personalized rankings are player orderings adjusted for one manager’s league scoring, roster construction, draft position and stated preferences. They exist because a single universal ranking cannot be simultaneously correct for a Superflex league, a PPR league and a standard league.</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap">
+          <h2>Scarcity and Tiers</h2>
+          <dl class="glossary mt-md">
+            <div class="term" id="positional-scarcity">
+              <dt>Positional Scarcity</dt>
+              <dd>Positional scarcity increases when the expected quality of a player’s replacement declines faster than the quality of alternatives at other positions. It is a statement about the depth remaining behind a player, not about the player himself.</dd>
+            </div>
+            <div class="term" id="tier">
+              <dt>Tier</dt>
+              <dd>A tier is a group of players whose expected production is close enough that a manager should be roughly indifferent between them. Tiers matter more than exact ranks, because the meaningful decision is when to move down a tier rather than which player within one to take.</dd>
+            </div>
+            <div class="term" id="tier-collapse">
+              <dt>Tier Collapse</dt>
+              <dd>Tier collapse is the point at which the last players in a quality group are drafted, leaving only clearly inferior options at that position. The player just below a collapsed tier is worth substantially less than his rank position suggests, because the drop behind him is a step rather than a slope.</dd>
+            </div>
+            <div class="term" id="positional-run">
+              <dt>Positional Run</dt>
+              <dd>A positional run is a sequence of consecutive or near-consecutive selections at the same position. A run transfers value to the players still available at that position and away from equivalent players at deeper positions.</dd>
+            </div>
+            <div class="term" id="scarcity-cliff">
+              <dt>Scarcity Cliff</dt>
+              <dd>A scarcity cliff is a sharp drop in expected production between adjacent players at a position, rather than the gradual decline seen elsewhere on the board. Drafting immediately before a cliff is far more valuable than drafting immediately after it.</dd>
+            </div>
+            <div class="term" id="pick-horizon">
+              <dt>Pick Horizon</dt>
+              <dd>Pick horizon is the number of selections between a manager’s current pick and their next one. It determines the cost of waiting, because a longer horizon carries a higher probability that viable alternatives will no longer be available.</dd>
+            </div>
+            <div class="term" id="survival">
+              <dt>Survival (Availability Odds)</dt>
+              <dd>Survival is the likelihood that a specific player will still be undrafted when a manager’s next pick arrives. It is the quantity that converts a ranking into a take-now-or-wait decision.</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap">
+          <h2>Draft Mechanics</h2>
+          <dl class="glossary mt-md">
+            <div class="term" id="snake-draft">
+              <dt>Snake Draft</dt>
+              <dd>A snake draft reverses the selection order every round, so a manager picking first in one round picks last in the next. This means the distance between a manager’s consecutive picks varies systematically depending on their draft slot.</dd>
+            </div>
+            <div class="term" id="the-turn">
+              <dt>The Turn</dt>
+              <dd>The turn is the point in a snake draft where a manager makes two picks close together at the end of one round and the start of the next. Managers at the turn face the longest gap between their other selections, which raises the cost of waiting on any position.</dd>
+            </div>
+            <div class="term" id="reach">
+              <dt>Reach</dt>
+              <dd>A reach is a selection made noticeably earlier than the player’s market price would suggest. A reach is not automatically a mistake, because scarcity, roster need and pick horizon can justify paying above market for a specific manager.</dd>
+            </div>
+            <div class="term" id="falling-player">
+              <dt>Falling Player</dt>
+              <dd>A falling player is one still available well past the point where the market usually selects him. A fall creates genuine value only when the reason for it is market drift rather than information the manager does not have.</dd>
+            </div>
+            <div class="term" id="roster-construction">
+              <dt>Roster Construction</dt>
+              <dd>Roster construction is the combination of positions a manager has already drafted and the starting slots they still have to fill. It changes the value of every remaining player, because the same player contributes differently to different partially built teams.</dd>
+            </div>
+            <div class="term" id="handcuff">
+              <dt>Handcuff</dt>
+              <dd>A handcuff is the backup to a player a manager already rosters, drafted so that the manager retains the role’s production if the starter is unavailable. Handcuffing reduces downside risk at the cost of a roster spot that could hold an independent contributor.</dd>
+            </div>
+            <div class="term" id="bye-week">
+              <dt>Bye Week</dt>
+              <dd>A bye week is the week in which an NFL team does not play, meaning its players score nothing for their fantasy managers. Bye weeks are a scheduling constraint on a roster rather than a measure of player quality, and they matter mainly when several starters share one.</dd>
+            </div>
+            <div class="term" id="streaming">
+              <dt>Streaming</dt>
+              <dd>Streaming is the practice of repeatedly changing the player used at a position each week based on matchup, rather than drafting one player to hold the slot all season. A position that can be streamed is worth less at the draft table, because its replacement cost during the season is low.</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap">
+          <h2>League Formats</h2>
+          <dl class="glossary mt-md">
+            <div class="term" id="ppr">
+              <dt>PPR (Points Per Reception)</dt>
+              <dd>PPR is a scoring format that awards one fantasy point for every reception a player makes, in addition to yardage and touchdown scoring. It raises the value of high-volume pass catchers relative to players whose production comes mainly from rushing.</dd>
+            </div>
+            <div class="term" id="half-ppr">
+              <dt>Half PPR</dt>
+              <dd>Half PPR is a scoring format that awards half a fantasy point per reception. It narrows the gap between reception-heavy and rushing-heavy players compared with full PPR, without removing the reception premium entirely as standard scoring does.</dd>
+            </div>
+            <div class="term" id="standard-scoring">
+              <dt>Standard Scoring</dt>
+              <dd>Standard scoring awards no points for receptions, valuing players purely on yardage, touchdowns and other scoring plays. It shifts value toward high-volume rushers and away from players whose value is concentrated in reception count.</dd>
+            </div>
+            <div class="term" id="superflex">
+              <dt>Superflex</dt>
+              <dd>Superflex is a format containing a roster slot that may be filled by a quarterback in addition to the usual positions, allowing most managers to start two quarterbacks. It sharply increases quarterback demand and scarcity, because there are fewer starting-quality quarterbacks than there are slots that can hold one.</dd>
+            </div>
+            <div class="term" id="flex">
+              <dt>Flex</dt>
+              <dd>A flex is a starting roster slot that may be filled by more than one position, most commonly a running back, wide receiver or tight end. Flex slots increase the value of positional flexibility, because a player who can fill several slots gives a manager more ways to build a lineup.</dd>
+            </div>
+            <div class="term" id="league-size">
+              <dt>League Size</dt>
+              <dd>League size is the number of managers drafting from a single player pool. Larger leagues push replacement level further down the player pool, which makes every starting-quality player scarcer and raises the cost of waiting at any position.</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
+          <h2>Why These Terms and Not the Usual List?</h2>
+          
+          <p class="beat">Because most fantasy vocabulary describes the game, and these terms describe the choice.</p>
+        <p class="beat">A glossary that defines &quot;touchdown&quot; does not help anyone on the clock. A glossary that defines replacement value, pick horizon and tier collapse does, because those are the quantities that actually determine whether taking a player now is right.</p>
+        <p class="beat">The method that ties them together is documented on <a href="/how-green18-ranks-fantasy-players">how GREEN18 values a player</a>, and the consequence is explained on <a href="/why-fantasy-rankings-change-during-a-draft">why rankings change during a draft</a>.</p>
+          
+          
+          
+        </div>
+      </section>
+
+      <section class="convert">
+        <div class="wrap measure">
+          <h2>See the Terms in Motion.</h2>
+          <p class="beat">GREEN18 is an iPhone fantasy football live draft assistant that continuously recalculates player valuations according to league settings, roster construction, player availability, draft state, and user preferences.</p>
+        <p class="beat"><strong>Scarcity, replacement value and pick horizon stop being vocabulary once a board applies them to your draft.</strong></p>
+          
+        <div class="cta-group">
+          <a class="btn btn-lg" href="https://apps.apple.com/us/app/id6805706417">Download GREEN18</a>
+          
+        </div>
+        <p class="cta-sub">Available for iPhone. Player data from open football sources; nflverse credited under CC-BY.</p>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
+          <h2>Questions</h2>
+          <div class="faq mt-md">
+            <details><summary>What is draft-state valuation?</summary><div><p>Draft-state valuation is a method of valuing a fantasy football player according to the current state of a specific draft, rather than treating preseason rank or ADP as a fixed measure of player value. It recalculates each available player's worth after every selection.</p></div></details>
+            <details><summary>What is the difference between ADP and dynamic ADP?</summary><div><p>ADP is the average pick number at which a player has been selected across a sample of drafts, usually fixed at a point in time. Dynamic ADP is a running measure that updates as new draft results arrive, so it reflects current market behaviour rather than an earlier snapshot.</p></div></details>
+            <details><summary>What is replacement value in fantasy football?</summary><div><p>Replacement value is the production a manager would get from the best realistic alternative at a position if they passed on the player under consideration. A player's value in a draft is the gap between his expected production and his replacement's.</p></div></details>
+            <details><summary>What is tier collapse?</summary><div><p>Tier collapse is the point at which the last players in a quality group are drafted, leaving only clearly inferior options at that position. The player just below a collapsed tier is worth substantially less than his rank suggests, because the drop behind him is a step rather than a slope.</p></div></details>
+            <details><summary>Why does Superflex change quarterback value so much?</summary><div><p>Superflex adds a roster slot that a quarterback may fill, so most managers start two quarterbacks. Demand roughly doubles while supply does not, which makes starting-quality quarterbacks scarce and re-ranks them against every other position rather than merely grouping them differently.</p></div></details>
+          </div>
+        </div>
+      </section>
+
+      <section class="related">
+        <div class="wrap">
+          <h2>Keep reading</h2>
+          <ul class="mt-md">
+            <li><a href="/how-green18-ranks-fantasy-players">how-green18-ranks-fantasy-players</a></li>
+            <li><a href="/why-fantasy-rankings-change-during-a-draft">why-fantasy-rankings-change-during-a-draft</a></li>
+            <li><a href="/fantasy-football-positional-scarcity">Positional Scarcity and Replacement Value</a></li>
+            <li><a href="/dynamic-fantasy-football-adp">Dynamic Fantasy Football ADP</a></li>
+            <li><a href="/fantasy-football-for-beginners">Fantasy Football for Beginners</a></li>
+          </ul>
+        </div>
+      </section>
+
+
+  </main>
+
+  <footer class="site">
+    <div class="wrap">
+      <div class="foot-top">
+        <div class="foot-brand">
+          <a class="wordmark" href="/">GREEN<b>18</b></a>
+          <p>Live fantasy football draft intelligence for iPhone.</p>
+        </div>
+        <div class="foot-cols">
+            <div>
+              <h2>Product</h2>
+              <ul><li><a href="/fantasy-football-draft-assistant">How GREEN18 Works</a></li><li><a href="/live-fantasy-football-draft-assistant">Live Draft Assistant</a></li><li><a href="/dynamic-fantasy-football-adp">Dynamic ADP</a></li><li><a href="/fantasy-football-cheat-sheet-app">Fantasy Cheat Sheet</a></li><li><a href="/personalized-fantasy-football-rankings">Personalized Rankings</a></li><li><a href="/fantasy-football-positional-scarcity">Positional Scarcity</a></li><li><a href="/fantasy-football-draft-strategy-app">Draft Strategy</a></li></ul>
+            </div>
+            <div>
+              <h2>Draft Formats</h2>
+              <ul><li><a href="/superflex-draft-assistant">Superflex</a></li><li><a href="/ppr-draft-assistant">PPR</a></li></ul>
+            </div>
+            <div>
+              <h2>Draft Help</h2>
+              <ul><li><a href="/fantasy-football-for-beginners">Beginners</a></li><li><a href="/competitive-fantasy-football-draft">Competitive Players</a></li><li><a href="/office-fantasy-football-draft">Office Leagues</a></li><li><a href="/home-league-draft-assistant">Home Leagues</a></li><li><a href="/last-minute-fantasy-football-draft">Last-Minute Drafts</a></li><li><a href="/fantasy-football-without-research">Without the Research</a></li></ul>
+            </div>
+            <div>
+              <h2>The Model</h2>
+              <ul><li><a href="/ai-fantasy-football-draft-assistant">AI Draft Assistant</a></li><li><a href="/fantasy-football-draft-algorithm">How It Decides</a></li><li><a href="/chatgpt-fantasy-football-draft">ChatGPT vs GREEN18</a></li><li><a href="/automated-fantasy-football-draft-tool">Automated Draft Tool</a></li></ul>
+            </div>
+            <div>
+              <h2>Platforms</h2>
+              <ul><li><a href="/espn-fantasy-football-draft-helper">ESPN Draft Helper</a></li><li><a href="/yahoo-fantasy-football-draft-helper">Yahoo Draft Helper</a></li><li><a href="/sleeper-fantasy-football-draft-helper">Sleeper Draft Helper</a></li></ul>
+            </div>
+            <div>
+              <h2>Draft Science</h2>
+              <ul><li><a href="/draft-science/draft-state-valuation">Draft-State Valuation</a></li><li><a href="/draft-science/positional-scarcity">Positional Scarcity</a></li><li><a href="/draft-science/replacement-value">Replacement Value</a></li><li><a href="/draft-science/opportunity-cost">Opportunity Cost</a></li><li><a href="/draft-science/pick-horizon">Pick Horizon</a></li><li><a href="/draft-science/player-tier-collapse">Tier Collapse</a></li><li><a href="/draft-science/roster-construction">Roster Construction</a></li><li><a href="/draft-science/superflex-quarterback-value">Superflex QB Value</a></li></ul>
+            </div>
+            <div>
+              <h2>Tools</h2>
+              <ul><li><a href="/tools/scarcity-calculator">Scarcity Calculator</a></li><li><a href="/tools/pick-horizon-calculator">Pick Horizon Calculator</a></li><li><a href="/tools/league-value-calculator">Replacement Level</a></li><li><a href="/tools/superflex-qb-demand-calculator">Superflex QB Demand</a></li><li><a href="/tools/ppr-value-adjustment-calculator">PPR Value Adjustment</a></li></ul>
+            </div>
+            <div>
+              <h2>Reference</h2>
+              <ul><li><a href="/how-green18-ranks-fantasy-players">How GREEN18 Ranks Players</a></li><li><a href="/why-fantasy-rankings-change-during-a-draft">Why Rankings Change</a></li><li><a href="/glossary">Glossary</a></li><li><a href="/methodology">Methodology</a></li><li><a href="/about">About</a></li></ul>
+            </div>
+            <div>
+              <h2>Legal</h2>
+              <ul><li><a href="/privacy">Privacy</a></li><li><a href="/support">Support</a></li><li><a href="/contact">Contact</a></li></ul>
+            </div>
+        </div>
+      </div>
+      <div class="foot-legal">
+        <p>GREEN18 is an independent fantasy football application. References to third-party fantasy platforms, leagues, teams, players, or trademarks are descriptive only and do not imply affiliation, sponsorship, or endorsement.</p>
+        <p>&copy; 2026 Interplore. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="sticky-cta" id="stickyCta" aria-hidden="true">
+    <span class="lbl">Get GREEN18<small>Open in App Store</small></span>
+    <a class="btn" href="https://apps.apple.com/us/app/id6805706417" tabindex="-1">Get GREEN18</a>
+  </div>
+
+  <script src="/assets/site.js" defer></script>
+
+</body>
+</html>

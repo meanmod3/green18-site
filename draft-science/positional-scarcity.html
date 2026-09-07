@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#041306">
+  <title>Positional Scarcity: A Precise Definition | GREEN18</title>
+  <meta name="description" content="Positional scarcity is a rate of decline, not a ranking of positions. How scarcity is defined, why it is not the same as value, and how it changes mid-draft.">
+  <link rel="canonical" href="https://green18.app/draft-science/positional-scarcity">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="GREEN18">
+  <meta property="og:url" content="https://green18.app/draft-science/positional-scarcity">
+  <meta property="og:title" content="Positional Scarcity: A Precise Definition | GREEN18">
+  <meta property="og:description" content="Positional scarcity is a rate of decline, not a ranking of positions. How scarcity is defined, why it is not the same as value, and how it changes mid-draft.">
+  <meta property="og:image" content="https://green18.app/assets/green18-card.png">
+  <meta property="og:image:alt" content="GREEN18 — live fantasy football draft intelligence for iPhone.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Positional Scarcity: A Precise Definition | GREEN18">
+  <meta name="twitter:description" content="Positional scarcity is a rate of decline, not a ranking of positions. How scarcity is defined, why it is not the same as value, and how it changes mid-draft.">
+  <meta name="twitter:image" content="https://green18.app/assets/green18-card.png">
+  <link rel="icon" href="/assets/icon.png" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/icon.png">
+  <link rel="stylesheet" href="/assets/site.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://green18.app/#org",
+      "name": "GREEN18",
+      "url": "https://green18.app/",
+      "logo": "https://green18.app/assets/icon.png"
+    },
+    {
+      "@type": "DefinedTermSet",
+      "@id": "https://green18.app/draft-science/positional-scarcity#glossary",
+      "name": "Positional Scarcity: A Precise Definition | GREEN18",
+      "url": "https://green18.app/draft-science/positional-scarcity",
+      "hasDefinedTerm": [
+        {
+          "@type": "DefinedTerm",
+          "@id": "https://green18.app/draft-science/positional-scarcity#positional-scarcity",
+          "name": "Positional scarcity",
+          "description": "The condition in which the expected quality of a player's replacement at a position is declining faster than the quality of alternatives at other positions, measured against a specific league's starting requirements and a specific manager's next pick.",
+          "inDefinedTermSet": "https://green18.app/draft-science/positional-scarcity#glossary"
+        },
+        {
+          "@type": "DefinedTerm",
+          "@id": "https://green18.app/draft-science/positional-scarcity#startable-pool",
+          "name": "Startable pool",
+          "description": "The number of players at a position that the league as a whole must start each week, equal to league size multiplied by the starting slots at that position. The startable pool sets how far down a position remains useful.",
+          "inDefinedTermSet": "https://green18.app/draft-science/positional-scarcity#glossary"
+        },
+        {
+          "@type": "DefinedTerm",
+          "@id": "https://green18.app/draft-science/positional-scarcity#waiting-cost",
+          "name": "Waiting cost",
+          "description": "The expected production lost by deferring a position for one full turn, equal to the best player available now minus the best player expected to survive until the manager's next selection, expressed in the league's own scoring.",
+          "inDefinedTermSet": "https://green18.app/draft-science/positional-scarcity#glossary"
+        },
+        {
+          "@type": "DefinedTerm",
+          "@id": "https://green18.app/draft-science/positional-scarcity#tier-cliff",
+          "name": "Tier cliff",
+          "description": "A point in a position's remaining pool where the quality gap between consecutive players is unusually large. A tier cliff is the mechanism that converts ordinary depth into acute scarcity within a single pick.",
+          "inDefinedTermSet": "https://green18.app/draft-science/positional-scarcity#glossary"
+        }
+      ]
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://green18.app/draft-science/positional-scarcity#article",
+      "headline": "What Is Positional Scarcity, Precisely?",
+      "description": "Positional scarcity is a rate of decline, not a ranking of positions. How scarcity is defined, why it is not the same as value, and how it changes mid-draft.",
+      "url": "https://green18.app/draft-science/positional-scarcity",
+      "abstract": "Positional scarcity increases when the expected quality of a player's replacement declines faster than the quality of alternatives at other positions. It is a rate of decline measured across positions, not a property a position permanently owns: the relevant quantity is how much startable production you lose by waiting one turn at this position compared with how much you lose by waiting one turn at every other position. A position therefore becomes scarce when its useful remaining options are disappearing relative to your roster needs, the other teams' needs, the quality of the alternatives still on the board, and the distance until your next opportunity to draft — which means scarcity is a property of a moment in a specific draft, and the same position can be scarce in one league and abundant in another on the same night.",
+      "dateModified": "2026-09-07",
+      "publisher": {
+        "@id": "https://green18.app/#org"
+      },
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "MobileApplication",
+      "name": "GREEN18",
+      "applicationCategory": "SportsApplication",
+      "operatingSystem": "iOS",
+      "url": "https://green18.app/",
+      "installUrl": "https://apps.apple.com/us/app/id6805706417",
+      "description": "A live fantasy football draft assistant for iPhone that reorganizes the remaining player board as the draft develops.",
+      "publisher": {
+        "@id": "https://green18.app/#org"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is positional scarcity in fantasy football?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Positional scarcity increases when the expected quality of a player's replacement declines faster than the quality of alternatives at other positions. It is a rate of decline compared across positions rather than a fixed property of any one position, so a position is scarce only relative to a specific league's starting requirements, the players actually remaining, and the distance until the manager picks again."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is positional scarcity the same as a position being valuable?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Value describes how good the players at a position are, while scarcity describes how much worse the next one is. A position where twenty excellent players remain is highly valuable and not scarce, because waiting costs almost nothing, and a position with four startable players and a steep drop after them is scarce even if its total point production is modest."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does scarcity differ between two managers in the same draft?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Because scarcity is measured against a roster and a pick horizon, and those differ between managers. A manager who already starts two players at a position loses little by ignoring a cliff at that position, while a manager with none faces a large loss from the same board, and a manager whose next pick is three selections away faces less risk than one whose next pick is nineteen away."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can a position become less scarce during a draft?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. If several consecutive picks are spent on other positions, a position pool loses no players while every other pool thins, so its relative scarcity falls without any player at it being drafted. Scarcity also falls when most teams have already filled the position, because fewer managers are competing for the players who remain."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does league format change positional scarcity?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "League format determines the startable pool, which is league size multiplied by the starting slots at a position. Superflex roughly doubles the quarterbacks the league must start, which pushes the useful part of the quarterback pool much deeper and makes quarterback scarcity arrive far earlier than it does in a single-quarterback league of the same size."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "GREEN18",
+          "item": "https://green18.app/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Positional Scarcity",
+          "item": "https://green18.app/draft-science/positional-scarcity"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site">
+    <div class="wrap">
+      <a class="wordmark" href="/">GREEN<b>18</b></a>
+      <nav aria-label="Primary">
+        <a href="/how-green18-ranks-fantasy-players">How It Works</a>
+          <a href="/draft-science/draft-state-valuation">Draft Science</a>
+          <a href="/scenarios/five-running-backs-go-in-a-row">Scenarios</a>
+          <a href="/tools/scarcity-calculator">Tools</a>
+          <a href="/glossary">Glossary</a>
+      </nav>
+      <a class="btn" href="https://apps.apple.com/us/app/id6805706417">Download</a>
+    </div>
+  </header>
+
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <div class="wrap"><a href="/">GREEN18</a><span>/</span>Positional Scarcity</div>
+    </nav>
+
+  <main id="main">
+      <section class="hero">
+        <div class="wrap">
+          <div class="">
+          <div class="measure">
+            <p class="eyebrow">Draft Science</p>
+            <h1>What Is Positional Scarcity, Precisely?</h1>
+            <div class="lede">
+              <p>“Running backs are scarce” is not a definition. It is a conclusion someone reached in a different league than yours.</p>
+              <p>Scarcity is a measurable relationship between how fast one position’s remaining quality is falling and how fast every other position’s is.</p>
+              <p><strong>A position can be extremely valuable and not scarce. A position can be scarce and full of unexciting names.</strong></p>
+            </div>
+            
+        <div class="cta-group">
+          <a class="btn btn-lg" href="https://apps.apple.com/us/app/id6805706417">Download GREEN18</a>
+          <a class="btn btn-ghost" href="#how-it-works">Work through the definition</a>
+        </div>
+        <p class="cta-sub">Available for iPhone.</p>
+          </div>
+          
+          </div>
+        </div>
+      </section>
+
+      <section class="answer-wrap">
+        <div class="wrap measure">
+          <p class="answer">Positional scarcity increases when the expected quality of a player's replacement declines faster than the quality of alternatives at other positions. It is a rate of decline measured across positions, not a property a position permanently owns: the relevant quantity is how much startable production you lose by waiting one turn at this position compared with how much you lose by waiting one turn at every other position. A position therefore becomes scarce when its useful remaining options are disappearing relative to your roster needs, the other teams' needs, the quality of the alternatives still on the board, and the distance until your next opportunity to draft — which means scarcity is a property of a moment in a specific draft, and the same position can be scarce in one league and abundant in another on the same night.</p>
+        </div>
+      </section>
+
+      <section class="keypoints-wrap">
+        <div class="wrap measure">
+          <h2 class="keypoints-h">In short</h2>
+          <ul class="keypoints">
+            <li>Positional scarcity increases when the expected quality of a player's replacement declines faster than the quality of alternatives at other positions.</li>
+            <li>Positional scarcity is a rate of decline measured across positions, not a fixed property that a position permanently owns.</li>
+            <li>A position can carry high fantasy value and low scarcity at the same time, when many players of similar quality remain available at that position.</li>
+            <li>The same position can be scarce in one league and abundant in another on the same night, because starting requirements and league size determine how much of a position pool is startable.</li>
+            <li>Scarcity is only actionable in combination with the distance to a manager's next pick, because scarcity that resolves after the manager picks again imposes no cost on waiting.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
+          <h2>What Exactly Makes a Position Scarce?</h2>
+          
+          <p class="beat">Scarcity is about the <strong>slope</strong>, not the level.</p>
+        <p class="beat">Ask a narrower question than “is this position good?”. Ask: if I wait one full turn and take the best player still available at this position, how much startable production do I lose compared with taking the best one now?</p>
+        <p class="beat">Then ask the identical question at every other position.</p>
+        <p class="beat">The position where that loss is largest is the scarce one. Positional scarcity increases when the expected quality of a player’s replacement declines faster than the quality of alternatives at other positions — that is the whole definition, and everything else on this page is a consequence of it.</p>
+          <blockquote class="pull"><p>Scarcity is the slope of the drop-off, compared against the slope at every other position.</p></blockquote>
+          
+          
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
+          <h2>How Is Scarcity Different From “This Position Is Valuable”?</h2>
+          
+          <p class="beat">Value is a level. Scarcity is a derivative. Confusing them is the single most common error in draft reasoning.</p>
+        <p class="beat">Consider a position where the top twenty players are all excellent and all roughly interchangeable. That position is enormously <strong>valuable</strong> — those players will score you a great many points. It is not <strong>scarce</strong> at all, because the twentieth is nearly as good as the first, and waiting costs you almost nothing.</p>
+        <p class="beat">Now consider a position where four players are clearly startable and the fifth is a genuine liability. That position may be worth far fewer total points. It is intensely scarce, because the difference between having one of the four and having the fifth is enormous.</p>
+        <p class="beat">You draft for the difference, not for the total. The scarce position is the one where the *gap* behind the player is widest — which is why scarcity and <a href="/draft-science/replacement-value">replacement value</a> are two views of the same measurement.</p>
+          <blockquote class="pull"><p>Value is how good the players are. Scarcity is how much worse the next one is.</p></blockquote>
+          
+          
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap">
+          <h2>Which Combination Are You Actually Looking At?</h2>
+          <p class="lede measure">Value and scarcity vary independently, which produces four genuinely different situations and four different correct responses.</p>
+          <div class="table-scroll mt-md">
+            <table>
+              <thead><tr><th>Value at the position</th><th>Scarcity at the position</th><th>What the board is telling you</th></tr></thead>
+              <tbody><tr><td>High</td><td>High</td><td>Act. The players are worth a lot and the drop behind them is steep, so waiting costs both points and the position itself. This is the only quadrant where reaching is defensible.</td></tr><tr><td>High</td><td>Low</td><td>Wait. The points are real but replaceable — a comparable player should survive to your next turn. Spend the pick where the drop is steeper.</td></tr><tr><td>Low</td><td>High</td><td>Take one, once. Total points are modest, but the cliff behind the startable group is real, so being the manager left below it is expensive.</td></tr><tr><td>Low</td><td>Low</td><td>Defer indefinitely. Nothing about waiting costs you anything here. This is where late picks belong.</td></tr></tbody>
+            </table>
+          </div>
+          <p class="table-note">The two off-diagonal quadrants are where static rankings mislead, because a ranking reports value and is silent on scarcity.</p>
+        </div>
+      </section>
+
+      <section id="how-it-works">
+        <div class="wrap">
+          <h2>How Do You Measure Scarcity at a Given Moment?</h2>
+          
+          <ol class="steps mt-lg">
+            <li><h3>Establish what counts as startable in this league.</h3><p class="beat">League size multiplied by starting slots sets the size of the startable pool at each position. A 12-team league starting one quarterback needs 12; the same league in Superflex may need well over 20. The startable pool is the denominator for everything that follows.</p></li>
+            <li><h3>Count what actually remains, not what was projected.</h3><p class="beat">Scarcity is computed against the players still on the board tonight, in this room. Preseason depth is a starting assumption that the first three rounds routinely destroy.</p></li>
+            <li><h3>Estimate who survives to your next turn.</h3><p class="beat">Not every remaining player is available to you. The relevant survivor is the best player at the position likely to still be there when you pick again — which depends on how many teams pick in between and what they still need.</p></li>
+            <li><h3>Take the difference — that is the cost of waiting.</h3><p class="beat">Best available now, minus expected best available at your next turn, in this league's scoring. That number is the position's waiting cost.</p></li>
+            <li><h3>Compare the waiting cost across every position.</h3><p class="beat">One position's waiting cost in isolation means nothing. Scarcity is the comparison: the scarce position is the one whose waiting cost is largest right now.</p></li>
+            <li><h3>Recompute after the next selection.</h3><p class="beat">Every pick removes a player from exactly one position pool, which changes that pool's slope and therefore changes the comparison. Scarcity computed two picks ago is a different number.</p></li>
+          </ol>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
+          <h2>What Happens to Scarcity During a Run?</h2>
+          
+          <p class="beat">A run is scarcity becoming visible in real time.</p>
+        <p class="beat">Suppose five running backs are selected in six picks. The pool did not merely shrink by five names — the *top* of the pool shrank by five names, so the best remaining running back is now several tiers lower while every other position is exactly where it was. The running-back slope steepened relative to everything else; that is precisely the definition being satisfied in front of you.</p>
+        <p class="beat">And the effect compounds. Managers who did not get one now still need one, so the picks between you and your next turn are more likely to take running backs than they were an hour ago. Market state and draft-position state move together.</p>
+        <p class="beat">The mirror case is just as important. If receivers keep falling and you already start two, receiver scarcity for <strong>you</strong> is dropping even as the names coming off the board look impressive. <a href="/scenarios/five-running-backs-go-in-a-row">Five running backs going in a row</a> walks the first case through pick by pick.</p>
+          
+          
+          
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
+          <h2>Why Is Scarcity Different for Me Than for the Manager Next to Me?</h2>
+          
+          <p class="beat">Because scarcity is measured against a roster, and you do not share one.</p>
+        <p class="beat">If you already start two quality tight ends, tight-end scarcity is close to irrelevant to you — a cliff you are standing above costs you nothing. For the manager with none, the identical board is an emergency.</p>
+        <p class="beat">Then the pick horizon splits you further. Scarcity that will resolve itself before your next turn is not a cost. Scarcity that arrives during the nineteen picks between you and your next selection is a cost you must pay now or not at all.</p>
+        <p class="beat">This is why a single league-wide scarcity ranking cannot be correct for everyone in the room. Scarcity is a function of the board <strong>and</strong> of who is asking. <a href="/tools/superflex-qb-demand-calculator">Superflex quarterback demand</a> is the sharpest version of this, because Superflex changes the startable pool itself.</p>
+          <blockquote class="pull"><p>Scarcity is a property of a board and a roster together, never of a position alone.</p></blockquote>
+          
+          
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
+          <h2>Can a Position Become Less Scarce Mid-Draft?</h2>
+          
+          <p class="beat">Yes, and it happens constantly — it is simply less dramatic than a run, so it goes unnoticed.</p>
+        <p class="beat">If eight consecutive picks are receivers and running backs, the quarterback pool did not lose a single player while every other pool thinned. Quarterback scarcity fell without a single quarterback being drafted.</p>
+        <p class="beat">The same happens when demand disappears rather than supply appearing: once most teams have filled a position, the remaining players at it face far less competition, so more of them survive to your next turn.</p>
+        <p class="beat"><strong>Scarcity moves in both directions, and the falling direction is where deferred picks are won.</strong> This is the mechanism behind <a href="/scenarios/waiting-on-quarterback">waiting on a quarterback</a>.</p>
+          
+          
+          
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap">
+          <h2>The Terms, Stated Once and Reusably.</h2>
+          <dl class="glossary mt-md">
+            <div class="term" id="positional-scarcity">
+              <dt>Positional scarcity</dt>
+              <dd>The condition in which the expected quality of a player's replacement at a position is declining faster than the quality of alternatives at other positions, measured against a specific league's starting requirements and a specific manager's next pick.</dd>
+            </div>
+            <div class="term" id="startable-pool">
+              <dt>Startable pool</dt>
+              <dd>The number of players at a position that the league as a whole must start each week, equal to league size multiplied by the starting slots at that position. The startable pool sets how far down a position remains useful.</dd>
+            </div>
+            <div class="term" id="waiting-cost">
+              <dt>Waiting cost</dt>
+              <dd>The expected production lost by deferring a position for one full turn, equal to the best player available now minus the best player expected to survive until the manager's next selection, expressed in the league's own scoring.</dd>
+            </div>
+            <div class="term" id="tier-cliff">
+              <dt>Tier cliff</dt>
+              <dd>A point in a position's remaining pool where the quality gap between consecutive players is unusually large. A tier cliff is the mechanism that converts ordinary depth into acute scarcity within a single pick.</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <section class="convert">
+        <div class="wrap measure">
+          <h2>Scarcity Is Arithmetic. Somebody Has to Do It.</h2>
+          <p class="beat">Scarcity is straightforward to define and genuinely hard to compute on a ninety-second clock across every position at once, after every pick, in a league whose settings are not the ones the rankings assumed.</p>
+        <p class="beat">GREEN18 recalculates the waiting cost at every position as the board changes, and shows you which one is actually steepening.</p>
+        <p class="beat"><strong>Download GREEN18 and stop guessing at the slope.</strong></p>
+          
+        <div class="cta-group">
+          <a class="btn btn-lg" href="https://apps.apple.com/us/app/id6805706417">Download GREEN18</a>
+          
+        </div>
+        <p class="cta-sub">Available for iPhone. Player data from open football sources; nflverse credited under CC-BY.</p>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
+          <h2>Questions</h2>
+          <div class="faq mt-md">
+            <details><summary>What is positional scarcity in fantasy football?</summary><div><p>Positional scarcity increases when the expected quality of a player's replacement declines faster than the quality of alternatives at other positions. It is a rate of decline compared across positions rather than a fixed property of any one position, so a position is scarce only relative to a specific league's starting requirements, the players actually remaining, and the distance until the manager picks again.</p></div></details>
+            <details><summary>Is positional scarcity the same as a position being valuable?</summary><div><p>No. Value describes how good the players at a position are, while scarcity describes how much worse the next one is. A position where twenty excellent players remain is highly valuable and not scarce, because waiting costs almost nothing, and a position with four startable players and a steep drop after them is scarce even if its total point production is modest.</p></div></details>
+            <details><summary>Why does scarcity differ between two managers in the same draft?</summary><div><p>Because scarcity is measured against a roster and a pick horizon, and those differ between managers. A manager who already starts two players at a position loses little by ignoring a cliff at that position, while a manager with none faces a large loss from the same board, and a manager whose next pick is three selections away faces less risk than one whose next pick is nineteen away.</p></div></details>
+            <details><summary>Can a position become less scarce during a draft?</summary><div><p>Yes. If several consecutive picks are spent on other positions, a position pool loses no players while every other pool thins, so its relative scarcity falls without any player at it being drafted. Scarcity also falls when most teams have already filled the position, because fewer managers are competing for the players who remain.</p></div></details>
+            <details><summary>How does league format change positional scarcity?</summary><div><p>League format determines the startable pool, which is league size multiplied by the starting slots at a position. Superflex roughly doubles the quarterbacks the league must start, which pushes the useful part of the quarterback pool much deeper and makes quarterback scarcity arrive far earlier than it does in a single-quarterback league of the same size.</p></div></details>
+          </div>
+        </div>
+      </section>
+
+      <section class="related">
+        <div class="wrap">
+          <h2>Keep reading</h2>
+          <ul class="mt-md">
+            <li><a href="/scenarios/five-running-backs-go-in-a-row">scenarios/five-running-backs-go-in-a-row</a></li>
+            <li><a href="/tools/scarcity-calculator">tools/scarcity-calculator</a></li>
+            <li><a href="/draft-science/replacement-value">draft-science/replacement-value</a></li>
+            <li><a href="/fantasy-football-positional-scarcity">Positional Scarcity and Replacement Value</a></li>
+            <li><a href="/fantasy-football-draft-assistant">Fantasy Football Draft Assistant</a></li>
+          </ul>
+        </div>
+      </section>
+
+
+  </main>
+
+  <footer class="site">
+    <div class="wrap">
+      <div class="foot-top">
+        <div class="foot-brand">
+          <a class="wordmark" href="/">GREEN<b>18</b></a>
+          <p>Live fantasy football draft intelligence for iPhone.</p>
+        </div>
+        <div class="foot-cols">
+            <div>
+              <h2>Product</h2>
+              <ul><li><a href="/fantasy-football-draft-assistant">How GREEN18 Works</a></li><li><a href="/live-fantasy-football-draft-assistant">Live Draft Assistant</a></li><li><a href="/dynamic-fantasy-football-adp">Dynamic ADP</a></li><li><a href="/fantasy-football-cheat-sheet-app">Fantasy Cheat Sheet</a></li><li><a href="/personalized-fantasy-football-rankings">Personalized Rankings</a></li><li><a href="/fantasy-football-positional-scarcity">Positional Scarcity</a></li><li><a href="/fantasy-football-draft-strategy-app">Draft Strategy</a></li></ul>
+            </div>
+            <div>
+              <h2>Draft Formats</h2>
+              <ul><li><a href="/superflex-draft-assistant">Superflex</a></li><li><a href="/ppr-draft-assistant">PPR</a></li></ul>
+            </div>
+            <div>
+              <h2>Draft Help</h2>
+              <ul><li><a href="/fantasy-football-for-beginners">Beginners</a></li><li><a href="/competitive-fantasy-football-draft">Competitive Players</a></li><li><a href="/office-fantasy-football-draft">Office Leagues</a></li><li><a href="/home-league-draft-assistant">Home Leagues</a></li><li><a href="/last-minute-fantasy-football-draft">Last-Minute Drafts</a></li><li><a href="/fantasy-football-without-research">Without the Research</a></li></ul>
+            </div>
+            <div>
+              <h2>The Model</h2>
+              <ul><li><a href="/ai-fantasy-football-draft-assistant">AI Draft Assistant</a></li><li><a href="/fantasy-football-draft-algorithm">How It Decides</a></li><li><a href="/chatgpt-fantasy-football-draft">ChatGPT vs GREEN18</a></li><li><a href="/automated-fantasy-football-draft-tool">Automated Draft Tool</a></li></ul>
+            </div>
+            <div>
+              <h2>Platforms</h2>
+              <ul><li><a href="/espn-fantasy-football-draft-helper">ESPN Draft Helper</a></li><li><a href="/yahoo-fantasy-football-draft-helper">Yahoo Draft Helper</a></li><li><a href="/sleeper-fantasy-football-draft-helper">Sleeper Draft Helper</a></li></ul>
+            </div>
+            <div>
+              <h2>Draft Science</h2>
+              <ul><li><a href="/draft-science/draft-state-valuation">Draft-State Valuation</a></li><li><a href="/draft-science/positional-scarcity">Positional Scarcity</a></li><li><a href="/draft-science/replacement-value">Replacement Value</a></li><li><a href="/draft-science/opportunity-cost">Opportunity Cost</a></li><li><a href="/draft-science/pick-horizon">Pick Horizon</a></li><li><a href="/draft-science/player-tier-collapse">Tier Collapse</a></li><li><a href="/draft-science/roster-construction">Roster Construction</a></li><li><a href="/draft-science/superflex-quarterback-value">Superflex QB Value</a></li></ul>
+            </div>
+            <div>
+              <h2>Tools</h2>
+              <ul><li><a href="/tools/scarcity-calculator">Scarcity Calculator</a></li><li><a href="/tools/pick-horizon-calculator">Pick Horizon Calculator</a></li><li><a href="/tools/league-value-calculator">Replacement Level</a></li><li><a href="/tools/superflex-qb-demand-calculator">Superflex QB Demand</a></li><li><a href="/tools/ppr-value-adjustment-calculator">PPR Value Adjustment</a></li></ul>
+            </div>
+            <div>
+              <h2>Reference</h2>
+              <ul><li><a href="/how-green18-ranks-fantasy-players">How GREEN18 Ranks Players</a></li><li><a href="/why-fantasy-rankings-change-during-a-draft">Why Rankings Change</a></li><li><a href="/glossary">Glossary</a></li><li><a href="/methodology">Methodology</a></li><li><a href="/about">About</a></li></ul>
+            </div>
+            <div>
+              <h2>Legal</h2>
+              <ul><li><a href="/privacy">Privacy</a></li><li><a href="/support">Support</a></li><li><a href="/contact">Contact</a></li></ul>
+            </div>
+        </div>
+      </div>
+      <div class="foot-legal">
+        <p>GREEN18 is an independent fantasy football application. References to third-party fantasy platforms, leagues, teams, players, or trademarks are descriptive only and do not imply affiliation, sponsorship, or endorsement.</p>
+        <p>&copy; 2026 Interplore. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="sticky-cta" id="stickyCta" aria-hidden="true">
+    <span class="lbl">Get GREEN18<small>Open in App Store</small></span>
+    <a class="btn" href="https://apps.apple.com/us/app/id6805706417" tabindex="-1">Get GREEN18</a>
+  </div>
+
+  <script src="/assets/site.js" defer></script>
+
+</body>
+</html>

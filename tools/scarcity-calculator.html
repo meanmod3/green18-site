@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#041306">
+  <title>Positional Scarcity Calculator | GREEN18</title>
+  <meta name="description" content="Estimate whether a position is scarce enough to take now, from your league size, starting slots, players already drafted, and the gap to your next pick.">
+  <link rel="canonical" href="https://green18.app/tools/scarcity-calculator">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="GREEN18">
+  <meta property="og:url" content="https://green18.app/tools/scarcity-calculator">
+  <meta property="og:title" content="Positional Scarcity Calculator | GREEN18">
+  <meta property="og:description" content="Estimate whether a position is scarce enough to take now, from your league size, starting slots, players already drafted, and the gap to your next pick.">
+  <meta property="og:image" content="https://green18.app/assets/green18-card.png">
+  <meta property="og:image:alt" content="GREEN18 — live fantasy football draft intelligence for iPhone.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Positional Scarcity Calculator | GREEN18">
+  <meta name="twitter:description" content="Estimate whether a position is scarce enough to take now, from your league size, starting slots, players already drafted, and the gap to your next pick.">
+  <meta name="twitter:image" content="https://green18.app/assets/green18-card.png">
+  <link rel="icon" href="/assets/icon.png" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/icon.png">
+  <link rel="stylesheet" href="/assets/site.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://green18.app/#org",
+      "name": "GREEN18",
+      "url": "https://green18.app/",
+      "logo": "https://green18.app/assets/icon.png"
+    },
+    {
+      "@type": "MobileApplication",
+      "name": "GREEN18",
+      "applicationCategory": "SportsApplication",
+      "operatingSystem": "iOS",
+      "url": "https://green18.app/",
+      "installUrl": "https://apps.apple.com/us/app/id6805706417",
+      "description": "A live fantasy football draft assistant for iPhone that reorganizes the remaining player board as the draft develops.",
+      "publisher": {
+        "@id": "https://green18.app/#org"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What makes a position scarce in fantasy football?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A position is scarce when the quality of the players available at it is declining faster than at the positions you could draft instead, and when enough selections will occur before your next turn for that decline to reach you. Scarcity depends on league size, starting requirements, how many players at the position are already gone, and how long you must wait to pick again."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does league size change positional scarcity?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. League size sets total starting demand at every position, and it also sets how many picks pass between your turns. A twelve-team league creates more demand and longer waits than an eight-team league, so the same position can be scarce in one and comfortable in the other."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is a scarce position always worth drafting early?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Scarcity establishes that quality is disappearing, not that the disappearing quality is worth paying for. If the remaining players at a scarce position are close to identical, waiting costs little even though supply is short."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "GREEN18",
+          "item": "https://green18.app/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Scarcity Calculator",
+          "item": "https://green18.app/tools/scarcity-calculator"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site">
+    <div class="wrap">
+      <a class="wordmark" href="/">GREEN<b>18</b></a>
+      <nav aria-label="Primary">
+        <a href="/how-green18-ranks-fantasy-players">How It Works</a>
+          <a href="/draft-science/draft-state-valuation">Draft Science</a>
+          <a href="/scenarios/five-running-backs-go-in-a-row">Scenarios</a>
+          <a href="/tools/scarcity-calculator">Tools</a>
+          <a href="/glossary">Glossary</a>
+      </nav>
+      <a class="btn" href="https://apps.apple.com/us/app/id6805706417">Download</a>
+    </div>
+  </header>
+
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <div class="wrap"><a href="/">GREEN18</a><span>/</span>Scarcity Calculator</div>
+    </nav>
+
+  <main id="main">
+      <section class="hero">
+        <div class="wrap">
+          <div class="">
+          <div class="measure">
+            <p class="eyebrow">Draft Tools</p>
+            <h1>Positional Scarcity Calculator</h1>
+            <div class="lede">
+              <p>Scarcity is not a property a position owns. It is a rate — how fast the quality behind a player is falling, measured against how long you have to wait.</p>
+              <p>This calculator turns that into an estimate you can act on while you are on the clock.</p>
+            </div>
+            
+        <div class="cta-group">
+          <a class="btn btn-lg" href="https://apps.apple.com/us/app/id6805706417">Download GREEN18</a>
+          
+        </div>
+        <p class="cta-sub">GREEN18 does this continuously, for every available player.</p>
+          </div>
+          
+          </div>
+        </div>
+      </section>
+
+      <section class="answer-wrap">
+        <div class="wrap measure">
+          <p class="answer">A position is scarce for you when the number of starting slots still unfilled across your league is large relative to the players who can fill them, and enough picks separate you from your next turn for those slots to be filled before you choose again. Scarcity is therefore a function of four things — league size, starting slots per team, players already drafted at the position, and the distance to your next pick — not a fixed property of the position itself.</p>
+        </div>
+      </section>
+
+      <section class="keypoints-wrap">
+        <div class="wrap measure">
+          <h2 class="keypoints-h">In short</h2>
+          <ul class="keypoints">
+            <li>Positional scarcity is a rate of decline measured across positions, not a permanent property that one position owns.</li>
+            <li>The distance to a manager’s next selection is part of the scarcity calculation, because a position cannot become scarce to you in picks that never happen.</li>
+            <li>A position with many unfilled starting slots across a league will keep being drafted regardless of how good the remaining players are, because starting requirements do not care about quality.</li>
+            <li>Two managers in the same draft can face genuinely different scarcity at the same position if their next picks are different distances away.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="calc" id="calc" data-calc="scarcity">
+        <div class="wrap">
+          <h2>Estimate scarcity at a position</h2>
+          <p class="lede measure">Set your league and the position you are weighing. The result updates as you type, and the URL captures your inputs so you can share the exact case.</p>
+          <div class="calc-grid mt-lg">
+            <form class="calc-form" novalidate>
+              <label class="calc-field">
+                <span>Teams in your league</span>
+                <input type="number" name="teams" value="12" min="4" max="20" step="1" inputmode="numeric">
+              </label>
+              <label class="calc-field">
+                <span>Starting slots per team at this position</span>
+                <input type="number" name="starters" value="2" min="1" max="4" step="1" inputmode="numeric">
+              </label>
+              <label class="calc-field">
+                <span>Players already drafted at this position</span>
+                <input type="number" name="gone" value="8" min="0" max="80" step="1" inputmode="numeric">
+              </label>
+              <label class="calc-field">
+                <span>Your current overall pick number</span>
+                <input type="number" name="pick" value="18" min="1" max="300" step="1" inputmode="numeric">
+              </label>
+              <p class="calc-hint">Snake draft. The gap to your next pick is derived from your league size and pick number.</p>
+            </form>
+            <div class="calc-out" aria-live="polite">
+              <p class="calc-label">Result</p>
+              <p class="calc-verdict" data-verdict>Scarcity: HIGH</p>
+              <p class="calc-why" data-why>There are 10 picks before your next turn, and roughly 16 starting slots still unfilled across the league. Expect meaningful movement at this position before you choose again, so the cost of waiting is the difference between the player available now and a materially worse replacement.</p>
+            </div>
+          </div>
+          <p class="calc-note measure">This is an estimate of structural demand, not a projection of any individual manager’s behaviour. It assumes a snake draft and treats every team’s starting requirement as equal, which is true of most leagues and false of some.</p>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
+          <h2>How the estimate works</h2>
+          
+          <p class="beat">The calculation is deliberately simple, so you can check it.</p>
+        <p class="beat">League-wide demand at a position is the number of teams multiplied by the starting slots each team must fill. Subtract the players already drafted, and what remains is the demand still outstanding.</p>
+        <p class="beat">Your exposure is the number of picks between now and your next turn, which in a snake draft depends on your slot and whether the round runs forward or back.</p>
+        <p class="beat">Scarcity is high when outstanding demand is large <strong>and</strong> your exposure is long. Either one alone is not enough — a position can be thin and still safe to wait on if you pick again in two selections.</p>
+          
+          
+          
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
+          <h2>What this does not tell you</h2>
+          
+          <p class="beat">It does not tell you the position is worth taking.</p>
+        <p class="beat">Scarcity is one input. The decision also depends on how much better the player in front of you is than the replacement you would accept later, and on what you give up elsewhere by spending the pick here.</p>
+        <p class="beat">A scarce position full of players who are barely distinguishable from each other is not urgent. Urgency comes from a <strong>gap</strong>, not from a shortage.</p>
+        <p class="beat">Read <a href="/draft-science/replacement-value">replacement value</a> for the other half of the decision.</p>
+          
+          
+          
+        </div>
+      </section>
+
+      <section class="convert">
+        <div class="wrap measure">
+          <h2>The app does this for every player, continuously.</h2>
+          <p class="beat">This calculator answers the question once, for one position, from numbers you type.</p>
+        <p class="beat">GREEN18 answers it after every pick, for every available player, using your league’s real settings and the picks you have actually recorded.</p>
+          
+        <div class="cta-group">
+          <a class="btn btn-lg" href="https://apps.apple.com/us/app/id6805706417">Download GREEN18</a>
+          
+        </div>
+        <p class="cta-sub">Available for iPhone.</p>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
+          <h2>Questions</h2>
+          <div class="faq mt-md">
+            <details><summary>What makes a position scarce in fantasy football?</summary><div><p>A position is scarce when the quality of the players available at it is declining faster than at the positions you could draft instead, and when enough selections will occur before your next turn for that decline to reach you. Scarcity depends on league size, starting requirements, how many players at the position are already gone, and how long you must wait to pick again.</p></div></details>
+            <details><summary>Does league size change positional scarcity?</summary><div><p>Yes. League size sets total starting demand at every position, and it also sets how many picks pass between your turns. A twelve-team league creates more demand and longer waits than an eight-team league, so the same position can be scarce in one and comfortable in the other.</p></div></details>
+            <details><summary>Is a scarce position always worth drafting early?</summary><div><p>No. Scarcity establishes that quality is disappearing, not that the disappearing quality is worth paying for. If the remaining players at a scarce position are close to identical, waiting costs little even though supply is short.</p></div></details>
+          </div>
+        </div>
+      </section>
+
+      <section class="related">
+        <div class="wrap">
+          <h2>Keep reading</h2>
+          <ul class="mt-md">
+            <li><a href="/draft-science/positional-scarcity">draft-science/positional-scarcity</a></li>
+            <li><a href="/draft-science/replacement-value">draft-science/replacement-value</a></li>
+            <li><a href="/tools/pick-horizon-calculator">tools/pick-horizon-calculator</a></li>
+            <li><a href="/fantasy-football-positional-scarcity">Positional Scarcity and Replacement Value</a></li>
+            <li><a href="/fantasy-football-draft-assistant">Fantasy Football Draft Assistant</a></li>
+          </ul>
+        </div>
+      </section>
+
+
+  </main>
+
+  <footer class="site">
+    <div class="wrap">
+      <div class="foot-top">
+        <div class="foot-brand">
+          <a class="wordmark" href="/">GREEN<b>18</b></a>
+          <p>Live fantasy football draft intelligence for iPhone.</p>
+        </div>
+        <div class="foot-cols">
+            <div>
+              <h2>Product</h2>
+              <ul><li><a href="/fantasy-football-draft-assistant">How GREEN18 Works</a></li><li><a href="/live-fantasy-football-draft-assistant">Live Draft Assistant</a></li><li><a href="/dynamic-fantasy-football-adp">Dynamic ADP</a></li><li><a href="/fantasy-football-cheat-sheet-app">Fantasy Cheat Sheet</a></li><li><a href="/personalized-fantasy-football-rankings">Personalized Rankings</a></li><li><a href="/fantasy-football-positional-scarcity">Positional Scarcity</a></li><li><a href="/fantasy-football-draft-strategy-app">Draft Strategy</a></li></ul>
+            </div>
+            <div>
+              <h2>Draft Formats</h2>
+              <ul><li><a href="/superflex-draft-assistant">Superflex</a></li><li><a href="/ppr-draft-assistant">PPR</a></li></ul>
+            </div>
+            <div>
+              <h2>Draft Help</h2>
+              <ul><li><a href="/fantasy-football-for-beginners">Beginners</a></li><li><a href="/competitive-fantasy-football-draft">Competitive Players</a></li><li><a href="/office-fantasy-football-draft">Office Leagues</a></li><li><a href="/home-league-draft-assistant">Home Leagues</a></li><li><a href="/last-minute-fantasy-football-draft">Last-Minute Drafts</a></li><li><a href="/fantasy-football-without-research">Without the Research</a></li></ul>
+            </div>
+            <div>
+              <h2>The Model</h2>
+              <ul><li><a href="/ai-fantasy-football-draft-assistant">AI Draft Assistant</a></li><li><a href="/fantasy-football-draft-algorithm">How It Decides</a></li><li><a href="/chatgpt-fantasy-football-draft">ChatGPT vs GREEN18</a></li><li><a href="/automated-fantasy-football-draft-tool">Automated Draft Tool</a></li></ul>
+            </div>
+            <div>
+              <h2>Platforms</h2>
+              <ul><li><a href="/espn-fantasy-football-draft-helper">ESPN Draft Helper</a></li><li><a href="/yahoo-fantasy-football-draft-helper">Yahoo Draft Helper</a></li><li><a href="/sleeper-fantasy-football-draft-helper">Sleeper Draft Helper</a></li></ul>
+            </div>
+            <div>
+              <h2>Draft Science</h2>
+              <ul><li><a href="/draft-science/draft-state-valuation">Draft-State Valuation</a></li><li><a href="/draft-science/positional-scarcity">Positional Scarcity</a></li><li><a href="/draft-science/replacement-value">Replacement Value</a></li><li><a href="/draft-science/opportunity-cost">Opportunity Cost</a></li><li><a href="/draft-science/pick-horizon">Pick Horizon</a></li><li><a href="/draft-science/player-tier-collapse">Tier Collapse</a></li><li><a href="/draft-science/roster-construction">Roster Construction</a></li><li><a href="/draft-science/superflex-quarterback-value">Superflex QB Value</a></li></ul>
+            </div>
+            <div>
+              <h2>Tools</h2>
+              <ul><li><a href="/tools/scarcity-calculator">Scarcity Calculator</a></li><li><a href="/tools/pick-horizon-calculator">Pick Horizon Calculator</a></li><li><a href="/tools/league-value-calculator">Replacement Level</a></li><li><a href="/tools/superflex-qb-demand-calculator">Superflex QB Demand</a></li><li><a href="/tools/ppr-value-adjustment-calculator">PPR Value Adjustment</a></li></ul>
+            </div>
+            <div>
+              <h2>Reference</h2>
+              <ul><li><a href="/how-green18-ranks-fantasy-players">How GREEN18 Ranks Players</a></li><li><a href="/why-fantasy-rankings-change-during-a-draft">Why Rankings Change</a></li><li><a href="/glossary">Glossary</a></li><li><a href="/methodology">Methodology</a></li><li><a href="/about">About</a></li></ul>
+            </div>
+            <div>
+              <h2>Legal</h2>
+              <ul><li><a href="/privacy">Privacy</a></li><li><a href="/support">Support</a></li><li><a href="/contact">Contact</a></li></ul>
+            </div>
+        </div>
+      </div>
+      <div class="foot-legal">
+        <p>GREEN18 is an independent fantasy football application. References to third-party fantasy platforms, leagues, teams, players, or trademarks are descriptive only and do not imply affiliation, sponsorship, or endorsement.</p>
+        <p>&copy; 2026 Interplore. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="sticky-cta" id="stickyCta" aria-hidden="true">
+    <span class="lbl">Get GREEN18<small>Open in App Store</small></span>
+    <a class="btn" href="https://apps.apple.com/us/app/id6805706417" tabindex="-1">Get GREEN18</a>
+  </div>
+
+  <script src="/assets/site.js" defer></script>
+  <script type="module" src="/assets/tools.js"></script>
+</body>
+</html>

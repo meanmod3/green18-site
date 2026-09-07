@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#041306">
+  <title>GREEN18 Methodology | Inputs, Determinism and Limits</title>
+  <meta name="description" content="How GREEN18 arrives at a number: open football data, your league settings and your recorded picks, computed deterministically — and what the model cannot do.">
+  <link rel="canonical" href="https://green18.app/methodology">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="GREEN18">
+  <meta property="og:url" content="https://green18.app/methodology">
+  <meta property="og:title" content="GREEN18 Methodology | Inputs, Determinism and Limits">
+  <meta property="og:description" content="How GREEN18 arrives at a number: open football data, your league settings and your recorded picks, computed deterministically — and what the model cannot do.">
+  <meta property="og:image" content="https://green18.app/assets/green18-card.png">
+  <meta property="og:image:alt" content="GREEN18 — live fantasy football draft intelligence for iPhone.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="GREEN18 Methodology | Inputs, Determinism and Limits">
+  <meta name="twitter:description" content="How GREEN18 arrives at a number: open football data, your league settings and your recorded picks, computed deterministically — and what the model cannot do.">
+  <meta name="twitter:image" content="https://green18.app/assets/green18-card.png">
+  <link rel="icon" href="/assets/icon.png" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/icon.png">
+  <link rel="stylesheet" href="/assets/site.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://green18.app/#org",
+      "name": "GREEN18",
+      "url": "https://green18.app/",
+      "logo": "https://green18.app/assets/icon.png"
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://green18.app/methodology#article",
+      "headline": "GREEN18 Methodology",
+      "description": "How GREEN18 arrives at a number: open football data, your league settings and your recorded picks, computed deterministically — and what the model cannot do.",
+      "url": "https://green18.app/methodology",
+      "abstract": "GREEN18 computes a player’s situational draft value deterministically from three inputs: open football data for player facts, the league configuration the user enters, and the picks the user records during the draft. Identical league settings and an identical sequence of recorded picks always produce an identical result, so any recommendation can be reproduced from the board that produced it. The model does not predict injuries, forecast season outcomes, guarantee results, or use any machine-learning or language model.",
+      "dateModified": "2026-09-07",
+      "publisher": {
+        "@id": "https://green18.app/#org"
+      },
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "MobileApplication",
+      "name": "GREEN18",
+      "applicationCategory": "SportsApplication",
+      "operatingSystem": "iOS",
+      "url": "https://green18.app/",
+      "installUrl": "https://apps.apple.com/us/app/id6805706417",
+      "description": "A live fantasy football draft assistant for iPhone that reorganizes the remaining player board as the draft develops.",
+      "publisher": {
+        "@id": "https://green18.app/#org"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is the GREEN18 model deterministic?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Identical league settings and an identical sequence of recorded picks always produce an identical result. Because every recommendation can be reproduced from the board that produced it, a change in the board is always traceable to a change in the inputs rather than to randomness in the model."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What data does GREEN18 use?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "GREEN18 uses three inputs: open football data for player, team and schedule facts, with the nflverse open-source community credited under its CC-BY licence; the league configuration the user enters; and the picks the user records during the draft."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does GREEN18 use artificial intelligence or machine learning?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. GREEN18 contains no machine-learning model, no language model and no chat interface. Every value the app displays is a named, computed component of a deterministic model rather than generated text."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does GREEN18 train on user data?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Leagues, drafts, preferences and archived drafts are stored only on the user’s iPhone and are never uploaded, so there is no user data available to train anything with."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can GREEN18 predict injuries or forecast the season?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. GREEN18 does not predict injuries and does not forecast season outcomes. Its scope is the value of the players still available in the draft in front of the user, and it guarantees no result."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do a user’s preferences affect other users or the objective values?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Preferences affect only that user’s own personal ranking. The objective values the model computes for the market are not moved by any user’s preferences, and the two are shown side by side rather than merged."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does GREEN18 require picks to be entered manually?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "GREEN18 has no connection to any fantasy platform, so it cannot import or sync a draft in progress. Picks are recorded by the user, which is also why the app works in a draft that has no online platform behind it at all."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "GREEN18",
+          "item": "https://green18.app/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Methodology",
+          "item": "https://green18.app/methodology"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site">
+    <div class="wrap">
+      <a class="wordmark" href="/">GREEN<b>18</b></a>
+      <nav aria-label="Primary">
+        <a href="/how-green18-ranks-fantasy-players">How It Works</a>
+          <a href="/draft-science/draft-state-valuation">Draft Science</a>
+          <a href="/scenarios/five-running-backs-go-in-a-row">Scenarios</a>
+          <a href="/tools/scarcity-calculator">Tools</a>
+          <a href="/glossary">Glossary</a>
+      </nav>
+      <a class="btn" href="https://apps.apple.com/us/app/id6805706417">Download</a>
+    </div>
+  </header>
+
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <div class="wrap"><a href="/">GREEN18</a><span>/</span>Methodology</div>
+    </nav>
+
+  <main id="main">
+      <section class="hero">
+        <div class="wrap">
+          <div class="">
+          <div class="measure">
+            <p class="eyebrow">Methodology</p>
+            <h1>GREEN18 Methodology</h1>
+            <div class="lede">
+              <p>This page describes how GREEN18 arrives at a number, what goes into it, and — just as importantly — what it cannot tell you.</p>
+              <p>The model is <strong>deterministic</strong>: identical league settings and an identical sequence of recorded picks always produce an identical result.</p>
+              <p>A page that only listed strengths would be marketing. The limits are stated here in the same detail as the method.</p>
+            </div>
+            
+        <div class="cta-group">
+          <a class="btn btn-lg" href="https://apps.apple.com/us/app/id6805706417">Download GREEN18</a>
+          <a class="btn btn-ghost" href="#limits">Honest Limits</a>
+        </div>
+        <p class="cta-sub">Available for iPhone.</p>
+          </div>
+          
+          </div>
+        </div>
+      </section>
+
+      <section class="answer-wrap">
+        <div class="wrap measure">
+          <p class="answer">GREEN18 computes a player’s situational draft value deterministically from three inputs: open football data for player facts, the league configuration the user enters, and the picks the user records during the draft. Identical league settings and an identical sequence of recorded picks always produce an identical result, so any recommendation can be reproduced from the board that produced it. The model does not predict injuries, forecast season outcomes, guarantee results, or use any machine-learning or language model.</p>
+        </div>
+      </section>
+
+      <section class="keypoints-wrap">
+        <div class="wrap measure">
+          <h2 class="keypoints-h">In short</h2>
+          <ul class="keypoints">
+            <li>A deterministic draft model produces the same recommendation every time it is given the same league settings and the same sequence of recorded picks, which makes each recommendation reproducible and therefore checkable.</li>
+            <li>A draft recommendation that cannot be reproduced from the board that produced it cannot be audited, because there is no way to distinguish a change in the inputs from variation in the model itself.</li>
+            <li>GREEN18 derives player facts from open football data, including the nflverse open-source community credited under its CC-BY licence, combined with the league configuration and the draft picks entered by the user.</li>
+            <li>Subjective user preferences in GREEN18 are confined to the individual user’s own personal ranking and never alter the objective values the model computes for the market.</li>
+            <li>Draft picks are recorded by the user rather than imported, because GREEN18 has no connection to any fantasy platform and cannot read a draft in progress from an external service.</li>
+            <li>GREEN18 contains no machine-learning model, no language model and no chat interface, so every displayed value is a named computed component rather than generated prose.</li>
+            <li>Predicting injuries and forecasting full-season outcomes are outside what GREEN18 attempts, and no result the model produces is a guarantee of fantasy performance.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
+          <h2>Why Does Determinism Matter?</h2>
+          
+          <p class="beat">Because a recommendation you cannot reproduce is a recommendation you cannot check.</p>
+        <p class="beat">GREEN18 is deterministic. Give it the same league settings and the same sequence of recorded picks and it returns the same board, every time, on every device.</p>
+        <p class="beat">That has a practical consequence: when the board changes, the change is traceable to a change in the inputs. It is never noise, and it is never a different answer to the same question.</p>
+        <p class="beat">Replay a draft and you replay the recommendations exactly.</p>
+          <blockquote class="pull"><p>If you can’t reproduce it, you can’t audit it.</p></blockquote>
+          
+          
+        </div>
+      </section>
+
+      <section id="how-it-works">
+        <div class="wrap">
+          <h2>What Goes In, and In What Order</h2>
+          
+          <ol class="steps mt-lg">
+            <li><h3>1. Open football data.</h3><p class="beat">Player, team and schedule facts come from open football data. The nflverse open-source community is credited under its CC-BY licence, and attribution is shown in the app under Settings → Data sources. A hard allowlist rejects unapproved sources when the app is built.</p></li>
+            <li><h3>2. Your league configuration.</h3><p class="beat">Scoring rules, league size, roster and flex requirements, quarterback format and draft position are applied to the player pool before any board is built. Settings re-rank players; they do not merely relabel them.</p></li>
+            <li><h3>3. The picks you record.</h3><p class="beat">Each pick you enter changes the value of everyone still available — driven by how quickly a position is coming off the board and what the teams picking before your next turn still need.</p></li>
+            <li><h3>4. Survival to your next pick.</h3><p class="beat">The model estimates each remaining player’s chance of still being available when you pick again, given the picks that sit between now and then.</p></li>
+            <li><h3>5. Take now or wait.</h3><p class="beat">Value and survival combine into the decision that is actually in front of you on the clock: take this player now, or come back for someone comparable later.</p></li>
+          </ol>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
+          <h2>Where Do the Numbers Come From?</h2>
+          
+          <p class="beat">Three inputs, and only three.</p>
+          
+          <ul class="ticks"><li><strong>Open football data</strong> for player facts — nflverse credited under CC-BY.</li><li><strong>Your league configuration</strong> — the scoring, size, roster and draft order you enter.</li><li><strong>Your recorded picks</strong> — the draft as it actually unfolds in front of you.</li></ul>
+          <p class="beat">GREEN18 does not license a third-party draft-position feed and does not ship one.</p>
+        <p class="beat">Nothing else gets in. If a fact is not in an approved source or in what you entered, the model does not have it.</p>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
+          <h2>Why Do You Record Picks by Hand?</h2>
+          
+          <p class="beat">Because the app has no connection to any fantasy platform.</p>
+        <p class="beat">There is no sync, no import and no login to an external service, so the only way the model learns what has been taken is that you tell it.</p>
+        <p class="beat">That is a real cost — you tap picks in — and it buys two things. The app works in a draft with no online platform at all, and it never needs an account, a credential, or permission to read anything of yours.</p>
+          
+          
+          
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
+          <h2>Do Your Preferences Change the Objective Values?</h2>
+          
+          <p class="beat">No, and this is an architectural property rather than a stylistic promise.</p>
+        <p class="beat">The values the model computes for the market are not moved by any user’s preferences. Preferences affect only that user’s own personal ranking, which is displayed alongside the objective values.</p>
+        <p class="beat">So you see both columns at once: what the board computes, and what you think.</p>
+        <p class="beat">A tool that folds your bias into its &quot;objective&quot; number is telling you what you already believe, in the voice of a machine that supposedly disagrees with you.</p>
+        <p class="beat">This is the same separation described on <a href="/personalized-fantasy-football-rankings">personalized rankings</a>.</p>
+          
+          
+          
+        </div>
+      </section>
+
+      <section id="limits">
+        <div class="wrap measure">
+          <h2>What GREEN18 Does Not Do.</h2>
+          
+          <p class="beat">Every one of these is a real boundary, not a modesty gesture.</p>
+          
+          <ul class="ticks"><li><strong>No injury prediction.</strong> The model does not forecast who will get hurt, or when.</li><li><strong>No season forecasting.</strong> It values a draft board, not a season outcome.</li><li><strong>No guarantees.</strong> No recommendation is a promise about fantasy performance.</li><li><strong>No AI or machine learning.</strong> There is no model that was trained, tuned or fine-tuned on anything.</li><li><strong>No chat interface.</strong> There is nothing to converse with; the components are named and shown, not written.</li><li><strong>No training on user data.</strong> Your leagues, drafts and preferences never leave your iPhone, so they cannot be used to train anything.</li><li><strong>No platform connection.</strong> No sync, no import, no reading of a draft from an external service.</li><li><strong>No auto-drafting.</strong> The model never makes a pick for you.</li></ul>
+          <p class="beat">The last four are enforced by the way the app is built, not by policy: there is no networking path that uploads anything, and no account under which anything of yours could be stored. See the <a href="/privacy">privacy policy</a> for the full accounting.</p>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
+          <h2>How Do Recommendations Get Checked?</h2>
+          
+          <p class="beat">By replay.</p>
+        <p class="beat">Because the model is deterministic, any board can be rebuilt from the league settings and the pick sequence that produced it. A recommendation that looks wrong can be examined against the exact state it was made in.</p>
+        <p class="beat">The step-by-step pipeline, with the components named individually, is on <a href="/how-green18-ranks-fantasy-players">how GREEN18 values a player</a> and in more depth on <a href="/fantasy-football-draft-algorithm">how the draft model works</a>.</p>
+          
+          
+          
+        </div>
+      </section>
+
+      <section class="convert">
+        <div class="wrap measure">
+          <h2>Watch the Method Run.</h2>
+          <p class="beat">A methodology page is only worth as much as the board it produces.</p>
+        <p class="beat"><strong>Download GREEN18 for iPhone and see the board recompute after every pick.</strong></p>
+          
+        <div class="cta-group">
+          <a class="btn btn-lg" href="https://apps.apple.com/us/app/id6805706417">Download GREEN18</a>
+          
+        </div>
+        <p class="cta-sub">Available for iPhone. Player facts from open football data; nflverse credited under CC-BY.</p>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
+          <h2>Questions</h2>
+          <div class="faq mt-md">
+            <details><summary>Is the GREEN18 model deterministic?</summary><div><p>Yes. Identical league settings and an identical sequence of recorded picks always produce an identical result. Because every recommendation can be reproduced from the board that produced it, a change in the board is always traceable to a change in the inputs rather than to randomness in the model.</p></div></details>
+            <details><summary>What data does GREEN18 use?</summary><div><p>GREEN18 uses three inputs: open football data for player, team and schedule facts, with the nflverse open-source community credited under its CC-BY licence; the league configuration the user enters; and the picks the user records during the draft.</p></div></details>
+            <details><summary>Does GREEN18 use artificial intelligence or machine learning?</summary><div><p>No. GREEN18 contains no machine-learning model, no language model and no chat interface. Every value the app displays is a named, computed component of a deterministic model rather than generated text.</p></div></details>
+            <details><summary>Does GREEN18 train on user data?</summary><div><p>No. Leagues, drafts, preferences and archived drafts are stored only on the user’s iPhone and are never uploaded, so there is no user data available to train anything with.</p></div></details>
+            <details><summary>Can GREEN18 predict injuries or forecast the season?</summary><div><p>No. GREEN18 does not predict injuries and does not forecast season outcomes. Its scope is the value of the players still available in the draft in front of the user, and it guarantees no result.</p></div></details>
+            <details><summary>Do a user’s preferences affect other users or the objective values?</summary><div><p>No. Preferences affect only that user’s own personal ranking. The objective values the model computes for the market are not moved by any user’s preferences, and the two are shown side by side rather than merged.</p></div></details>
+            <details><summary>Why does GREEN18 require picks to be entered manually?</summary><div><p>GREEN18 has no connection to any fantasy platform, so it cannot import or sync a draft in progress. Picks are recorded by the user, which is also why the app works in a draft that has no online platform behind it at all.</p></div></details>
+          </div>
+        </div>
+      </section>
+
+      <section class="related">
+        <div class="wrap">
+          <h2>Keep reading</h2>
+          <ul class="mt-md">
+            <li><a href="/how-green18-ranks-fantasy-players">how-green18-ranks-fantasy-players</a></li>
+            <li><a href="/fantasy-football-draft-algorithm">How the Draft Model Works</a></li>
+            <li><a href="/personalized-fantasy-football-rankings">Personalized Fantasy Football Rankings</a></li>
+            <li><a href="/privacy">privacy</a></li>
+            <li><a href="/about">about</a></li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap"><p class="disclaimer">GREEN18 is published by Interplore and is not affiliated with, endorsed by or sponsored by the NFL, the NFL Players Association, any NFL club or any fantasy platform.</p></div>
+      </section>
+  </main>
+
+  <footer class="site">
+    <div class="wrap">
+      <div class="foot-top">
+        <div class="foot-brand">
+          <a class="wordmark" href="/">GREEN<b>18</b></a>
+          <p>Live fantasy football draft intelligence for iPhone.</p>
+        </div>
+        <div class="foot-cols">
+            <div>
+              <h2>Product</h2>
+              <ul><li><a href="/fantasy-football-draft-assistant">How GREEN18 Works</a></li><li><a href="/live-fantasy-football-draft-assistant">Live Draft Assistant</a></li><li><a href="/dynamic-fantasy-football-adp">Dynamic ADP</a></li><li><a href="/fantasy-football-cheat-sheet-app">Fantasy Cheat Sheet</a></li><li><a href="/personalized-fantasy-football-rankings">Personalized Rankings</a></li><li><a href="/fantasy-football-positional-scarcity">Positional Scarcity</a></li><li><a href="/fantasy-football-draft-strategy-app">Draft Strategy</a></li></ul>
+            </div>
+            <div>
+              <h2>Draft Formats</h2>
+              <ul><li><a href="/superflex-draft-assistant">Superflex</a></li><li><a href="/ppr-draft-assistant">PPR</a></li></ul>
+            </div>
+            <div>
+              <h2>Draft Help</h2>
+              <ul><li><a href="/fantasy-football-for-beginners">Beginners</a></li><li><a href="/competitive-fantasy-football-draft">Competitive Players</a></li><li><a href="/office-fantasy-football-draft">Office Leagues</a></li><li><a href="/home-league-draft-assistant">Home Leagues</a></li><li><a href="/last-minute-fantasy-football-draft">Last-Minute Drafts</a></li><li><a href="/fantasy-football-without-research">Without the Research</a></li></ul>
+            </div>
+            <div>
+              <h2>The Model</h2>
+              <ul><li><a href="/ai-fantasy-football-draft-assistant">AI Draft Assistant</a></li><li><a href="/fantasy-football-draft-algorithm">How It Decides</a></li><li><a href="/chatgpt-fantasy-football-draft">ChatGPT vs GREEN18</a></li><li><a href="/automated-fantasy-football-draft-tool">Automated Draft Tool</a></li></ul>
+            </div>
+            <div>
+              <h2>Platforms</h2>
+              <ul><li><a href="/espn-fantasy-football-draft-helper">ESPN Draft Helper</a></li><li><a href="/yahoo-fantasy-football-draft-helper">Yahoo Draft Helper</a></li><li><a href="/sleeper-fantasy-football-draft-helper">Sleeper Draft Helper</a></li></ul>
+            </div>
+            <div>
+              <h2>Draft Science</h2>
+              <ul><li><a href="/draft-science/draft-state-valuation">Draft-State Valuation</a></li><li><a href="/draft-science/positional-scarcity">Positional Scarcity</a></li><li><a href="/draft-science/replacement-value">Replacement Value</a></li><li><a href="/draft-science/opportunity-cost">Opportunity Cost</a></li><li><a href="/draft-science/pick-horizon">Pick Horizon</a></li><li><a href="/draft-science/player-tier-collapse">Tier Collapse</a></li><li><a href="/draft-science/roster-construction">Roster Construction</a></li><li><a href="/draft-science/superflex-quarterback-value">Superflex QB Value</a></li></ul>
+            </div>
+            <div>
+              <h2>Tools</h2>
+              <ul><li><a href="/tools/scarcity-calculator">Scarcity Calculator</a></li><li><a href="/tools/pick-horizon-calculator">Pick Horizon Calculator</a></li><li><a href="/tools/league-value-calculator">Replacement Level</a></li><li><a href="/tools/superflex-qb-demand-calculator">Superflex QB Demand</a></li><li><a href="/tools/ppr-value-adjustment-calculator">PPR Value Adjustment</a></li></ul>
+            </div>
+            <div>
+              <h2>Reference</h2>
+              <ul><li><a href="/how-green18-ranks-fantasy-players">How GREEN18 Ranks Players</a></li><li><a href="/why-fantasy-rankings-change-during-a-draft">Why Rankings Change</a></li><li><a href="/glossary">Glossary</a></li><li><a href="/methodology">Methodology</a></li><li><a href="/about">About</a></li></ul>
+            </div>
+            <div>
+              <h2>Legal</h2>
+              <ul><li><a href="/privacy">Privacy</a></li><li><a href="/support">Support</a></li><li><a href="/contact">Contact</a></li></ul>
+            </div>
+        </div>
+      </div>
+      <div class="foot-legal">
+        <p>GREEN18 is an independent fantasy football application. References to third-party fantasy platforms, leagues, teams, players, or trademarks are descriptive only and do not imply affiliation, sponsorship, or endorsement.</p>
+        <p>&copy; 2026 Interplore. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="sticky-cta" id="stickyCta" aria-hidden="true">
+    <span class="lbl">Get GREEN18<small>Open in App Store</small></span>
+    <a class="btn" href="https://apps.apple.com/us/app/id6805706417" tabindex="-1">Get GREEN18</a>
+  </div>
+
+  <script src="/assets/site.js" defer></script>
+
+</body>
+</html>

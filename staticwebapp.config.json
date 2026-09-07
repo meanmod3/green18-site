@@ -95,6 +95,134 @@
       "rewrite": "/fantasy-football-positional-scarcity.html"
     },
     {
+      "route": "/how-green18-ranks-fantasy-players",
+      "rewrite": "/how-green18-ranks-fantasy-players.html"
+    },
+    {
+      "route": "/why-fantasy-rankings-change-during-a-draft",
+      "rewrite": "/why-fantasy-rankings-change-during-a-draft.html"
+    },
+    {
+      "route": "/glossary",
+      "rewrite": "/glossary.html"
+    },
+    {
+      "route": "/draft-science/draft-state-valuation",
+      "rewrite": "/draft-science/draft-state-valuation.html"
+    },
+    {
+      "route": "/draft-science/positional-scarcity",
+      "rewrite": "/draft-science/positional-scarcity.html"
+    },
+    {
+      "route": "/draft-science/replacement-value",
+      "rewrite": "/draft-science/replacement-value.html"
+    },
+    {
+      "route": "/draft-science/opportunity-cost",
+      "rewrite": "/draft-science/opportunity-cost.html"
+    },
+    {
+      "route": "/draft-science/pick-horizon",
+      "rewrite": "/draft-science/pick-horizon.html"
+    },
+    {
+      "route": "/draft-science/player-tier-collapse",
+      "rewrite": "/draft-science/player-tier-collapse.html"
+    },
+    {
+      "route": "/draft-science/roster-construction",
+      "rewrite": "/draft-science/roster-construction.html"
+    },
+    {
+      "route": "/draft-science/superflex-quarterback-value",
+      "rewrite": "/draft-science/superflex-quarterback-value.html"
+    },
+    {
+      "route": "/formats/superflex",
+      "rewrite": "/formats/superflex.html"
+    },
+    {
+      "route": "/formats/ppr",
+      "rewrite": "/formats/ppr.html"
+    },
+    {
+      "route": "/formats/standard",
+      "rewrite": "/formats/standard.html"
+    },
+    {
+      "route": "/scenarios/superflex-quarterback-run",
+      "rewrite": "/scenarios/superflex-quarterback-run.html"
+    },
+    {
+      "route": "/scenarios/five-running-backs-go-in-a-row",
+      "rewrite": "/scenarios/five-running-backs-go-in-a-row.html"
+    },
+    {
+      "route": "/scenarios/quarterbacks-falling-in-superflex",
+      "rewrite": "/scenarios/quarterbacks-falling-in-superflex.html"
+    },
+    {
+      "route": "/scenarios/elite-tight-end-falls",
+      "rewrite": "/scenarios/elite-tight-end-falls.html"
+    },
+    {
+      "route": "/scenarios/already-have-two-wide-receivers",
+      "rewrite": "/scenarios/already-have-two-wide-receivers.html"
+    },
+    {
+      "route": "/scenarios/pick-three-vs-pick-ten",
+      "rewrite": "/scenarios/pick-three-vs-pick-ten.html"
+    },
+    {
+      "route": "/scenarios/rb-zero-start",
+      "rewrite": "/scenarios/rb-zero-start.html"
+    },
+    {
+      "route": "/scenarios/waiting-on-quarterback",
+      "rewrite": "/scenarios/waiting-on-quarterback.html"
+    },
+    {
+      "route": "/scenarios/last-player-in-a-tier",
+      "rewrite": "/scenarios/last-player-in-a-tier.html"
+    },
+    {
+      "route": "/scenarios/drafting-from-the-turn",
+      "rewrite": "/scenarios/drafting-from-the-turn.html"
+    },
+    {
+      "route": "/about",
+      "rewrite": "/about.html"
+    },
+    {
+      "route": "/methodology",
+      "rewrite": "/methodology.html"
+    },
+    {
+      "route": "/contact",
+      "rewrite": "/contact.html"
+    },
+    {
+      "route": "/tools/scarcity-calculator",
+      "rewrite": "/tools/scarcity-calculator.html"
+    },
+    {
+      "route": "/tools/pick-horizon-calculator",
+      "rewrite": "/tools/pick-horizon-calculator.html"
+    },
+    {
+      "route": "/tools/league-value-calculator",
+      "rewrite": "/tools/league-value-calculator.html"
+    },
+    {
+      "route": "/tools/superflex-qb-demand-calculator",
+      "rewrite": "/tools/superflex-qb-demand-calculator.html"
+    },
+    {
+      "route": "/tools/ppr-value-adjustment-calculator",
+      "rewrite": "/tools/ppr-value-adjustment-calculator.html"
+    },
+    {
       "route": "/privacy",
       "rewrite": "/privacy.html"
     },

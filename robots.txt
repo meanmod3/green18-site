@@ -1,28 +1,40 @@
 User-agent: *
 Allow: /
 
-User-agent: GPTBot
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
 Allow: /
 
 User-agent: OAI-SearchBot
 Allow: /
 
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: DuckAssistBot
+Allow: /
+
 User-agent: ChatGPT-User
 Allow: /
 
-User-agent: ClaudeBot
+User-agent: Perplexity-User
 Allow: /
 
 User-agent: Claude-User
 Allow: /
 
-User-agent: anthropic-ai
+User-agent: GPTBot
 Allow: /
 
-User-agent: PerplexityBot
-Allow: /
-
-User-agent: Perplexity-User
+User-agent: ClaudeBot
 Allow: /
 
 User-agent: Google-Extended
@@ -34,10 +46,12 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-User-agent: Bingbot
-Allow: /
-
-User-agent: DuckAssistBot
+User-agent: anthropic-ai
 Allow: /
 
 Sitemap: https://green18.app/sitemap.xml
+Sitemap: https://green18.app/sitemap-pages.xml
+Sitemap: https://green18.app/sitemap-draft-science.xml
+Sitemap: https://green18.app/sitemap-formats.xml
+Sitemap: https://green18.app/sitemap-scenarios.xml
+Sitemap: https://green18.app/sitemap-tools.xml
