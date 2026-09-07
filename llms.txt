@@ -58,6 +58,7 @@ iPhone only. Not currently available on Android.
 - [GREEN18 Methodology | Inputs, Determinism and Limits](https://green18.app/methodology): How GREEN18 arrives at a number: open football data, your league settings and your recorded picks, computed deterministically — and what the model cannot do.
 - [The Science of Draft-State Valuation | GREEN18](https://green18.app/draft-science): How eight ideas — scarcity, replacement, opportunity cost, horizon, tiers, roster, format — compose into a single valuation of a player at one pick.
 - [Fantasy Draft Scenarios | GREEN18](https://green18.app/scenarios): Twenty in-draft situations answered as conditions, not commands: runs, roster state, draft position and the endgame, each with the variable that decides it.
+- [Fantasy Football League Formats | GREEN18](https://green18.app/formats): How scoring rules and roster requirements change what a fantasy player is worth, and why format is a valuation input rather than a detail.
 
 ## Draft Science
 

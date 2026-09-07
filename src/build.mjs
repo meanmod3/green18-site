@@ -130,7 +130,7 @@ for (const p of pages) {
     for (const t of targets) inbound.set(t, (inbound.get(t) || 0) + 1);
   }
   // Footer and nav link every section hub, so hubs are never orphans.
-  const navLinked = new Set(['draft-science', 'scenarios', 'tools', 'glossary',
+  const navLinked = new Set(['draft-science', 'scenarios', 'tools', 'formats', 'glossary',
     'how-green18-ranks-fantasy-players', 'methodology', 'about', 'contact',
     'privacy', 'support', 'why-fantasy-rankings-change-during-a-draft']);
   for (const p of pages) {

@@ -242,13 +242,22 @@ function shareCard(page) {
 function structuredData(page, url) {
   const graph = [];
 
-  // Organization identity, stated once per page so every surface agrees.
+  // Organization and WebSite identity, stated once per page so every surface
+  // agrees and every @id reference in the graph resolves.
   graph.push({
     '@type': 'Organization',
     '@id': ORIGIN + '/#org',
     name: 'GREEN18',
     url: ORIGIN + '/',
     logo: ORIGIN + '/assets/icon.png',
+  });
+  graph.push({
+    '@type': 'WebSite',
+    '@id': ORIGIN + '/#website',
+    url: ORIGIN + '/',
+    name: 'GREEN18',
+    inLanguage: 'en-US',
+    publisher: { '@id': ORIGIN + '/#org' },
   });
 
   // A glossary page publishes its terms as a DefinedTermSet so each
@@ -282,6 +291,7 @@ function structuredData(page, url) {
       ...(page.answer ? { abstract: page.answer.replace(/\*\*/g, '').replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') } : {}),
       ...(page.dateModified ? { dateModified: page.dateModified } : {}),
       publisher: { '@id': ORIGIN + '/#org' },
+      isPartOf: { '@id': ORIGIN + '/#website' },
       isAccessibleForFree: true,
     });
   }
@@ -363,10 +373,17 @@ function phoneMock(media) {
 // ------------------------------------------------------------------- page --
 
 export function render(page) {
-  // A section hub canonicalises WITH a trailing slash. GitHub Pages 301s
-  // /scenarios -> /scenarios/ whenever a scenarios/ directory exists, so the
-  // bare form never serves; pointing the canonical at it would aim every
-  // signal at a redirect. Verified live before this was written.
+  // A section hub canonicalises WITH a trailing slash.
+  //
+  // The original reason: GitHub Pages 301'd /scenarios -> /scenarios/ whenever
+  // a scenarios/ directory existed with no index, so the bare form never
+  // served. That is NO LONGER what happens — the build now emits both
+  // scenarios.html and scenarios/index.html, so both forms return 200 with
+  // identical bytes and neither redirects. Re-verified 2026-09-07.
+  //
+  // The trailing-slash canonical still stands, and now for a different reason:
+  // two URLs serve the same page, so one of them must be declared canonical,
+  // and the slashed form is the one that works identically on both hosts.
   const url = page.slug
     ? `${ORIGIN}/${page.slug}${page.isSectionHub ? '/' : ''}`
     : `${ORIGIN}/`;

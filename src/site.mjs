@@ -67,8 +67,12 @@ export const FOOTER = [
     ['Draft Strategy', '/fantasy-football-draft-strategy-app'],
   ]},
   { heading: 'Draft Formats', links: [
-    ['Superflex', '/superflex-draft-assistant'],
-    ['PPR', '/ppr-draft-assistant'],
+    ['All league formats', '/formats/'],
+    ['Superflex format', '/formats/superflex'],
+    ['PPR format', '/formats/ppr'],
+    ['Standard scoring', '/formats/standard'],
+    ['Superflex draft assistant', '/superflex-draft-assistant'],
+    ['PPR draft assistant', '/ppr-draft-assistant'],
   ]},
   { heading: 'Draft Help', links: [
     ['Beginners', '/fantasy-football-for-beginners'],

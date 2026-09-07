@@ -275,6 +275,10 @@
       "rewrite": "/tools/index.html"
     },
     {
+      "route": "/formats",
+      "rewrite": "/formats/index.html"
+    },
+    {
       "route": "/privacy",
       "rewrite": "/privacy.html"
     },
