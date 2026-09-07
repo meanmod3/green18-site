@@ -215,3 +215,8 @@ export const DISPLACEMENT = {
 //   - "selection" -> "pick", the site's established term (pick horizon,
 //     picks recorded), and free of the "whose selection?" ambiguity.
 export const TAGLINE = 'Every pick, calculated against your league, your roster, and what\u2019s left.';
+
+// The App Store price, stated once. Every citable surface (MobileApplication
+// offers, llms.txt, the about-page FAQ) is checked against this at build time,
+// so the three cannot drift apart. Operator-confirmed 2026-09-07.
+export const PRICE = { amount: '9.99', currency: 'USD', display: 'US$9.99' };

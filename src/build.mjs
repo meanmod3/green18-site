@@ -3,7 +3,7 @@ import { readdir, readFile, writeFile, mkdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { render } from './layout.mjs';
-import { ORIGIN, REDIRECTS, CANON, CANON_SHORT, VERIFICATION, PROTECTED_LINES, DISPLACEMENT } from './site.mjs';
+import { ORIGIN, REDIRECTS, CANON, CANON_SHORT, VERIFICATION, PROTECTED_LINES, DISPLACEMENT, PRICE } from './site.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, '..');
@@ -202,6 +202,31 @@ for (const p of pages) {
   for (const line of PROTECTED_LINES) {
     if (!all.includes(line)) {
       problems.push(`PROTECTED LANGUAGE MISSING from the whole site: "${line}"`);
+    }
+  }
+}
+
+// ---- price is answerable, and agrees with itself (AEO) ---------------------
+// "How much does it cost" is among the first questions an AI assistant is
+// asked about an app. A silent gap is not neutral: retrieval layers fill it by
+// guessing. The price must therefore appear in every citable surface, and all
+// of them must say the SAME number as PRICE.
+{
+  const aboutFaq = (pages.find((p) => p.slug === 'about')?.faq || [])
+    .map((f) => `${f.q} ${f.a}`).join(' ');
+  if (!/how much does green18 cost/i.test(aboutFaq)) {
+    problems.push('PRICE: the about page has no "how much does GREEN18 cost" FAQ entry.');
+  }
+  if (!aboutFaq.includes(PRICE.display)) {
+    problems.push(`PRICE: the about-page FAQ does not state ${PRICE.display}.`);
+  }
+  // Any page that names a price must name THIS price.
+  for (const p of pages) {
+    const blob = JSON.stringify(p);
+    for (const m of blob.match(/US\$[0-9]+(?:\.[0-9]{2})?/g) || []) {
+      if (m !== PRICE.display) {
+        problems.push(`PRICE: ${p.slug} states ${m}, which contradicts ${PRICE.display}.`);
+      }
     }
   }
 }
@@ -447,7 +472,7 @@ makes the pick themselves.
 
 iPhone only. Not currently available on Android.
 
-GREEN18 is a paid app: a one-time purchase of US$9.99 on the App Store.
+GREEN18 is a paid app: a one-time purchase of ${PRICE.display} on the App Store.
 There is no subscription, no free tier, and no in-app purchases.
 
 ## Product

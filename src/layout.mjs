@@ -1,6 +1,6 @@
 // GREEN18 — page renderer. Turns a content module into a complete HTML page.
 import { DIAGRAMS } from './diagrams.mjs';
-import { APP_STORE_URL, ORIGIN, BRAND, COPYRIGHT_OWNER, NAV, FOOTER,
+import { PRICE, APP_STORE_URL, ORIGIN, BRAND, COPYRIGHT_OWNER, NAV, FOOTER,
          FOOTER_DISCLAIMER, LINK_TITLES, CANON, VERIFICATION, TAGLINE } from './site.mjs';
 
 const esc = (s) => String(s)
@@ -343,8 +343,8 @@ function structuredData(page, url) {
     // fabricating them is banned.
     offers: {
       '@type': 'Offer',
-      price: '9.99',
-      priceCurrency: 'USD',
+      price: PRICE.amount,
+      priceCurrency: PRICE.currency,
       category: 'Paid',
       url: APP_STORE_URL,
     },
