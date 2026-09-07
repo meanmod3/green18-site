@@ -263,26 +263,6 @@
       "rewrite": "/scenarios/how-to-use-the-final-rounds.html"
     },
     {
-      "route": "/draft-science/",
-      "rewrite": "/draft-science/index.html"
-    },
-    {
-      "route": "/scenarios/",
-      "rewrite": "/scenarios/index.html"
-    },
-    {
-      "route": "/tools/",
-      "rewrite": "/tools/index.html"
-    },
-    {
-      "route": "/privacy",
-      "rewrite": "/privacy.html"
-    },
-    {
-      "route": "/support",
-      "rewrite": "/support.html"
-    },
-    {
       "route": "/draft-science",
       "rewrite": "/draft-science/index.html"
     },
@@ -293,6 +273,14 @@
     {
       "route": "/tools",
       "rewrite": "/tools/index.html"
+    },
+    {
+      "route": "/privacy",
+      "rewrite": "/privacy.html"
+    },
+    {
+      "route": "/support",
+      "rewrite": "/support.html"
     }
   ],
   "responseOverrides": {

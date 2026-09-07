@@ -323,12 +323,26 @@ await writeFile(join(root, 'llms.txt'), llms, 'utf8');
 const routes = [
   ...Object.entries(REDIRECTS).map(([from, to]) =>
     ({ route: `/${from}`, redirect: to, statusCode: 301 })),
+  // ONE route per path. `trailingSlash: 'auto'` means SWA treats /x and /x/ as
+  // the same route, so emitting both forms for a hub is a duplicate-route
+  // error that fails the whole deployment — and the CLI reports it as a
+  // missing-shared-library problem, which it is not.
   ...urls.filter((u) => u !== '/').map((u) => (u.endsWith('/')
-    ? { route: u, rewrite: `${u}index.html` }
+    ? { route: u.replace(/\/$/, ''), rewrite: `${u}index.html` }
     : { route: u, rewrite: `${u}.html` })),
-  // hubs also answer without the trailing slash
-  ...pages.filter((p) => p.isSectionHub).map((p) => ({ route: `/${p.slug}`, rewrite: `/${p.slug}/index.html` })),
 ];
+
+{
+  const seen = new Set();
+  for (const r of routes) {
+    const key = r.route.replace(/\/$/, '') || '/';
+    if (seen.has(key)) {
+      console.error(`BUILD FAILED: duplicate SWA route "${r.route}" — Azure rejects the whole deployment for this, and reports it as a missing shared library.`);
+      process.exit(1);
+    }
+    seen.add(key);
+  }
+}
 
 const swa = {
   trailingSlash: 'auto',
