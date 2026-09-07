@@ -20,6 +20,13 @@ export default {
     secondary: { label: 'See How GREEN18 Works', href: '#how-it-works' },
   },
 
+  claims: [
+    'A general chatbot is genuinely good at explaining fantasy football concepts, formats and terminology, and has no view of the live draft board unless the manager types every pick in on the clock.',
+    'GREEN18 does not write the reason shown beside a recommendation. That text is extracted from the components of the calculation that actually moved, so no sentence is generated and no template is filled.',
+    'GREEN18 cannot show a contradictory card: a player very likely to still be available cannot read as an urgent take on board movement alone, because availability is resolved on its own thresholds before movement is allowed to break a tie.',
+    'Where the evidence is genuinely middling, GREEN18 reports neutral for a non-elite player instead of producing a confident-sounding call.',
+  ],
+
   blocks: [
     { type: 'prose', h2: 'What a Chatbot Is Actually Good At.', body: [
       'Explaining what a half-PPR league does to receiver value.',
@@ -51,6 +58,18 @@ export default {
       'GREEN18 also does not chat. It shows you a board.',
     ]},
 
+    { type: 'prose', h2: 'The Difference Is Where the Words Come From.', body: [
+      'A language model is doing something impressive and specific: composing the most plausible next sentence. When it gives you a reason, the reason is written.',
+      'GREEN18 never writes one. The recommendation is computed, and the line beside it is **extracted from the terms of that computation that actually moved** — no template, no generated prose in the path at all.',
+      'That is not a criticism of chatbots. It is a description of two different machines. Ask the chatbot what Superflex does to quarterback value and you will get a good answer. Ask it which of the four quarterbacks left in your room to take at pick 43, and it is composing, not computing.',
+    ], quote: 'One writes a sentence and justifies it. The other reads the terms that moved.' },
+
+    { type: 'prose', h2: 'A Model Can Be Forbidden to Contradict Itself.', body: [
+      'GREEN18 carries an explicit rule against a specific failure: a card must never urge you to take a player now while also reporting that he is very likely to last until your next turn.',
+      'Survival to your pick is settled on its own thresholds first; board movement and model rank only break a genuinely middling tie. And where it stays middling for a non-elite player, the answer is neutral rather than a confident call invented to fill the space.',
+      'Nothing about a text generator can offer that guarantee — not because it is careless, but because it is not comparing the sentence to anything.',
+    ]},
+
     { type: 'steps', h2: 'How GREEN18 Works', steps: [
       { h3: 'Set Your League.', body: ['Scoring and quarterback format re-rank the player pool rather than relabelling it.'] },
       { h3: 'Shape Your Preferences.', body: ['Your opinions stay in your personal rank and never distort the objective values.'] },
@@ -74,6 +93,7 @@ export default {
     { q: 'Is GREEN18 a chatbot?', a: 'No. GREEN18 has no conversational interface and generates no text. It is a deterministic model that displays a live player board and recomputes the value of the remaining players each time you record a pick.' },
     { q: 'Is GREEN18 affiliated with OpenAI or ChatGPT?', a: 'No. GREEN18 is an independent iPhone application and is not affiliated with, endorsed by, or connected to OpenAI. Those product names are referenced only to describe a common way people search for draft help.' },
     { q: 'What can a chatbot do that GREEN18 does not?', a: 'A general chatbot answers open-ended questions in natural language — what half-PPR scoring means, how Superflex changes quarterback value, what a strategy is called. GREEN18 does not converse; it computes and displays the value of the players still available in your specific draft.' },
+    { q: 'If GREEN18 does not generate text, how does it explain a recommendation?', a: 'The explanation is extracted from the components of the calculation that actually moved, rather than written. There is no phrase template and no generated prose in that path, which is why the explanation and the recommendation cannot disagree with each other.' },
     { q: 'Why does a deterministic model suit a live draft better?', a: 'Because you are on a clock and need an answer you can trust and reproduce. A deterministic model returns the same recommendation for the same board every time, so any change you see comes from the draft itself rather than from variation in how the answer was produced.' },
   ],
 

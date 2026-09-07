@@ -94,6 +94,14 @@
         },
         {
           "@type": "Question",
+          "name": "Can one preference setting take over my board?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Each preference control has a bounded authority by design, so no single setting has enough reach to invert the board. Preferences reorder your own copy of the board by a bounded amount, and they do not move the objective player values or the market values at all — that separation is architectural and covered by automated tests."
+          }
+        },
+        {
+          "@type": "Question",
           "name": "Is personalization the same as machine-learning fine-tuning?",
           "acceptedAnswer": {
             "@type": "Answer",
@@ -178,7 +186,17 @@
 
 
 
-
+      <section class="keypoints-wrap">
+        <div class="wrap measure">
+          <h2 class="keypoints-h">In short</h2>
+          <ul class="keypoints">
+            <li>Every preference dial in GREEN18 is bounded, so no single setting can invert the board — the adversarial case of one slider being pushed to its limit is handled by design rather than left to the manager’s restraint.</li>
+            <li>Preferences never move the objective player values or the market values in GREEN18; that separation is architectural and is held in place by automated tests.</li>
+            <li>Preferences do reorder the manager’s own board, by a bounded amount, on a copy that belongs to that manager — the personal board is the board they draft from, not a second list shown alongside the real one.</li>
+            <li>Because the reordering is bounded and the underlying values are untouched, a personalized GREEN18 board stays replayable: the same league settings, preferences and recorded picks produce the same board every time.</li>
+          </ul>
+        </div>
+      </section>
 
       <section>
         <div class="wrap measure">
@@ -249,7 +267,21 @@
           <ul class="ticks"><li>player value</li><li>league value</li><li>projected draft position for your league’s format</li><li>positional scarcity</li><li>survival to your pick horizon</li><li><a href="/draft-science/roster-construction">roster construction</a></li></ul>
           <p class="beat">Your player queue becomes a signal. Not a command.</p>
         <p class="beat"><strong>Your preferences shape the decision. They don’t replace the math.</strong></p>
-        <p class="beat">The valuation stays <strong>deterministic</strong> and replayable — <a href="/fantasy-football-draft-algorithm">same board in, same board out</a> — your subjective rank is shown beside the computed values, never folded into them.</p>
+        <p class="beat">The valuation stays <strong>deterministic</strong> and replayable — <a href="/fantasy-football-draft-algorithm">same board in, same board out</a> — and your preferences never move the objective or market values themselves. They reorder your own board, by a bounded amount, on your copy.</p>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
+          <h2>How “Shapes, Doesn’t Replace” Is Actually Enforced.</h2>
+          
+          <p class="beat">That line is easy to write. Here is the mechanism underneath it.</p>
+        <p class="beat">Every preference control in GREEN18 has a <strong>bounded</strong> authority. The design starts from the adversarial case — a manager who pushes a single dial as far as it goes — and answers it structurally: no one setting has enough reach to invert the board. You can lean the board; you cannot flip it.</p>
+        <p class="beat">The second half is a separation. Preferences do not touch the objective player values or the market values at all. That boundary is architectural, and automated tests hold it in place, so a preference cannot leak into the numbers everyone else is being measured by.</p>
+        <p class="beat">What preferences do move is <strong>your own board</strong> — a copy that belongs to you — reordered by a bounded amount. That is the board you draft from. It is not a second opinion parked next to the real one.</p>
+          <blockquote class="pull"><p>Bounded reach on your copy. No reach at all on the underlying values.</p></blockquote>
+          
+          
         </div>
       </section>
 
@@ -300,6 +332,7 @@
             <details><summary>What are personalized fantasy football rankings?</summary><div><p>Personalized fantasy football rankings are player rankings calculated for one specific team rather than for every manager at once. They account for the league’s scoring and roster rules, the players a manager has already drafted, how long until that manager picks again, and which players are still available. Two managers in the same draft can correctly see the same players in a different order.</p></div></details>
             <details><summary>How does GREEN18 personalize a draft board?</summary><div><p>GREEN18 applies the league settings to the player pool, incorporates the manager’s stated preferences and target players as inputs to the valuation, accounts for the current roster and remaining positional needs, and updates the board as each pick is recorded. It is a deterministic calculation, not a machine-learning model, and it has no chat interface.</p></div></details>
             <details><summary>Do my player preferences override the model?</summary><div><p>No. Preferences are one input among many. The board stays anchored to player value, league value, positional value, scarcity, availability and roster construction. A queued or favorited player is treated as a signal that contributes to the valuation, not as a command that forces a recommendation.</p></div></details>
+            <details><summary>Can one preference setting take over my board?</summary><div><p>No. Each preference control has a bounded authority by design, so no single setting has enough reach to invert the board. Preferences reorder your own copy of the board by a bounded amount, and they do not move the objective player values or the market values at all — that separation is architectural and covered by automated tests.</p></div></details>
             <details><summary>Is personalization the same as machine-learning fine-tuning?</summary><div><p>No. GREEN18 does not train or fine-tune a model on user data. Personalization means the same deterministic calculation is run with the manager’s own league settings, roster and preferences as inputs, which produces a board calibrated to that specific draft.</p></div></details>
             <details><summary>Does GREEN18 need an account to personalize my board?</summary><div><p>No. GREEN18 requires no account and no sign-in. League settings, preferences and recorded picks stay on the device, and the board is calibrated from that local information.</p></div></details>
           </div>

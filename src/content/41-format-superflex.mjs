@@ -31,6 +31,8 @@ export default {
     'The Superflex rule changes the number of players eligible for one starting slot, and therefore changes league-wide demand rather than individual player production.',
     'Skill positions become comparatively cheaper in Superflex, because roster capital that would otherwise buy running backs and receivers is spent on quarterbacks.',
     'League size interacts with the Superflex rule, since demand for quarterbacks scales with the number of teams while the supply of viable starters does not.',
+    'GREEN18 treats Superflex as a separately compiled draft market rather than a quarterback multiplier applied to a single-quarterback board.',
+    'The quarterback format is one of three axes — alongside scoring rules and league size — across which GREEN18 ships twenty-four precompiled markets.',
   ],
 
   blocks: [
@@ -84,6 +86,7 @@ export default {
     { type: 'prose', h2: 'How Does GREEN18 Handle the Superflex Setting?', body: [
       'GREEN18 is an iPhone fantasy football live draft assistant that continuously recalculates player valuations according to league settings, roster construction, player availability, draft state, and user preferences.',
       'Superflex is a league setting, so it is applied before the board is built. The number of quarterback slots your league can demand is part of the valuation from the first pick, not a modifier applied to a single-quarterback ranking.',
+      '**Concretely: Superflex is a separate compiled market, not a quarterback multiplier.** GREEN18 ships twenty-four precompiled draft markets — every combination of two quarterback formats, four scoring rules and three league sizes — and selects yours. Setting Superflex does not scale quarterbacks up on a shared board; it loads a board that was built for two quarterback slots from the start. Your league size and scoring rules pick the market alongside it, which is why the same Superflex setting is a different board in a ten-team half-PPR league and a fourteen-team full-PPR one.',
       'From there the board responds to your actual room: how many quarterbacks have gone, how many teams still need one, how deep the remaining supply is, and how far away your next pick is.',
       'If you are looking for the product overview rather than the format explanation, that is the [Superflex draft assistant](/superflex-draft-assistant) page.',
     ]},
@@ -98,6 +101,7 @@ export default {
     { q: 'What is the difference between Superflex and a 2QB league?', a: 'A 2QB league requires two quarterbacks in every starting lineup, while a Superflex league permits a second quarterback but allows a skill player in the slot instead. The difference matters when a team\'s second quarterback is unavailable, because a Superflex team can substitute a skill player and a 2QB team cannot.' },
     { q: 'Do running backs and wide receivers lose value in Superflex?', a: 'They become comparatively cheaper to acquire rather than less productive. Every manager has the same number of picks in any format, so when a large share of early selections is spent on quarterbacks, skill players who would otherwise be gone remain available in later rounds.' },
     { q: 'Does league size change how scarce quarterbacks are in Superflex?', a: 'Yes. The supply of quarterbacks capable of starting is fixed by professional football, while demand rises with each additional team, so a fourteen-team Superflex league is meaningfully more constrained than a ten-team league using the identical format setting.' },
+    { q: 'Does GREEN18 apply a Superflex multiplier to quarterbacks?', a: 'No. Superflex is a separately compiled draft market rather than a multiplier applied to a single-quarterback board. GREEN18 ships twenty-four precompiled markets covering every combination of two quarterback formats, four scoring rules and three league sizes, and selecting Superflex loads the market built for two quarterback slots rather than scaling a shared one.' },
     { q: 'Is Superflex the same as having a standard flex slot?', a: 'No. A standard flex slot accepts running backs, wide receivers and tight ends, and adds marginal demand to positions that already have depth. A Superflex slot adds quarterback to that list, creating demand for a position whose supply of viable starters is small relative to the number of teams.' },
   ],
 

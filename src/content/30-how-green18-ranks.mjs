@@ -31,6 +31,11 @@ export default {
     'Distance until a manager’s next selection affects current player value, because waiting carries a probability that viable alternatives will no longer be available.',
     'League scoring rules re-rank players against each other rather than merely relabel them, so the same player pool produces different orderings in different formats.',
     'A deterministic valuation model produces the same board from the same league settings and the same sequence of recorded picks, which makes each recommendation reproducible and auditable.',
+    'The reason GREEN18 shows for a recommendation is extracted from the model components that actually moved the value, so the explanation is a readout of the computation rather than prose written about it.',
+    'GREEN18 uses no prose template and no generated text to explain a recommendation, because the explanation is composed from the named terms that produced the number.',
+    'A player who is very likely to still be available at the manager’s next pick is never shown as an urgent take on live draft-position movement alone, because that would place an urgent call beside a high availability figure and contradict itself on the same card.',
+    'Availability is decided first on its own thresholds, and market movement and model rank only break a middling tie, which prevents a confident recommendation from being manufactured out of an ambiguous case.',
+    'A non-elite player in an ambiguous case is reported as neutral rather than being given a confident call the model cannot support.',
   ],
 
   blocks: [
@@ -73,6 +78,20 @@ export default {
       'This is the single most important consequence of valuing by draft state instead of by list position. Read the mechanism in full on [why rankings change during a draft](/why-fantasy-rankings-change-during-a-draft) and [positional scarcity](/fantasy-football-positional-scarcity).',
     ]},
 
+    { type: 'prose', h2: 'Where Does the Reason on the Card Come From?', body: [
+      'From the computation, not from a writer.',
+      'When GREEN18 tells you why a player is worth taking, that sentence is not drawn from a library of phrases and filled in. It is extracted from the model’s own components — the specific terms that actually moved this player’s value at this pick — and assembled from them.',
+      'There is no prose template behind it and no generated text. If a component did not move the number, it does not appear in the reason; if it did, it does.',
+      'This is what "computed, not generated" means in practice. The explanation and the value are the same object read two ways, which is also why an explanation can never drift away from the number it is explaining.',
+    ], quote: 'The reason is a readout of the computation, not a description of it.' },
+
+    { type: 'prose', h2: 'Can the Board Contradict Itself?', body: [
+      'It is explicitly prevented from doing so.',
+      'Consider a player the model believes is very likely to still be there at your next pick. If a burst of draft-position movement were allowed to trigger an urgent take on its own, the card would show an urgent call sitting directly beside a high availability figure — a recommendation arguing with itself in the same glance.',
+      'So the order of decision is fixed. Availability is settled first, on its own thresholds. Only once a case is genuinely middling do market movement and model rank get to break the tie.',
+      'And when a case stays ambiguous for a player who is not elite, the model returns neutral. It does not manufacture a confident call it cannot support, because a tool that always sounds sure is a tool whose certainty carries no information.',
+    ], quote: 'A recommendation that contradicts the number beside it is worse than no recommendation.' },
+
     { type: 'cards', h2: 'What the Model Reads Before Every Pick.',
       sub: 'The pipeline is fed by the current state of the draft. These are its parts.',
       cards: [
@@ -109,6 +128,8 @@ export default {
     { q: 'How does GREEN18 rank fantasy football players?', a: 'GREEN18 starts from a baseline player value built on open football data, then recalculates that value against the current state of the draft using league scoring, positional scarcity, availability pressure, roster fit, pick horizon, recorded market movement, and the user\'s own preferences. The result is a situational draft value for one manager at one pick rather than a universal ranking.' },
     { q: 'What is Draft-State Valuation?', a: 'Draft-State Valuation is a method of valuing a fantasy football player according to the current state of a specific draft, rather than treating preseason rank or ADP as a fixed measure of player value. It recomputes each available player\'s worth after every selection, because each selection changes the alternatives that remain.' },
     { q: 'Why does GREEN18 disagree with a published ranking?', a: 'A published ranking is computed once, before any pick exists, and is identical for every manager in every league. A situational draft value is computed for one league\'s scoring, one manager\'s roster, and one specific position in the draft order, so the two answer different questions and will frequently differ.' },
+    { q: 'Where does the reason shown with a recommendation come from?', a: 'It is extracted from the model components that actually moved the player\u2019s value at that pick. There is no prose template and no generated text: the explanation is assembled from the named terms that produced the number, so it cannot drift away from the value it explains.' },
+    { q: 'Can GREEN18 show an urgent recommendation next to a high availability figure?', a: 'No. Availability is decided first on its own thresholds, and market movement and model rank only break a middling tie, so a player very likely to still be there at your next pick is never presented as an urgent take on movement alone. In an ambiguous case for a non-elite player the model returns neutral rather than a confident call it cannot support.' },
     { q: 'Does GREEN18 publish the weights in its model?', a: 'No. The structure of the model is public — baseline value, league scoring adjustment, positional scarcity, availability pressure, roster fit, pick-horizon risk, market movement, and user preference — but the specific weighting of those components is proprietary.' },
     { q: 'Can a player become more valuable without his projection changing?', a: 'Yes. When comparable players at his position are drafted, the quality of the best available substitute falls, which raises the cost of passing on him. His projected production is unchanged; the value of having him rather than the alternative has increased.' },
   ],

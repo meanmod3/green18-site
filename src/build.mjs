@@ -127,6 +127,38 @@ for (const p of pages) {
   }
 }
 
+// ---- unpinned-figure pin ---------------------------------------------------
+// The league-conditioning sweep PRINTS a displacement table; it does not assert
+// one. Its only assertions are `n > 300` and `median > 0`
+// (LeagueConditioningDisplacementSweepTests), so every figure in that table
+// moves whenever the player data moves — and the data moved on 2026-09-04/05.
+//
+// Publishing such a number would put a value on the site that no test defends
+// and that silently rots. The METHOD is publishable and pinned in source
+// (LeagueConditioningDisplacement.swift: median >= 1.0 "moves the board"); the
+// NUMBER is not. This forbids the number without touching the method.
+//
+// "one draft slot" (the threshold) and "an early draft slot" (draft position)
+// are legitimate and unaffected — the pin requires a DIGIT.
+{
+  const UNPINNED = [
+    // Digits AND spelled-out numbers. A lane wrote "twenty-four markets" in
+    // legitimate copy, which showed the digit-only form of this pin would let
+    // "twenty-one draft slots" through untouched. "one draft slot" is the
+    // published threshold and is deliberately excluded.
+    [/(?:\d+(?:\.\d+)?|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty(?:[- ]\w+)?|thirty(?:[- ]\w+)?|forty(?:[- ]\w+)?)\s+draft slots?\b/i,
+     'publishes a displacement figure in draft slots — that number is printed by a sweep test, not asserted by it, and moves with the player data'],
+    [/median displacement of \s*\d/i,
+     'publishes a measured median displacement — unpinned and data-dependent'],
+  ];
+  for (const p of pages) {
+    const copy = JSON.stringify(p);
+    for (const [re, why] of UNPINNED) {
+      if (re.test(copy)) problems.push(`${p._file}: ${why}`);
+    }
+  }
+}
+
 // ---- claims regression pins ------------------------------------------------
 // Each of these phrasings was on the live site and each was FALSE against the
 // shipped Swift. They are pinned by phrase because that is what they are — a
