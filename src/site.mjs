@@ -177,3 +177,25 @@ export const PROTECTED_LINES = [
   'The Player Didn\u2019t Change. Your Situation Did.',
   'ADP tells you what people expected. Your draft tells you what they\u2019re doing.',
 ];
+
+// ---------------------------------------------------------------------------
+// THE ONE MEASURED FIGURE THIS SITE PUBLISHES.
+//
+// Superflex displaces quarterbacks by a median of 19 draft slots against a
+// next-highest position of 6 — measured over the retained player population by
+// LeagueConditioningDisplacementSweepTests in the green18 app repo.
+//
+// It is published ONLY because that test now PINS it (green18 b036028,
+// 2026-09-07). Before that pin the sweep merely printed the table, and the
+// figure had already drifted from the 21 quoted in older docs to 19 without
+// anyone noticing — which is exactly why it was withheld until now.
+//
+// IF THE APP REPO RE-PINS THESE VALUES, CHANGE THEM HERE IN THE SAME SITTING.
+// The build fails on any other figure appearing in copy, so the site cannot
+// quietly disagree with the code.
+// ---------------------------------------------------------------------------
+export const DISPLACEMENT = {
+  qbSuperflexMedian: 19,   // QB median, ONE_QB <-> SUPERFLEX axis
+  nextHighestMedian: 6,    // the next-highest position on that same axis (RB)
+  measuredOn: '2026-09-07',
+};

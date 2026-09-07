@@ -34,6 +34,7 @@ export default {
     'A format that changes only how many quarterbacks may be started can move quarterback value more than any scoring rule, because it changes demand rather than points.',
     'GREEN18 ships twenty-four separately compiled draft markets — every combination of two quarterback formats, four scoring rules and three league sizes — and selects one rather than adjusting a shared board.',
     'Selecting a scoring rule in GREEN18 loads a different precompiled market rather than applying a correction to a single underlying ranking.',
+    'Between a single-quarterback league and a Superflex one, quarterbacks move a median of 19 draft slots while the next-largest position moves 6.',
     'GREEN18 measures how far each format axis moves the board across the real player population, and reports an axis whose median movement is under one full draft slot as not moving the board.',
   ],
 
@@ -71,6 +72,14 @@ export default {
         'A test that can only confirm what you hoped is not a test. This one can return a verdict we would not like, which is the point of stating it publicly.',
       ],
       quote: 'Under one draft slot of median movement is reported as no movement, however elegant the underlying math.' },
+
+    { type: 'prose', h2: 'How far does the quarterback format actually move the board?',
+      body: [
+        'Far enough that it is the largest single format effect we measure.',
+        'On the axis between a single-quarterback league and a Superflex one, holding scoring and league size constant, **quarterbacks move a median of 19 draft slots**. The next-largest position on that same axis moves 6.',
+        'That is the difference between a rule that renames a slot and a rule that re-prices a position. It is also why a ranking built for one quarterback format is not slightly wrong in the other — it is answering a different question.',
+        'The measurement runs over the retained player population and is pinned in the app\u2019s own test suite, so this figure and the code cannot drift apart without the build failing.',
+      ] },
 
     { type: 'prose', h2: 'The three formats explained here',
       body: [

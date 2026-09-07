@@ -3,7 +3,7 @@ import { readdir, readFile, writeFile, mkdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { render } from './layout.mjs';
-import { ORIGIN, REDIRECTS, CANON, CANON_SHORT, VERIFICATION, PROTECTED_LINES } from './site.mjs';
+import { ORIGIN, REDIRECTS, CANON, CANON_SHORT, VERIFICATION, PROTECTED_LINES, DISPLACEMENT } from './site.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, '..');
@@ -146,8 +146,14 @@ for (const p of pages) {
     // legitimate copy, which showed the digit-only form of this pin would let
     // "twenty-one draft slots" through untouched. "one draft slot" is the
     // published threshold and is deliberately excluded.
-    [/(?:\d+(?:\.\d+)?|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty(?:[- ]\w+)?|thirty(?:[- ]\w+)?|forty(?:[- ]\w+)?)\s+draft slots?\b/i,
-     'publishes a displacement figure in draft slots — that number is printed by a sweep test, not asserted by it, and moves with the player data'],
+    // A displacement figure may now be published, because the app repo pins it
+    // (green18 b036028). But ONLY the pinned value: any other number here means
+    // the site has drifted from the code, which is the failure this guards.
+    // "one draft slot" (the bright-line threshold) is excluded deliberately.
+    [new RegExp(String.raw`(?!\b${DISPLACEMENT.qbSuperflexMedian}\b|\b${DISPLACEMENT.nextHighestMedian}\b|\bone\b)`
+      + String.raw`(?:\b\d+(?:\.\d+)?\b|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty(?:[- ]\w+)?|thirty(?:[- ]\w+)?|forty(?:[- ]\w+)?)`
+      + String.raw`\s+draft slots?\b`, 'i'),
+     `publishes a displacement figure that is not the pinned one (${DISPLACEMENT.qbSuperflexMedian}/${DISPLACEMENT.nextHighestMedian} slots, green18 LeagueConditioningDisplacementSweepTests) — the site must not disagree with the code`],
     [/median displacement of \s*\d/i,
      'publishes a measured median displacement — unpinned and data-dependent'],
   ];

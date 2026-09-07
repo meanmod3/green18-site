@@ -137,7 +137,22 @@ the citable layer.
    and pinned property; realized production as the value substrate; bounded
    preference dials.
 
-   **Not published: any displacement figure.** The Superflex "median 21 draft
+   **UPDATE 2026-09-07 — the figure is now published.** green18 PR #177
+   (merged, `b036028`) pins every axis and position in
+   `LeagueConditioningDisplacementSweepTests`, with ordering assertions and a
+   `max(1.5 slots, 20%)` tolerance, mutation-verified. With the figure defended
+   by a test it became safe to publish, and the site now states that Superflex
+   displaces quarterbacks by a median of **19** draft slots against **6** for
+   the next-largest position.
+
+   **Note the figure was 19, not the 21 quoted in older docs — it had already
+   drifted, unnoticed, exactly as predicted.** The site holds it in one
+   constant (`DISPLACEMENT` in `src/site.mjs`) and the build now rejects any
+   *other* figure appearing in copy, so the site cannot silently disagree with
+   the code. Re-pinning in the app repo means changing that constant in the
+   same sitting.
+
+   Original reasoning, retained: **not published: any displacement figure.** The Superflex "median 21 draft
    slots" number is PRINTED by `LeagueConditioningDisplacementSweepTests`, not
    asserted by it — its only assertions are `n > 300` and `median > 0` — so the
    value moves whenever the shipped player data moves, and it moved on

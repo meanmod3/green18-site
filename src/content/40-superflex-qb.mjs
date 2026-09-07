@@ -25,6 +25,7 @@ export default {
   answer: 'Superflex changes quarterback value structurally rather than cosmetically because it creates more quarterback starting slots across the league than there are quarterbacks capable of filling them well. In a single-quarterback league, a twelve-team league needs twelve starters from a pool of roughly thirty-two, so the replacement quarterback is a competent professional starter and the gap between an elite quarterback and a replacement one is small. In Superflex, where a flex slot may also be filled by a quarterback, potential demand approaches twenty-four starters from the same pool, and the replacement quarterback becomes a backup or a committee starter. Every quarterback\'s value rises because the alternative to owning one has gotten much worse, not because any quarterback\'s projection changed.',
 
   claims: [
+    'Moving a league from a single-quarterback format to Superflex displaces quarterbacks by a median of 19 draft slots, against 6 for the next-largest position.',
     'Superflex is a roster format in which a flex slot may be filled by a quarterback, allowing a team to start two quarterbacks in a single lineup.',
     'Superflex raises quarterback value by moving positional replacement level, not by increasing any individual quarterback\'s projected production.',
     'A twelve-team Superflex league can demand up to twenty-four starting quarterbacks from a pool of roughly thirty-two professional starters.',
