@@ -146,32 +146,51 @@ the citable layer.
 Full evidence: `docs/claims-audit.md`. Summary of what could not be verified
 and was therefore not published:
 
-- **No accuracy or superiority claim appears anywhere on the site**, and none
-  should be added — but the reason is NOT what an earlier draft of this report
-  said. That draft claimed the live layer "does not beat league-adjusted ADP on
-  Brier score." That is false. The backtest (green18 `dd46757`, 2026-08-30,
-  intent 1120 Wave-4 exit gate, `docs/dynamic-adp-completion-report.md` §39):
+- **No accuracy or superiority claim appears anywhere on the site, and none
+  may be added.** The evidence has two dates and they disagree; the later one
+  governs.
 
-  | comparator | Brier (lower = better) |
+  **2026-08-30** — green18 `dd46757`, intent 1120 Wave-4 exit gate
+  (`docs/dynamic-adp-completion-report.md` §39). One synthetic fixture, the §40
+  acceptance draft:
+
+  | comparator | Brier |
   |---|--:|
   | A static Market ADP | 0.0642 |
   | B league-adjusted | 0.0642 |
-  | C league + velocity | **0.0482** |
+  | C league + velocity | 0.0482 |
   | D full live + demand | 0.0560 |
 
-  Both live comparators beat the league-adjusted baseline. The real finding is
-  narrower: **D (the full model) is slightly worse than C (velocity alone)** —
-  and the repo discloses why in its own words: the fixture's scripted opponents
-  pick by pure objective value rather than roster need, so the
-  intervening-team-demand signal D adds has little need-structure to exploit.
-  It states this is *"not evidence that demand hurts in real drafts."*
+  On that single fixture the live comparators beat B.
 
-  **The reason to publish no superiority claim is the dataset, not the result.**
-  No licensed historical dataset ships: this is a synthetic 10-team PPR
-  Superflex draft, 13 prediction points, 1,479 samples per comparator, and §40
-  states absolute calibration is *"not claimed as product-level calibration."*
-  A marketing claim needs real draft data behind it, which is the repo's own
-  outstanding item 47. Until then, silence is the accurate position.
+  **2026-09-04** — `docs/adp-audit-2b4-comparator.md`, intent 1148 slice 2b-4.
+  Three independent and more rigorous fixtures, read through the same promoted
+  comparators. The 08-30 result does not replicate:
+
+  | set | A | B | C | D |
+  |---|--:|--:|--:|--:|
+  | Run-free | 0.0363 | 0.0363 | 0.0366 | 0.0628 |
+  | Run-bearing | 0.0398 | 0.0398 | 0.0410 | 0.0614 |
+  | Realistic need-driven | 0.0149 | 0.0149 | 0.0150 | **0.0451** |
+
+  The repo's own words: *"D loses to B on every set measured so far, including
+  the one built specifically to give the live layer realistic, emergent,
+  multi-team-correlated runs to detect."* C sits at parity with B, not ahead of
+  it. A double-count was then found and fixed, closing 85–91% of D's excess
+  error (realistic set 0.0451 → 0.0163) — but the report states plainly:
+  *"D still does not formally beat B on any set (the honest headline stands)."*
+
+  So: **the live layer does not currently beat league-adjusted ADP on Brier
+  score**, on the best evidence available. Separately, no licensed historical
+  dataset ships at all — every number above is synthetic — so even a favourable
+  result would not support a product claim. Real draft data is the repo's own
+  outstanding item 47.
+
+  *Process note: this entry was wrong twice before it was right. It first
+  repeated an audit summary without opening the numbers; the "correction" then
+  used the 08-30 table, which a newer document had already superseded. Checking
+  the first search hit is not checking.*
+
 - **No performance numbers** are published, though the acceptance suite proves
   generous budgets.
 - **No injury or season prediction** is claimed — correctly: the only
