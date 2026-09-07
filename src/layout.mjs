@@ -516,7 +516,7 @@ ${structuredData(page, url)}
 
   <header class="site">
     <div class="wrap">
-      <a class="wordmark" href="/" aria-label="GREEN18 — home"><img src="/assets/mark.png" alt="" width="40" height="26" decoding="async"></a>
+      <a class="wordmark" href="/" aria-label="GREEN18 — home"><img src="/assets/mark.png" alt="" width="28" height="18" decoding="async"></a>
       <nav aria-label="Primary">
         ${nav}
       </nav>
@@ -574,7 +574,7 @@ ${disclaimer}
     <div class="wrap">
       <div class="foot-top">
         <div class="foot-brand">
-          <a class="wordmark" href="/" aria-label="GREEN18 — home"><img src="/assets/mark.png" alt="" width="34" height="22" decoding="async"></a>
+          <a class="wordmark" href="/" aria-label="GREEN18 — home"><img src="/assets/mark.png" alt="" width="23" height="15" decoding="async"></a>
           <p>${esc(TAGLINE)}</p>
         </div>
         <div class="foot-cols">

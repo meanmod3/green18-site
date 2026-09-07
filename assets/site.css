@@ -314,7 +314,10 @@ footer.site { border-top: 1px solid var(--border); background: var(--bg); paddin
    laptop heights an unconstrained 20rem width pushes its own caption — and
    the hero CTA beside it — off screen. 0.46 is the device aspect. */
 @media (min-width: 900px) {
-  .phone-wrap { max-width: min(19rem, calc(68vh * 0.46)); }
+  /* Hard ceiling of 17rem — the same width the demo has on mobile, which is
+     the size that reads correctly. It may be SMALLER on short viewports (the
+     vh term), never larger. Desktop had been letting it grow to 19rem. */
+  .phone-wrap { max-width: min(17rem, calc(60vh * 0.46)); }
 }
 
 .phone {
@@ -566,12 +569,12 @@ ul.keypoints li::before {
    image itself is decorative (alt="") and must not be announced twice. */
 .wordmark { display: inline-flex; align-items: center; line-height: 0; }
 .wordmark img {
-  display: block; width: auto; height: 26px;
+  display: block; width: auto; height: 18px;
   /* The mark is pre-trimmed with transparent corners (assets/mark.png), so it
      needs no radius of its own — the tile's own rounding is in the artwork. */
 }
-footer.site .wordmark img { width: auto; height: 22px; }
-@media (max-width: 520px) { .wordmark img { height: 22px; } }
+footer.site .wordmark img { width: auto; height: 15px; }
+@media (max-width: 520px) { .wordmark img { height: 16px; } }
 
 /* ------------------------------------------------------ explanatory art -- */
 .diagram { margin: 0; }
