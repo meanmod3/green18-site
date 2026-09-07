@@ -30,7 +30,11 @@ fi
 if [ "$#" -gt 0 ]; then
   URLS=("$@")
 else
-  mapfile -t URLS < <(grep -ho '<loc>[^<]*</loc>' "$ROOT"/sitemap-*.xml \
+  # macOS ships bash 3.2, which has no `mapfile`. Read portably instead.
+  URLS=()
+  while IFS= read -r line; do
+    [ -n "$line" ] && URLS+=("$line")
+  done < <(grep -ho '<loc>[^<]*</loc>' "$ROOT"/sitemap-*.xml \
     | sed 's|<loc>||; s|</loc>||' | sed "s|^${ORIGIN}||" | sort -u)
 fi
 
