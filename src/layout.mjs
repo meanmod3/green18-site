@@ -197,7 +197,6 @@ function block(b) {
   }
 }
 
-
 // Section labels for breadcrumb trails, keyed by the first slug segment.
 const SECTION_NAMES = {
   'draft-science': 'Draft Science',
@@ -217,7 +216,6 @@ function breadcrumbTrail(page) {
   out.push({ name: page.breadcrumb || page.hero.h1, url: `${ORIGIN}/${page.slug}` });
   return out;
 }
-
 
 // Share cards. One card per section rather than one for the whole site: every
 // shared link used to render the same image, which wastes the strongest visual
@@ -325,7 +323,6 @@ function structuredData(page, url) {
 
   return JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }, null, 2);
 }
-
 
 // A device frame around the product demo. The video is real footage of the
 // app driven through a live draft — it is decoration only in the sense that
@@ -545,10 +542,6 @@ ${disclaimer}
     </div>
   </footer>
 
-  <div class="sticky-cta" id="stickyCta" aria-hidden="true">
-    <span class="lbl">Get GREEN18<small>Open in App Store</small></span>
-    <a class="btn" href="${APP_STORE_URL}" tabindex="-1">Get GREEN18</a>
-  </div>
 
   <script src="/assets/site.js" defer></script>
 ${page.blocks.some((b) => b.type === "calculator") ? '  <script type="module" src="/assets/tools.js"></script>' : ''}

@@ -84,6 +84,21 @@ for (const p of pages) {
     }
   }
 
+  // Terminology contract: a page may use the bare acronym "DSV" only after it
+  // has written "Draft-State Valuation (DSV)" at least once, because a
+  // first-time visitor does not arrive knowing it. Comments are stripped first
+  // so only shipped copy is judged.
+  {
+    const copy = JSON.stringify(p);
+    const acronym = copy.search(/\bDSV\b/);
+    if (acronym !== -1) {
+      const expanded = copy.indexOf('Draft-State Valuation (DSV)');
+      if (expanded === -1 || expanded > acronym) {
+        problems.push(`${id}: uses the bare acronym "DSV" before writing "Draft-State Valuation (DSV)" on the page`);
+      }
+    }
+  }
+
   // forbidden brand renderings (§1)
   const text = JSON.stringify(p);
   for (const bad of ['Green 18', 'Draft Buddy', 'DraftBuddy', 'Green18 ']) {
