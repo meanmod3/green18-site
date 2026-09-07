@@ -2,7 +2,7 @@
 export default {
   slug: '',
   title: 'GREEN18 — Live Fantasy Football Draft Assistant for iPhone',
-  description: 'GREEN18 is a live fantasy football draft board for iPhone. Set your league, start drafting, and watch the player board react as picks come off the board.',
+  description: 'GREEN18 is an iPhone fantasy football live draft assistant that continuously recalculates player valuations from your league, your roster and the live draft.',
   breadcrumb: 'Home',
 
   hero: {

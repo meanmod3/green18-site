@@ -1,8 +1,6 @@
 # GREEN18
 
-> A live fantasy football draft assistant for iPhone. It reorganizes the
-> remaining player board as a draft is recorded, using the league's own
-> settings and the picks that have already happened.
+> GREEN18 is an iPhone fantasy football live draft assistant that continuously recalculates player valuations according to league settings, roster construction, player availability, draft state, and user preferences.
 
 ## What GREEN18 is
 

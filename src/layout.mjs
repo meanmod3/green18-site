@@ -1,6 +1,6 @@
 // GREEN18 — page renderer. Turns a content module into a complete HTML page.
 import { APP_STORE_URL, ORIGIN, BRAND, COPYRIGHT_OWNER, NAV, FOOTER,
-         FOOTER_DISCLAIMER, LINK_TITLES } from './site.mjs';
+         FOOTER_DISCLAIMER, LINK_TITLES, CANON } from './site.mjs';
 
 const esc = (s) => String(s)
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -251,8 +251,7 @@ function structuredData(page, url) {
     operatingSystem: 'iOS',
     url: ORIGIN + '/',
     installUrl: APP_STORE_URL,
-    description: 'A live fantasy football draft assistant for iPhone that reorganizes the '
-      + 'remaining player board as the draft develops.',
+    description: CANON,
     // No aggregateRating, no reviewCount, no price: fabricating them is banned.
     publisher: { '@id': ORIGIN + '/#org' },
   });

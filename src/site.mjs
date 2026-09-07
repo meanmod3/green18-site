@@ -9,6 +9,19 @@
 // ---------------------------------------------------------------------------
 export const APP_STORE_URL = 'https://apps.apple.com/us/app/id6805706417';
 
+// THE PRODUCT CANON. Every surface that describes the product — schema,
+// llms.txt, OG tags, the homepage meta description — resolves through this or a
+// faithful compression of it. Three surfaces had drifted into three different
+// wordings before this constant existed.
+export const CANON = 'GREEN18 is an iPhone fantasy football live draft assistant that '
+  + 'continuously recalculates player valuations according to league settings, roster '
+  + 'construction, player availability, draft state, and user preferences.';
+
+// The <=165-character compression, for meta descriptions. A strict subset of
+// CANON's claims — it may say less, never anything different.
+export const CANON_SHORT = 'GREEN18 is an iPhone fantasy football live draft assistant that '
+  + 'continuously recalculates player valuations from your league, your roster and the live draft.';
+
 export const ORIGIN = 'https://green18.app';
 export const BRAND = 'GREEN18';
 export const COPYRIGHT_OWNER = 'Interplore';

@@ -3,7 +3,7 @@ import { readdir, writeFile, mkdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { render } from './layout.mjs';
-import { ORIGIN, REDIRECTS } from './site.mjs';
+import { ORIGIN, REDIRECTS, CANON } from './site.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, '..');
@@ -228,9 +228,7 @@ await writeFile(join(root, `${INDEXNOW_KEY}.txt`), INDEXNOW_KEY + '\n', 'utf8');
 // drift from them.
 const llms = `# GREEN18
 
-> A live fantasy football draft assistant for iPhone. It reorganizes the
-> remaining player board as a draft is recorded, using the league's own
-> settings and the picks that have already happened.
+> ${CANON}
 
 ## What GREEN18 is
 
