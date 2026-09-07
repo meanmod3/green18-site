@@ -206,6 +206,31 @@ for (const p of pages) {
   }
 }
 
+// ---- enumerated clusters and procedures must be true (AEO) -----------------
+// Schema that names a URL the site does not serve is worse than no schema:
+// the /formats/ breadcrumb defect was exactly this shape. And a tool page that
+// stops emitting HowTo has silently lost its procedural markup.
+{
+  const slugs = new Set(pages.map((p) => p.slug).filter(Boolean));
+  const SECTIONS = ['draft-science', 'scenarios', 'tools', 'formats'];
+  for (const sec of SECTIONS) {
+    if (!slugs.has(sec)) { problems.push(`ITEMLIST: section hub "${sec}" has no page.`); continue; }
+    const kids = pages.filter((p) => p.slug && p.slug.startsWith(sec + '/'));
+    if (!kids.length) problems.push(`ITEMLIST: hub "${sec}" enumerates nothing.`);
+    for (const k of kids) {
+      if (!slugs.has(k.slug)) problems.push(`ITEMLIST: ${sec} lists missing page ${k.slug}.`);
+    }
+  }
+  for (const p of pages) {
+    // Section hubs share the pageType but are not calculators themselves.
+    if (p.pageType !== 'tool' || !p.slug || !p.slug.includes('/')) continue;
+    const c = (p.blocks || []).find((b) => b.type === 'calculator');
+    if (!c) { problems.push(`HOWTO: tool page ${p.slug} has no calculator block.`); continue; }
+    if (!(c.fields || []).length) problems.push(`HOWTO: ${p.slug} calculator declares no fields, so its HowTo would have no steps.`);
+    if (!c.defaultExplanation) problems.push(`HOWTO: ${p.slug} has no default explanation for its result step.`);
+  }
+}
+
 // ---- price is answerable, and agrees with itself (AEO) ---------------------
 // "How much does it cost" is among the first questions an AI assistant is
 // asked about an app. A silent gap is not neutral: retrieval layers fill it by
@@ -317,7 +342,7 @@ for (const p of pages) {
 // ---- emit -----------------------------------------------------------------
 let written = 0;
 for (const p of pages) {
-  const html = render(p);
+  const html = render(p, pages);
   const out = p.slug ? join(root, `${p.slug}.html`) : join(root, 'index.html');
   if (p.slug.includes('/')) await mkdir(dirname(out), { recursive: true });
   await writeFile(out, html, 'utf8');

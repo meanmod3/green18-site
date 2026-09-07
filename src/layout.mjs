@@ -268,7 +268,7 @@ function shareCard(page) {
 
 // ------------------------------------------------------------- structured --
 
-function structuredData(page, url) {
+function structuredData(page, url, allPages = []) {
   const graph = [];
 
   // Organization and WebSite identity, stated once per page so every surface
@@ -328,6 +328,62 @@ function structuredData(page, url) {
       isPartOf: { '@id': ORIGIN + '/#website' },
       isAccessibleForFree: true,
     });
+  }
+
+  // A calculator page teaches a procedure, and the procedure is the form the
+  // page actually renders. The steps below are derived from those real fields,
+  // never invented: a HowTo describing steps the page does not show would be
+  // schema asserting something untrue.
+  const calc = (page.blocks || []).find((b) => b.type === 'calculator');
+  if (page.pageType === 'tool' && calc && (calc.fields || []).length) {
+    graph.push({
+      '@type': 'HowTo',
+      '@id': url + '#howto',
+      name: page.hero.h1.replace(/\*\*/g, ''),
+      description: page.description,
+      totalTime: 'PT1M',
+      // Free to use, and saying so is the honest counterpart to the paid app.
+      estimatedCost: { '@type': 'MonetaryAmount', currency: 'USD', value: '0' },
+      step: [
+        ...calc.fields.map((f, i) => ({
+          '@type': 'HowToStep',
+          position: i + 1,
+          name: f.label,
+          text: `Enter ${f.label.toLowerCase()}.`,
+          url: url + '#' + calc.id,
+        })),
+        {
+          '@type': 'HowToStep',
+          position: calc.fields.length + 1,
+          name: 'Read the result',
+          text: (calc.defaultExplanation || '').replace(/\*\*/g, '').replace(/\[([^\]]+)\]\([^)]+\)/g, '$1'),
+          url: url + '#' + calc.id,
+        },
+      ],
+    });
+  }
+
+  // A section hub exists to enumerate its section. Stating that as an ItemList
+  // lets a retrieval layer read the whole cluster in one pass instead of
+  // crawling for it.
+  if (page.slug && SECTION_NAMES[page.slug]) {
+    const children = allPages
+      .filter((c) => c.slug && c.slug.startsWith(page.slug + '/'))
+      .sort((a, b) => a.slug.localeCompare(b.slug));
+    if (children.length) {
+      graph.push({
+        '@type': 'ItemList',
+        '@id': url + '#items',
+        name: SECTION_NAMES[page.slug],
+        numberOfItems: children.length,
+        itemListElement: children.map((c, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          name: c.breadcrumb || c.title,
+          url: `${ORIGIN}/${c.slug}`,
+        })),
+      });
+    }
   }
 
   graph.push({
@@ -415,7 +471,7 @@ function phoneMock(media) {
 
 // ------------------------------------------------------------------- page --
 
-export function render(page) {
+export function render(page, allPages = []) {
   // A section hub canonicalises WITH a trailing slash.
   //
   // The original reason: GitHub Pages 301'd /scenarios -> /scenarios/ whenever
@@ -522,7 +578,7 @@ ${page.noindex ? '  <meta name="robots" content="noindex, follow">\n' : `  <link
   <link rel="apple-touch-icon" href="/assets/icon.png">
   <link rel="stylesheet" href="/assets/site.css">
   <script type="application/ld+json">
-${structuredData(page, url)}
+${structuredData(page, url, allPages)}
   </script>
 </head>
 <body>
