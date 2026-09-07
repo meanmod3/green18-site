@@ -17,6 +17,17 @@ export default {
     secondary: { label: 'See How GREEN18 Works', href: '#how-it-works' },
   },
 
+  // Real footage of the app driven through a live draft. The build renders the
+  // device frame only when all three files exist (see build.mjs), so this is
+  // safe to declare before the recording lands.
+  heroMedia: {
+    mp4: '/assets/green18-draft-demo.mp4',
+    webm: '/assets/green18-draft-demo.webm',
+    poster: '/assets/green18-draft-demo-poster.jpg',
+    alt: 'The GREEN18 live draft board on iPhone, reordering as picks are recorded.',
+    caption: 'Real footage. Each pick is recorded, and the remaining board re-ranks around it.',
+  },
+
   blocks: [
     { type: 'prose', h2: 'The Draft Changes Everything.', body: [
       'Before the draft, rankings are predictions.',

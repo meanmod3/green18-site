@@ -284,3 +284,61 @@ footer.site { border-top: 1px solid var(--border); background: var(--bg); paddin
    style-src 'self' with no 'unsafe-inline'. */
 .mt-lg { margin-top: 2rem; }
 .mt-md { margin-top: 1.5rem; }
+
+/* ------------------------------------------------- hero device mock -- */
+/* Two columns only when there is media to show; the text hero is unchanged
+   everywhere else. */
+.hero-grid { display: grid; gap: 2.5rem; align-items: center; }
+@media (min-width: 900px) {
+  .hero-grid { grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 3.5rem; }
+  .hero-split .measure { max-width: none; }
+}
+
+.phone-wrap { justify-self: center; max-width: 20rem; width: 100%; }
+/* Cap by viewport height too: the frame is a tall portrait shape, and at
+   laptop heights an unconstrained 20rem width pushes its own caption — and
+   the hero CTA beside it — off screen. 0.46 is the device aspect. */
+@media (min-width: 900px) {
+  .phone-wrap { max-width: min(19rem, calc(68vh * 0.46)); }
+}
+
+.phone {
+  position: relative;
+  border-radius: 3rem;
+  padding: .55rem;
+  background: linear-gradient(160deg, #2C4633 0%, #0E2413 42%, #071B0C 100%);
+  box-shadow:
+    0 0 0 1px rgba(117,220,73,.16),
+    0 2rem 4rem -1rem rgba(0,0,0,.75),
+    0 0 5rem -1rem rgba(117,220,73,.28);
+}
+
+.phone-screen {
+  position: relative;
+  aspect-ratio: 402 / 874;
+  border-radius: 2.5rem;
+  overflow: hidden;
+  background: var(--bg);
+}
+.phone-screen video {
+  display: block;
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+
+/* the dynamic island */
+.phone::after {
+  content: "";
+  position: absolute; top: 1.35rem; left: 50%; transform: translateX(-50%);
+  width: 6rem; height: 1.35rem; border-radius: 999px;
+  background: #000; z-index: 2; pointer-events: none;
+}
+
+.phone-cap {
+  margin: 1.1rem 0 0; text-align: center;
+  color: var(--ink-3); font-size: .88rem; line-height: 1.5;
+}
+
+@media (max-width: 899px) {
+  .phone-wrap { max-width: 17rem; margin-top: .5rem; }
+}

@@ -112,6 +112,26 @@ function structuredData(page, url) {
   return JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }, null, 2);
 }
 
+
+// A device frame around the product demo. The video is real footage of the
+// app driven through a live draft — it is decoration only in the sense that
+// the page reads fine without it, so it carries no controls, no audio track
+// and an empty alt-equivalent: the copy beside it already says what it shows.
+function phoneMock(media) {
+  return `<div class="phone-wrap">
+            <div class="phone" role="img" aria-label="${esc(media.alt)}">
+              <div class="phone-screen">
+                <video autoplay muted loop playsinline preload="metadata"
+                       poster="${esc(media.poster)}">
+                  <source src="${esc(media.webm)}" type="video/webm">
+                  <source src="${esc(media.mp4)}" type="video/mp4">
+                </video>
+              </div>
+            </div>
+            <p class="phone-cap">${inline(media.caption)}</p>
+          </div>`;
+}
+
 // ------------------------------------------------------------------- page --
 
 export function render(page) {
@@ -196,8 +216,9 @@ ${structuredData(page, url)}
 ${crumbs}
 
   <main id="main">
-      <section class="hero">
+      <section class="hero${page.heroMedia ? ' hero-split' : ''}">
         <div class="wrap">
+          <div class="${page.heroMedia ? 'hero-grid' : ''}">
           <div class="measure">
             ${page.hero.eyebrow ? `<p class="eyebrow">${esc(page.hero.eyebrow)}</p>` : ''}
             <h1>${inline(page.hero.h1)}</h1>
@@ -206,6 +227,8 @@ ${crumbs}
             </div>
             ${ctaGroup(page.hero.cta || 'Download GREEN18', page.hero.micro,
               { secondary: page.hero.secondary })}
+          </div>
+          ${page.heroMedia ? phoneMock(page.heroMedia) : ''}
           </div>
         </div>
       </section>

@@ -19,6 +19,7 @@ export const NAV = [
   { label: 'How It Works', href: '/fantasy-football-draft-assistant#how-it-works' },
   { label: 'Draft Assistant', href: '/live-fantasy-football-draft-assistant' },
   { label: 'Draft Formats', href: '/superflex-draft-assistant' },
+  { label: 'How It Decides', href: '/fantasy-football-draft-algorithm' },
   { label: "Who It's For", href: '/fantasy-football-for-beginners' },
 ];
 
@@ -41,6 +42,12 @@ export const FOOTER = [
     ['Office Leagues', '/office-fantasy-football-draft'],
     ['Home Leagues', '/home-league-draft-assistant'],
     ['Last-Minute Drafts', '/last-minute-fantasy-football-draft'],
+  ]},
+  { heading: 'The Model', links: [
+    ['AI Draft Assistant', '/ai-fantasy-football-draft-assistant'],
+    ['How It Decides', '/fantasy-football-draft-algorithm'],
+    ['ChatGPT vs GREEN18', '/chatgpt-fantasy-football-draft'],
+    ['Automated Draft Tool', '/automated-fantasy-football-draft-tool'],
   ]},
   { heading: 'Platforms', links: [
     ['ESPN Draft Helper', '/espn-fantasy-football-draft-helper'],
@@ -73,6 +80,10 @@ export const LINK_TITLES = {
   'office-fantasy-football-draft': 'Office League Draft',
   'home-league-draft-assistant': 'Home League Draft Assistant',
   'last-minute-fantasy-football-draft': 'Last-Minute Fantasy Football Draft',
+  'ai-fantasy-football-draft-assistant': 'AI Fantasy Football Draft Assistant',
+  'chatgpt-fantasy-football-draft': 'ChatGPT and Your Fantasy Draft',
+  'fantasy-football-draft-algorithm': 'How the Draft Model Works',
+  'automated-fantasy-football-draft-tool': 'Automated Draft Tool',
   'espn-fantasy-football-draft-helper': 'ESPN Draft Helper',
   'yahoo-fantasy-football-draft-helper': 'Yahoo Draft Helper',
   'sleeper-fantasy-football-draft-helper': 'Sleeper Draft Helper',

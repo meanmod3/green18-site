@@ -1,0 +1,87 @@
+// PAGE 16 — AI-intent pillar. Meets the search intent, then lands the
+// determinism thesis: GREEN18 computes, it does not generate.
+export default {
+  slug: 'ai-fantasy-football-draft-assistant',
+  title: 'AI Fantasy Football Draft Assistant? Try a Computed One | GREEN18',
+  description: 'Looking for an AI draft assistant? GREEN18 is a deterministic draft model for iPhone — the same board always produces the same answer.',
+  breadcrumb: 'AI Draft Assistant',
+
+  hero: {
+    eyebrow: 'Computed, Not Generated',
+    h1: 'You Don’t Want a Draft Assistant That Improvises. You Want One That Computes.',
+    lede: [
+      'Most people searching for an AI draft assistant want the same thing: something that keeps up with the draft instead of handing them a list.',
+      'GREEN18 does that. It is not a chatbot and it does not generate text. It is a model that recalculates the remaining board from your league settings and the picks that have actually happened.',
+      '**Same board in, same answer out. Every time.**',
+    ],
+    cta: 'Download GREEN18',
+    micro: 'Available for iPhone. Built for the 2026 fantasy football draft.',
+    secondary: { label: 'See How GREEN18 Works', href: '#how-it-works' },
+  },
+
+  blocks: [
+    { type: 'prose', h2: 'What People Actually Mean by “AI Draft Assistant”.', body: [
+      'They rarely mean they want to have a conversation.',
+      'They mean the pre-draft list stopped being true four picks ago.',
+      'They mean three quarterbacks went in a row and nothing on their sheet moved.',
+      'They mean they have ninety seconds and six tabs open.',
+      'That is a computation problem, not a writing problem.',
+    ]},
+
+    { type: 'prose', h2: 'GREEN18 Is a Deterministic Model.', body: [
+      'Deterministic means exactly one thing: the same inputs always produce the same output.',
+      'Ask GREEN18 twice with the same board and you get the same answer twice.',
+      'Hand the same board to a text generator twice and you may not.',
+      'On draft day, repeatability is not a technicality. It is the whole point.',
+    ], quote: 'A model that can’t repeat itself can’t be checked.' },
+
+    { type: 'cards', h2: 'Computed vs. Generated.', cards: [
+      { h3: 'Repeatable', body: 'Every recommendation is replayable from the board that produced it. Nothing is improvised on the spot.' },
+      { h3: 'Accountable', body: 'The result is assembled from named components — league value, board movement, survival to your next pick — not from prose about a player.' },
+      { h3: 'Current', body: 'It reads the draft in front of you. Not a snapshot of the internet from some earlier date.' },
+    ]},
+
+    { type: 'steps', h2: 'How GREEN18 Works', steps: [
+      { h3: 'Set Your League.', body: ['Scoring and quarterback format genuinely re-rank the board. They are inputs, not labels.'] },
+      { h3: 'Shape Your Preferences.', body: ['Your own opinions live in your personal rank. They never move the objective market values.'] },
+      { h3: 'Record the Picks.', body: ['As players come off the board, GREEN18 recomputes. The update is effectively instant.'] },
+      { h3: 'Take Now or Wait.', body: ['You see how likely a player is to survive to your next pick, and you make the call.'] },
+    ]},
+
+    { type: 'prose', h2: 'Where the Numbers Come From.', body: [
+      'Player facts come from open football data — nflverse, credited under CC-BY — plus the picks you record during your own draft.',
+      'A hard allowlist rejects unapproved sources at build time.',
+      'GREEN18 computes its own projected draft value from that base.',
+      'It does not scrape a chatbot and it does not guess.',
+      'If you want the mechanism in full, read [how the draft model works](/fantasy-football-draft-algorithm).',
+    ]},
+
+    { type: 'prose', h2: 'What It Will Not Do.', body: [
+      'GREEN18 will not tell you a player is going to get hurt.',
+      'It will not promise you a title.',
+      'It will not draft for you — see [automated draft tools](/automated-fantasy-football-draft-tool) for where that line sits.',
+      'It tells you what the board is worth right now, given your league and the picks already made.',
+      'That is a smaller claim. It is also a true one.',
+    ]},
+
+    { type: 'convert', h2: 'Bring a Model, Not a Guess.',
+      body: ['Stop asking for a fresh opinion every time the board changes.', '**Download GREEN18 and take a computed board into your next draft.**'],
+      label: 'Download GREEN18', sub: 'Available for iPhone. Built for the 2026 fantasy football draft.' },
+  ],
+
+  faq: [
+    { q: 'Does GREEN18 use artificial intelligence?', a: 'No. GREEN18 is a deterministic draft model, not an AI or machine-learning product. It computes recommendations from named components — your league settings, current player value, and how likely a player is to survive to your next pick — so the same draft board always produces the same output. Nothing is generated as text.' },
+    { q: 'What does deterministic mean for a fantasy draft assistant?', a: 'Deterministic means identical inputs always produce identical results. In GREEN18, if you replay the same league settings and the same sequence of recorded picks, you get exactly the same recommendation every time. A text-generating assistant can return a different answer to the same question on different attempts.' },
+    { q: 'Why does repeatability matter during a live draft?', a: 'Because a recommendation you cannot reproduce is a recommendation you cannot check. With a deterministic model, the reason a player moved up or down is traceable to a change in the board or in your league settings, rather than to variation in how an answer happened to be written that time.' },
+    { q: 'Can GREEN18 answer questions in a chat window?', a: 'No. GREEN18 has no chat interface and does not converse. It presents a live player board that reorganizes as you record the picks in your draft, and shows the components behind each player’s current value.' },
+    { q: 'Does GREEN18 predict what will happen in the NFL season?', a: 'No. GREEN18 makes no forecast about the season, and makes no injury predictions. It values the players still available to you right now, based on your league’s settings and the picks that have already happened in your draft.' },
+  ],
+
+  links: [
+    'fantasy-football-draft-assistant',
+    'fantasy-football-draft-algorithm',
+    'chatgpt-fantasy-football-draft',
+    'automated-fantasy-football-draft-tool',
+    'dynamic-fantasy-football-adp',
+  ],
+};

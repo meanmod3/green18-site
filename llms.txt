@@ -1,0 +1,55 @@
+# GREEN18
+
+> A live fantasy football draft assistant for iPhone. It reorganizes the
+> remaining player board as a draft is recorded, using the league's own
+> settings and the picks that have already happened.
+
+## What GREEN18 is
+
+GREEN18 is a deterministic draft model. The same league settings and the same
+sequence of recorded picks always produce the same recommendation. Values are
+computed from named components — league settings, current player value, and how
+likely a player is to survive until the user's next pick — and the user always
+makes the pick themselves.
+
+## What GREEN18 is not
+
+- It is NOT an AI, machine-learning, or large-language-model product, and it has no chat interface.
+- It does NOT connect to, sync with, or import from any fantasy platform. It is an independent companion used alongside the platform where a league is hosted.
+- It does NOT auto-draft or make selections. The user records picks and makes the decisions.
+- It makes no forecast about the NFL season and no injury predictions.
+- It requires no account and no sign-in. League and draft data stay on the device.
+
+## Availability
+
+iPhone only. Not currently available on Android.
+
+## Pages
+
+- [Fantasy Football Draft Assistant for 2026 | GREEN18](https://green18.app/fantasy-football-draft-assistant): GREEN18 is a live fantasy football draft assistant for iPhone that adjusts your player board as your real draft unfolds.
+- [Live Fantasy Football Draft Assistant | GREEN18](https://green18.app/live-fantasy-football-draft-assistant): Use GREEN18 during your fantasy football draft and watch your player board adjust as picks come off the board.
+- [Fantasy Football Cheat Sheet App for 2026 | GREEN18](https://green18.app/fantasy-football-cheat-sheet-app): Replace the static fantasy football cheat sheet with a live iPhone draft board that changes as your draft unfolds.
+- [Dynamic Fantasy Football ADP for Live Drafts | GREEN18](https://green18.app/dynamic-fantasy-football-adp): GREEN18 treats ADP as a starting point, not the final answer. Watch player value adjust as your fantasy football draft develops.
+- [Fantasy Football Draft Strategy App | GREEN18](https://green18.app/fantasy-football-draft-strategy-app): Build your fantasy draft strategy around the players still available, your roster, league settings, and live draft conditions.
+- [Superflex Fantasy Football Draft Assistant | GREEN18](https://green18.app/superflex-draft-assistant): Draft quarterbacks and skill players in context with a live Superflex fantasy football draft board from GREEN18.
+- [PPR Fantasy Football Draft Assistant | GREEN18](https://green18.app/ppr-draft-assistant): Draft for your PPR league using a live fantasy football player board that accounts for your league and changing draft.
+- [Fantasy Football Draft Help for Beginners | GREEN18](https://green18.app/fantasy-football-for-beginners): New to fantasy football? GREEN18 helps simplify your draft by keeping the best remaining options organized as picks happen.
+- [Fantasy Football Draft Tool for Competitive Players | GREEN18](https://green18.app/competitive-fantasy-football-draft): Turn league context, player availability, roster construction and live draft movement into a more responsive fantasy football board.
+- [Beat Your Coworkers at Fantasy Football | GREEN18](https://green18.app/office-fantasy-football-draft): Drafting against your coworkers? Bring GREEN18 to the draft and use a live player board that adjusts as your league makes picks.
+- [Fantasy Football Draft Assistant for Home Leagues | GREEN18](https://green18.app/home-league-draft-assistant): Give your long-running fantasy football league a smarter live draft board with GREEN18 for iPhone.
+- [Draft Tonight? Get Fantasy Football Help Fast | GREEN18](https://green18.app/last-minute-fantasy-football-draft): Have a fantasy football draft tonight? Set up GREEN18, configure your league and take a live player board into the draft.
+- [ESPN Fantasy Football Draft Helper | GREEN18](https://green18.app/espn-fantasy-football-draft-helper): Use GREEN18 alongside your ESPN fantasy football draft for a live player board that responds as players are selected.
+- [Yahoo Fantasy Football Draft Helper | GREEN18](https://green18.app/yahoo-fantasy-football-draft-helper): Use GREEN18 beside your Yahoo Fantasy Football draft and keep a live player board organized around your league.
+- [Sleeper Fantasy Football Draft Helper | GREEN18](https://green18.app/sleeper-fantasy-football-draft-helper): Use GREEN18 alongside Sleeper to add a responsive player board to your fantasy football draft.
+- [AI Fantasy Football Draft Assistant? Try a Computed One | GREEN18](https://green18.app/ai-fantasy-football-draft-assistant): Looking for an AI draft assistant? GREEN18 is a deterministic draft model for iPhone — the same board always produces the same answer.
+- [Can ChatGPT Do Your Fantasy Football Draft? | GREEN18](https://green18.app/chatgpt-fantasy-football-draft): A general chatbot is good at explaining fantasy football and blind to your live draft board. Here is the honest line, and what to use instead.
+- [How a Fantasy Football Draft Algorithm Works | GREEN18](https://green18.app/fantasy-football-draft-algorithm): The GREEN18 draft model in plain language: open football data, your league settings, recorded picks, survival odds, and take-now-or-wait.
+- [Automated Fantasy Football Draft Tool | GREEN18](https://green18.app/automated-fantasy-football-draft-tool): GREEN18 automates the math, not the decision. It does not auto-draft or connect to any platform — you record picks and you make the call.
+- [Privacy Policy](https://green18.app/privacy): What the app stores on the device and what it never sends.
+- [Support](https://green18.app/support): Contact and common questions.
+
+## Attribution
+
+Player facts are derived from open football data, including nflverse (CC-BY).
+GREEN18 is not affiliated with, endorsed by, or sponsored by the NFL, the NFL
+Players Association, any NFL club, or any fantasy platform.

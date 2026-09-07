@@ -62,6 +62,22 @@
       "rewrite": "/sleeper-fantasy-football-draft-helper.html"
     },
     {
+      "route": "/ai-fantasy-football-draft-assistant",
+      "rewrite": "/ai-fantasy-football-draft-assistant.html"
+    },
+    {
+      "route": "/chatgpt-fantasy-football-draft",
+      "rewrite": "/chatgpt-fantasy-football-draft.html"
+    },
+    {
+      "route": "/fantasy-football-draft-algorithm",
+      "rewrite": "/fantasy-football-draft-algorithm.html"
+    },
+    {
+      "route": "/automated-fantasy-football-draft-tool",
+      "rewrite": "/automated-fantasy-football-draft-tool.html"
+    },
+    {
       "route": "/privacy",
       "rewrite": "/privacy.html"
     },
@@ -77,7 +93,7 @@
     }
   },
   "globalHeaders": {
-    "content-security-policy": "default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; form-action 'none'; frame-ancestors 'none'; base-uri 'self'",
+    "content-security-policy": "default-src 'self'; img-src 'self' data:; media-src 'self'; style-src 'self'; script-src 'self'; form-action 'none'; frame-ancestors 'none'; base-uri 'self'",
     "referrer-policy": "strict-origin-when-cross-origin",
     "x-content-type-options": "nosniff",
     "strict-transport-security": "max-age=63072000; includeSubDomains; preload"
