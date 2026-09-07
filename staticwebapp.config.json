@@ -1,0 +1,89 @@
+{
+  "trailingSlash": "auto",
+  "routes": [
+    {
+      "route": "/fantasy-football-draft-assistant",
+      "rewrite": "/fantasy-football-draft-assistant.html"
+    },
+    {
+      "route": "/live-fantasy-football-draft-assistant",
+      "rewrite": "/live-fantasy-football-draft-assistant.html"
+    },
+    {
+      "route": "/fantasy-football-cheat-sheet-app",
+      "rewrite": "/fantasy-football-cheat-sheet-app.html"
+    },
+    {
+      "route": "/dynamic-fantasy-football-adp",
+      "rewrite": "/dynamic-fantasy-football-adp.html"
+    },
+    {
+      "route": "/fantasy-football-draft-strategy-app",
+      "rewrite": "/fantasy-football-draft-strategy-app.html"
+    },
+    {
+      "route": "/superflex-draft-assistant",
+      "rewrite": "/superflex-draft-assistant.html"
+    },
+    {
+      "route": "/ppr-draft-assistant",
+      "rewrite": "/ppr-draft-assistant.html"
+    },
+    {
+      "route": "/fantasy-football-for-beginners",
+      "rewrite": "/fantasy-football-for-beginners.html"
+    },
+    {
+      "route": "/competitive-fantasy-football-draft",
+      "rewrite": "/competitive-fantasy-football-draft.html"
+    },
+    {
+      "route": "/office-fantasy-football-draft",
+      "rewrite": "/office-fantasy-football-draft.html"
+    },
+    {
+      "route": "/home-league-draft-assistant",
+      "rewrite": "/home-league-draft-assistant.html"
+    },
+    {
+      "route": "/last-minute-fantasy-football-draft",
+      "rewrite": "/last-minute-fantasy-football-draft.html"
+    },
+    {
+      "route": "/espn-fantasy-football-draft-helper",
+      "rewrite": "/espn-fantasy-football-draft-helper.html"
+    },
+    {
+      "route": "/yahoo-fantasy-football-draft-helper",
+      "rewrite": "/yahoo-fantasy-football-draft-helper.html"
+    },
+    {
+      "route": "/sleeper-fantasy-football-draft-helper",
+      "rewrite": "/sleeper-fantasy-football-draft-helper.html"
+    },
+    {
+      "route": "/privacy",
+      "rewrite": "/privacy.html"
+    },
+    {
+      "route": "/support",
+      "rewrite": "/support.html"
+    }
+  ],
+  "responseOverrides": {
+    "404": {
+      "rewrite": "/404.html",
+      "statusCode": 404
+    }
+  },
+  "globalHeaders": {
+    "content-security-policy": "default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; form-action 'none'; frame-ancestors 'none'; base-uri 'self'",
+    "referrer-policy": "strict-origin-when-cross-origin",
+    "x-content-type-options": "nosniff",
+    "strict-transport-security": "max-age=63072000; includeSubDomains; preload"
+  },
+  "mimeTypes": {
+    ".json": "application/json",
+    ".webmanifest": "application/manifest+json"
+  }
+}
