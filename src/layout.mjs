@@ -303,7 +303,13 @@ function phoneMock(media) {
 // ------------------------------------------------------------------- page --
 
 export function render(page) {
-  const url = page.slug ? `${ORIGIN}/${page.slug}` : `${ORIGIN}/`;
+  // A section hub canonicalises WITH a trailing slash. GitHub Pages 301s
+  // /scenarios -> /scenarios/ whenever a scenarios/ directory exists, so the
+  // bare form never serves; pointing the canonical at it would aim every
+  // signal at a redirect. Verified live before this was written.
+  const url = page.slug
+    ? `${ORIGIN}/${page.slug}${page.isSectionHub ? '/' : ''}`
+    : `${ORIGIN}/`;
   const ogTitle = page.ogTitle || page.title;
   const ogDesc = page.ogDescription || page.description;
 

@@ -55,6 +55,8 @@ iPhone only. Not currently available on Android.
 - [Why Fantasy Rankings Change During a Draft | GREEN18](https://green18.app/why-fantasy-rankings-change-during-a-draft): Drafting removes alternatives. Every pick changes scarcity, replacement quality, roster need and opportunity cost — so the correct ranking changes with it.
 - [Fantasy Draft Glossary | GREEN18](https://green18.app/glossary): Plain-language definitions of the fantasy draft terms that actually govern decisions: scarcity, replacement value, pick horizon, tiers, formats and more.
 - [GREEN18 Methodology | Inputs, Determinism and Limits](https://green18.app/methodology): How GREEN18 arrives at a number: open football data, your league settings and your recorded picks, computed deterministically — and what the model cannot do.
+- [The Science of Draft-State Valuation | GREEN18](https://green18.app/draft-science): How eight ideas — scarcity, replacement, opportunity cost, horizon, tiers, roster, format — compose into a single valuation of a player at one pick.
+- [Fantasy Draft Scenarios | GREEN18](https://green18.app/scenarios): Twenty in-draft situations answered as conditions, not commands: runs, roster state, draft position and the endgame, each with the variable that decides it.
 
 ## Draft Science
 
@@ -85,6 +87,16 @@ iPhone only. Not currently available on Android.
 - [How Long Can I Wait to Draft a Quarterback? | GREEN18](https://green18.app/scenarios/waiting-on-quarterback): The answer is not a round number. How to convert “can I wait” into a survival question about the tier you intend to draft from, and read the answer live.
 - [The Last Player in a Tier Is on the Board | GREEN18](https://green18.app/scenarios/last-player-in-a-tier): A tier is about to close. How to check whether the boundary is real, whether it will survive to your next pick, and what a genuine boundary is worth.
 - [How to Draft Back-to-Back Picks at the Turn | GREEN18](https://green18.app/scenarios/drafting-from-the-turn): Two adjacent picks are one decision, not two. How to plan a pair at the turn, straddle a closing tier, and survive the long wait that follows.
+- [Best Player Available or Roster Need? | GREEN18](https://green18.app/scenarios/best-player-available-vs-roster-need): Best available describes a ranking; need describes your roster. What actually reconciles them is margin over replacement — and when the two genuinely conflict.
+- [A Player Fell Past Where You Expected | GREEN18](https://green18.app/scenarios/a-player-falls-past-his-expected-draft-position): A player is still on the board well past his expected draft position. What the fall does and does not tell you, and when the discount is worth taking.
+- [Two Players You Value Almost Identically | GREEN18](https://green18.app/scenarios/choosing-between-two-similar-players): When two players grade out the same, the decision moves off the players. The tie-breakers that matter: replacement slope, availability, roster fit, horizon.
+- [When Should You Draft a Kicker and Defense? | GREEN18](https://green18.app/scenarios/when-to-draft-a-kicker-and-defense): Why the advice to wait on kicker and defense is usually right, stated as margin over replacement rather than a slogan — and the conditions that reverse it.
+- [Still No Tight End Late in the Draft | GREEN18](https://green18.app/scenarios/still-no-tight-end-in-the-late-rounds): An unfilled slot late in a draft is only urgent if the players left at that position differ from each other. How to test whether the gap you fear is real.
+- [Two of My Starters Share a Bye Week | GREEN18](https://green18.app/scenarios/two-starters-share-a-bye-week): A shared bye week is a real but bounded cost, and mostly a roster-management problem. When it should move a draft pick and when it is an overcorrection.
+- [Should I Draft My Own Running Back’s Backup? | GREEN18](https://green18.app/scenarios/drafting-a-backup-for-your-own-running-back): Drafting the backup behind your own starter is insurance with a price. How workload concentration and the pick you would otherwise spend decide it.
+- [My Draft Timer Ran Out and I Got a Player I Did Not Want | GREEN18](https://green18.app/scenarios/you-missed-your-pick): A pick you did not choose changes your roster, not your method. How to re-evaluate from the state you are actually in instead of trying to undo it.
+- [Should I Draft an Unproven Player or a Proven One? | GREEN18](https://green18.app/scenarios/a-rookie-or-a-proven-veteran): Unproven versus established is a variance decision, not a talent decision. How the roster slot and its alternative decide whether a wider range is worth paying for.
+- [How Should I Use the Last Rounds of a Fantasy Draft? | GREEN18](https://green18.app/scenarios/how-to-use-the-final-rounds): In the final rounds every remaining player is near replacement level, which makes upside cheap and "best available" a rule that stops working. What to do instead.
 
 ## Tools
 

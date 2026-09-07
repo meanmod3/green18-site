@@ -223,12 +223,76 @@
       "rewrite": "/tools/ppr-value-adjustment-calculator.html"
     },
     {
+      "route": "/scenarios/best-player-available-vs-roster-need",
+      "rewrite": "/scenarios/best-player-available-vs-roster-need.html"
+    },
+    {
+      "route": "/scenarios/a-player-falls-past-his-expected-draft-position",
+      "rewrite": "/scenarios/a-player-falls-past-his-expected-draft-position.html"
+    },
+    {
+      "route": "/scenarios/choosing-between-two-similar-players",
+      "rewrite": "/scenarios/choosing-between-two-similar-players.html"
+    },
+    {
+      "route": "/scenarios/when-to-draft-a-kicker-and-defense",
+      "rewrite": "/scenarios/when-to-draft-a-kicker-and-defense.html"
+    },
+    {
+      "route": "/scenarios/still-no-tight-end-in-the-late-rounds",
+      "rewrite": "/scenarios/still-no-tight-end-in-the-late-rounds.html"
+    },
+    {
+      "route": "/scenarios/two-starters-share-a-bye-week",
+      "rewrite": "/scenarios/two-starters-share-a-bye-week.html"
+    },
+    {
+      "route": "/scenarios/drafting-a-backup-for-your-own-running-back",
+      "rewrite": "/scenarios/drafting-a-backup-for-your-own-running-back.html"
+    },
+    {
+      "route": "/scenarios/you-missed-your-pick",
+      "rewrite": "/scenarios/you-missed-your-pick.html"
+    },
+    {
+      "route": "/scenarios/a-rookie-or-a-proven-veteran",
+      "rewrite": "/scenarios/a-rookie-or-a-proven-veteran.html"
+    },
+    {
+      "route": "/scenarios/how-to-use-the-final-rounds",
+      "rewrite": "/scenarios/how-to-use-the-final-rounds.html"
+    },
+    {
+      "route": "/draft-science/",
+      "rewrite": "/draft-science/index.html"
+    },
+    {
+      "route": "/scenarios/",
+      "rewrite": "/scenarios/index.html"
+    },
+    {
+      "route": "/tools/",
+      "rewrite": "/tools/index.html"
+    },
+    {
       "route": "/privacy",
       "rewrite": "/privacy.html"
     },
     {
       "route": "/support",
       "rewrite": "/support.html"
+    },
+    {
+      "route": "/draft-science",
+      "rewrite": "/draft-science/index.html"
+    },
+    {
+      "route": "/scenarios",
+      "rewrite": "/scenarios/index.html"
+    },
+    {
+      "route": "/tools",
+      "rewrite": "/tools/index.html"
     }
   ],
   "responseOverrides": {

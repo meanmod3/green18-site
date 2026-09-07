@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#041306">
+  <title>The Science of Draft-State Valuation | GREEN18</title>
+  <meta name="description" content="How eight ideas — scarcity, replacement, opportunity cost, horizon, tiers, roster, format — compose into a single valuation of a player at one pick.">
+  <link rel="canonical" href="https://green18.app/draft-science/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="GREEN18">
+  <meta property="og:url" content="https://green18.app/draft-science/">
+  <meta property="og:title" content="The Science of Draft-State Valuation | GREEN18">
+  <meta property="og:description" content="How eight ideas — scarcity, replacement, opportunity cost, horizon, tiers, roster, format — compose into a single valuation of a player at one pick.">
+  <meta property="og:image" content="https://green18.app/assets/green18-card.png">
+  <meta property="og:image:alt" content="GREEN18 — live fantasy football draft intelligence for iPhone.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The Science of Draft-State Valuation | GREEN18">
+  <meta name="twitter:description" content="How eight ideas — scarcity, replacement, opportunity cost, horizon, tiers, roster, format — compose into a single valuation of a player at one pick.">
+  <meta name="twitter:image" content="https://green18.app/assets/green18-card.png">
+  <link rel="icon" href="/assets/icon.png" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/icon.png">
+  <link rel="stylesheet" href="/assets/site.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://green18.app/#org",
+      "name": "GREEN18",
+      "url": "https://green18.app/",
+      "logo": "https://green18.app/assets/icon.png"
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://green18.app/draft-science/#article",
+      "headline": "The Science of Draft-State Valuation",
+      "description": "How eight ideas — scarcity, replacement, opportunity cost, horizon, tiers, roster, format — compose into a single valuation of a player at one pick.",
+      "url": "https://green18.app/draft-science/",
+      "abstract": "Draft-state valuation is a method of valuing a fantasy football player according to the current state of a specific draft, rather than treating preseason rank or ADP as a fixed measure of player value. It is computed in stages: a baseline projection is converted into a margin over replacement level, that margin is weighted by how fast quality is falling behind the player at his position, adjusted for what the manager gives up by taking him, discounted by the probability he survives to the manager’s next pick, corrected for tier structure rather than rank order, and finally conditioned on the roster already built and the scoring format in force. The eight concepts documented in this section are those stages, not eight alternative theories.",
+      "dateModified": "2026-09-07",
+      "publisher": {
+        "@id": "https://green18.app/#org"
+      },
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "MobileApplication",
+      "name": "GREEN18",
+      "applicationCategory": "SportsApplication",
+      "operatingSystem": "iOS",
+      "url": "https://green18.app/",
+      "installUrl": "https://apps.apple.com/us/app/id6805706417",
+      "description": "GREEN18 is an iPhone fantasy football live draft assistant that continuously recalculates player valuations according to league settings, roster construction, player availability, draft state, and user preferences.",
+      "publisher": {
+        "@id": "https://green18.app/#org"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is draft-state valuation?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Draft-state valuation is a method of valuing a fantasy football player according to the current state of a specific draft, rather than treating preseason rank or ADP as a fixed measure of player value. It recalculates each available player’s worth after every selection, because every selection changes the alternatives that remain."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are these eight separate draft strategies?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Replacement value, positional scarcity, opportunity cost, pick horizon, tier structure, roster construction and format effects are stages of one valuation. Omitting a stage does not simplify the model; it substitutes a default assumption, such as treating the distance to your next pick as zero."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "In what order should the concepts be applied?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Replacement value comes first, because it converts a projection into a comparable margin. Scarcity weights that margin by how fast replacement quality is falling. Opportunity cost prices the alternatives, pick horizon discounts for time, tier structure corrects for step-shaped drops, and roster construction and scoring format condition the result on the specific team and league."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does a player’s value change when his projection has not?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Because value in a draft is the gap between a player and the alternative a manager would otherwise take. Drafting removes alternatives, so the gap widens or narrows without any change to the player’s expected production."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "GREEN18",
+          "item": "https://green18.app/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Draft Science",
+          "item": "https://green18.app/draft-science/"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site">
+    <div class="wrap">
+      <a class="wordmark" href="/">GREEN<b>18</b></a>
+      <nav aria-label="Primary">
+        <a href="/how-green18-ranks-fantasy-players">How It Works</a>
+          <a href="/draft-science/">Draft Science</a>
+          <a href="/scenarios/">Scenarios</a>
+          <a href="/tools/">Tools</a>
+          <a href="/glossary">Glossary</a>
+      </nav>
+      <a class="btn" href="https://apps.apple.com/us/app/id6805706417">Download</a>
+    </div>
+  </header>
+
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <div class="wrap"><a href="/">GREEN18</a><span>/</span>Draft Science</div>
+    </nav>
+
+  <main id="main">
+      <section class="hero">
+        <div class="wrap">
+          <div class="">
+          <div class="measure">
+            <p class="eyebrow">Draft Science</p>
+            <h1>The Science of Draft-State Valuation</h1>
+            <div class="lede">
+              <p>Draft-state valuation is not a collection of tips. It is one calculation, assembled from parts, run again after every pick.</p>
+              <p>The pages in this section are the parts. Read in order, they describe a single model rather than eight separate ideas.</p>
+            </div>
+            
+        <div class="cta-group">
+          <a class="btn btn-lg" href="https://apps.apple.com/us/app/id6805706417">Download GREEN18</a>
+          
+        </div>
+        <p class="cta-sub">Available for iPhone.</p>
+          </div>
+          
+          </div>
+        </div>
+      </section>
+
+      <section class="answer-wrap">
+        <div class="wrap measure">
+          <p class="answer">Draft-state valuation is a method of valuing a fantasy football player according to the current state of a specific draft, rather than treating preseason rank or ADP as a fixed measure of player value. It is computed in stages: a baseline projection is converted into a margin over replacement level, that margin is weighted by how fast quality is falling behind the player at his position, adjusted for what the manager gives up by taking him, discounted by the probability he survives to the manager’s next pick, corrected for tier structure rather than rank order, and finally conditioned on the roster already built and the scoring format in force. The eight concepts documented in this section are those stages, not eight alternative theories.</p>
+        </div>
+      </section>
+
+      <section class="keypoints-wrap">
+        <div class="wrap measure">
+          <h2 class="keypoints-h">In short</h2>
+          <ul class="keypoints">
+            <li>Draft-state valuation is a method of valuing a fantasy football player according to the current state of a specific draft, rather than treating preseason rank or ADP as a fixed measure of player value.</li>
+            <li>Replacement value, positional scarcity, opportunity cost, pick horizon, tier structure, roster construction and scoring format are stages of one valuation rather than competing draft strategies.</li>
+            <li>A projection alone cannot rank players across positions, because a projected total says nothing about what a manager would have received from the next player at the same position.</li>
+            <li>Every selection made by any manager changes the valuation of every player still available, because a selection removes an alternative from the set that all remaining values are measured against.</li>
+            <li>Two managers looking at an identical draft board can hold different correct valuations of the same player, because roster state, scoring format and distance to the next pick differ between them.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
+          <h2>What Is Draft-State Valuation?</h2>
+          
+          <p class="beat">Draft-state valuation values a player by the state of the draft in front of you, not by a number printed before the season started.</p>
+        <p class="beat">A preseason ranking answers one question: who is expected to score the most. That question is answered once, for everyone, and never asked again. A draft asks a different question at every pick — <strong>what is this player worth to me, here, given what is gone and what I still need</strong> — and the answer moves whether or not any projection does.</p>
+        <p class="beat">The distinction matters because value in a draft is relative. A player is worth the gap between what he produces and what you would otherwise have had. Drafting destroys the &quot;otherwise&quot;, so every pick edits the gap. That is the whole idea; the rest of this section is how the gap is computed.</p>
+          
+          
+          
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
+          <h2>How Do the Eight Concepts Fit Together?</h2>
+          
+          <p class="beat">They are stages of one calculation, applied in order, and each stage consumes the output of the last.</p>
+        <p class="beat">Read as a list they look like eight strategies you might choose between. They are not. Skipping one does not simplify the model — it silently substitutes a default, usually a wrong one. A manager who ignores pick horizon has not opted out of it; he has assumed the horizon is zero.</p>
+          
+          <ul class="ticks"><li><strong>Stage 1 — a baseline becomes a margin.</strong> <a href="/draft-science/replacement-value">Replacement value</a> converts a projection into the only number that can be compared across positions: how far a player beats the player you would have taken instead.</li><li><strong>Stage 2 — the margin is weighted by decline.</strong> <a href="/draft-science/positional-scarcity">Positional scarcity</a> measures how fast that replacement is getting worse, which is what makes one margin more urgent than an equal margin elsewhere.</li><li><strong>Stage 3 — urgency is priced against alternatives.</strong> <a href="/draft-science/opportunity-cost">Opportunity cost</a> subtracts the value of the best player you decline in order to take this one.</li><li><strong>Stage 4 — the decision is discounted by time.</strong> <a href="/draft-science/pick-horizon">Pick horizon</a> sets how many selections stand between you and your next turn, which is the length of the risk you accept by waiting.</li><li><strong>Stage 5 — rank is replaced by structure.</strong> <a href="/draft-science/player-tier-collapse">Player tier collapse</a> corrects for the fact that the board falls in steps, so the cost of waiting is concentrated at a few specific picks rather than spread evenly.</li><li><strong>Stage 6 — the result is conditioned on your team.</strong> <a href="/draft-science/roster-construction">Roster construction</a> re-weights every position by the starting slots you have already filled and the ones you have not.</li><li><strong>Stage 7 — the format re-prices the pool.</strong> <a href="/draft-science/superflex-quarterback-value">Superflex quarterback value</a> is the sharpest case of a scoring or lineup rule changing demand without changing supply.</li><li><strong>The assembled result</strong> is <a href="/draft-science/draft-state-valuation">draft-state valuation</a> itself — the composite number, recomputed after every selection.</li></ul>
+          <p class="beat">The order is not arbitrary. Scarcity is meaningless before replacement level is defined, because scarcity is a statement about how fast replacement quality is falling. Opportunity cost cannot be priced before scarcity, because the alternatives are what scarcity describes. And none of it is actionable before the pick horizon says how long the board has to stay intact.</p>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap">
+          <h2>Which Page Answers Which Question?</h2>
+          <p class="lede measure">Each concept page is written to be read alone, but the model only holds when they are read together.</p>
+          <div class="grid grid-3 mt-lg">
+            <div class="card"><h3>Draft-State Valuation</h3><p>The composite method itself: why a player’s worth is recalculated after every selection instead of fixed before the draft. Start here or finish here — <a href="/draft-science/draft-state-valuation">read it</a>.</p></div>
+            <div class="card"><h3>Replacement Value</h3><p>What a player is worth is the gap to the best realistic alternative at his position, not his projected total. <a href="/draft-science/replacement-value">Read it</a>.</p></div>
+            <div class="card"><h3>Positional Scarcity</h3><p>Scarcity is a rate of decline behind a player, not a property that a position permanently owns. <a href="/draft-science/positional-scarcity">Read it</a>.</p></div>
+            <div class="card"><h3>Opportunity Cost</h3><p>Every selection is also a refusal, and the value of the refusal changes with every pick that precedes it. <a href="/draft-science/opportunity-cost">Read it</a>.</p></div>
+            <div class="card"><h3>Pick Horizon</h3><p>The distance to your next turn is the size of the bet you place whenever you decide to wait. <a href="/draft-science/pick-horizon">Read it</a>.</p></div>
+            <div class="card"><h3>Player Tier Collapse</h3><p>Boards fall in steps rather than slopes, so the last player in a group is worth more than the first player below it. <a href="/draft-science/player-tier-collapse">Read it</a>.</p></div>
+            <div class="card"><h3>Roster Construction</h3><p>The same player is worth different amounts to two differently built teams, because unfilled slots carry the demand. <a href="/draft-science/roster-construction">Read it</a>.</p></div>
+            <div class="card"><h3>Superflex Quarterback Value</h3><p>A lineup rule that doubles quarterback demand without doubling supply re-prices the position structurally. <a href="/draft-science/superflex-quarterback-value">Read it</a>.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
+          <h2>Where Does the Theory Meet a Real Board?</h2>
+          
+          <p class="beat">In two places: the situations that force the decision, and the calculators that isolate one variable of it.</p>
+        <p class="beat">The <a href="/scenarios">draft scenarios</a> section takes the model to specific board states — <a href="/scenarios/five-running-backs-go-in-a-row">a run of five running backs</a>, <a href="/scenarios/superflex-quarterback-run">a quarterback run in Superflex</a>, <a href="/scenarios/last-player-in-a-tier">the last player in a tier</a>, <a href="/scenarios/drafting-from-the-turn">drafting from the turn</a>. Those pages are conditional: they state what changes, not what to do.</p>
+        <p class="beat">The <a href="/tools">draft calculators</a> let you put numbers on a single stage — <a href="/tools/scarcity-calculator">scarcity</a>, <a href="/tools/pick-horizon-calculator">pick horizon</a>, <a href="/tools/league-value-calculator">replacement level</a>, <a href="/tools/superflex-qb-demand-calculator">Superflex quarterback demand</a> and <a href="/tools/ppr-value-adjustment-calculator">reception scoring</a>. Each isolates one variable, which is exactly why no one of them settles a pick.</p>
+        <p class="beat">For the vocabulary itself, the <a href="/glossary">fantasy draft glossary</a> defines every term used here in a form that stands alone, and <a href="/why-fantasy-rankings-change-during-a-draft">why fantasy rankings change during a draft</a> states the consequence in a sentence.</p>
+          
+          
+          
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
+          <h2>Why Is Any of This Better Than a Ranking?</h2>
+          
+          <p class="beat">Because a ranking is a valuation with every draft-dependent input removed, and those inputs are the ones that move.</p>
+        <p class="beat">A published list is not wrong so much as unfinished. It is correct for an average league, an average roster and an average pick slot — a combination that describes no actual manager on the clock. The eight stages above are the arithmetic a good manager performs in their head between the pick landing and the timer running out.</p>
+        <p class="beat"><strong>The method is deterministic: the same board, roster and settings always produce the same valuation.</strong> That is the point. A valuation you cannot reproduce is an opinion with a number attached to it.</p>
+          
+          
+          
+        </div>
+      </section>
+
+      <section class="convert">
+        <div class="wrap measure">
+          <h2>The Model, Running on Your Draft.</h2>
+          <p class="beat">GREEN18 is an iPhone fantasy football live draft assistant that continuously recalculates player valuations according to league settings, roster construction, player availability, draft state, and user preferences.</p>
+        <p class="beat"><strong>Every stage on this page runs again after every pick, in the seconds you actually have.</strong></p>
+          
+        <div class="cta-group">
+          <a class="btn btn-lg" href="https://apps.apple.com/us/app/id6805706417">Download GREEN18</a>
+          
+        </div>
+        <p class="cta-sub">Available for iPhone. Player data from open football sources; nflverse credited under CC-BY.</p>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
+          <h2>Questions</h2>
+          <div class="faq mt-md">
+            <details><summary>What is draft-state valuation?</summary><div><p>Draft-state valuation is a method of valuing a fantasy football player according to the current state of a specific draft, rather than treating preseason rank or ADP as a fixed measure of player value. It recalculates each available player’s worth after every selection, because every selection changes the alternatives that remain.</p></div></details>
+            <details><summary>Are these eight separate draft strategies?</summary><div><p>No. Replacement value, positional scarcity, opportunity cost, pick horizon, tier structure, roster construction and format effects are stages of one valuation. Omitting a stage does not simplify the model; it substitutes a default assumption, such as treating the distance to your next pick as zero.</p></div></details>
+            <details><summary>In what order should the concepts be applied?</summary><div><p>Replacement value comes first, because it converts a projection into a comparable margin. Scarcity weights that margin by how fast replacement quality is falling. Opportunity cost prices the alternatives, pick horizon discounts for time, tier structure corrects for step-shaped drops, and roster construction and scoring format condition the result on the specific team and league.</p></div></details>
+            <details><summary>Why does a player’s value change when his projection has not?</summary><div><p>Because value in a draft is the gap between a player and the alternative a manager would otherwise take. Drafting removes alternatives, so the gap widens or narrows without any change to the player’s expected production.</p></div></details>
+          </div>
+        </div>
+      </section>
+
+      <section class="related">
+        <div class="wrap">
+          <h2>Keep reading</h2>
+          <ul class="mt-md">
+            <li><a href="/draft-science/draft-state-valuation">draft-science/draft-state-valuation</a></li>
+            <li><a href="/draft-science/replacement-value">draft-science/replacement-value</a></li>
+            <li><a href="/draft-science/positional-scarcity">draft-science/positional-scarcity</a></li>
+            <li><a href="/glossary">glossary</a></li>
+            <li><a href="/why-fantasy-rankings-change-during-a-draft">why-fantasy-rankings-change-during-a-draft</a></li>
+          </ul>
+        </div>
+      </section>
+
+
+  </main>
+
+  <footer class="site">
+    <div class="wrap">
+      <div class="foot-top">
+        <div class="foot-brand">
+          <a class="wordmark" href="/">GREEN<b>18</b></a>
+          <p>Live fantasy football draft intelligence for iPhone.</p>
+        </div>
+        <div class="foot-cols">
+            <div>
+              <h2>Product</h2>
+              <ul><li><a href="/fantasy-football-draft-assistant">How GREEN18 Works</a></li><li><a href="/live-fantasy-football-draft-assistant">Live Draft Assistant</a></li><li><a href="/dynamic-fantasy-football-adp">Dynamic ADP</a></li><li><a href="/fantasy-football-cheat-sheet-app">Fantasy Cheat Sheet</a></li><li><a href="/personalized-fantasy-football-rankings">Personalized Rankings</a></li><li><a href="/fantasy-football-positional-scarcity">Positional Scarcity</a></li><li><a href="/fantasy-football-draft-strategy-app">Draft Strategy</a></li></ul>
+            </div>
+            <div>
+              <h2>Draft Formats</h2>
+              <ul><li><a href="/superflex-draft-assistant">Superflex</a></li><li><a href="/ppr-draft-assistant">PPR</a></li></ul>
+            </div>
+            <div>
+              <h2>Draft Help</h2>
+              <ul><li><a href="/fantasy-football-for-beginners">Beginners</a></li><li><a href="/competitive-fantasy-football-draft">Competitive Players</a></li><li><a href="/office-fantasy-football-draft">Office Leagues</a></li><li><a href="/home-league-draft-assistant">Home Leagues</a></li><li><a href="/last-minute-fantasy-football-draft">Last-Minute Drafts</a></li><li><a href="/fantasy-football-without-research">Without the Research</a></li></ul>
+            </div>
+            <div>
+              <h2>The Model</h2>
+              <ul><li><a href="/ai-fantasy-football-draft-assistant">AI Draft Assistant</a></li><li><a href="/fantasy-football-draft-algorithm">How It Decides</a></li><li><a href="/chatgpt-fantasy-football-draft">ChatGPT vs GREEN18</a></li><li><a href="/automated-fantasy-football-draft-tool">Automated Draft Tool</a></li></ul>
+            </div>
+            <div>
+              <h2>Platforms</h2>
+              <ul><li><a href="/espn-fantasy-football-draft-helper">ESPN Draft Helper</a></li><li><a href="/yahoo-fantasy-football-draft-helper">Yahoo Draft Helper</a></li><li><a href="/sleeper-fantasy-football-draft-helper">Sleeper Draft Helper</a></li></ul>
+            </div>
+            <div>
+              <h2>Draft Science</h2>
+              <ul><li><a href="/draft-science/">All draft science</a></li><li><a href="/draft-science/draft-state-valuation">Draft-State Valuation</a></li><li><a href="/draft-science/positional-scarcity">Positional Scarcity</a></li><li><a href="/draft-science/replacement-value">Replacement Value</a></li><li><a href="/draft-science/opportunity-cost">Opportunity Cost</a></li><li><a href="/draft-science/pick-horizon">Pick Horizon</a></li><li><a href="/draft-science/player-tier-collapse">Tier Collapse</a></li><li><a href="/draft-science/roster-construction">Roster Construction</a></li><li><a href="/draft-science/superflex-quarterback-value">Superflex QB Value</a></li></ul>
+            </div>
+            <div>
+              <h2>Tools</h2>
+              <ul><li><a href="/tools/">All calculators</a></li><li><a href="/tools/scarcity-calculator">Scarcity Calculator</a></li><li><a href="/tools/pick-horizon-calculator">Pick Horizon Calculator</a></li><li><a href="/tools/league-value-calculator">Replacement Level</a></li><li><a href="/tools/superflex-qb-demand-calculator">Superflex QB Demand</a></li><li><a href="/tools/ppr-value-adjustment-calculator">PPR Value Adjustment</a></li></ul>
+            </div>
+            <div>
+              <h2>Reference</h2>
+              <ul><li><a href="/scenarios/">Draft Scenarios</a></li><li><a href="/how-green18-ranks-fantasy-players">How GREEN18 Ranks Players</a></li><li><a href="/why-fantasy-rankings-change-during-a-draft">Why Rankings Change</a></li><li><a href="/glossary">Glossary</a></li><li><a href="/methodology">Methodology</a></li><li><a href="/about">About</a></li></ul>
+            </div>
+            <div>
+              <h2>Legal</h2>
+              <ul><li><a href="/privacy">Privacy</a></li><li><a href="/support">Support</a></li><li><a href="/contact">Contact</a></li></ul>
+            </div>
+        </div>
+      </div>
+      <div class="foot-legal">
+        <p>GREEN18 is an independent fantasy football application. References to third-party fantasy platforms, leagues, teams, players, or trademarks are descriptive only and do not imply affiliation, sponsorship, or endorsement.</p>
+        <p>&copy; 2026 Interplore. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="sticky-cta" id="stickyCta" aria-hidden="true">
+    <span class="lbl">Get GREEN18<small>Open in App Store</small></span>
+    <a class="btn" href="https://apps.apple.com/us/app/id6805706417" tabindex="-1">Get GREEN18</a>
+  </div>
+
+  <script src="/assets/site.js" defer></script>
+
+</body>
+</html>

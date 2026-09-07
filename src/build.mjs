@@ -1,9 +1,9 @@
 // GREEN18 site build: content modules -> static HTML at the repo root.
-import { readdir, writeFile, mkdir } from 'node:fs/promises';
+import { readdir, readFile, writeFile, mkdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { render } from './layout.mjs';
-import { ORIGIN, REDIRECTS, CANON } from './site.mjs';
+import { ORIGIN, REDIRECTS, CANON, CANON_SHORT } from './site.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, '..');
@@ -118,6 +118,14 @@ for (const p of pages) {
   }
 }
 
+// Top-level names that are ALSO the prefix of nested pages — these are section
+// hubs and need a directory index as well as a flat file (see below).
+const sectionDirs = new Set(
+  pages.filter((p) => p.slug?.includes('/')).map((p) => p.slug.split('/')[0]));
+for (const p of pages) {
+  if (p.slug && !p.slug.includes('/') && sectionDirs.has(p.slug)) p.isSectionHub = true;
+}
+
 // ---- emit -----------------------------------------------------------------
 let written = 0;
 for (const p of pages) {
@@ -125,6 +133,17 @@ for (const p of pages) {
   const out = p.slug ? join(root, `${p.slug}.html`) : join(root, 'index.html');
   if (p.slug.includes('/')) await mkdir(dirname(out), { recursive: true });
   await writeFile(out, html, 'utf8');
+
+  // A section hub (slug `scenarios`) sits beside a directory of the same name
+  // (`scenarios/`). Static hosts disagree about which wins for the bare path:
+  // GitHub Pages can redirect /scenarios -> /scenarios/ and then 404 on the
+  // missing directory index. Writing BOTH files makes the hub resolve on
+  // either host and with or without a trailing slash. Both copies carry the
+  // same canonical URL, so this creates no duplicate-content ambiguity.
+  if (p.slug && !p.slug.includes('/') && sectionDirs.has(p.slug)) {
+    await mkdir(join(root, p.slug), { recursive: true });
+    await writeFile(join(root, p.slug, 'index.html'), html, 'utf8');
+  }
   written++;
   // exactly one H1
   const h1s = (html.match(/<h1[ >]/g) || []).length;
@@ -153,7 +172,7 @@ for (const [from, to] of Object.entries(REDIRECTS)) {
 
 // ---- sitemap + robots -----------------------------------------------------
 const today = new Date().toISOString().slice(0, 10);
-const urls = [...pages.map((p) => (p.slug ? `/${p.slug}` : '/')), '/privacy', '/support'];
+const urls = [...pages.map((p) => (p.slug ? `/${p.slug}${p.isSectionHub ? '/' : ''}` : '/')), '/privacy', '/support'];
 
 // Segmented sitemaps behind an index: each section can be resubmitted on its
 // own cadence, which matters because the data pages change far faster than
@@ -291,7 +310,11 @@ await writeFile(join(root, 'llms.txt'), llms, 'utf8');
 const routes = [
   ...Object.entries(REDIRECTS).map(([from, to]) =>
     ({ route: `/${from}`, redirect: to, statusCode: 301 })),
-  ...urls.filter((u) => u !== '/').map((u) => ({ route: u, rewrite: `${u}.html` })),
+  ...urls.filter((u) => u !== '/').map((u) => (u.endsWith('/')
+    ? { route: u, rewrite: `${u}index.html` }
+    : { route: u, rewrite: `${u}.html` })),
+  // hubs also answer without the trailing slash
+  ...pages.filter((p) => p.isSectionHub).map((p) => ({ route: `/${p.slug}`, rewrite: `/${p.slug}/index.html` })),
 ];
 
 const swa = {
@@ -315,5 +338,27 @@ const swa = {
   mimeTypes: { '.json': 'application/json', '.webmanifest': 'application/manifest+json' },
 };
 await writeFile(join(root, 'staticwebapp.config.json'), JSON.stringify(swa, null, 2) + '\n', 'utf8');
+
+// ---- §14: no two surfaces may describe the product differently ------------
+// llms.txt and the schema are GENERATED from CANON, so they cannot disagree
+// with it — a guard comparing them back to CANON would be tautological and
+// would pass even if CANON itself were replaced. (Verified: mutating CANON
+// left such a check green, which is why it is not here.)
+//
+// The one genuinely independent copy is the homepage meta description, which
+// is authored by hand in the content module. That CAN drift from the canon,
+// and this compares the two things that were written separately.
+if (CANON_SHORT.length > 165) {
+  console.error(`BUILD FAILED: CANON_SHORT is ${CANON_SHORT.length} chars (>165).`);
+  process.exit(1);
+}
+{
+  const home = pages.find((p) => p.slug === '');
+  if (home && home.description !== CANON_SHORT) {
+    console.error('BUILD FAILED: the homepage meta description is not CANON_SHORT.\n'
+      + `  homepage: ${home.description}\n  CANON_SHORT: ${CANON_SHORT}`);
+    process.exit(1);
+  }
+}
 
 console.log(`OK: ${written} pages + ${sitemapFiles.length} sitemaps (${urls.length} urls) + robots.txt + llms.txt + SWA config (${routes.length} routes)`);

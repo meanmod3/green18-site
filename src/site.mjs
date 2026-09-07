@@ -30,9 +30,9 @@ export const CONTACT = 'manager@green18.app';
 // Primary navigation (§17: do not overload with every SEO page).
 export const NAV = [
   { label: 'How It Works', href: '/how-green18-ranks-fantasy-players' },
-  { label: 'Draft Science', href: '/draft-science/draft-state-valuation' },
-  { label: 'Scenarios', href: '/scenarios/five-running-backs-go-in-a-row' },
-  { label: 'Tools', href: '/tools/scarcity-calculator' },
+  { label: 'Draft Science', href: '/draft-science/' },
+  { label: 'Scenarios', href: '/scenarios/' },
+  { label: 'Tools', href: '/tools/' },
   { label: 'Glossary', href: '/glossary' },
 ];
 
@@ -71,6 +71,7 @@ export const FOOTER = [
     ['Sleeper Draft Helper', '/sleeper-fantasy-football-draft-helper'],
   ]},
   { heading: 'Draft Science', links: [
+    ['All draft science', '/draft-science/'],
     ['Draft-State Valuation', '/draft-science/draft-state-valuation'],
     ['Positional Scarcity', '/draft-science/positional-scarcity'],
     ['Replacement Value', '/draft-science/replacement-value'],
@@ -81,6 +82,7 @@ export const FOOTER = [
     ['Superflex QB Value', '/draft-science/superflex-quarterback-value'],
   ]},
   { heading: 'Tools', links: [
+    ['All calculators', '/tools/'],
     ['Scarcity Calculator', '/tools/scarcity-calculator'],
     ['Pick Horizon Calculator', '/tools/pick-horizon-calculator'],
     ['Replacement Level', '/tools/league-value-calculator'],
@@ -88,6 +90,7 @@ export const FOOTER = [
     ['PPR Value Adjustment', '/tools/ppr-value-adjustment-calculator'],
   ]},
   { heading: 'Reference', links: [
+    ['Draft Scenarios', '/scenarios/'],
     ['How GREEN18 Ranks Players', '/how-green18-ranks-fantasy-players'],
     ['Why Rankings Change', '/why-fantasy-rankings-change-during-a-draft'],
     ['Glossary', '/glossary'],
