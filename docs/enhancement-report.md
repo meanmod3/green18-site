@@ -146,9 +146,32 @@ the citable layer.
 Full evidence: `docs/claims-audit.md`. Summary of what could not be verified
 and was therefore not published:
 
-- **No accuracy or superiority claim appears anywhere on the site.** The repo's
-  own backtest shows the live layer does not beat league-adjusted ADP on Brier
-  score. No page claimed it did; none may.
+- **No accuracy or superiority claim appears anywhere on the site**, and none
+  should be added — but the reason is NOT what an earlier draft of this report
+  said. That draft claimed the live layer "does not beat league-adjusted ADP on
+  Brier score." That is false. The backtest (green18 `dd46757`, 2026-08-30,
+  intent 1120 Wave-4 exit gate, `docs/dynamic-adp-completion-report.md` §39):
+
+  | comparator | Brier (lower = better) |
+  |---|--:|
+  | A static Market ADP | 0.0642 |
+  | B league-adjusted | 0.0642 |
+  | C league + velocity | **0.0482** |
+  | D full live + demand | 0.0560 |
+
+  Both live comparators beat the league-adjusted baseline. The real finding is
+  narrower: **D (the full model) is slightly worse than C (velocity alone)** —
+  and the repo discloses why in its own words: the fixture's scripted opponents
+  pick by pure objective value rather than roster need, so the
+  intervening-team-demand signal D adds has little need-structure to exploit.
+  It states this is *"not evidence that demand hurts in real drafts."*
+
+  **The reason to publish no superiority claim is the dataset, not the result.**
+  No licensed historical dataset ships: this is a synthetic 10-team PPR
+  Superflex draft, 13 prediction points, 1,479 samples per comparator, and §40
+  states absolute calibration is *"not claimed as product-level calibration."*
+  A marketing claim needs real draft data behind it, which is the repo's own
+  outstanding item 47. Until then, silence is the accurate position.
 - **No performance numbers** are published, though the acceptance suite proves
   generous budgets.
 - **No injury or season prediction** is claimed — correctly: the only
