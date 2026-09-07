@@ -489,3 +489,9 @@ ul.keypoints li::before {
 .table-scroll th { background: var(--bg-2); font-size: .76rem; letter-spacing: .09em; text-transform: uppercase; color: var(--ink-3); }
 .table-scroll tr:last-child td { border-bottom: 0; }
 .table-note { margin: .9rem 0 0; color: var(--ink-3); font-size: .87rem; }
+
+/* ----------------------------------------------------- reviewed stamp -- */
+.reviewed { padding: 2rem 0; }
+.reviewed p { margin: 0; color: var(--ink-3); font-size: .88rem; }
+.reviewed a { color: var(--ink-2); }
+.reviewed a:hover { color: var(--accent); }

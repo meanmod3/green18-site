@@ -22,22 +22,22 @@ export default {
     { type: 'prose', h2: 'Keep Sleeper Open. Keep GREEN18 Open Too.', body: [
       'You don’t need to replace the platform where your league lives.',
       'GREEN18 is designed to operate alongside your existing draft experience.',
-      'Set it up around your league and use it as the [live draft assistant](/live-fantasy-football-draft-assistant) beside the room.',
+      'Set it up around your league and use it as the [live draft assistant](/live-fantasy-football-draft-assistant) beside the room. What it computes is a [Draft-State Valuation](/draft-science/draft-state-valuation): what each remaining player is worth to *your* roster at *this* pick.',
     ]},
 
     { type: 'prose', h2: 'See the Draft From Another Angle.', body: [
       'While the league focuses on the next pick, GREEN18 helps you focus on what the previous picks changed.',
-      'What positions are disappearing?',
-      'Who is likely to reach your next pick?',
+      'Which position’s replacement level is falling fastest?',
+      'Who is likely to reach your next pick — a question of [pick horizon](/draft-science/pick-horizon), not of talent?',
       'What does your roster need now?',
-      'Which player is worth taking now instead of later?',
+      'Which player is worth taking now instead of later, once you price in the opportunity cost of waiting?',
     ], quote: 'Your draft board should move when your draft moves.',
-      after: ['That is also why [ADP is a starting line, not the answer](/dynamic-fantasy-football-adp).'] },
+      after: ['That is also why [ADP is a starting line, not the answer](/dynamic-fantasy-football-adp) — and why the [scarcity calculator](/tools/scarcity-calculator) prices waiting rather than ranking positions.'] },
 
     { type: 'steps', h2: 'How GREEN18 Works', steps: [
       { h3: 'Set Your League.', body: ['Configure the scoring, roster structure and league format that materially affect player value.'] },
       { h3: 'Shape Your Draft.', body: ['Set the preferences that matter to you, instead of drafting from one universal list.'] },
-      { h3: 'Start Drafting.', body: ['As players are selected, remove them from the board. GREEN18 recalculates the remaining opportunity.'] },
+      { h3: 'Start Drafting.', body: ['As players are selected, remove them from the board. GREEN18 recalculates each remaining player’s margin over replacement.'] },
       { h3: 'Make the Pick.', body: ['One live view of the players that still matter. You still make the call.'] },
     ]},
 
@@ -64,7 +64,7 @@ export default {
   links: [
     'fantasy-football-draft-assistant',
     'live-fantasy-football-draft-assistant',
-    'superflex-draft-assistant',
+    'draft-science/pick-horizon',
     'espn-fantasy-football-draft-helper',
     'yahoo-fantasy-football-draft-helper',
   ],

@@ -4,6 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="dark">
+  <!-- GitHub Pages cannot send custom response headers, so the policy is
+       declared in-document. The Azure mirror ALSO sends these as real headers
+       (see staticwebapp.config.json); a header wins where both exist.
+       frame-ancestors and X-Content-Type-Options are header-only and cannot be
+       expressed here — that gap is a limitation of the host, recorded in
+       docs/crawler-audit.md. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self'; style-src 'self'; script-src 'self'; form-action 'none'; base-uri 'self'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="theme-color" content="#041306">
   <title>Draft Tonight? Get Fantasy Football Help Fast | GREEN18</title>
   <meta name="description" content="Have a fantasy football draft tonight? Set up GREEN18, configure your league and take a live player board into the draft.">
@@ -152,7 +160,7 @@
         <p class="beat">Set your preferences.</p>
         <p class="beat">Open the draft.</p>
         <p class="beat">Start removing players as they’re selected.</p>
-        <p class="beat">GREEN18 keeps the remaining options organized as the board develops.</p>
+        <p class="beat">GREEN18 keeps the remaining options organized as the board develops, ranked by what each player gives you over the one you would otherwise take — the <strong>margin over replacement</strong>.</p>
         <p class="beat">Drafting for the first time? Read <a href="/fantasy-football-for-beginners">fantasy football for beginners</a>.</p>
           
           
@@ -178,8 +186,8 @@
           <h2>Preparation Is Great. Adaptation Is Better.</h2>
           
           <p class="beat">Everyone enters the draft with a plan.</p>
-        <p class="beat">Then the picks start.</p>
-        <p class="beat">GREEN18 helps you handle what actually happens — which is what a <a href="/live-fantasy-football-draft-assistant">live draft assistant</a> is for.</p>
+        <p class="beat">Then the picks start, and a plan built on preseason ranks starts describing a board that no longer exists.</p>
+        <p class="beat">A run empties the top of one position while every other position stays where it was. That is <strong>positional scarcity</strong> arriving in real time, and no amount of overnight reading would have told you when. GREEN18 handles what actually happens — <a href="/why-fantasy-rankings-change-during-a-draft">why rankings change during a draft</a> is the same idea at rest.</p>
           
           
           
@@ -191,9 +199,21 @@
           <h2>Draft Starts Soon?</h2>
           
           <p class="beat">Good.</p>
-        <p class="beat">You do not need to know the whole player pool.</p>
-        <p class="beat">You need to know your next decision.</p>
-        <p class="beat">GREEN18 keeps the focus on the players who are still available.</p>
+        <p class="beat">You do not need to know the whole player pool. You need to know your next decision, and one number does most of the work: your <strong>pick horizon</strong>, the number of selections before you are back on the clock.</p>
+        <p class="beat">A long horizon means the position thinning in front of you may be gone entirely by your turn, so waiting is expensive. A short one means you can take the steepest value now and clean up in two picks. The <a href="/tools/pick-horizon-calculator">pick horizon calculator</a> prices that before you sit down.</p>
+        <p class="beat">GREEN18 keeps the focus on the players who are still available — and it is deterministic, so the board never changes its mind on you mid-clock.</p>
+          
+          
+          
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
+          <h2>And If Tonight Goes Sideways?</h2>
+          
+          <p class="beat">It happens to prepared managers too. The clock runs out, the connection drops, someone takes the player you were three seconds from selecting.</p>
+        <p class="beat">None of it is fatal, because value is recalculated from the board that exists, not the one you planned for. <a href="/scenarios/you-missed-your-pick">If you missed your pick</a> covers the recovery.</p>
           
           
           
@@ -232,11 +252,14 @@
             <li><a href="/fantasy-football-draft-assistant">Fantasy Football Draft Assistant</a></li>
             <li><a href="/fantasy-football-for-beginners">Fantasy Football for Beginners</a></li>
             <li><a href="/live-fantasy-football-draft-assistant">Live Draft Assistant</a></li>
-            <li><a href="/fantasy-football-cheat-sheet-app">Fantasy Football Cheat Sheet App</a></li>
-            <li><a href="/office-fantasy-football-draft">Office League Draft</a></li>
+            <li><a href="/draft-science/pick-horizon">draft-science/pick-horizon</a></li>
+            <li><a href="/tools/pick-horizon-calculator">tools/pick-horizon-calculator</a></li>
+            <li><a href="/scenarios/you-missed-your-pick">scenarios/you-missed-your-pick</a></li>
           </ul>
         </div>
       </section>
+
+
 
 
   </main>

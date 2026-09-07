@@ -4,7 +4,7 @@
 export default {
   slug: 'scenarios/you-missed-your-pick',
   pageType: 'scenario',
-  title: 'My Draft Timer Ran Out and I Got a Player I Did Not Want | GREEN18',
+  title: 'My Draft Timer Ran Out — What Now? | GREEN18',
   description: 'A pick you did not choose changes your roster, not your method. How to re-evaluate from the state you are actually in instead of trying to undo it.',
   breadcrumb: 'You Missed Your Pick',
   dateModified: '2026-09-07',

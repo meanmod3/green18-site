@@ -32,7 +32,7 @@ export default {
     { type: 'prose', h2: 'The Draft Changes Everything.', body: [
       'Before the draft, rankings are predictions.',
       'Once the draft begins, every pick becomes information.',
-      'GREEN18 uses that changing context to reorganize the players still available.',
+      'GREEN18 reads that changing context and re-ranks the players still available — a method called [Draft-State Valuation](/draft-science/draft-state-valuation).',
     ]},
 
     { type: 'cards', h2: 'One Board. Three Inputs.', cards: [
@@ -48,7 +48,7 @@ export default {
         { h3: 'Your League', items: ['Scoring', 'Roster', 'Format'] },
         { h3: 'Your Preferences', items: ['Targets', 'Risk', 'Strategy'] },
         { h3: 'Your Team', items: ['Current roster', 'Position needs', 'Construction'] },
-        { h3: 'The Live Draft', items: ['Players selected', 'Players remaining', 'Position movement'] },
+        { h3: 'The Live Draft', items: ['Players selected', 'Players remaining', 'Position movement', 'Pick horizon'] },
       ],
       core: 'Continuous player revaluation',
       output: { h3: 'Your Live Draft Board',
@@ -63,7 +63,7 @@ export default {
 
     { type: 'prose', h2: 'The Player Didn’t Change. Your Situation Did.', body: [
       'Three quarterbacks go in a row. The fourth didn’t suddenly get better.',
-      'He got harder to replace.',
+      'He got harder to replace — and a player is worth the amount by which he beats whoever would otherwise fill that slot, so his [margin over replacement](/draft-science/replacement-value) just rose.',
       'That is the difference between crossing a name off a list and [recalculating what’s left](/fantasy-football-positional-scarcity).',
     ], quote: 'ADP tells you what people expected. Your draft tells you what they’re doing.',
       after: ['Public rankings describe the average draft. GREEN18 helps you navigate yours.'] },
@@ -84,5 +84,6 @@ export default {
     'live-fantasy-football-draft-assistant',
     'dynamic-fantasy-football-adp',
     'fantasy-football-for-beginners',
+    'draft-science/draft-state-valuation',
   ],
 };

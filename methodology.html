@@ -4,6 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="dark">
+  <!-- GitHub Pages cannot send custom response headers, so the policy is
+       declared in-document. The Azure mirror ALSO sends these as real headers
+       (see staticwebapp.config.json); a header wins where both exist.
+       frame-ancestors and X-Content-Type-Options are header-only and cannot be
+       expressed here — that gap is a limitation of the host, recorded in
+       docs/crawler-audit.md. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self'; style-src 'self'; script-src 'self'; form-action 'none'; base-uri 'self'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="theme-color" content="#041306">
   <title>GREEN18 Methodology | Inputs, Determinism and Limits</title>
   <meta name="description" content="How GREEN18 arrives at a number: open football data, your league settings and your recorded picks, computed deterministically — and what the model cannot do.">
@@ -337,6 +345,13 @@
             <li><a href="/privacy">privacy</a></li>
             <li><a href="/about">about</a></li>
           </ul>
+        </div>
+      </section>
+
+      <section class="reviewed">
+        <div class="wrap measure">
+          <p>Last reviewed <time datetime="2026-09-07">September 7, 2026</time>.
+          GREEN18 explains its method in full on the <a href="/methodology">methodology page</a>.</p>
         </div>
       </section>
 

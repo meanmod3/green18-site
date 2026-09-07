@@ -35,7 +35,7 @@ export default {
     ]},
 
     { type: 'cards', h2: 'The Draft Has a State.',
-      sub: 'At any moment a draft holds a unique combination of information. These are the five parts of it the model reads, and why the board can change after every selection.',
+      sub: 'At any moment a draft holds a unique combination of information. These are the five parts of it the model reads — the components of a [Draft-State Valuation](/draft-science/draft-state-valuation) — and why the board can change after every selection.',
       cards: [
         { h3: 'League State', body: 'Scoring rules, league size, roster requirements, flex structure, Superflex or 2QB requirements, starting positions, bench depth.' },
         { h3: 'Market State', body: 'Players selected, players available, positional runs, unexpected falls, unexpected reaches, and the depth remaining at each position.' },
@@ -51,7 +51,7 @@ export default {
     ],
       list: [
         'the alternatives available',
-        'the [position scarcity](/fantasy-football-positional-scarcity) behind him',
+        'the [positional scarcity](/draft-science/positional-scarcity) behind him — a rate of decline, not a label a position carries',
         'your roster',
         'your scoring',
         'your next pick',
@@ -72,10 +72,10 @@ export default {
         '**How good is the player?** Start with fundamental player value.',
         '**How does this league score him?** Scoring changes the value of production.',
         '**How badly does your roster need him?** The same player creates different value for different team constructions.',
-        '**What happens if you wait?** Replacement options matter.',
+        '**What happens if you wait?** [Replacement value](/draft-science/replacement-value) matters — a player is worth the margin by which he beats whoever else would fill that slot.',
         '**How scarce is the position?** Remaining depth matters.',
         '**What has the league been doing?** The actual draft matters.',
-        '**When do you pick again?** Opportunity matters.',
+        '**When do you pick again?** [Pick horizon](/draft-science/pick-horizon) matters, because distance to your next selection is what converts a valuation into a decision.',
         '**What do you prefer?** Your strategy matters, and it stays in your own [personalized rankings](/personalized-fantasy-football-rankings).',
       ],
       after: [
@@ -141,5 +141,6 @@ export default {
     'dynamic-fantasy-football-adp',
     'fantasy-football-positional-scarcity',
     'personalized-fantasy-football-rankings',
+    'draft-science/draft-state-valuation',
   ],
 };

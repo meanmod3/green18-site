@@ -4,6 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="dark">
+  <!-- GitHub Pages cannot send custom response headers, so the policy is
+       declared in-document. The Azure mirror ALSO sends these as real headers
+       (see staticwebapp.config.json); a header wins where both exist.
+       frame-ancestors and X-Content-Type-Options are header-only and cannot be
+       expressed here — that gap is a limitation of the host, recorded in
+       docs/crawler-audit.md. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self'; style-src 'self'; script-src 'self'; form-action 'none'; base-uri 'self'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="theme-color" content="#041306">
   <title>Fantasy Football Cheat Sheet App for 2026 | GREEN18</title>
   <meta name="description" content="Replace the static fantasy football cheat sheet with a live iPhone draft board that changes as your draft unfolds.">
@@ -198,7 +206,7 @@
         <div class="wrap measure">
           <h2>Your Screenshot Can’t React.</h2>
           
-          <p class="beat">A printed ranking can’t see that six running backs just disappeared.</p>
+          <p class="beat">A printed ranking can’t see that <a href="/scenarios/five-running-backs-go-in-a-row">six running backs just disappeared</a>, or that the replacement level behind them dropped a full tier when they did.</p>
         <p class="beat">A screenshot can’t see your roster.</p>
         <p class="beat">A spreadsheet doesn’t know which players your league has already drafted unless you rebuild it yourself.</p>
         <p class="beat">GREEN18 is built to solve that problem — the same idea behind the <a href="/live-fantasy-football-draft-assistant">live draft assistant</a>.</p>
@@ -238,7 +246,7 @@
           <h2>Every Name Removed Changes the Value of the Names That Remain.</h2>
           
           <p class="beat">That is the whole argument for a sheet that moves.</p>
-        <p class="beat">A run at one position thins the depth behind it and makes waiting more expensive.</p>
+        <p class="beat">A run at one position thins the depth behind it, lowers the <a href="/draft-science/replacement-value">replacement value</a> you would settle for later, and makes waiting more expensive.</p>
         <p class="beat">A player who falls further than expected becomes a different decision than he was two picks ago.</p>
         <p class="beat">Your own roster keeps changing what you still need.</p>
         <p class="beat">Your cheat sheet shouldn’t stop thinking when the draft starts.</p>
@@ -297,9 +305,12 @@
             <li><a href="/fantasy-football-for-beginners">Fantasy Football for Beginners</a></li>
             <li><a href="/live-fantasy-football-draft-assistant">Live Draft Assistant</a></li>
             <li><a href="/dynamic-fantasy-football-adp">Dynamic Fantasy Football ADP</a></li>
+            <li><a href="/draft-science/replacement-value">draft-science/replacement-value</a></li>
           </ul>
         </div>
       </section>
+
+
 
 
   </main>

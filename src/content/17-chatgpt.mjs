@@ -32,7 +32,7 @@ export default {
 
     { type: 'prose', h2: 'Where It Runs Out.', body: [
       'Your draft is a moving state.',
-      'Every pick changes what is left, what your roster needs, and what the seven managers between you and your next turn will take.',
+      'Every pick changes what is left, what your roster needs, and what the seven managers between you and your next turn will take. That is your [pick horizon](/draft-science/pick-horizon), and it decides more picks than talent does.',
       'A chatbot does not see that state unless you type all of it in, every round, on the clock.',
       'And typing it in is the work.',
     ], quote: 'You would spend your pick clock describing the draft instead of drafting.' },
@@ -40,14 +40,14 @@ export default {
     { type: 'cards', h2: 'Two Different Jobs.', cards: [
       { h3: 'Explaining', body: 'Natural language is the right tool for concepts, formats and terminology. Ask away.' },
       { h3: 'Recording', body: 'A live draft needs picks captured as they happen, not narrated after the fact.' },
-      { h3: 'Computing', body: 'Ranking what is left is arithmetic over your league settings and the board. GREEN18 does that part.' },
+      { h3: 'Computing', body: 'Ranking what is left is arithmetic — each remaining player’s **margin over replacement** in your league’s scoring, recomputed after every pick. GREEN18 does that part, by the method set out in [how GREEN18 ranks fantasy players](/how-green18-ranks-fantasy-players).' },
     ]},
 
     { type: 'prose', h2: 'The Repeatability Problem.', body: [
-      'Ask a text generator the same question twice and you can get two different answers.',
+      'Ask a text generator the same question twice and you can get two different answers. It is composing prose, so nothing obliges the second answer to match the first.',
       'That is fine for a paragraph of explanation.',
       'It is not fine when you have forty seconds and one pick.',
-      'GREEN18 is deterministic: the same board and the same league settings always produce the same recommendation.',
+      'GREEN18 is **deterministic**: the same board and the same league settings always produce the same recommendation, because the recommendation is a computed margin over replacement rather than a written opinion. The whole calculation is published in [the GREEN18 methodology](/methodology).',
       'GREEN18 also does not chat. It shows you a board.',
     ]},
 
@@ -60,7 +60,7 @@ export default {
 
     { type: 'prose', h2: 'Use Both. Just Use Them for the Right Thing.', body: [
       'Ask the chatbot what a Superflex league rewards.',
-      'Then let GREEN18 tell you what your Superflex draft is doing right now.',
+      'Then let GREEN18 tell you what your Superflex draft is doing right now — where [quarterback demand](/draft-science/superflex-quarterback-value) has pushed replacement level, and what waiting one more turn costs you.',
       'The mechanism behind that is [documented in plain language](/fantasy-football-draft-algorithm).',
     ]},
 
@@ -81,7 +81,7 @@ export default {
     'fantasy-football-draft-assistant',
     'ai-fantasy-football-draft-assistant',
     'fantasy-football-draft-algorithm',
-    'fantasy-football-for-beginners',
-    'live-fantasy-football-draft-assistant',
+    'draft-science/draft-state-valuation',
+    'methodology',
   ],
 };

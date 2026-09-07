@@ -35,7 +35,7 @@ export default {
       'One already drafted two wide receivers. The other has none.',
       'One picks again in six selections. The other waits nineteen.',
       'One prefers volatility and upside. The other wants a safer roster.',
-      'Those three players should not necessarily appear in the same order for both of them.',
+      'Those three players should not necessarily appear in the same order for both of them — that is [Draft-State Valuation](/draft-science/draft-state-valuation) rather than a ranking, and both orderings can be correct.',
       'GREEN18 is not trying to produce the world’s single perfect ranking. It is trying to produce the right ranking for the decision in front of you.',
     ]},
 
@@ -43,7 +43,7 @@ export default {
       { h3: '1. Your League.', body: ['Scoring rules, roster requirements, flex structure and quarterback format are applied to the player pool before the board is built, so they re-rank players rather than relabel them.'] },
       { h3: '2. Your Preferences.', body: ['Targets, players you would rather avoid, and how much risk you want become part of your draft profile — one input among many, tuned to your preferences.'] },
       { h3: '3. Your Roster.', body: ['The same player creates different value for different team constructions. As your roster fills, positional need and future flexibility move with it.'] },
-      { h3: '4. Your Draft.', body: ['Every pick you record changes the remaining pool, the scarcity behind each position, and how far away your next opportunity is.'] },
+      { h3: '4. Your Draft.', body: ['Every pick you record changes the remaining pool, the [positional scarcity](/draft-science/positional-scarcity) behind each position, and how far away your next opportunity is.'] },
     ]},
 
     { type: 'prose', h2: 'Your Preferences Are a Variable Too.', body: [
@@ -59,20 +59,20 @@ export default {
     ], list: [
       'player value',
       'league value',
-      'positional value',
-      'scarcity',
-      'availability',
-      'roster construction',
+      'margin over replacement',
+      'positional scarcity',
+      'survival to your pick horizon',
+      '[roster construction](/draft-science/roster-construction)',
     ], after: [
       'Your player queue becomes a signal. Not a command.',
       '**Your preferences shape the decision. They don’t replace the math.**',
-      'The valuation stays [deterministic and replayable](/fantasy-football-draft-algorithm) — your subjective rank is shown beside the computed values, never folded into them.',
+      'The valuation stays **deterministic** and replayable — [same board in, same board out](/fantasy-football-draft-algorithm) — your subjective rank is shown beside the computed values, never folded into them.',
     ]},
 
     { type: 'cards', h2: 'The Market Has a Price. You Have a Value.', sub: 'Average draft position approximates what other managers tend to pay. GREEN18 asks a different question: what should you pay?',
       cards: [
         { h3: 'Where They Agree', body: 'When the market price and your situational value line up, the decision is easy and the board says so.' },
-        { h3: 'Where They Diverge', body: 'A player can be a bargain for the league and still be wrong for your roster. The gap is where the interesting decisions live.' },
+        { h3: 'Where They Diverge', body: 'A player can be a bargain for the league and still be wrong for your roster — his margin over replacement on your team is what decides it. The gap is where the interesting decisions live, as in [best player available versus need](/scenarios/best-player-available-vs-roster-need).' },
         { h3: 'Why It Moves', body: 'Market value comes from how the draft is actually going. Personal value comes from your league, roster and next pick. Both update as picks are recorded.' },
       ]},
 
@@ -99,8 +99,8 @@ export default {
   links: [
     'fantasy-football-draft-assistant',
     'fantasy-football-positional-scarcity',
-    'fantasy-football-draft-algorithm',
+    'draft-science/roster-construction',
     'dynamic-fantasy-football-adp',
-    'fantasy-football-draft-strategy-app',
+    'home-league-draft-assistant',
   ],
 };

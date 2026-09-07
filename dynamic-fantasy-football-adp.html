@@ -4,6 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="dark">
+  <!-- GitHub Pages cannot send custom response headers, so the policy is
+       declared in-document. The Azure mirror ALSO sends these as real headers
+       (see staticwebapp.config.json); a header wins where both exist.
+       frame-ancestors and X-Content-Type-Options are header-only and cannot be
+       expressed here — that gap is a limitation of the host, recorded in
+       docs/crawler-audit.md. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self'; style-src 'self'; script-src 'self'; form-action 'none'; base-uri 'self'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="theme-color" content="#041306">
   <title>Dynamic Fantasy Football ADP for Live Drafts | GREEN18</title>
   <meta name="description" content="GREEN18 treats ADP as a starting point, not the final answer. Watch player value adjust as your fantasy football draft develops.">
@@ -154,7 +162,7 @@
         <p class="beat">Your league has:</p>
           
           <ul class="ticks"><li>its own scoring</li><li>its own roster settings</li><li>its own managers</li><li>its own position runs</li><li>its own mistakes</li><li>its own opportunities</li></ul>
-          <p class="beat">GREEN18 helps translate broad player value into the draft directly in front of you.</p>
+          <p class="beat">ADP is a price — what the market tends to pay. What you need is a value: what this pick is worth to <strong>your</strong> roster. <a href="/draft-science/draft-state-valuation">Draft-State Valuation</a> is the difference, and the gap between the two is where the best decisions live.</p>
         </div>
       </section>
 
@@ -179,8 +187,8 @@
           
           <div class="grid grid-3 mt-lg">
             <div class="card"><h3>Your Settings</h3><p>Scoring and roster structure change what a player is worth to you.</p></div>
-            <div class="card"><h3>Your Room</h3><p>Position runs and reaches are local to the draft you’re in.</p></div>
-            <div class="card"><h3>Your Roster</h3><p>What you already own changes what you should take next.</p></div>
+            <div class="card"><h3>Your Room</h3><p>Position runs and reaches are local to the draft you’re in, and they move <a href="/draft-science/positional-scarcity">positional scarcity</a> — a rate of decline across positions, not a property any one position owns.</p></div>
+            <div class="card"><h3>Your Roster</h3><p>What you already own changes what you should take next. Every pick spends something besides the player — the <a href="/draft-science/opportunity-cost">opportunity cost</a> of the slot you didn’t fill.</p></div>
           </div>
         </div>
       </section>
@@ -231,9 +239,12 @@
             <li><a href="/live-fantasy-football-draft-assistant">Live Draft Assistant</a></li>
             <li><a href="/fantasy-football-cheat-sheet-app">Fantasy Football Cheat Sheet App</a></li>
             <li><a href="/fantasy-football-draft-strategy-app">Draft Strategy App</a></li>
+            <li><a href="/draft-science/draft-state-valuation">draft-science/draft-state-valuation</a></li>
           </ul>
         </div>
       </section>
+
+
 
 
   </main>

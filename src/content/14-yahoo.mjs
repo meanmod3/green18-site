@@ -22,14 +22,14 @@ export default {
     { type: 'prose', h2: 'Yahoo Handles the League. GREEN18 Handles Your Board.', body: [
       'Keep GREEN18 open beside your Yahoo draft and use it to evaluate the remaining player landscape as your league makes its picks.',
       'Nothing about your league has to change.',
-      'The board beside it does the moving — the way a [live draft assistant](/live-fantasy-football-draft-assistant) should.',
+      'The board beside it does the moving — the way a [live draft assistant](/live-fantasy-football-draft-assistant) should. Every recorded pick updates each remaining player’s **margin over replacement**, because [replacement level](/draft-science/replacement-value) drops the moment a tier thins.',
     ]},
 
     { type: 'prose', h2: 'The Draft Creates New Questions.', body: [
       'Pre-draft rankings answer what looked valuable before anyone picked.',
-      'Then three quarterbacks disappear.',
-      'A position run begins.',
-      'A player you expected to lose falls another round.',
+      'Then three quarterbacks disappear and [positional scarcity](/draft-science/positional-scarcity) at the position steepens without a single player changing.',
+      'A position run begins — the case worked through in [five running backs going in a row](/scenarios/five-running-backs-go-in-a-row).',
+      'A player you expected to lose falls another round, and the opportunity cost of passing shifts.',
       'Your roster develops differently than expected.',
       'GREEN18 is built for everything that happens after the first pick.',
     ], quote: 'Static rankings are built before your draft starts. GREEN18 helps you make decisions inside the draft you’re actually in.' },
@@ -43,7 +43,7 @@ export default {
 
     { type: 'cards', h2: 'Why a Second Board Helps.', cards: [
       { h3: 'Built Around Your League', body: 'Scoring and roster construction change what a player is worth. GREEN18 starts with the league you joined.' },
-      { h3: 'Pick-by-Pick Context', body: 'The best available player can change because of what happened five picks ago.' },
+      { h3: 'Pick-by-Pick Context', body: 'The best available player can change because of what happened five picks ago. Your pick horizon — the distance to your next turn — decides how much of that movement you can afford to wait out.' },
       { h3: 'Less Tab Switching', body: 'Your rankings, player pool, positional context and draft decisions belong in the same place.' },
     ]},
 
@@ -64,7 +64,7 @@ export default {
   links: [
     'fantasy-football-draft-assistant',
     'live-fantasy-football-draft-assistant',
-    'ppr-draft-assistant',
+    'draft-science/positional-scarcity',
     'espn-fantasy-football-draft-helper',
     'sleeper-fantasy-football-draft-helper',
   ],

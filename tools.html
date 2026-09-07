@@ -4,6 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="dark">
+  <!-- GitHub Pages cannot send custom response headers, so the policy is
+       declared in-document. The Azure mirror ALSO sends these as real headers
+       (see staticwebapp.config.json); a header wins where both exist.
+       frame-ancestors and X-Content-Type-Options are header-only and cannot be
+       expressed here — that gap is a limitation of the host, recorded in
+       docs/crawler-audit.md. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self'; style-src 'self'; script-src 'self'; form-action 'none'; base-uri 'self'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="theme-color" content="#041306">
   <title>Fantasy Draft Calculators | GREEN18</title>
   <meta name="description" content="Five free calculators for scarcity, pick horizon, replacement level, Superflex QB demand and reception scoring — and what a single-variable tool cannot settle.">
@@ -95,7 +103,7 @@
           "@type": "ListItem",
           "position": 2,
           "name": "Tools",
-          "item": "https://green18.app/tools/"
+          "item": "https://green18.app/tools"
         }
       ]
     }
@@ -254,6 +262,13 @@
             <li><a href="/draft-science">draft-science</a></li>
             <li><a href="/scenarios">scenarios</a></li>
           </ul>
+        </div>
+      </section>
+
+      <section class="reviewed">
+        <div class="wrap measure">
+          <p>Last reviewed <time datetime="2026-09-07">September 7, 2026</time>.
+          GREEN18 explains its method in full on the <a href="/methodology">methodology page</a>.</p>
         </div>
       </section>
 

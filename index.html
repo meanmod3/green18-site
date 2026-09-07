@@ -4,6 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="dark">
+  <!-- GitHub Pages cannot send custom response headers, so the policy is
+       declared in-document. The Azure mirror ALSO sends these as real headers
+       (see staticwebapp.config.json); a header wins where both exist.
+       frame-ancestors and X-Content-Type-Options are header-only and cannot be
+       expressed here — that gap is a limitation of the host, recorded in
+       docs/crawler-audit.md. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self'; style-src 'self'; script-src 'self'; form-action 'none'; base-uri 'self'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="theme-color" content="#041306">
   <title>GREEN18 — Live Fantasy Football Draft Assistant for iPhone</title>
   <meta name="description" content="GREEN18 is an iPhone fantasy football live draft assistant that continuously recalculates player valuations from your league, your roster and the live draft.">
@@ -112,7 +120,7 @@
           
           <p class="beat">Before the draft, rankings are predictions.</p>
         <p class="beat">Once the draft begins, every pick becomes information.</p>
-        <p class="beat">GREEN18 uses that changing context to reorganize the players still available.</p>
+        <p class="beat">GREEN18 reads that changing context and re-ranks the players still available — a method called <a href="/draft-science/draft-state-valuation">Draft-State Valuation</a>.</p>
           
           
           
@@ -151,7 +159,7 @@
               </div>
               <div class="model-in">
                 <h3>The Live Draft</h3>
-                <ul><li>Players selected</li><li>Players remaining</li><li>Position movement</li></ul>
+                <ul><li>Players selected</li><li>Players remaining</li><li>Position movement</li><li>Pick horizon</li></ul>
               </div>
             </div>
             <div class="model-arrow" aria-hidden="true"></div>
@@ -186,7 +194,7 @@
           <h2>The Player Didn’t Change. Your Situation Did.</h2>
           
           <p class="beat">Three quarterbacks go in a row. The fourth didn’t suddenly get better.</p>
-        <p class="beat">He got harder to replace.</p>
+        <p class="beat">He got harder to replace — and a player is worth the amount by which he beats whoever would otherwise fill that slot, so his <a href="/draft-science/replacement-value">margin over replacement</a> just rose.</p>
         <p class="beat">That is the difference between crossing a name off a list and <a href="/fantasy-football-positional-scarcity">recalculating what’s left</a>.</p>
           <blockquote class="pull"><p>ADP tells you what people expected. Your draft tells you what they’re doing.</p></blockquote>
           
@@ -228,9 +236,12 @@
             <li><a href="/live-fantasy-football-draft-assistant">Live Draft Assistant</a></li>
             <li><a href="/dynamic-fantasy-football-adp">Dynamic Fantasy Football ADP</a></li>
             <li><a href="/fantasy-football-for-beginners">Fantasy Football for Beginners</a></li>
+            <li><a href="/draft-science/draft-state-valuation">draft-science/draft-state-valuation</a></li>
           </ul>
         </div>
       </section>
+
+
 
 
   </main>

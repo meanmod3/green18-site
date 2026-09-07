@@ -4,7 +4,7 @@
 export default {
   slug: 'scenarios/how-to-use-the-final-rounds',
   pageType: 'scenario',
-  title: 'How Should I Use the Last Rounds of a Fantasy Draft? | GREEN18',
+  title: 'How to Use the Last Rounds of a Draft | GREEN18',
   description: 'In the final rounds every remaining player is near replacement level, which makes upside cheap and "best available" a rule that stops working. What to do instead.',
   breadcrumb: 'The Final Rounds',
   dateModified: '2026-09-07',

@@ -4,6 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="dark">
+  <!-- GitHub Pages cannot send custom response headers, so the policy is
+       declared in-document. The Azure mirror ALSO sends these as real headers
+       (see staticwebapp.config.json); a header wins where both exist.
+       frame-ancestors and X-Content-Type-Options are header-only and cannot be
+       expressed here — that gap is a limitation of the host, recorded in
+       docs/crawler-audit.md. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self'; style-src 'self'; script-src 'self'; form-action 'none'; base-uri 'self'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="theme-color" content="#041306">
   <title>Yahoo Fantasy Football Draft Helper | GREEN18</title>
   <meta name="description" content="Use GREEN18 beside your Yahoo Fantasy Football draft and keep a live player board organized around your league.">
@@ -150,7 +158,7 @@
           
           <p class="beat">Keep GREEN18 open beside your Yahoo draft and use it to evaluate the remaining player landscape as your league makes its picks.</p>
         <p class="beat">Nothing about your league has to change.</p>
-        <p class="beat">The board beside it does the moving — the way a <a href="/live-fantasy-football-draft-assistant">live draft assistant</a> should.</p>
+        <p class="beat">The board beside it does the moving — the way a <a href="/live-fantasy-football-draft-assistant">live draft assistant</a> should. Every recorded pick updates each remaining player’s <strong>margin over replacement</strong>, because <a href="/draft-science/replacement-value">replacement level</a> drops the moment a tier thins.</p>
           
           
           
@@ -162,9 +170,9 @@
           <h2>The Draft Creates New Questions.</h2>
           
           <p class="beat">Pre-draft rankings answer what looked valuable before anyone picked.</p>
-        <p class="beat">Then three quarterbacks disappear.</p>
-        <p class="beat">A position run begins.</p>
-        <p class="beat">A player you expected to lose falls another round.</p>
+        <p class="beat">Then three quarterbacks disappear and <a href="/draft-science/positional-scarcity">positional scarcity</a> at the position steepens without a single player changing.</p>
+        <p class="beat">A position run begins — the case worked through in <a href="/scenarios/five-running-backs-go-in-a-row">five running backs going in a row</a>.</p>
+        <p class="beat">A player you expected to lose falls another round, and the opportunity cost of passing shifts.</p>
         <p class="beat">Your roster develops differently than expected.</p>
         <p class="beat">GREEN18 is built for everything that happens after the first pick.</p>
           <blockquote class="pull"><p>Static rankings are built before your draft starts. GREEN18 helps you make decisions inside the draft you’re actually in.</p></blockquote>
@@ -192,7 +200,7 @@
           
           <div class="grid grid-3 mt-lg">
             <div class="card"><h3>Built Around Your League</h3><p>Scoring and roster construction change what a player is worth. GREEN18 starts with the league you joined.</p></div>
-            <div class="card"><h3>Pick-by-Pick Context</h3><p>The best available player can change because of what happened five picks ago.</p></div>
+            <div class="card"><h3>Pick-by-Pick Context</h3><p>The best available player can change because of what happened five picks ago. Your pick horizon — the distance to your next turn — decides how much of that movement you can afford to wait out.</p></div>
             <div class="card"><h3>Less Tab Switching</h3><p>Your rankings, player pool, positional context and draft decisions belong in the same place.</p></div>
           </div>
         </div>
@@ -229,12 +237,14 @@
           <ul class="mt-md">
             <li><a href="/fantasy-football-draft-assistant">Fantasy Football Draft Assistant</a></li>
             <li><a href="/live-fantasy-football-draft-assistant">Live Draft Assistant</a></li>
-            <li><a href="/ppr-draft-assistant">PPR Draft Assistant</a></li>
+            <li><a href="/draft-science/positional-scarcity">draft-science/positional-scarcity</a></li>
             <li><a href="/espn-fantasy-football-draft-helper">ESPN Draft Helper</a></li>
             <li><a href="/sleeper-fantasy-football-draft-helper">Sleeper Draft Helper</a></li>
           </ul>
         </div>
       </section>
+
+
 
       <section>
         <div class="wrap"><p class="disclaimer">GREEN18 is an independent product and is not affiliated with, endorsed by, or sponsored by Yahoo.</p></div>

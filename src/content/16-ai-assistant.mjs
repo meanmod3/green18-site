@@ -2,7 +2,7 @@
 // determinism thesis: GREEN18 computes, it does not generate.
 export default {
   slug: 'ai-fantasy-football-draft-assistant',
-  title: 'AI Fantasy Football Draft Assistant? Try a Computed One | GREEN18',
+  title: 'AI Fantasy Football Draft Assistant, Computed | GREEN18',
   description: 'Looking for an AI draft assistant? GREEN18 is a deterministic draft model for iPhone — the same board always produces the same answer.',
   breadcrumb: 'AI Draft Assistant',
 
@@ -23,7 +23,7 @@ export default {
     { type: 'prose', h2: 'What People Actually Mean by “AI Draft Assistant”.', body: [
       'They rarely mean they want to have a conversation.',
       'They mean the pre-draft list stopped being true four picks ago.',
-      'They mean three quarterbacks went in a row and nothing on their sheet moved.',
+      'They mean three quarterbacks went in a row and nothing on their sheet moved — even though [the cost of waiting](/scenarios/superflex-quarterback-run) had just doubled.',
       'They mean they have ninety seconds and six tabs open.',
       'That is a computation problem, not a writing problem.',
     ]},
@@ -31,13 +31,13 @@ export default {
     { type: 'prose', h2: 'GREEN18 Is a Deterministic Model.', body: [
       'Deterministic means exactly one thing: the same inputs always produce the same output.',
       'Ask GREEN18 twice with the same board and you get the same answer twice.',
-      'Hand the same board to a text generator twice and you may not.',
-      'On draft day, repeatability is not a technicality. It is the whole point.',
+      'Hand the same board to a text generator twice and you may not — it composes a fresh answer each time, and there is no reason for two of them to agree.',
+      'On draft day, repeatability is not a technicality. It is the whole point: a deterministic result can be traced back to the specific pick that moved it. The full computation is set out in [the GREEN18 methodology](/methodology).',
     ], quote: 'A model that can’t repeat itself can’t be checked.' },
 
     { type: 'cards', h2: 'Computed vs. Generated.', cards: [
       { h3: 'Repeatable', body: 'Every recommendation is replayable from the board that produced it. Nothing is improvised on the spot.' },
-      { h3: 'Accountable', body: 'The result is assembled from named components — league value, board movement, survival to your next pick — not from prose about a player.' },
+      { h3: 'Accountable', body: 'The result is assembled from named components — league value, **margin over replacement**, board movement, survival to your next pick — not from prose about a player. Each is inspectable in [how GREEN18 ranks fantasy players](/how-green18-ranks-fantasy-players).' },
       { h3: 'Current', body: 'It reads the draft in front of you. Not a snapshot of the internet from some earlier date.' },
     ]},
 
@@ -45,13 +45,13 @@ export default {
       { h3: 'Set Your League.', body: ['Scoring and quarterback format genuinely re-rank the board. They are inputs, not labels.'] },
       { h3: 'Shape Your Preferences.', body: ['Your own opinions live in your personal rank. They never move the objective market values.'] },
       { h3: 'Record the Picks.', body: ['As players come off the board, GREEN18 recomputes. The update is effectively instant.'] },
-      { h3: 'Take Now or Wait.', body: ['You see how likely a player is to survive to your next pick, and you make the call.'] },
+      { h3: 'Take Now or Wait.', body: ['You see how likely a player is to survive to your next pick — your pick horizon against the [tier collapse](/draft-science/player-tier-collapse) behind him — and you make the call.'] },
     ]},
 
     { type: 'prose', h2: 'Where the Numbers Come From.', body: [
       'Player facts come from open football data — nflverse, credited under CC-BY — plus the picks you record during your own draft.',
       'A hard allowlist rejects unapproved sources at build time.',
-      'GREEN18 computes its own projected draft value from that base.',
+      'GREEN18 computes its own projected draft value from that base, expressed as each player’s margin over replacement in your league’s scoring.',
       'It does not scrape a chatbot and it does not guess.',
       'If you want the mechanism in full, read [how the draft model works](/fantasy-football-draft-algorithm).',
     ]},
@@ -79,9 +79,9 @@ export default {
 
   links: [
     'fantasy-football-draft-assistant',
-    'fantasy-football-draft-algorithm',
+    'how-green18-ranks-fantasy-players',
     'chatgpt-fantasy-football-draft',
     'automated-fantasy-football-draft-tool',
-    'dynamic-fantasy-football-adp',
+    'draft-science/draft-state-valuation',
   ],
 };

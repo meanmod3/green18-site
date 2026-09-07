@@ -4,6 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="dark">
+  <!-- GitHub Pages cannot send custom response headers, so the policy is
+       declared in-document. The Azure mirror ALSO sends these as real headers
+       (see staticwebapp.config.json); a header wins where both exist.
+       frame-ancestors and X-Content-Type-Options are header-only and cannot be
+       expressed here — that gap is a limitation of the host, recorded in
+       docs/crawler-audit.md. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self'; style-src 'self'; script-src 'self'; form-action 'none'; base-uri 'self'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="theme-color" content="#041306">
   <title>Fantasy Football Draft Help for Beginners | GREEN18</title>
   <meta name="description" content="New to fantasy football? GREEN18 helps simplify your draft by keeping the best remaining options organized as picks happen.">
@@ -53,7 +61,7 @@
           "name": "Can I use GREEN18 if I’ve never played fantasy football?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes. The product is designed to make the available player pool easier to navigate during the draft."
+            "text": "Yes. The product is designed to make the available player pool easier to navigate during the draft, and it applies the league rules and the current draft state on the manager’s behalf rather than requiring the manager to reason about them."
           }
         },
         {
@@ -70,6 +78,14 @@
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Some basic understanding helps, but GREEN18 is designed to reduce the amount of information you need to manually process during the draft."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the single most useful idea for a first-time drafter?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A player is worth what he produces above the player you would otherwise take at the same position, which is called margin over replacement. A position with several similar players remaining is cheap to wait on, while a position with a steep quality drop after the next few players is expensive to wait on."
           }
         }
       ]
@@ -173,6 +189,20 @@
         </div>
       </section>
 
+      <section>
+        <div class="wrap measure">
+          <h2>The One Idea Worth Learning First.</h2>
+          
+          <p class="beat">Here it is, and it is the whole game: <strong>a player is only worth what he gives you over the player you could take instead.</strong></p>
+        <p class="beat">That second player is the <strong>replacement</strong> — the next-best option at the same position when your turn comes back around. The gap between them is your <strong>margin over replacement</strong>, and it is the only number that actually wins you a week.</p>
+        <p class="beat">This is why the loudest name is not always the right pick. Six equally good running backs on the board means taking one costs you almost nothing in the way of missed opportunity. Two good ones left and a steep drop after them means waiting is expensive. That drop-off is <a href="/draft-science/positional-scarcity">positional scarcity</a>, and it moves every single pick.</p>
+        <p class="beat">You do not have to compute any of this. You just have to know that it is what the board is doing while you look at it. Anything you want spelled out is in the <a href="/glossary">glossary</a>.</p>
+          <blockquote class="pull"><p>Not “is he good?” — “how much better is he than what I’d get instead?”</p></blockquote>
+          
+          
+        </div>
+      </section>
+
       <section id="how-it-works">
         <div class="wrap">
           <h2>How GREEN18 Works</h2>
@@ -180,7 +210,7 @@
           <ol class="steps mt-lg">
             <li><h3>Set Your League.</h3><p class="beat">Tell GREEN18 how your league actually works — scoring, roster structure, format.</p></li>
             <li><h3>Shape Your Draft.</h3><p class="beat">Set the preferences that matter to you. No fantasy vocabulary test required.</p></li>
-            <li><h3>Start Drafting.</h3><p class="beat">As players are selected, remove them from the board. GREEN18 recalculates the remaining opportunity.</p></li>
+            <li><h3>Start Drafting.</h3><p class="beat">As players are selected, remove them from the board. GREEN18 recalculates what the remaining players are worth to your roster.</p></li>
             <li><h3>Make the Pick.</h3><p class="beat">One live view of the players that still matter, instead of six browser tabs.</p></li>
           </ol>
         </div>
@@ -192,6 +222,21 @@
           
           <p class="beat">GREEN18 isn’t trying to play fantasy football instead of you.</p>
         <p class="beat">It gives you a clearer board so you can make decisions without trying to hold the entire player pool in your head.</p>
+        <p class="beat">And it is <strong>deterministic</strong> — a fancy word for a reassuring thing. The same board always gives you the same answer. No mood, no mystery, no different advice depending on when you opened it.</p>
+        <p class="beat">Nothing dramatic happens if you fumble one. Every draft has a pick that goes sideways; <a href="/scenarios/you-missed-your-pick">here is what to do when you miss yours</a>.</p>
+          
+          
+          
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
+          <h2>Playing With People Who’ve Done This for Years?</h2>
+          
+          <p class="beat">That is most first drafts, and it is more survivable than it looks.</p>
+        <p class="beat">Long-running leagues develop habits — the guy who always reaches for a quarterback, the one who hoards running backs — and those habits move the board in ways no ranking ever predicted. Being new mostly means you have no bad habits yet.</p>
+        <p class="beat">If your league is one of those, the <a href="/home-league-draft-assistant">home league draft assistant</a> page is written for exactly that table.</p>
           
           
           
@@ -216,9 +261,10 @@
         <div class="wrap measure">
           <h2>Questions</h2>
           <div class="faq mt-md">
-            <details><summary>Can I use GREEN18 if I’ve never played fantasy football?</summary><div><p>Yes. The product is designed to make the available player pool easier to navigate during the draft.</p></div></details>
+            <details><summary>Can I use GREEN18 if I’ve never played fantasy football?</summary><div><p>Yes. The product is designed to make the available player pool easier to navigate during the draft, and it applies the league rules and the current draft state on the manager’s behalf rather than requiring the manager to reason about them.</p></div></details>
             <details><summary>Does GREEN18 automatically make my picks?</summary><div><p>No. You remain the manager. GREEN18 helps organize the decision.</p></div></details>
             <details><summary>Do I need to know fantasy football terminology?</summary><div><p>Some basic understanding helps, but GREEN18 is designed to reduce the amount of information you need to manually process during the draft.</p></div></details>
+            <details><summary>What is the single most useful idea for a first-time drafter?</summary><div><p>A player is worth what he produces above the player you would otherwise take at the same position, which is called margin over replacement. A position with several similar players remaining is cheap to wait on, while a position with a steep quality drop after the next few players is expensive to wait on.</p></div></details>
           </div>
         </div>
       </section>
@@ -227,14 +273,16 @@
         <div class="wrap">
           <h2>Keep reading</h2>
           <ul class="mt-md">
-            <li><a href="/fantasy-football-draft-assistant">Fantasy Football Draft Assistant</a></li>
+            <li><a href="/draft-science/positional-scarcity">draft-science/positional-scarcity</a></li>
+            <li><a href="/home-league-draft-assistant">Home League Draft Assistant</a></li>
             <li><a href="/last-minute-fantasy-football-draft">Last-Minute Fantasy Football Draft</a></li>
             <li><a href="/live-fantasy-football-draft-assistant">Live Draft Assistant</a></li>
-            <li><a href="/fantasy-football-cheat-sheet-app">Fantasy Football Cheat Sheet App</a></li>
-            <li><a href="/ppr-draft-assistant">PPR Draft Assistant</a></li>
+            <li><a href="/glossary">glossary</a></li>
           </ul>
         </div>
       </section>
+
+
 
 
   </main>

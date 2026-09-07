@@ -33,7 +33,9 @@ export default {
         'its own mistakes',
         'its own opportunities',
       ],
-      after: ['GREEN18 helps translate broad player value into the draft directly in front of you.'] },
+      after: [
+        'ADP is a price — what the market tends to pay. What you need is a value: what this pick is worth to **your** roster. [Draft-State Valuation](/draft-science/draft-state-valuation) is the difference, and the gap between the two is where the best decisions live.',
+      ] },
 
     { type: 'prose', h2: 'When the Market Moves, Your Board Should Move.', body: [
       'Imagine a quarterback run starts earlier than expected.',
@@ -48,8 +50,8 @@ export default {
 
     { type: 'cards', h2: 'Three Things ADP Can’t See.', cards: [
       { h3: 'Your Settings', body: 'Scoring and roster structure change what a player is worth to you.' },
-      { h3: 'Your Room', body: 'Position runs and reaches are local to the draft you’re in.' },
-      { h3: 'Your Roster', body: 'What you already own changes what you should take next.' },
+      { h3: 'Your Room', body: 'Position runs and reaches are local to the draft you’re in, and they move [positional scarcity](/draft-science/positional-scarcity) — a rate of decline across positions, not a property any one position owns.' },
+      { h3: 'Your Roster', body: 'What you already own changes what you should take next. Every pick spends something besides the player — the [opportunity cost](/draft-science/opportunity-cost) of the slot you didn’t fill.' },
     ]},
 
     { type: 'steps', h2: 'How GREEN18 Works', steps: [
@@ -75,5 +77,6 @@ export default {
     'live-fantasy-football-draft-assistant',
     'fantasy-football-cheat-sheet-app',
     'fantasy-football-draft-strategy-app',
+    'draft-science/draft-state-valuation',
   ],
 };

@@ -46,7 +46,7 @@ export default {
       ] },
 
     { type: 'prose', h2: 'Your Screenshot Can’t React.', body: [
-      'A printed ranking can’t see that six running backs just disappeared.',
+      'A printed ranking can’t see that [six running backs just disappeared](/scenarios/five-running-backs-go-in-a-row), or that the replacement level behind them dropped a full tier when they did.',
       'A screenshot can’t see your roster.',
       'A spreadsheet doesn’t know which players your league has already drafted unless you rebuild it yourself.',
       'GREEN18 is built to solve that problem — the same idea behind the [live draft assistant](/live-fantasy-football-draft-assistant).',
@@ -77,7 +77,7 @@ export default {
 
     { type: 'prose', h2: 'Every Name Removed Changes the Value of the Names That Remain.', body: [
       'That is the whole argument for a sheet that moves.',
-      'A run at one position thins the depth behind it and makes waiting more expensive.',
+      'A run at one position thins the depth behind it, lowers the [replacement value](/draft-science/replacement-value) you would settle for later, and makes waiting more expensive.',
       'A player who falls further than expected becomes a different decision than he was two picks ago.',
       'Your own roster keeps changing what you still need.',
       'Your cheat sheet shouldn’t stop thinking when the draft starts.',
@@ -109,5 +109,6 @@ export default {
     'fantasy-football-for-beginners',
     'live-fantasy-football-draft-assistant',
     'dynamic-fantasy-football-adp',
+    'draft-science/replacement-value',
   ],
 };

@@ -32,22 +32,23 @@ iPhone only. Not currently available on Android.
 - [Superflex Fantasy Football Draft Assistant | GREEN18](https://green18.app/superflex-draft-assistant): Draft quarterbacks and skill players in context with a live Superflex fantasy football draft board from GREEN18.
 - [PPR Fantasy Football Draft Assistant | GREEN18](https://green18.app/ppr-draft-assistant): Draft for your PPR league using a live fantasy football player board that accounts for your league and changing draft.
 - [Fantasy Football Draft Help for Beginners | GREEN18](https://green18.app/fantasy-football-for-beginners): New to fantasy football? GREEN18 helps simplify your draft by keeping the best remaining options organized as picks happen.
-- [Fantasy Football Draft Tool for Competitive Players | GREEN18](https://green18.app/competitive-fantasy-football-draft): Turn league context, player availability, roster construction and live draft movement into a more responsive fantasy football board.
+- [Competitive Fantasy Football Draft Tool | GREEN18](https://green18.app/competitive-fantasy-football-draft): Turn league context, player availability, roster construction and live draft movement into a more responsive fantasy football board.
 - [Beat Your Coworkers at Fantasy Football | GREEN18](https://green18.app/office-fantasy-football-draft): Drafting against your coworkers? Bring GREEN18 to the draft and use a live player board that adjusts as your league makes picks.
 - [Fantasy Football Draft Assistant for Home Leagues | GREEN18](https://green18.app/home-league-draft-assistant): Give your long-running fantasy football league a smarter live draft board with GREEN18 for iPhone.
 - [Draft Tonight? Get Fantasy Football Help Fast | GREEN18](https://green18.app/last-minute-fantasy-football-draft): Have a fantasy football draft tonight? Set up GREEN18, configure your league and take a live player board into the draft.
 - [ESPN Fantasy Football Draft Helper | GREEN18](https://green18.app/espn-fantasy-football-draft-helper): Use GREEN18 alongside your ESPN fantasy football draft for a live player board that responds as players are selected.
 - [Yahoo Fantasy Football Draft Helper | GREEN18](https://green18.app/yahoo-fantasy-football-draft-helper): Use GREEN18 beside your Yahoo Fantasy Football draft and keep a live player board organized around your league.
 - [Sleeper Fantasy Football Draft Helper | GREEN18](https://green18.app/sleeper-fantasy-football-draft-helper): Use GREEN18 alongside Sleeper to add a responsive player board to your fantasy football draft.
-- [AI Fantasy Football Draft Assistant? Try a Computed One | GREEN18](https://green18.app/ai-fantasy-football-draft-assistant): Looking for an AI draft assistant? GREEN18 is a deterministic draft model for iPhone — the same board always produces the same answer.
+- [AI Fantasy Football Draft Assistant, Computed | GREEN18](https://green18.app/ai-fantasy-football-draft-assistant): Looking for an AI draft assistant? GREEN18 is a deterministic draft model for iPhone — the same board always produces the same answer.
 - [Can ChatGPT Do Your Fantasy Football Draft? | GREEN18](https://green18.app/chatgpt-fantasy-football-draft): A general chatbot is good at explaining fantasy football and blind to your live draft board. Here is the honest line, and what to use instead.
 - [How a Fantasy Football Draft Algorithm Works | GREEN18](https://green18.app/fantasy-football-draft-algorithm): The GREEN18 draft model in plain language: open football data, your league settings, recorded picks, survival odds, and take-now-or-wait.
 - [Automated Fantasy Football Draft Tool | GREEN18](https://green18.app/automated-fantasy-football-draft-tool): GREEN18 automates the math, not the decision. It does not auto-draft or connect to any platform — you record picks and you make the call.
 - [Personalized Fantasy Football Rankings | GREEN18](https://green18.app/personalized-fantasy-football-rankings): GREEN18 creates a live player board calibrated to your league, roster, preferences, and the players still available.
 - [Fantasy Football Without Hours of Research | GREEN18](https://green18.app/fantasy-football-without-research): Joining a fantasy league without weeks of preparation? GREEN18 helps turn league settings and live draft context into a usable player board.
-- [Positional Scarcity and Replacement Value in Fantasy Drafts | GREEN18](https://green18.app/fantasy-football-positional-scarcity): How positional scarcity, replacement value and opportunity cost decide a fantasy draft pick — and why every selection changes the value of the players left.
+- [Drafting With Positional Scarcity | GREEN18](https://green18.app/fantasy-football-positional-scarcity): Scarcity is easy to understand and hard to compute on the clock. How GREEN18 prices the cost of waiting at every position, after every pick.
 - [About GREEN18 | Who Makes It and What It Is](https://green18.app/about): GREEN18 is an independent iPhone fantasy football live draft assistant published by Interplore. No accounts, no platform connection, nothing collected.
 - [Contact GREEN18](https://green18.app/contact): Reach GREEN18 at manager@green18.app — bug reports, data corrections and questions. What to include so a problem can be reproduced on the first reply.
+- [Page Not Found | GREEN18](https://green18.app/404): That page does not exist. Here is where to find what you were probably looking for.
 
 ## Reference
 
@@ -67,12 +68,12 @@ iPhone only. Not currently available on Android.
 - [Pick Horizon: Why the Turn Changes Everything | GREEN18](https://green18.app/draft-science/pick-horizon): Distance to your next selection is a valuation input, not a scheduling detail. Why pick 3 and pick 10 produce different correct picks from an identical board.
 - [Player Tier Collapse in a Fantasy Draft | GREEN18](https://green18.app/draft-science/player-tier-collapse): Why the last player in a fantasy tier is worth more than his rank suggests, and what happens to every remaining player once that tier empties.
 - [Roster Construction and Fantasy Draft Value | GREEN18](https://green18.app/draft-science/roster-construction): How the players you already drafted change what the next player is worth to you — positional balance, flexibility, and why two managers should not share one board.
-- [Superflex Quarterback Value: Why the Position Reprices | GREEN18](https://green18.app/draft-science/superflex-quarterback-value): Superflex re-prices quarterbacks structurally, not cosmetically: more starting slots than viable starters moves replacement level for the whole position.
+- [Why Superflex Reprices Quarterbacks | GREEN18](https://green18.app/draft-science/superflex-quarterback-value): Superflex re-prices quarterbacks structurally, not cosmetically: more starting slots than viable starters moves replacement level for the whole position.
 
 ## Formats
 
 - [Superflex Format Explained | GREEN18](https://green18.app/formats/superflex): What the Superflex roster rule is, how it differs from 2QB and standard flex, and how one extra eligible slot reorders every position on the draft board.
-- [PPR Scoring Explained: How Receptions Reprice a Draft | GREEN18](https://green18.app/formats/ppr): What PPR scoring is, why a point per catch reorders players within positions rather than lifting everyone, and how it moves replacement level for skill players.
+- [PPR Scoring: How Receptions Reprice a Draft | GREEN18](https://green18.app/formats/ppr): What PPR scoring is, why a point per catch reorders players within positions rather than lifting everyone, and how it moves replacement level for skill players.
 - [Standard Scoring Explained: Drafting Without PPR | GREEN18](https://green18.app/formats/standard): What standard fantasy scoring is, why removing reception points concentrates value in touchdowns and workload, and how that reshapes the draft board.
 
 ## Draft Scenarios
@@ -94,9 +95,9 @@ iPhone only. Not currently available on Android.
 - [Still No Tight End Late in the Draft | GREEN18](https://green18.app/scenarios/still-no-tight-end-in-the-late-rounds): An unfilled slot late in a draft is only urgent if the players left at that position differ from each other. How to test whether the gap you fear is real.
 - [Two of My Starters Share a Bye Week | GREEN18](https://green18.app/scenarios/two-starters-share-a-bye-week): A shared bye week is a real but bounded cost, and mostly a roster-management problem. When it should move a draft pick and when it is an overcorrection.
 - [Should I Draft My Own Running Back’s Backup? | GREEN18](https://green18.app/scenarios/drafting-a-backup-for-your-own-running-back): Drafting the backup behind your own starter is insurance with a price. How workload concentration and the pick you would otherwise spend decide it.
-- [My Draft Timer Ran Out and I Got a Player I Did Not Want | GREEN18](https://green18.app/scenarios/you-missed-your-pick): A pick you did not choose changes your roster, not your method. How to re-evaluate from the state you are actually in instead of trying to undo it.
+- [My Draft Timer Ran Out — What Now? | GREEN18](https://green18.app/scenarios/you-missed-your-pick): A pick you did not choose changes your roster, not your method. How to re-evaluate from the state you are actually in instead of trying to undo it.
 - [Should I Draft an Unproven Player or a Proven One? | GREEN18](https://green18.app/scenarios/a-rookie-or-a-proven-veteran): Unproven versus established is a variance decision, not a talent decision. How the roster slot and its alternative decide whether a wider range is worth paying for.
-- [How Should I Use the Last Rounds of a Fantasy Draft? | GREEN18](https://green18.app/scenarios/how-to-use-the-final-rounds): In the final rounds every remaining player is near replacement level, which makes upside cheap and "best available" a rule that stops working. What to do instead.
+- [How to Use the Last Rounds of a Draft | GREEN18](https://green18.app/scenarios/how-to-use-the-final-rounds): In the final rounds every remaining player is near replacement level, which makes upside cheap and "best available" a rule that stops working. What to do instead.
 
 ## Tools
 

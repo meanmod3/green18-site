@@ -4,6 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="dark">
+  <!-- GitHub Pages cannot send custom response headers, so the policy is
+       declared in-document. The Azure mirror ALSO sends these as real headers
+       (see staticwebapp.config.json); a header wins where both exist.
+       frame-ancestors and X-Content-Type-Options are header-only and cannot be
+       expressed here — that gap is a limitation of the host, recorded in
+       docs/crawler-audit.md. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self'; style-src 'self'; script-src 'self'; form-action 'none'; base-uri 'self'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="theme-color" content="#041306">
   <title>Fantasy Football Draft Assistant for 2026 | GREEN18</title>
   <meta name="description" content="GREEN18 is a live fantasy football draft assistant for iPhone that adjusts your player board as your real draft unfolds.">
@@ -177,6 +185,7 @@
           
           <p class="beat">GREEN18 keeps the focus where it belongs: <strong>the players who are still available.</strong></p>
         <p class="beat">Use your league settings, roster construction, player availability, positional context, and your own preferences to navigate the draft pick by pick — the way a <a href="/live-fantasy-football-draft-assistant">live draft assistant</a> should.</p>
+        <p class="beat">The method has a name: <strong><a href="/draft-science/draft-state-valuation">Draft-State Valuation</a></strong> — valuing a player by the current state of a specific draft instead of treating a preseason rank as fixed. The model is <strong>deterministic</strong>: the same board always produces the same answer.</p>
           
           
           
@@ -204,7 +213,7 @@
         <p class="beat">There is only the best decision for:</p>
           
           <ul class="ticks"><li>this league</li><li>this roster</li><li>this draft position</li><li>this moment</li><li>this remaining player pool</li></ul>
-          <p class="beat">GREEN18 is built around that distinction.</p>
+          <p class="beat">GREEN18 is built around that distinction — and it holds whether you are in a <a href="/competitive-fantasy-football-draft">competitive league</a> or a <a href="/home-league-draft-assistant">home league with friends</a>.</p>
         </div>
       </section>
 
@@ -215,7 +224,8 @@
           <p class="beat">The same question follows you through the entire draft:</p>
           <blockquote class="pull"><p>Who gives my team the most value now?</p></blockquote>
           
-          <p class="beat">GREEN18 keeps answering that question using the state of the draft instead of freezing your decision-making at preseason rankings — which is why <a href="/dynamic-fantasy-football-adp">ADP is a starting line, not the answer</a>.</p>
+          <p class="beat">The answer is a margin, not a rank: a player is worth the amount by which he beats the player who would otherwise fill that slot — his <a href="/draft-science/replacement-value">margin over replacement</a> — measured against how far away your next pick is.</p>
+        <p class="beat">GREEN18 keeps answering that question using the state of the draft instead of freezing your decision-making at preseason rankings — which is why <a href="/dynamic-fantasy-football-adp">ADP is a starting line, not the answer</a>.</p>
         </div>
       </section>
 
@@ -255,9 +265,12 @@
             <li><a href="/superflex-draft-assistant">Superflex Draft Assistant</a></li>
             <li><a href="/ppr-draft-assistant">PPR Draft Assistant</a></li>
             <li><a href="/fantasy-football-for-beginners">Fantasy Football for Beginners</a></li>
+            <li><a href="/draft-science/draft-state-valuation">draft-science/draft-state-valuation</a></li>
           </ul>
         </div>
       </section>
+
+
 
 
   </main>

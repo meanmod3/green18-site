@@ -4,19 +4,27 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="dark">
+  <!-- GitHub Pages cannot send custom response headers, so the policy is
+       declared in-document. The Azure mirror ALSO sends these as real headers
+       (see staticwebapp.config.json); a header wins where both exist.
+       frame-ancestors and X-Content-Type-Options are header-only and cannot be
+       expressed here — that gap is a limitation of the host, recorded in
+       docs/crawler-audit.md. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self'; style-src 'self'; script-src 'self'; form-action 'none'; base-uri 'self'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="theme-color" content="#041306">
-  <title>Fantasy Football Draft Tool for Competitive Players | GREEN18</title>
+  <title>Competitive Fantasy Football Draft Tool | GREEN18</title>
   <meta name="description" content="Turn league context, player availability, roster construction and live draft movement into a more responsive fantasy football board.">
   <link rel="canonical" href="https://green18.app/competitive-fantasy-football-draft">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="GREEN18">
   <meta property="og:url" content="https://green18.app/competitive-fantasy-football-draft">
-  <meta property="og:title" content="Fantasy Football Draft Tool for Competitive Players | GREEN18">
+  <meta property="og:title" content="Competitive Fantasy Football Draft Tool | GREEN18">
   <meta property="og:description" content="Turn league context, player availability, roster construction and live draft movement into a more responsive fantasy football board.">
   <meta property="og:image" content="https://green18.app/assets/green18-card.png">
   <meta property="og:image:alt" content="GREEN18 — live fantasy football draft intelligence for iPhone.">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Fantasy Football Draft Tool for Competitive Players | GREEN18">
+  <meta name="twitter:title" content="Competitive Fantasy Football Draft Tool | GREEN18">
   <meta name="twitter:description" content="Turn league context, player availability, roster construction and live draft movement into a more responsive fantasy football board.">
   <meta name="twitter:image" content="https://green18.app/assets/green18-card.png">
   <link rel="icon" href="/assets/icon.png" type="image/png">
@@ -124,10 +132,9 @@
         <div class="wrap measure">
           <h2>The Edge Is Context.</h2>
           
-          <p class="beat">Player evaluation matters.</p>
-        <p class="beat">But once the draft begins, every pick changes the opportunity set.</p>
-        <p class="beat">GREEN18 helps you evaluate the remaining board through the state of the draft instead of relying exclusively on the consensus order everyone else can see.</p>
-        <p class="beat">That is the whole idea behind the <a href="/fantasy-football-draft-assistant">fantasy football draft assistant</a>.</p>
+          <p class="beat">Player evaluation matters. But once the draft begins, every pick changes the opportunity set.</p>
+        <p class="beat">The margins you are hunting have precise names. <strong>Opportunity cost</strong> is what you give up at every other position by spending this pick here. <strong>Margin over replacement</strong> is what the player is actually worth once you subtract whoever you would have taken instead. <strong>Tier collapse</strong> is the moment a position’s remaining pool falls off a cliff and the price of waiting jumps in one pick.</p>
+        <p class="beat">GREEN18 evaluates the remaining board through the state of the draft — <a href="/draft-science/draft-state-valuation">Draft-State Valuation</a> — instead of relying exclusively on the consensus order everyone else can see.</p>
           
           
           
@@ -138,10 +145,9 @@
         <div class="wrap measure">
           <h2>Stop Drafting the Same Rankings as the Room.</h2>
           
-          <p class="beat">Consensus is useful.</p>
-        <p class="beat">Consensus is also available to everyone.</p>
-        <p class="beat">GREEN18 is designed to layer your league, roster, preferences, availability, and draft movement onto that baseline.</p>
-        <p class="beat">Which is why <a href="/dynamic-fantasy-football-adp">ADP is the starting line, not the answer</a>.</p>
+          <p class="beat">Consensus is useful. Consensus is also available to everyone.</p>
+        <p class="beat">GREEN18 layers your league, roster, preferences, availability and draft movement onto that baseline, which is why <a href="/dynamic-fantasy-football-adp">ADP is the starting line, not the answer</a>.</p>
+        <p class="beat">The edge is not in knowing a name the room does not know. It is in pricing the same name differently, correctly, because your roster and your next pick are not theirs.</p>
           
           
           
@@ -153,10 +159,10 @@
           <h2>How GREEN18 Works</h2>
           
           <ol class="steps mt-lg">
-            <li><h3>Set Your League.</h3><p class="beat">Configure the scoring, roster structure and format that materially affect player value.</p></li>
+            <li><h3>Set Your League.</h3><p class="beat">Configure the scoring, roster structure and format that set replacement level at every position.</p></li>
             <li><h3>Shape Your Draft.</h3><p class="beat">Set the preferences that matter to you instead of drafting from a universal list.</p></li>
-            <li><h3>Start Drafting.</h3><p class="beat">Remove players as they are selected. GREEN18 recalculates the remaining opportunity.</p></li>
-            <li><h3>Make the Pick.</h3><p class="beat">One live view of the players that still matter, instead of rankings, notes and tabs.</p></li>
+            <li><h3>Start Drafting.</h3><p class="beat">Remove players as they are selected. GREEN18 recalculates the margin over replacement across the remaining board.</p></li>
+            <li><h3>Make the Pick.</h3><p class="beat">One live view of the players that still matter. The model is deterministic — same board in, same answer out, every time.</p></li>
           </ol>
         </div>
       </section>
@@ -166,10 +172,23 @@
           <h2>Where the Margins Are.</h2>
           
           <div class="grid grid-3 mt-lg">
-            <div class="card"><h3>Live, Not Static</h3><p>The board responds to the draft instead of presenting the same rankings from Pick 1 through Pick 150.</p></div>
-            <div class="card"><h3>Pick-by-Pick Context</h3><p>The best available player can change because of what happened five picks ago. GREEN18 is designed around that reality.</p></div>
-            <div class="card"><h3>Built Around Your League</h3><p>A player can have dramatically different value depending on scoring and roster construction. GREEN18 starts with the league you’re actually playing.</p></div>
+            <div class="card"><h3>The Pick Horizon</h3><p>The distance to your next selection is an input, not trivia. Scarcity that resolves before you pick again costs you nothing; scarcity that arrives during the eighteen picks in between must be paid for now or not at all.</p></div>
+            <div class="card"><h3>Tier Boundaries, Not Ranks</h3><p>The best available player can change because of what happened five picks ago. What matters is whether the pick in front of you is the last one above a cliff.</p></div>
+            <div class="card"><h3>Your Replacement Level, Not the Consensus One</h3><p>Scoring and roster construction decide how deep a position stays startable in your league. A ranking has to assume one answer to that. Your board does not.</p></div>
           </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
+          <h2>Best Player Available, or the Roster You Need?</h2>
+          
+          <p class="beat">This is the argument the format never settles, and it is a false one.</p>
+        <p class="beat">Once value is measured as margin over replacement against <strong>your</strong> roster and <strong>your</strong> pick horizon, best-available and roster-need stop being two philosophies and become one calculation. The player who adds most is the answer to both.</p>
+        <p class="beat">Where it gets genuinely hard is a live board on a ninety-second clock. <a href="/scenarios/best-player-available-vs-roster-need">Best player available versus roster need</a> works a real instance through, and the <a href="/tools/pick-horizon-calculator">pick horizon calculator</a> prices the wait before you sit down.</p>
+          <blockquote class="pull"><p>Consensus prices the player. Your draft prices the pick.</p></blockquote>
+          
+          
         </div>
       </section>
 
@@ -206,14 +225,16 @@
         <div class="wrap">
           <h2>Keep reading</h2>
           <ul class="mt-md">
-            <li><a href="/fantasy-football-draft-assistant">Fantasy Football Draft Assistant</a></li>
+            <li><a href="/draft-science/opportunity-cost">draft-science/opportunity-cost</a></li>
+            <li><a href="/draft-science/pick-horizon">draft-science/pick-horizon</a></li>
+            <li><a href="/tools/pick-horizon-calculator">tools/pick-horizon-calculator</a></li>
             <li><a href="/dynamic-fantasy-football-adp">Dynamic Fantasy Football ADP</a></li>
-            <li><a href="/live-fantasy-football-draft-assistant">Live Draft Assistant</a></li>
-            <li><a href="/fantasy-football-draft-strategy-app">Draft Strategy App</a></li>
             <li><a href="/superflex-draft-assistant">Superflex Draft Assistant</a></li>
           </ul>
         </div>
       </section>
+
+
 
 
   </main>

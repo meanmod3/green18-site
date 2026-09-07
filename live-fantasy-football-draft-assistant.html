@@ -4,6 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="dark">
+  <!-- GitHub Pages cannot send custom response headers, so the policy is
+       declared in-document. The Azure mirror ALSO sends these as real headers
+       (see staticwebapp.config.json); a header wins where both exist.
+       frame-ancestors and X-Content-Type-Options are header-only and cannot be
+       expressed here — that gap is a limitation of the host, recorded in
+       docs/crawler-audit.md. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self'; style-src 'self'; script-src 'self'; form-action 'none'; base-uri 'self'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="theme-color" content="#041306">
   <title>Live Fantasy Football Draft Assistant | GREEN18</title>
   <meta name="description" content="Use GREEN18 during your fantasy football draft and watch your player board adjust as picks come off the board.">
@@ -156,7 +164,7 @@
         <p class="beat">During the draft, you gain something more valuable:</p>
         <p class="beat"><strong>information about your actual league.</strong></p>
         <p class="beat">Every pick tells you something.</p>
-        <p class="beat">GREEN18 uses the evolving player pool and your team context to help organize the decisions that remain.</p>
+        <p class="beat">GREEN18 uses the evolving player pool and your team context to help organize the decisions that remain — including how far away your next selection is, which is the input most tools leave out entirely. That distance is your <a href="/draft-science/pick-horizon">pick horizon</a>.</p>
         <p class="beat">It is the live half of the <a href="/fantasy-football-draft-assistant">fantasy football draft assistant</a>.</p>
           
           
@@ -169,9 +177,9 @@
           <h2>See the Board Change.</h2>
           
           <p class="beat">Players shouldn’t stay locked into the same order simply because that was their ranking yesterday.</p>
-        <p class="beat">GREEN18 is designed so the live board can respond as:</p>
+        <p class="beat">A run does not just remove names; it drops the replacement level behind them, and the board re-ranks because replacement level moved. GREEN18 is designed so the live board can respond as:</p>
           
-          <ul class="ticks"><li>players are drafted</li><li>positions become scarce</li><li>roster needs develop</li><li>alternative players disappear</li><li>value remains available</li><li>the draft moves into new stages</li></ul>
+          <ul class="ticks"><li>players are drafted</li><li>a <a href="/scenarios/last-player-in-a-tier">tier collapses</a> and the next one is a real step down</li><li>positions become scarce</li><li>roster needs develop</li><li>alternative players disappear</li><li>value remains available</li><li>the draft moves into new stages</li></ul>
           <p class="beat">Which is also why <a href="/dynamic-fantasy-football-adp">ADP is a starting point rather than the final answer</a>.</p>
         </div>
       </section>
@@ -222,9 +230,12 @@
             <li><a href="/fantasy-football-cheat-sheet-app">Fantasy Football Cheat Sheet App</a></li>
             <li><a href="/dynamic-fantasy-football-adp">Dynamic Fantasy Football ADP</a></li>
             <li><a href="/fantasy-football-draft-strategy-app">Draft Strategy App</a></li>
+            <li><a href="/draft-science/pick-horizon">draft-science/pick-horizon</a></li>
           </ul>
         </div>
       </section>
+
+
 
 
   </main>

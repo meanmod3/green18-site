@@ -4,6 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="dark">
+  <!-- GitHub Pages cannot send custom response headers, so the policy is
+       declared in-document. The Azure mirror ALSO sends these as real headers
+       (see staticwebapp.config.json); a header wins where both exist.
+       frame-ancestors and X-Content-Type-Options are header-only and cannot be
+       expressed here — that gap is a limitation of the host, recorded in
+       docs/crawler-audit.md. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self'; style-src 'self'; script-src 'self'; form-action 'none'; base-uri 'self'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="theme-color" content="#041306">
   <title>Standard Scoring Explained: Drafting Without PPR | GREEN18</title>
   <meta name="description" content="What standard fantasy scoring is, why removing reception points concentrates value in touchdowns and workload, and how that reshapes the draft board.">
@@ -115,6 +123,12 @@
         {
           "@type": "ListItem",
           "position": 2,
+          "name": "League Formats",
+          "item": "https://green18.app/formats/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
           "name": "Standard Scoring",
           "item": "https://green18.app/formats/standard"
         }
@@ -142,7 +156,7 @@
   </header>
 
     <nav class="crumbs" aria-label="Breadcrumb">
-      <div class="wrap"><a href="/">GREEN18</a><span>/</span>Standard Scoring</div>
+      <div class="wrap"><a href="/">GREEN18</a><span>/</span><a href="/formats/">League Formats</a><span>/</span>Standard Scoring</div>
     </nav>
 
   <main id="main">
@@ -326,6 +340,13 @@
             <li><a href="/scenarios/five-running-backs-go-in-a-row">scenarios/five-running-backs-go-in-a-row</a></li>
             <li><a href="/fantasy-football-positional-scarcity">Positional Scarcity and Replacement Value</a></li>
           </ul>
+        </div>
+      </section>
+
+      <section class="reviewed">
+        <div class="wrap measure">
+          <p>Last reviewed <time datetime="2026-09-07">September 7, 2026</time>.
+          GREEN18 explains its method in full on the <a href="/methodology">methodology page</a>.</p>
         </div>
       </section>
 

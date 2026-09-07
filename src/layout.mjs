@@ -195,6 +195,27 @@ function block(b) {
   }
 }
 
+
+// Section labels for breadcrumb trails, keyed by the first slug segment.
+const SECTION_NAMES = {
+  'draft-science': 'Draft Science',
+  'scenarios': 'Draft Scenarios',
+  'tools': 'Draft Calculators',
+  'formats': 'League Formats',
+};
+
+/// The breadcrumb trail below the site root, deepest last.
+function breadcrumbTrail(page) {
+  if (!page.slug) return [];
+  const parts = page.slug.split('/');
+  const out = [];
+  if (parts.length > 1 && SECTION_NAMES[parts[0]]) {
+    out.push({ name: SECTION_NAMES[parts[0]], url: `${ORIGIN}/${parts[0]}/` });
+  }
+  out.push({ name: page.breadcrumb || page.hero.h1, url: `${ORIGIN}/${page.slug}` });
+  return out;
+}
+
 // ------------------------------------------------------------- structured --
 
 function structuredData(page, url) {
@@ -272,7 +293,9 @@ function structuredData(page, url) {
       '@type': 'BreadcrumbList',
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'GREEN18', item: ORIGIN + '/' },
-        { '@type': 'ListItem', position: 2, name: page.breadcrumb || page.hero.h1, item: url },
+        ...breadcrumbTrail(page).map((c, i) => ({
+          '@type': 'ListItem', position: i + 2, name: c.name, item: c.url,
+        })),
       ],
     });
   }
@@ -338,9 +361,27 @@ export function render(page) {
         </div>
       </section>` : '';
 
+  // A nested page gets its whole trail, not just "GREEN18 / this page". The
+  // section is a real hub with its own URL, so it belongs in the path.
+  const trail = breadcrumbTrail(page);
   const crumbs = page.slug ? `    <nav class="crumbs" aria-label="Breadcrumb">
-      <div class="wrap"><a href="/">GREEN18</a><span>/</span>${esc(page.breadcrumb || page.hero.h1)}</div>
+      <div class="wrap"><a href="/">GREEN18</a>${trail.map((c, i) =>
+        `<span>/</span>${i === trail.length - 1
+          ? esc(c.name)
+          : `<a href="${c.url.replace(ORIGIN, '')}">${esc(c.name)}</a>`}`).join('')}</div>
     </nav>` : '';
+
+  // A visible review date. Schema alone is invisible to a reader deciding
+  // whether to trust an explanation, and freshness is part of that judgement.
+  const reviewed = (page.dateModified && ['science', 'scenario', 'tool', 'data'].includes(page.pageType))
+    ? `      <section class="reviewed">
+        <div class="wrap measure">
+          <p>Last reviewed <time datetime="${esc(page.dateModified)}">${esc(
+            new Date(page.dateModified + 'T00:00:00Z').toLocaleDateString('en-US',
+              { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' }))}</time>.
+          GREEN18 explains its method in full on the <a href="/methodology">methodology page</a>.</p>
+        </div>
+      </section>` : '';
 
   const disclaimer = page.disclaimer ? `      <section>
         <div class="wrap"><p class="disclaimer">${inline(page.disclaimer)}</p></div>
@@ -352,12 +393,20 @@ export function render(page) {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="dark">
+  <!-- GitHub Pages cannot send custom response headers, so the policy is
+       declared in-document. The Azure mirror ALSO sends these as real headers
+       (see staticwebapp.config.json); a header wins where both exist.
+       frame-ancestors and X-Content-Type-Options are header-only and cannot be
+       expressed here — that gap is a limitation of the host, recorded in
+       docs/crawler-audit.md. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self'; style-src 'self'; script-src 'self'; form-action 'none'; base-uri 'self'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
 ${VERIFICATION.bing ? `  <meta name="msvalidate.01" content="${esc(VERIFICATION.bing)}">\n` : ''}\
 ${VERIFICATION.google ? `  <meta name="google-site-verification" content="${esc(VERIFICATION.google)}">\n` : ''}\
   <meta name="theme-color" content="#041306">
   <title>${esc(page.title)}</title>
   <meta name="description" content="${esc(page.description)}">
-  <link rel="canonical" href="${url}">
+${page.noindex ? '  <meta name="robots" content="noindex, follow">\n' : `  <link rel="canonical" href="${url}">`}
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="${BRAND}">
   <meta property="og:url" content="${url}">
@@ -429,6 +478,8 @@ ${page.blocks.map(block).join('\n\n')}
 ${faq}
 
 ${related}
+
+${reviewed}
 
 ${disclaimer}
   </main>

@@ -4,7 +4,7 @@
 export default {
   slug: 'draft-science/superflex-quarterback-value',
   pageType: 'science',
-  title: 'Superflex Quarterback Value: Why the Position Reprices | GREEN18',
+  title: 'Why Superflex Reprices Quarterbacks | GREEN18',
   description: 'Superflex re-prices quarterbacks structurally, not cosmetically: more starting slots than viable starters moves replacement level for the whole position.',
   breadcrumb: 'Superflex QB Value',
   dateModified: '2026-09-07',

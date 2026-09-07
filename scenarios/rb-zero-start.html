@@ -4,6 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="dark">
+  <!-- GitHub Pages cannot send custom response headers, so the policy is
+       declared in-document. The Azure mirror ALSO sends these as real headers
+       (see staticwebapp.config.json); a header wins where both exist.
+       frame-ancestors and X-Content-Type-Options are header-only and cannot be
+       expressed here — that gap is a limitation of the host, recorded in
+       docs/crawler-audit.md. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self'; style-src 'self'; script-src 'self'; form-action 'none'; base-uri 'self'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="theme-color" content="#041306">
   <title>I Started My Draft Without a Running Back | GREEN18</title>
   <meta name="description" content="Skipping a position early is a bet on the board, not a strategy that survives on its own. How to tell whether the bet is still paying and when to abandon it.">
@@ -107,6 +115,12 @@
         {
           "@type": "ListItem",
           "position": 2,
+          "name": "Draft Scenarios",
+          "item": "https://green18.app/scenarios/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
           "name": "Starting Without a Running Back",
           "item": "https://green18.app/scenarios/rb-zero-start"
         }
@@ -134,7 +148,7 @@
   </header>
 
     <nav class="crumbs" aria-label="Breadcrumb">
-      <div class="wrap"><a href="/">GREEN18</a><span>/</span>Starting Without a Running Back</div>
+      <div class="wrap"><a href="/">GREEN18</a><span>/</span><a href="/scenarios/">Draft Scenarios</a><span>/</span>Starting Without a Running Back</div>
     </nav>
 
   <main id="main">
@@ -273,6 +287,13 @@
             <li><a href="/fantasy-football-draft-strategy-app">Draft Strategy App</a></li>
             <li><a href="/live-fantasy-football-draft-assistant">Live Draft Assistant</a></li>
           </ul>
+        </div>
+      </section>
+
+      <section class="reviewed">
+        <div class="wrap measure">
+          <p>Last reviewed <time datetime="2026-09-07">September 7, 2026</time>.
+          GREEN18 explains its method in full on the <a href="/methodology">methodology page</a>.</p>
         </div>
       </section>
 

@@ -34,6 +34,7 @@ export default {
     { type: 'prose', h2: 'A Live View of the Remaining Draft.', body: [
       'GREEN18 keeps the focus where it belongs: **the players who are still available.**',
       'Use your league settings, roster construction, player availability, positional context, and your own preferences to navigate the draft pick by pick — the way a [live draft assistant](/live-fantasy-football-draft-assistant) should.',
+      'The method has a name: **[Draft-State Valuation](/draft-science/draft-state-valuation)** — valuing a player by the current state of a specific draft instead of treating a preseason rank as fixed. The model is **deterministic**: the same board always produces the same answer.',
     ]},
 
     { type: 'steps', h2: 'How GREEN18 Works', steps: [
@@ -45,12 +46,17 @@ export default {
 
     { type: 'prose', h2: 'Why GREEN18?', body: ['Because there is no universal best pick.', 'There is only the best decision for:'],
       list: ['this league', 'this roster', 'this draft position', 'this moment', 'this remaining player pool'],
-      after: ['GREEN18 is built around that distinction.'] },
+      after: [
+        'GREEN18 is built around that distinction — and it holds whether you are in a [competitive league](/competitive-fantasy-football-draft) or a [home league with friends](/home-league-draft-assistant).',
+      ] },
 
     { type: 'prose', h2: 'From First Pick to Final Bench Spot.', body: [
       'The same question follows you through the entire draft:',
     ], quote: 'Who gives my team the most value now?',
-      after: ['GREEN18 keeps answering that question using the state of the draft instead of freezing your decision-making at preseason rankings — which is why [ADP is a starting line, not the answer](/dynamic-fantasy-football-adp).'] },
+      after: [
+        'The answer is a margin, not a rank: a player is worth the amount by which he beats the player who would otherwise fill that slot — his [margin over replacement](/draft-science/replacement-value) — measured against how far away your next pick is.',
+        'GREEN18 keeps answering that question using the state of the draft instead of freezing your decision-making at preseason rankings — which is why [ADP is a starting line, not the answer](/dynamic-fantasy-football-adp).',
+      ] },
 
     { type: 'convert', h2: 'Download GREEN18.',
       body: ['Stop treating a live draft like a static spreadsheet.', '**Download GREEN18 for iPhone and bring a responsive player board into your next draft.**'],
@@ -71,5 +77,6 @@ export default {
     'superflex-draft-assistant',
     'ppr-draft-assistant',
     'fantasy-football-for-beginners',
+    'draft-science/draft-state-valuation',
   ],
 };

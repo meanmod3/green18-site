@@ -4,6 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="dark">
+  <!-- GitHub Pages cannot send custom response headers, so the policy is
+       declared in-document. The Azure mirror ALSO sends these as real headers
+       (see staticwebapp.config.json); a header wins where both exist.
+       frame-ancestors and X-Content-Type-Options are header-only and cannot be
+       expressed here — that gap is a limitation of the host, recorded in
+       docs/crawler-audit.md. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self'; style-src 'self'; script-src 'self'; form-action 'none'; base-uri 'self'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="theme-color" content="#041306">
   <title>Beat Your Coworkers at Fantasy Football | GREEN18</title>
   <meta name="description" content="Drafting against your coworkers? Bring GREEN18 to the draft and use a live player board that adjusts as your league makes picks.">
@@ -164,8 +172,8 @@
         <p class="beat">A spreadsheet.</p>
         <p class="beat">Several opinions nobody asked for.</p>
         <p class="beat">You have a board that recalculates after every pick.</p>
-        <p class="beat">He knows 200 players. You know which player makes sense <strong>right now</strong>.</p>
-        <p class="beat">That is often enough.</p>
+        <p class="beat">He knows 200 players. You know which player makes sense <strong>right now</strong> — which is a different question, and the only one that scores points.</p>
+        <p class="beat">That is often enough. Usually, honestly, it is plenty.</p>
           
           
           
@@ -194,9 +202,10 @@
           <p class="beat">Experienced managers are not remembering more names. They are reading conditions.</p>
         <p class="beat">They notice when:</p>
           
-          <ul class="ticks"><li>a position is drying up</li><li>value is falling</li><li>a roster is becoming unbalanced</li><li>waiting is dangerous</li><li>waiting is smart</li></ul>
-          <p class="beat">GREEN18 keeps evaluating those conditions as picks are recorded.</p>
-        <p class="beat">You don’t have to know every rule of thumb before the draft begins.</p>
+          <ul class="ticks"><li>a position is drying up — the polite term is <a href="/draft-science/positional-scarcity">positional scarcity</a></li><li>a whole tier is about to collapse and take the cheap options with it</li><li>a roster is becoming unbalanced</li><li>waiting is dangerous, because the next pick is nineteen selections away</li><li>waiting is smart, because six similar players are still sitting there</li></ul>
+          <p class="beat">That last pair is one idea wearing two hats: <strong>opportunity cost</strong>. Every pick spends something you cannot spend anywhere else, and the size of that bill depends entirely on what is still on the board.</p>
+        <p class="beat">GREEN18 keeps evaluating those conditions as picks are recorded.</p>
+        <p class="beat">You don’t have to know every rule of thumb before the draft begins. Your coworker learned them over nine seasons and one divorce.</p>
         <p class="beat">It is the same structure behind an expert decision, made visible — see <a href="/fantasy-football-draft-algorithm">how the draft model works</a>.</p>
         </div>
       </section>
@@ -223,7 +232,7 @@
         <p class="beat">When your pick arrives, the decision still reduces to one question:</p>
           <blockquote class="pull"><p>Which available player creates the most value for my roster?</p></blockquote>
           
-          <p class="beat">GREEN18 keeps the answer focused there.</p>
+          <p class="beat">The technical version of that question is <strong>margin over replacement</strong>: how much this player gives you above whoever you would take instead. GREEN18 keeps the answer focused there.</p>
         <p class="beat">Draft the roster.</p>
         <p class="beat">You can do it <a href="/fantasy-football-without-research">without spending the summer on research</a>.</p>
         </div>
@@ -236,7 +245,7 @@
           <div class="grid grid-3 mt-lg">
             <div class="card"><h3>He Memorized the Rankings</h3><p>A ranking is a snapshot taken before anyone picked. It answers one question, once, and then the draft starts changing the answer.</p></div>
             <div class="card"><h3>You Brought the Board That Changes</h3><p>Every name removed changes the value of the names that remain. GREEN18 re-ranks what is left after each recorded pick.</p></div>
-            <div class="card"><h3>Your Coworker Knows Every Player</h3><p>GREEN18 knows your draft — your scoring, your roster so far, and how long it is until you pick again.</p></div>
+            <div class="card"><h3>Your Coworker Knows Every Player</h3><p>GREEN18 knows your draft — your scoring, your roster so far, and your pick horizon: how many selections happen before you are on the clock again. That last one decides what you can safely wait on.</p></div>
           </div>
         </div>
       </section>
@@ -249,6 +258,7 @@
         <p class="beat">No printed rankings.</p>
         <p class="beat">No pretending you’ve watched preseason snap counts for three straight weeks.</p>
         <p class="beat">Just draft — with a <a href="/live-fantasy-football-draft-assistant">live draft assistant</a> beside you.</p>
+        <p class="beat">If your office league has quietly turned into a serious one, the <a href="/competitive-fantasy-football-draft">competitive draft tool</a> page is where the margins get taken apart properly.</p>
           
           
           
@@ -302,11 +312,13 @@
             <li><a href="/fantasy-football-draft-assistant">Fantasy Football Draft Assistant</a></li>
             <li><a href="/fantasy-football-for-beginners">Fantasy Football for Beginners</a></li>
             <li><a href="/live-fantasy-football-draft-assistant">Live Draft Assistant</a></li>
-            <li><a href="/fantasy-football-without-research">Fantasy Football Without the Research</a></li>
-            <li><a href="/fantasy-football-draft-algorithm">How the Draft Model Works</a></li>
+            <li><a href="/draft-science/positional-scarcity">draft-science/positional-scarcity</a></li>
+            <li><a href="/competitive-fantasy-football-draft">Competitive Fantasy Football Draft</a></li>
           </ul>
         </div>
       </section>
+
+
 
 
   </main>

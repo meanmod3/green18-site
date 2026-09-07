@@ -4,6 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="dark">
+  <!-- GitHub Pages cannot send custom response headers, so the policy is
+       declared in-document. The Azure mirror ALSO sends these as real headers
+       (see staticwebapp.config.json); a header wins where both exist.
+       frame-ancestors and X-Content-Type-Options are header-only and cannot be
+       expressed here — that gap is a limitation of the host, recorded in
+       docs/crawler-audit.md. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self'; style-src 'self'; script-src 'self'; form-action 'none'; base-uri 'self'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="theme-color" content="#041306">
   <title>PPR Fantasy Football Draft Assistant | GREEN18</title>
   <meta name="description" content="Draft for your PPR league using a live fantasy football player board that accounts for your league and changing draft.">
@@ -120,13 +128,13 @@
         <div class="wrap measure">
           <h2>PPR Is a Setting. Not a Strategy.</h2>
           
-          <p class="beat">Knowing that receptions are valuable is only the beginning.</p>
+          <p class="beat">Knowing that receptions are valuable is only the beginning. <a href="/formats/ppr">How PPR scoring re-prices a player pool</a> is settled before anyone picks.</p>
         <p class="beat">The real questions happen during the draft.</p>
         <p class="beat">Which receiver?</p>
         <p class="beat">Which running back?</p>
-        <p class="beat">How much depth is left?</p>
+        <p class="beat">How much depth is left above the next tier?</p>
         <p class="beat">Should you take the value now?</p>
-        <p class="beat">Can you afford to wait?</p>
+        <p class="beat">Can you afford to wait until your next pick?</p>
         <p class="beat">GREEN18 is built around those decisions — which is what a <a href="/live-fantasy-football-draft-assistant">live draft assistant</a> is for.</p>
           
           
@@ -142,10 +150,10 @@
           <blockquote class="pull"><p>Who looked valuable before the draft started?</p></blockquote>
           
           <p class="beat">Your real draft creates different questions.</p>
-        <p class="beat">What positions are disappearing?</p>
-        <p class="beat">Who is likely to reach your next pick?</p>
-        <p class="beat">Did the last five picks change the value of the board?</p>
-        <p class="beat">As your draft develops, the remaining player board develops with it.</p>
+        <p class="beat">Which positions are thinning fastest — and how does that compare to every other position?</p>
+        <p class="beat">Who is likely to survive to your next pick?</p>
+        <p class="beat">Did the last five picks collapse a tier and change what the board is worth?</p>
+        <p class="beat">That is <strong>Draft-State Valuation</strong>: pricing a player by the state of the draft in front of you rather than by a rank set weeks ago.</p>
         </div>
       </section>
 
@@ -155,8 +163,8 @@
           
           <div class="grid grid-3 mt-lg">
             <div class="card"><h3>Live, Not Static</h3><p>The board responds to the draft instead of presenting the same rankings from Pick 1 through Pick 150.</p></div>
-            <div class="card"><h3>Built Around Your League</h3><p>A player can have dramatically different value depending on scoring and roster construction. GREEN18 starts with the league you’re actually playing.</p></div>
-            <div class="card"><h3>Less Tab Switching</h3><p>Your rankings, player pool, positional context and draft decisions belong in the same place.</p></div>
+            <div class="card"><h3>Built Around Your League</h3><p>Reception scoring changes where replacement level sits at every position, so a player can be worth very different amounts in two leagues drafting the same night. GREEN18 starts with the league you’re actually playing.</p></div>
+            <div class="card"><h3>Margin Over Replacement</h3><p>The number that matters is not a player’s projection but how far it sits above the player you could take instead. That margin is what shrinks while you wait.</p></div>
           </div>
         </div>
       </section>
@@ -168,8 +176,8 @@
           <ol class="steps mt-lg">
             <li><h3>Set Your League.</h3><p class="beat">Configure the scoring — full PPR, half, or your own — plus roster structure and format.</p></li>
             <li><h3>Shape Your Draft.</h3><p class="beat">Set the preferences that matter to you, instead of drafting from one universal list.</p></li>
-            <li><h3>Start Drafting.</h3><p class="beat">As players are selected, remove them. Players rise. Players fall. Roster needs change.</p></li>
-            <li><h3>Make the Pick.</h3><p class="beat">One live view of the players that still matter, instead of six browser tabs.</p></li>
+            <li><h3>Start Drafting.</h3><p class="beat">As players are selected, remove them. Players rise. Players fall. Tiers collapse. Roster needs change.</p></li>
+            <li><h3>Make the Pick.</h3><p class="beat">One live view of the players that still matter, instead of six browser tabs. The same board always produces the same answer.</p></li>
           </ol>
         </div>
       </section>
@@ -178,9 +186,21 @@
         <div class="wrap measure">
           <h2>Your Scoring Belongs in the Board.</h2>
           
-          <p class="beat">A universal ranking cannot perfectly represent every league.</p>
-        <p class="beat">GREEN18 starts from the premise that your scoring system should materially influence the players you’re considering.</p>
-        <p class="beat">It is the same principle behind treating <a href="/dynamic-fantasy-football-adp">ADP as a starting line</a> rather than the answer.</p>
+          <p class="beat">A universal ranking cannot represent every league, because it has to assume one replacement level and your league has its own.</p>
+        <p class="beat">GREEN18 starts from the premise that your scoring system should materially influence the players you are considering — the <a href="/tools/ppr-value-adjustment-calculator">PPR value adjustment calculator</a> shows how far the same pool moves between formats.</p>
+        <p class="beat">Once the draft begins, the opportunity cost of every pick is measured against what your own board says is still available. It is the same principle behind treating <a href="/dynamic-fantasy-football-adp">ADP as a starting line</a> rather than the answer.</p>
+          
+          
+          
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
+          <h2>When You Already Have the Receivers.</h2>
+          
+          <p class="beat">PPR pushes rooms toward receivers, and that creates the most common mid-draft question in the format: the best player available is a fourth receiver and your roster no longer needs one.</p>
+        <p class="beat">Scarcity is measured against <strong>your</strong> roster, not the league’s. A cliff you are already standing above costs you nothing. <a href="/scenarios/already-have-two-wide-receivers">When you already have two wide receivers</a> walks that decision through.</p>
           
           
           
@@ -207,14 +227,16 @@
         <div class="wrap">
           <h2>Keep reading</h2>
           <ul class="mt-md">
-            <li><a href="/fantasy-football-draft-assistant">Fantasy Football Draft Assistant</a></li>
+            <li><a href="/formats/ppr">formats/ppr</a></li>
+            <li><a href="/draft-science/replacement-value">draft-science/replacement-value</a></li>
+            <li><a href="/tools/ppr-value-adjustment-calculator">tools/ppr-value-adjustment-calculator</a></li>
             <li><a href="/live-fantasy-football-draft-assistant">Live Draft Assistant</a></li>
-            <li><a href="/dynamic-fantasy-football-adp">Dynamic Fantasy Football ADP</a></li>
             <li><a href="/superflex-draft-assistant">Superflex Draft Assistant</a></li>
-            <li><a href="/fantasy-football-cheat-sheet-app">Fantasy Football Cheat Sheet App</a></li>
           </ul>
         </div>
       </section>
+
+
 
 
   </main>

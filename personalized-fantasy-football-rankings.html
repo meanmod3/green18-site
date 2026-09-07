@@ -4,6 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="dark">
+  <!-- GitHub Pages cannot send custom response headers, so the policy is
+       declared in-document. The Azure mirror ALSO sends these as real headers
+       (see staticwebapp.config.json); a header wins where both exist.
+       frame-ancestors and X-Content-Type-Options are header-only and cannot be
+       expressed here — that gap is a limitation of the host, recorded in
+       docs/crawler-audit.md. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self'; style-src 'self'; script-src 'self'; form-action 'none'; base-uri 'self'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="theme-color" content="#041306">
   <title>Personalized Fantasy Football Rankings | GREEN18</title>
   <meta name="description" content="GREEN18 creates a live player board calibrated to your league, roster, preferences, and the players still available.">
@@ -184,7 +192,7 @@
         <p class="beat">One already drafted two wide receivers. The other has none.</p>
         <p class="beat">One picks again in six selections. The other waits nineteen.</p>
         <p class="beat">One prefers volatility and upside. The other wants a safer roster.</p>
-        <p class="beat">Those three players should not necessarily appear in the same order for both of them.</p>
+        <p class="beat">Those three players should not necessarily appear in the same order for both of them — that is <a href="/draft-science/draft-state-valuation">Draft-State Valuation</a> rather than a ranking, and both orderings can be correct.</p>
         <p class="beat">GREEN18 is not trying to produce the world’s single perfect ranking. It is trying to produce the right ranking for the decision in front of you.</p>
           
           
@@ -200,7 +208,7 @@
             <li><h3>1. Your League.</h3><p class="beat">Scoring rules, roster requirements, flex structure and quarterback format are applied to the player pool before the board is built, so they re-rank players rather than relabel them.</p></li>
             <li><h3>2. Your Preferences.</h3><p class="beat">Targets, players you would rather avoid, and how much risk you want become part of your draft profile — one input among many, tuned to your preferences.</p></li>
             <li><h3>3. Your Roster.</h3><p class="beat">The same player creates different value for different team constructions. As your roster fills, positional need and future flexibility move with it.</p></li>
-            <li><h3>4. Your Draft.</h3><p class="beat">Every pick you record changes the remaining pool, the scarcity behind each position, and how far away your next opportunity is.</p></li>
+            <li><h3>4. Your Draft.</h3><p class="beat">Every pick you record changes the remaining pool, the <a href="/draft-science/positional-scarcity">positional scarcity</a> behind each position, and how far away your next opportunity is.</p></li>
           </ol>
         </div>
       </section>
@@ -226,10 +234,10 @@
           <p class="beat">GREEN18 doesn’t move players simply because you like them.</p>
         <p class="beat">Preferences are one input among many. Your board remains anchored to:</p>
           
-          <ul class="ticks"><li>player value</li><li>league value</li><li>positional value</li><li>scarcity</li><li>availability</li><li>roster construction</li></ul>
+          <ul class="ticks"><li>player value</li><li>league value</li><li>margin over replacement</li><li>positional scarcity</li><li>survival to your pick horizon</li><li><a href="/draft-science/roster-construction">roster construction</a></li></ul>
           <p class="beat">Your player queue becomes a signal. Not a command.</p>
         <p class="beat"><strong>Your preferences shape the decision. They don’t replace the math.</strong></p>
-        <p class="beat">The valuation stays <a href="/fantasy-football-draft-algorithm">deterministic and replayable</a> — your subjective rank is shown beside the computed values, never folded into them.</p>
+        <p class="beat">The valuation stays <strong>deterministic</strong> and replayable — <a href="/fantasy-football-draft-algorithm">same board in, same board out</a> — your subjective rank is shown beside the computed values, never folded into them.</p>
         </div>
       </section>
 
@@ -239,7 +247,7 @@
           <p class="lede measure">Average draft position approximates what other managers tend to pay. GREEN18 asks a different question: what should you pay?</p>
           <div class="grid grid-3 mt-lg">
             <div class="card"><h3>Where They Agree</h3><p>When the market price and your situational value line up, the decision is easy and the board says so.</p></div>
-            <div class="card"><h3>Where They Diverge</h3><p>A player can be a bargain for the league and still be wrong for your roster. The gap is where the interesting decisions live.</p></div>
+            <div class="card"><h3>Where They Diverge</h3><p>A player can be a bargain for the league and still be wrong for your roster — his margin over replacement on your team is what decides it. The gap is where the interesting decisions live, as in <a href="/scenarios/best-player-available-vs-roster-need">best player available versus need</a>.</p></div>
             <div class="card"><h3>Why It Moves</h3><p>Market value comes from how the draft is actually going. Personal value comes from your league, roster and next pick. Both update as picks are recorded.</p></div>
           </div>
         </div>
@@ -292,12 +300,14 @@
           <ul class="mt-md">
             <li><a href="/fantasy-football-draft-assistant">Fantasy Football Draft Assistant</a></li>
             <li><a href="/fantasy-football-positional-scarcity">Positional Scarcity and Replacement Value</a></li>
-            <li><a href="/fantasy-football-draft-algorithm">How the Draft Model Works</a></li>
+            <li><a href="/draft-science/roster-construction">draft-science/roster-construction</a></li>
             <li><a href="/dynamic-fantasy-football-adp">Dynamic Fantasy Football ADP</a></li>
-            <li><a href="/fantasy-football-draft-strategy-app">Draft Strategy App</a></li>
+            <li><a href="/home-league-draft-assistant">Home League Draft Assistant</a></li>
           </ul>
         </div>
       </section>
+
+
 
 
   </main>

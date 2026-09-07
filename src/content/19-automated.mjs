@@ -11,7 +11,7 @@ export default {
     h1: 'An Automated Draft Tool That Automates the Right Half of the Draft.',
     lede: [
       'Straight answer first: GREEN18 does not draft for you. It does not connect to your fantasy platform and it never submits a pick.',
-      'What it automates is the part you cannot do on a sixty-second clock — recomputing what every remaining player is worth the instant the board changes.',
+      'What it automates is the part you cannot do on a sixty-second clock — recomputing every remaining player’s **margin over replacement** the instant the board changes.',
       '**The arithmetic is automatic. The pick is yours.**',
     ],
     cta: 'Download GREEN18',
@@ -31,12 +31,12 @@ export default {
     { type: 'prose', h2: 'Why Autopilot Is the Wrong Ask.', body: [
       'An autodraft already exists in every league. It is what happens when you fall asleep.',
       'Nobody wants it. They want the work removed, not the judgement.',
-      'The work is the recalculation.',
+      'The work is the recalculation: [replacement level](/draft-science/replacement-value) moves at every position after every pick, and nobody tracks eight of those in their head while a room waits.',
     ], quote: 'You don’t want the pick made for you. You want the math done before you decide.' },
 
     { type: 'cards', h2: 'Automated. Manual. On Purpose.', cards: [
       { h3: 'Automated: Recomputation', body: 'Record a pick and every remaining player’s live value updates. It is effectively instant.' },
-      { h3: 'Automated: Survival Odds', body: 'The chance a player lasts to your next turn is recalculated from the picks that sit between now and then.' },
+      { h3: 'Automated: Survival Odds', body: 'The chance a player lasts to your next turn is recalculated from the picks that sit between now and then — your [pick horizon](/draft-science/pick-horizon), priced rather than guessed.' },
       { h3: 'Manual: The Decision', body: 'You see take-now-or-wait and you choose. GREEN18 never selects for you.' },
     ]},
 
@@ -48,15 +48,15 @@ export default {
     ]},
 
     { type: 'prose', h2: 'Deterministic, So You Can Actually Check It.', body: [
-      'The same board and the same league settings always produce the same output.',
-      'Nothing is generated. Everything is computed from named components.',
+      'GREEN18 is **deterministic**: the same board and the same league settings always produce the same output.',
+      'Nothing is generated. Everything is computed from named components, in the order published in [the methodology](/methodology).',
       'That means a recommendation you disagree with can be inspected rather than argued with — the [full pipeline is documented](/fantasy-football-draft-algorithm).',
       'It also means [there is no chatbot in the loop](/ai-fantasy-football-draft-assistant) inventing a fresh opinion each time you look.',
     ]},
 
     { type: 'prose', h2: 'Independent by Design.', body: [
       'No account linking. No platform credentials. No import.',
-      'Keep GREEN18 open beside whatever app your league drafts in.',
+      'Keep GREEN18 open beside whatever app your league drafts in — which is exactly how a [competitive league draft](/competitive-fantasy-football-draft) or a [home league](/home-league-draft-assistant) uses it.',
       'That is a smaller surface, and a clearer one.',
     ]},
 
@@ -77,7 +77,7 @@ export default {
     'fantasy-football-draft-assistant',
     'ai-fantasy-football-draft-assistant',
     'fantasy-football-draft-algorithm',
-    'live-fantasy-football-draft-assistant',
-    'fantasy-football-draft-strategy-app',
+    'draft-science/pick-horizon',
+    'competitive-fantasy-football-draft',
   ],
 };

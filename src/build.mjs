@@ -47,7 +47,7 @@ for (const p of pages) {
     if (!slugs.has(l)) problems.push(`${id}: internal link to unknown slug "${l}"`);
     if (l === p.slug) problems.push(`${id}: links to itself`);
   }
-  if (p.slug && (p.links || []).length < 2) problems.push(`${id}: fewer than 2 internal links`);
+  if (p.slug && !p.noindex && (p.links || []).length < 2) problems.push(`${id}: fewer than 2 internal links`);
   // Citation acceptance criteria. An explanatory page that cannot be quoted
   // cleanly has failed at its only job, so these are build errors.
   const EXPLANATORY = ['science', 'scenario', 'tool', 'data'];
@@ -88,6 +88,41 @@ for (const p of pages) {
   const text = JSON.stringify(p);
   for (const bad of ['Green 18', 'Draft Buddy', 'DraftBuddy', 'Green18 ']) {
     if (text.includes(bad)) problems.push(`${id}: forbidden brand rendering "${bad.trim()}"`);
+  }
+}
+
+// ---- structural guards over the whole page set -----------------------------
+// These cannot be checked per page, only across the site.
+{
+  // Titles over 60 characters truncate in search results, which wastes the one
+  // line of copy a searcher reads before deciding.
+  for (const p of pages) {
+    if (p.title && p.title.length > 60) {
+      problems.push(`${p._file}: title is ${p.title.length} chars (>60, truncates in results) -> "${p.title}"`);
+    }
+  }
+
+  // An orphan is a page nothing links to. It is reachable only from the
+  // sitemap, gets no internal signal, and is usually a sign the page was
+  // written and then forgotten rather than deliberately isolated.
+  const inbound = new Map();
+  for (const p of pages) {
+    const text = JSON.stringify(p);
+    const targets = new Set([
+      ...(p.links || []),
+      ...[...text.matchAll(/\]\((\/[^)"\s]*)\)/g)].map((m) => m[1].split('#')[0].replace(/^\//, '').replace(/\/$/, '')),
+    ]);
+    for (const t of targets) inbound.set(t, (inbound.get(t) || 0) + 1);
+  }
+  // Footer and nav link every section hub, so hubs are never orphans.
+  const navLinked = new Set(['draft-science', 'scenarios', 'tools', 'glossary',
+    'how-green18-ranks-fantasy-players', 'methodology', 'about', 'contact',
+    'privacy', 'support', 'why-fantasy-rankings-change-during-a-draft']);
+  for (const p of pages) {
+    if (!p.slug || p.noindex || navLinked.has(p.slug)) continue;
+    if (!inbound.get(p.slug)) {
+      problems.push(`${p._file}: ORPHAN — no other page links to "${p.slug}"`);
+    }
   }
 }
 
@@ -200,7 +235,7 @@ for (const [from, to] of Object.entries(REDIRECTS)) {
 
 // ---- sitemap + robots -----------------------------------------------------
 const today = new Date().toISOString().slice(0, 10);
-const urls = [...pages.map((p) => (p.slug ? `/${p.slug}${p.isSectionHub ? '/' : ''}` : '/')), '/privacy', '/support'];
+const urls = [...pages.filter((p) => !p.noindex).map((p) => (p.slug ? `/${p.slug}${p.isSectionHub ? '/' : ''}` : '/')), '/privacy', '/support'];
 
 // Segmented sitemaps behind an index: each section can be resubmitted on its
 // own cadence, which matters because the data pages change far faster than

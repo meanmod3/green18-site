@@ -22,8 +22,8 @@ export default {
     { type: 'prose', h2: 'Your League Platform and Your Draft Assistant Don’t Have to Be the Same Thing.', body: [
       'Keep your league where it is.',
       'Configure GREEN18 around your league settings and use it as the decision layer beside your draft.',
-      'As players come off the board, keep GREEN18 aligned with the remaining player pool.',
-      'That is what a [live draft assistant](/live-fantasy-football-draft-assistant) is for.',
+      'As players come off the board, keep GREEN18 aligned with the remaining player pool. Each pick you record changes the **margin over replacement** at every position, and the board re-sorts.',
+      'That is what a [live draft assistant](/live-fantasy-football-draft-assistant) is for, and the method behind it is [Draft-State Valuation](/draft-science/draft-state-valuation).',
     ]},
 
     { type: 'prose', h2: 'Static Rankings Stop at the Starting Line.', body: [
@@ -31,9 +31,9 @@ export default {
     ], quote: 'Who looked valuable before the draft started?',
       after: [
         'Your real draft creates different questions.',
-        'What positions are disappearing?',
-        'Who is likely to reach your next pick?',
-        'What does your roster need?',
+        'Which position’s [replacement level](/draft-science/replacement-value) is falling fastest?',
+        'Who survives to your next pick — the question your [pick horizon](/draft-science/pick-horizon) decides?',
+        'What does your roster need, and what does taking this player cost you elsewhere?',
         'Which player is worth taking now instead of later?',
         'GREEN18 is built for those questions.',
         'As your draft develops, the remaining player board develops with it.',
@@ -42,14 +42,14 @@ export default {
     { type: 'steps', h2: 'How GREEN18 Works', steps: [
       { h3: 'Set Your League.', body: ['Configure the scoring, roster structure and league format that materially affect player value.'] },
       { h3: 'Shape Your Draft.', body: ['Set the preferences that matter to you, instead of drafting from one universal list.'] },
-      { h3: 'Start Drafting.', body: ['As players are selected, remove them from the board. Players rise. Players fall. The board keeps moving.'] },
+      { h3: 'Start Drafting.', body: ['As players are selected, remove them from the board. Tiers thin, positional scarcity shifts, and the board keeps moving.'] },
       { h3: 'Make the Pick.', body: ['One live view of the players that still matter, instead of rankings, notes and browser tabs.'] },
     ]},
 
     { type: 'cards', h2: 'What the Second Screen Adds.', cards: [
       { h3: 'Live, Not Static', body: 'The board responds to the draft instead of presenting the same rankings from Pick 1 through Pick 150.' },
       { h3: 'Built Around Your League', body: 'A player can have dramatically different value depending on scoring and roster construction. GREEN18 starts with the league you’re actually playing.' },
-      { h3: 'Pick-by-Pick Context', body: 'The best available player can change because of what happened five picks ago. GREEN18 is designed around that reality.' },
+      { h3: 'Pick-by-Pick Context', body: 'The best available player can change because of what happened five picks ago — a [tier collapse](/draft-science/player-tier-collapse) behind your target changes the cost of waiting, not the player. GREEN18 is designed around that reality.' },
     ]},
 
     { type: 'convert', h2: 'Don’t Change Platforms. Change the Way You Draft.',
@@ -69,7 +69,7 @@ export default {
   links: [
     'fantasy-football-draft-assistant',
     'live-fantasy-football-draft-assistant',
-    'dynamic-fantasy-football-adp',
+    'draft-science/draft-state-valuation',
     'yahoo-fantasy-football-draft-helper',
     'sleeper-fantasy-football-draft-helper',
   ],

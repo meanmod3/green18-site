@@ -4,6 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="dark">
+  <!-- GitHub Pages cannot send custom response headers, so the policy is
+       declared in-document. The Azure mirror ALSO sends these as real headers
+       (see staticwebapp.config.json); a header wins where both exist.
+       frame-ancestors and X-Content-Type-Options are header-only and cannot be
+       expressed here — that gap is a limitation of the host, recorded in
+       docs/crawler-audit.md. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self'; style-src 'self'; script-src 'self'; form-action 'none'; base-uri 'self'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="theme-color" content="#041306">
   <title>Fantasy Football Without Hours of Research | GREEN18</title>
   <meta name="description" content="Joining a fantasy league without weeks of preparation? GREEN18 helps turn league settings and live draft context into a usable player board.">
@@ -167,7 +175,7 @@
           <p class="beat">You need to avoid bad decisions.</p>
         <p class="beat">GREEN18 helps narrow the player pool around:</p>
           
-          <ul class="ticks"><li>who remains</li><li>who fits your roster</li><li>what your league rewards</li><li>where positions are becoming scarce</li><li>what may still be available later</li></ul>
+          <ul class="ticks"><li>who remains</li><li>who fits your roster</li><li>what your league rewards</li><li>where <a href="/draft-science/positional-scarcity">positional scarcity</a> is building</li><li>what may still be available at your next pick</li></ul>
           <p class="beat">That turns hundreds of names into a much smaller decision.</p>
         </div>
       </section>
@@ -177,7 +185,7 @@
           <h2>Expertise Is Mostly Recognizing Context.</h2>
           
           <p class="beat">Fantasy football knowledge usually comes from accumulating hundreds of small observations over a summer.</p>
-        <p class="beat">Which positions dry up quickly. Which stay deep. When a run matters and when it’s noise. When your roster can afford to wait, and when scarcity says it can’t.</p>
+        <p class="beat">Which positions dry up quickly. Which stay deep. When a run matters and when it’s noise. When your roster can afford to wait, and when a <a href="/draft-science/player-tier-collapse">tier collapse</a> says it can’t.</p>
         <p class="beat">Experienced managers make those calls almost automatically. They aren’t reciting statistics — they’re recognizing relationships.</p>
         <p class="beat"><strong>GREEN18 makes those relationships visible on the board.</strong></p>
         <p class="beat">You get the result of applying the expertise without first having to accumulate it.</p>
@@ -195,7 +203,7 @@
             <li><h3>1. Set the League.</h3><p class="beat">Enter how your league scores and how many of each position you start. That is most of the setup.</p></li>
             <li><h3>2. Say What Matters.</h3><p class="beat">Add any players you want to target or avoid. If you have no opinions yet, skip it — the board works fine without them.</p></li>
             <li><h3>3. Follow the Draft.</h3><p class="beat">Record each player as they come off the board. GREEN18 recalculates what’s left after every pick.</p></li>
-            <li><h3>4. Make the Pick.</h3><p class="beat">When your turn arrives, look at the top of the board. You don’t need to know every player — you need to know which of the available ones makes sense right now.</p></li>
+            <li><h3>4. Make the Pick.</h3><p class="beat">When your turn arrives, look at the top of the board. It is ordered by margin over replacement for your roster, so you don’t need to know every player — you need to know which of the available ones makes sense right now.</p></li>
           </ol>
         </div>
       </section>
@@ -206,7 +214,7 @@
           <p class="lede measure">Your friends can debate preseason depth charts. You can look at the live board.</p>
           <div class="grid grid-3 mt-lg">
             <div class="card"><h3>No Summer Required</h3><p>Setup takes minutes. The reasoning that usually takes months of listening is already built into the board.</p></div>
-            <div class="card"><h3>No Memorization</h3><p>The board shows the players still available, ordered for your roster and your league. Reading it is the whole skill.</p></div>
+            <div class="card"><h3>No Memorization</h3><p>The board shows the players still available, ordered for your roster and your league. The calculation is deterministic, so the order never wobbles between glances. Reading it is the whole skill.</p></div>
             <div class="card"><h3>No Nonsense</h3><p>GREEN18 makes no season forecasts, predicts no injuries, and promises no outcome. It organizes the decision in front of you.</p></div>
           </div>
         </div>
@@ -219,7 +227,7 @@
           <p class="beat">Sometimes you don’t want fantasy football to become a second job.</p>
         <p class="beat">You just want to join your friends, draft a competent team, understand what you’re doing, and avoid the pick everyone talks about for the next three years.</p>
         <p class="beat">That’s a completely reasonable goal, and GREEN18 is built for that person too.</p>
-        <p class="beat">If it’s your first season, <a href="/fantasy-football-for-beginners">start here</a>. If the draft is in a few hours, <a href="/last-minute-fantasy-football-draft">start here instead</a>.</p>
+        <p class="beat">If it’s your first season, <a href="/fantasy-football-for-beginners">start here</a>. If the draft is in a few hours, <a href="/last-minute-fantasy-football-draft">start here instead</a>. If it’s a friends-and-family league, <a href="/home-league-draft-assistant">here</a> — and if it’s the <a href="/office-fantasy-football-draft">office league</a>, the stakes are social and the board still does the work.</p>
           
           
           
@@ -273,11 +281,13 @@
             <li><a href="/fantasy-football-draft-assistant">Fantasy Football Draft Assistant</a></li>
             <li><a href="/fantasy-football-for-beginners">Fantasy Football for Beginners</a></li>
             <li><a href="/last-minute-fantasy-football-draft">Last-Minute Fantasy Football Draft</a></li>
-            <li><a href="/fantasy-football-cheat-sheet-app">Fantasy Football Cheat Sheet App</a></li>
+            <li><a href="/draft-science/positional-scarcity">draft-science/positional-scarcity</a></li>
             <li><a href="/personalized-fantasy-football-rankings">Personalized Fantasy Football Rankings</a></li>
           </ul>
         </div>
       </section>
+
+
 
 
   </main>

@@ -28,8 +28,8 @@ export default {
       'A spreadsheet.',
       'Several opinions nobody asked for.',
       'You have a board that recalculates after every pick.',
-      'He knows 200 players. You know which player makes sense **right now**.',
-      'That is often enough.',
+      'He knows 200 players. You know which player makes sense **right now** — which is a different question, and the only one that scores points.',
+      'That is often enough. Usually, honestly, it is plenty.',
     ]},
 
     { type: 'prose', h2: 'You Don’t Need to Be the Fantasy Guy.', body: [
@@ -45,15 +45,16 @@ export default {
       'They notice when:',
     ],
       list: [
-        'a position is drying up',
-        'value is falling',
+        'a position is drying up — the polite term is [positional scarcity](/draft-science/positional-scarcity)',
+        'a whole tier is about to collapse and take the cheap options with it',
         'a roster is becoming unbalanced',
-        'waiting is dangerous',
-        'waiting is smart',
+        'waiting is dangerous, because the next pick is nineteen selections away',
+        'waiting is smart, because six similar players are still sitting there',
       ],
       after: [
+        'That last pair is one idea wearing two hats: **opportunity cost**. Every pick spends something you cannot spend anywhere else, and the size of that bill depends entirely on what is still on the board.',
         'GREEN18 keeps evaluating those conditions as picks are recorded.',
-        'You don’t have to know every rule of thumb before the draft begins.',
+        'You don’t have to know every rule of thumb before the draft begins. Your coworker learned them over nine seasons and one divorce.',
         'It is the same structure behind an expert decision, made visible — see [how the draft model works](/fantasy-football-draft-algorithm).',
       ] },
 
@@ -70,7 +71,7 @@ export default {
       'When your pick arrives, the decision still reduces to one question:',
     ], quote: 'Which available player creates the most value for my roster?',
       after: [
-        'GREEN18 keeps the answer focused there.',
+        'The technical version of that question is **margin over replacement**: how much this player gives you above whoever you would take instead. GREEN18 keeps the answer focused there.',
         'Draft the roster.',
         'You can do it [without spending the summer on research](/fantasy-football-without-research).',
       ] },
@@ -80,7 +81,7 @@ export default {
       cards: [
         { h3: 'He Memorized the Rankings', body: 'A ranking is a snapshot taken before anyone picked. It answers one question, once, and then the draft starts changing the answer.' },
         { h3: 'You Brought the Board That Changes', body: 'Every name removed changes the value of the names that remain. GREEN18 re-ranks what is left after each recorded pick.' },
-        { h3: 'Your Coworker Knows Every Player', body: 'GREEN18 knows your draft — your scoring, your roster so far, and how long it is until you pick again.' },
+        { h3: 'Your Coworker Knows Every Player', body: 'GREEN18 knows your draft — your scoring, your roster so far, and your pick horizon: how many selections happen before you are on the clock again. That last one decides what you can safely wait on.' },
       ] },
 
     { type: 'prose', h2: 'Quietly Bring the Better Board.', body: [
@@ -88,6 +89,7 @@ export default {
       'No printed rankings.',
       'No pretending you’ve watched preseason snap counts for three straight weeks.',
       'Just draft — with a [live draft assistant](/live-fantasy-football-draft-assistant) beside you.',
+      'If your office league has quietly turned into a serious one, the [competitive draft tool](/competitive-fantasy-football-draft) page is where the margins get taken apart properly.',
     ]},
 
     { type: 'prose', h2: 'Make Monday Easier.', body: [
@@ -114,7 +116,7 @@ export default {
     'fantasy-football-draft-assistant',
     'fantasy-football-for-beginners',
     'live-fantasy-football-draft-assistant',
-    'fantasy-football-without-research',
-    'fantasy-football-draft-algorithm',
+    'draft-science/positional-scarcity',
+    'competitive-fantasy-football-draft',
   ],
 };

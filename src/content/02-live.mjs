@@ -28,16 +28,17 @@ export default {
       'During the draft, you gain something more valuable:',
       '**information about your actual league.**',
       'Every pick tells you something.',
-      'GREEN18 uses the evolving player pool and your team context to help organize the decisions that remain.',
+      'GREEN18 uses the evolving player pool and your team context to help organize the decisions that remain — including how far away your next selection is, which is the input most tools leave out entirely. That distance is your [pick horizon](/draft-science/pick-horizon).',
       'It is the live half of the [fantasy football draft assistant](/fantasy-football-draft-assistant).',
     ]},
 
     { type: 'prose', h2: 'See the Board Change.', body: [
       'Players shouldn’t stay locked into the same order simply because that was their ranking yesterday.',
-      'GREEN18 is designed so the live board can respond as:',
+      'A run does not just remove names; it drops the replacement level behind them, and the board re-ranks because replacement level moved. GREEN18 is designed so the live board can respond as:',
     ],
       list: [
         'players are drafted',
+        'a [tier collapses](/scenarios/last-player-in-a-tier) and the next one is a real step down',
         'positions become scarce',
         'roster needs develop',
         'alternative players disappear',
@@ -69,5 +70,6 @@ export default {
     'fantasy-football-cheat-sheet-app',
     'dynamic-fantasy-football-adp',
     'fantasy-football-draft-strategy-app',
+    'draft-science/pick-horizon',
   ],
 };

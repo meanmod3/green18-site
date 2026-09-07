@@ -2,33 +2,243 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="dark">
-  <meta name="theme-color" content="#040E07">
-  <meta name="robots" content="noindex">
-  <title>Page not found — Green18</title>
-  <style>
-    /* Self-contained: a 404 can be served at any path depth, so no relative stylesheet. */
-    html { background: #040E07; }
-    body { margin: 0; background: #040E07; color: #F5F2E3; font: 18px/1.6 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-    a { color: #75DC49; text-underline-offset: 0.15em; }
-    :focus-visible { outline: 2px solid #75DC49; outline-offset: 3px; }
-    main { max-width: 44rem; margin: 0 auto; padding: 3rem 1.25rem; }
-    h1 { font-size: 2rem; margin: 0 0 0.75rem; }
-    .wordmark { font-weight: 800; color: #F5F2E3; text-decoration: none; display: inline-block; margin-bottom: 2rem; }
-    .wordmark b { color: #75DC49; }
-    .card { background: #0B1A0F; border: 1px solid #1F3324; border-radius: 8px; padding: 1rem 1.15rem; }
-    .meta { color: #B4BFB2; }
-  </style>
+  <!-- GitHub Pages cannot send custom response headers, so the policy is
+       declared in-document. The Azure mirror ALSO sends these as real headers
+       (see staticwebapp.config.json); a header wins where both exist.
+       frame-ancestors and X-Content-Type-Options are header-only and cannot be
+       expressed here — that gap is a limitation of the host, recorded in
+       docs/crawler-audit.md. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self'; style-src 'self'; script-src 'self'; form-action 'none'; base-uri 'self'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="theme-color" content="#041306">
+  <title>Page Not Found | GREEN18</title>
+  <meta name="description" content="That page does not exist. Here is where to find what you were probably looking for.">
+  <meta name="robots" content="noindex, follow">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="GREEN18">
+  <meta property="og:url" content="https://green18.app/404">
+  <meta property="og:title" content="Page Not Found | GREEN18">
+  <meta property="og:description" content="That page does not exist. Here is where to find what you were probably looking for.">
+  <meta property="og:image" content="https://green18.app/assets/green18-card.png">
+  <meta property="og:image:alt" content="GREEN18 — live fantasy football draft intelligence for iPhone.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Page Not Found | GREEN18">
+  <meta name="twitter:description" content="That page does not exist. Here is where to find what you were probably looking for.">
+  <meta name="twitter:image" content="https://green18.app/assets/green18-card.png">
+  <link rel="icon" href="/assets/icon.png" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/icon.png">
+  <link rel="stylesheet" href="/assets/site.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://green18.app/#org",
+      "name": "GREEN18",
+      "url": "https://green18.app/",
+      "logo": "https://green18.app/assets/icon.png"
+    },
+    {
+      "@type": "MobileApplication",
+      "name": "GREEN18",
+      "applicationCategory": "SportsApplication",
+      "operatingSystem": "iOS",
+      "url": "https://green18.app/",
+      "installUrl": "https://apps.apple.com/us/app/id6805706417",
+      "description": "GREEN18 is an iPhone fantasy football live draft assistant that continuously recalculates player valuations according to league settings, roster construction, player availability, draft state, and user preferences.",
+      "publisher": {
+        "@id": "https://green18.app/#org"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "GREEN18",
+          "item": "https://green18.app/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Page not found",
+          "item": "https://green18.app/404"
+        }
+      ]
+    }
+  ]
+}
+  </script>
 </head>
 <body>
-  <main id="main">
-    <a class="wordmark" href="./">GREEN<b>18</b></a>
-    <h1>Page not found</h1>
-    <p class="meta">There is nothing at this address.</p>
-    <div class="card">
-      <a href="./privacy">Privacy Policy</a> · <a href="./support">Support</a> · <a href="./">Home</a>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site">
+    <div class="wrap">
+      <a class="wordmark" href="/">GREEN<b>18</b></a>
+      <nav aria-label="Primary">
+        <a href="/how-green18-ranks-fantasy-players">How It Works</a>
+          <a href="/draft-science/">Draft Science</a>
+          <a href="/scenarios/">Scenarios</a>
+          <a href="/tools/">Tools</a>
+          <a href="/glossary">Glossary</a>
+      </nav>
+      <a class="btn" href="https://apps.apple.com/us/app/id6805706417">Download</a>
     </div>
+  </header>
+
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <div class="wrap"><a href="/">GREEN18</a><span>/</span>Page not found</div>
+    </nav>
+
+  <main id="main">
+      <section class="hero">
+        <div class="wrap">
+          <div class="">
+          <div class="measure">
+            <p class="eyebrow">Error 404</p>
+            <h1>That Page Isn’t Here.</h1>
+            <div class="lede">
+              <p>The link is wrong, or the page moved. Either way, nothing you did caused it.</p>
+              <p>The three places most things live are below.</p>
+            </div>
+            
+        <div class="cta-group">
+          <a class="btn btn-lg" href="https://apps.apple.com/us/app/id6805706417">Download GREEN18</a>
+          
+        </div>
+        <p class="cta-sub">Available for iPhone.</p>
+          </div>
+          
+          </div>
+        </div>
+      </section>
+
+
+
+
+
+      <section>
+        <div class="wrap">
+          <h2>Where to go instead</h2>
+          
+          <div class="grid grid-3 mt-lg">
+            <div class="card"><h3>Draft Science</h3><p>How player value is actually calculated — <a href="/draft-science/positional-scarcity">scarcity</a>, <a href="/draft-science/replacement-value">replacement value</a>, <a href="/draft-science/pick-horizon">pick horizon</a> and the rest of the <a href="/draft-science/">method</a>.</p></div>
+            <div class="card"><h3>Draft Scenarios</h3><p>What to do when the board moves: <a href="/scenarios/five-running-backs-go-in-a-row">a run at one position</a>, <a href="/scenarios/best-player-available-vs-roster-need">best available versus need</a>, or <a href="/scenarios/">all twenty situations</a>.</p></div>
+            <div class="card"><h3>Calculators</h3><p>Work a single variable: <a href="/tools/scarcity-calculator">positional scarcity</a>, <a href="/tools/pick-horizon-calculator">pick horizon</a>, or <a href="/tools/">every calculator</a>.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap measure">
+          <h2>Looking for something specific?</h2>
+          
+          <p class="beat">The <a href="/glossary">glossary</a> defines every term the site uses, and <a href="/how-green18-ranks-fantasy-players">how GREEN18 values a player</a> explains the whole method end to end.</p>
+        <p class="beat">For the app itself, start at the <a href="/fantasy-football-draft-assistant">fantasy football draft assistant</a> page.</p>
+        <p class="beat">For data questions, the <a href="/privacy">privacy policy</a> says exactly what the app stores, and <a href="/support">support</a> has the common answers.</p>
+          
+          
+          
+        </div>
+      </section>
+
+      <section class="convert">
+        <div class="wrap measure">
+          <h2>Your draft board should move when your draft moves.</h2>
+          <p class="beat">That is the whole idea, and it is the one thing worth taking away from a page that does not exist.</p>
+          
+        <div class="cta-group">
+          <a class="btn btn-lg" href="https://apps.apple.com/us/app/id6805706417">Download GREEN18</a>
+          
+        </div>
+        <p class="cta-sub">Available for iPhone.</p>
+        </div>
+      </section>
+
+
+
+      <section class="related">
+        <div class="wrap">
+          <h2>Keep reading</h2>
+          <ul class="mt-md">
+            <li><a href="/fantasy-football-draft-assistant">Fantasy Football Draft Assistant</a></li>
+            <li><a href="/draft-science">draft-science</a></li>
+            <li><a href="/scenarios">scenarios</a></li>
+            <li><a href="/glossary">glossary</a></li>
+          </ul>
+        </div>
+      </section>
+
+
+
+
   </main>
+
+  <footer class="site">
+    <div class="wrap">
+      <div class="foot-top">
+        <div class="foot-brand">
+          <a class="wordmark" href="/">GREEN<b>18</b></a>
+          <p>Live fantasy football draft intelligence for iPhone.</p>
+        </div>
+        <div class="foot-cols">
+            <div>
+              <h2>Product</h2>
+              <ul><li><a href="/fantasy-football-draft-assistant">How GREEN18 Works</a></li><li><a href="/live-fantasy-football-draft-assistant">Live Draft Assistant</a></li><li><a href="/dynamic-fantasy-football-adp">Dynamic ADP</a></li><li><a href="/fantasy-football-cheat-sheet-app">Fantasy Cheat Sheet</a></li><li><a href="/personalized-fantasy-football-rankings">Personalized Rankings</a></li><li><a href="/fantasy-football-positional-scarcity">Positional Scarcity</a></li><li><a href="/fantasy-football-draft-strategy-app">Draft Strategy</a></li></ul>
+            </div>
+            <div>
+              <h2>Draft Formats</h2>
+              <ul><li><a href="/superflex-draft-assistant">Superflex</a></li><li><a href="/ppr-draft-assistant">PPR</a></li></ul>
+            </div>
+            <div>
+              <h2>Draft Help</h2>
+              <ul><li><a href="/fantasy-football-for-beginners">Beginners</a></li><li><a href="/competitive-fantasy-football-draft">Competitive Players</a></li><li><a href="/office-fantasy-football-draft">Office Leagues</a></li><li><a href="/home-league-draft-assistant">Home Leagues</a></li><li><a href="/last-minute-fantasy-football-draft">Last-Minute Drafts</a></li><li><a href="/fantasy-football-without-research">Without the Research</a></li></ul>
+            </div>
+            <div>
+              <h2>The Model</h2>
+              <ul><li><a href="/ai-fantasy-football-draft-assistant">AI Draft Assistant</a></li><li><a href="/fantasy-football-draft-algorithm">How It Decides</a></li><li><a href="/chatgpt-fantasy-football-draft">ChatGPT vs GREEN18</a></li><li><a href="/automated-fantasy-football-draft-tool">Automated Draft Tool</a></li></ul>
+            </div>
+            <div>
+              <h2>Platforms</h2>
+              <ul><li><a href="/espn-fantasy-football-draft-helper">ESPN Draft Helper</a></li><li><a href="/yahoo-fantasy-football-draft-helper">Yahoo Draft Helper</a></li><li><a href="/sleeper-fantasy-football-draft-helper">Sleeper Draft Helper</a></li></ul>
+            </div>
+            <div>
+              <h2>Draft Science</h2>
+              <ul><li><a href="/draft-science/">All draft science</a></li><li><a href="/draft-science/draft-state-valuation">Draft-State Valuation</a></li><li><a href="/draft-science/positional-scarcity">Positional Scarcity</a></li><li><a href="/draft-science/replacement-value">Replacement Value</a></li><li><a href="/draft-science/opportunity-cost">Opportunity Cost</a></li><li><a href="/draft-science/pick-horizon">Pick Horizon</a></li><li><a href="/draft-science/player-tier-collapse">Tier Collapse</a></li><li><a href="/draft-science/roster-construction">Roster Construction</a></li><li><a href="/draft-science/superflex-quarterback-value">Superflex QB Value</a></li></ul>
+            </div>
+            <div>
+              <h2>Tools</h2>
+              <ul><li><a href="/tools/">All calculators</a></li><li><a href="/tools/scarcity-calculator">Scarcity Calculator</a></li><li><a href="/tools/pick-horizon-calculator">Pick Horizon Calculator</a></li><li><a href="/tools/league-value-calculator">Replacement Level</a></li><li><a href="/tools/superflex-qb-demand-calculator">Superflex QB Demand</a></li><li><a href="/tools/ppr-value-adjustment-calculator">PPR Value Adjustment</a></li></ul>
+            </div>
+            <div>
+              <h2>Reference</h2>
+              <ul><li><a href="/scenarios/">Draft Scenarios</a></li><li><a href="/how-green18-ranks-fantasy-players">How GREEN18 Ranks Players</a></li><li><a href="/why-fantasy-rankings-change-during-a-draft">Why Rankings Change</a></li><li><a href="/glossary">Glossary</a></li><li><a href="/methodology">Methodology</a></li><li><a href="/about">About</a></li></ul>
+            </div>
+            <div>
+              <h2>Legal</h2>
+              <ul><li><a href="/privacy">Privacy</a></li><li><a href="/support">Support</a></li><li><a href="/contact">Contact</a></li></ul>
+            </div>
+        </div>
+      </div>
+      <div class="foot-legal">
+        <p>GREEN18 is an independent fantasy football application. References to third-party fantasy platforms, leagues, teams, players, or trademarks are descriptive only and do not imply affiliation, sponsorship, or endorsement.</p>
+        <p>&copy; 2026 Interplore. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="sticky-cta" id="stickyCta" aria-hidden="true">
+    <span class="lbl">Get GREEN18<small>Open in App Store</small></span>
+    <a class="btn" href="https://apps.apple.com/us/app/id6805706417" tabindex="-1">Get GREEN18</a>
+  </div>
+
+  <script src="/assets/site.js" defer></script>
+
 </body>
 </html>

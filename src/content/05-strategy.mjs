@@ -31,14 +31,15 @@ export default {
     { type: 'prose', h2: 'Make Decisions, Not Predictions.', body: [
       'You don’t need to predict every pick before the draft starts.',
       'You need to recognize the best decision when your turn arrives.',
-      'GREEN18 keeps the remaining player pool organized around the draft that’s actually happening.',
+      'Every pick spends two things: the slot and the players you will no longer be able to take with it. That second cost is [opportunity cost](/draft-science/opportunity-cost), and it is decided by how far away your next pick is.',
+      'GREEN18 keeps the remaining player pool organized around the draft that’s actually happening, and it is **deterministic** — the same board always produces the same answer.',
       'Which is why [ADP is the starting line, not the answer](/dynamic-fantasy-football-adp).',
     ]},
 
     { type: 'cards', h2: 'What Your Strategy Runs On.', cards: [
       { h3: 'League Settings', body: 'Scoring and roster structure define what a good pick even means.' },
-      { h3: 'Remaining Pool', body: 'The players still on the board are the only ones you can draft.' },
-      { h3: 'Your Roster', body: 'Every pick you make changes the value of the next one.' },
+      { h3: 'Remaining Pool', body: 'The players still on the board are the only ones you can draft — and what each is worth depends on how fast his tier is emptying versus everyone else’s.' },
+      { h3: 'Your Roster', body: 'Every pick you make changes the value of the next one, which is why [best player available and roster need](/scenarios/best-player-available-vs-roster-need) stop being opposites once you measure the margin each adds.' },
     ]},
 
     { type: 'steps', h2: 'How GREEN18 Works', steps: [
@@ -58,5 +59,6 @@ export default {
     'live-fantasy-football-draft-assistant',
     'dynamic-fantasy-football-adp',
     'fantasy-football-cheat-sheet-app',
+    'draft-science/opportunity-cost',
   ],
 };

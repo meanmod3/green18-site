@@ -28,13 +28,13 @@ export default {
       'who remains',
       'who fits your roster',
       'what your league rewards',
-      'where positions are becoming scarce',
-      'what may still be available later',
+      'where [positional scarcity](/draft-science/positional-scarcity) is building',
+      'what may still be available at your next pick',
     ], after: ['That turns hundreds of names into a much smaller decision.'] },
 
     { type: 'prose', h2: 'Expertise Is Mostly Recognizing Context.', body: [
       'Fantasy football knowledge usually comes from accumulating hundreds of small observations over a summer.',
-      'Which positions dry up quickly. Which stay deep. When a run matters and when it’s noise. When your roster can afford to wait, and when scarcity says it can’t.',
+      'Which positions dry up quickly. Which stay deep. When a run matters and when it’s noise. When your roster can afford to wait, and when a [tier collapse](/draft-science/player-tier-collapse) says it can’t.',
       'Experienced managers make those calls almost automatically. They aren’t reciting statistics — they’re recognizing relationships.',
       '**GREEN18 makes those relationships visible on the board.**',
       'You get the result of applying the expertise without first having to accumulate it.',
@@ -44,13 +44,13 @@ export default {
       { h3: '1. Set the League.', body: ['Enter how your league scores and how many of each position you start. That is most of the setup.'] },
       { h3: '2. Say What Matters.', body: ['Add any players you want to target or avoid. If you have no opinions yet, skip it — the board works fine without them.'] },
       { h3: '3. Follow the Draft.', body: ['Record each player as they come off the board. GREEN18 recalculates what’s left after every pick.'] },
-      { h3: '4. Make the Pick.', body: ['When your turn arrives, look at the top of the board. You don’t need to know every player — you need to know which of the available ones makes sense right now.'] },
+      { h3: '4. Make the Pick.', body: ['When your turn arrives, look at the top of the board. It is ordered by margin over replacement for your roster, so you don’t need to know every player — you need to know which of the available ones makes sense right now.'] },
     ]},
 
     { type: 'cards', h2: 'Look Prepared, Without Pretending You Were.', sub: 'Your friends can debate preseason depth charts. You can look at the live board.',
       cards: [
         { h3: 'No Summer Required', body: 'Setup takes minutes. The reasoning that usually takes months of listening is already built into the board.' },
-        { h3: 'No Memorization', body: 'The board shows the players still available, ordered for your roster and your league. Reading it is the whole skill.' },
+        { h3: 'No Memorization', body: 'The board shows the players still available, ordered for your roster and your league. The calculation is deterministic, so the order never wobbles between glances. Reading it is the whole skill.' },
         { h3: 'No Nonsense', body: 'GREEN18 makes no season forecasts, predicts no injuries, and promises no outcome. It organizes the decision in front of you.' },
       ]},
 
@@ -58,7 +58,7 @@ export default {
       'Sometimes you don’t want fantasy football to become a second job.',
       'You just want to join your friends, draft a competent team, understand what you’re doing, and avoid the pick everyone talks about for the next three years.',
       'That’s a completely reasonable goal, and GREEN18 is built for that person too.',
-      'If it’s your first season, [start here](/fantasy-football-for-beginners). If the draft is in a few hours, [start here instead](/last-minute-fantasy-football-draft).',
+      'If it’s your first season, [start here](/fantasy-football-for-beginners). If the draft is in a few hours, [start here instead](/last-minute-fantasy-football-draft). If it’s a friends-and-family league, [here](/home-league-draft-assistant) — and if it’s the [office league](/office-fantasy-football-draft), the stakes are social and the board still does the work.',
     ]},
 
     { type: 'prose', h2: 'And If You Do Get Into It.', body: [
@@ -84,7 +84,7 @@ export default {
     'fantasy-football-draft-assistant',
     'fantasy-football-for-beginners',
     'last-minute-fantasy-football-draft',
-    'fantasy-football-cheat-sheet-app',
+    'draft-science/positional-scarcity',
     'personalized-fantasy-football-rankings',
   ],
 };

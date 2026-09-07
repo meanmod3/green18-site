@@ -4,7 +4,7 @@
 export default {
   slug: 'formats/ppr',
   pageType: 'science',
-  title: 'PPR Scoring Explained: How Receptions Reprice a Draft | GREEN18',
+  title: 'PPR Scoring: How Receptions Reprice a Draft | GREEN18',
   description: 'What PPR scoring is, why a point per catch reorders players within positions rather than lifting everyone, and how it moves replacement level for skill players.',
   breadcrumb: 'PPR',
   dateModified: '2026-09-07',
