@@ -145,7 +145,7 @@
           "name": "How does GREEN18 control where its data comes from?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Every top-level field of every shipped data bundle is registered against the licence it came from, and a byte-level scan checks the shipped data for markers of datasets that are not approved. The check is fail-closed: an unapproved source fails the build rather than shipping quietly."
+            "text": "Every data field the app ships is tied to an approved source and the licence it came from, and the shipped data is checked for datasets that are not approved for use. The check is fail-closed: an unapproved source stops the release rather than shipping quietly."
           }
         },
         {
@@ -153,7 +153,7 @@
           "name": "What is inside a GREEN18 player score?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Named components. Every contribution to a score has an identified owner, a correlation group so that components measuring the same effect cannot stack silently, and its own explicit bound on how far it may move the score. No part of a score is a free-floating weight."
+            "text": "Named components, each one bounded. Every contribution to a score is limited in how far it may move that score, and two inputs measuring the same underlying effect are not permitted to stack, so no single input can quietly dominate a player’s value and no effect is paid for twice."
           }
         },
         {
@@ -200,7 +200,7 @@
 
   <header class="site">
     <div class="wrap">
-      <a class="wordmark" href="/" aria-label="GREEN18 — home"><img src="/assets/icon.png" alt="" width="30" height="30" decoding="async"></a>
+      <a class="wordmark" href="/" aria-label="GREEN18 — home"><img src="/assets/mark.png" alt="" width="40" height="40" decoding="async"></a>
       <nav aria-label="Primary">
         <a href="/how-green18-ranks-fantasy-players">How It Works</a>
           <a href="/draft-science/">Draft Science</a>
@@ -256,11 +256,11 @@
             <li>Draft picks are recorded by the user rather than imported, because GREEN18 has no connection to any fantasy platform and cannot read a draft in progress from an external service.</li>
             <li>GREEN18 contains no machine-learning model, no language model and no chat interface, so every displayed value is a named computed component rather than generated prose.</li>
             <li>Predicting injuries and forecasting full-season outcomes are outside what GREEN18 attempts, and no result the model produces is a guarantee of fantasy performance.</li>
-            <li>Every contribution to a GREEN18 player score is a named component with an identified owner, a correlation group and its own explicit bound, so no part of a score is a free-floating weight.</li>
-            <li>GREEN18 registers every top-level field of every shipped data bundle against the licence it came from, and an unapproved source fails the build rather than shipping quietly.</li>
+            <li>Every contribution to a GREEN18 player score is bounded in how far it can move that score, and inputs that measure the same underlying effect are not permitted to stack on top of each other.</li>
+            <li>Every data field GREEN18 ships is tied to an approved source, and data from an unapproved source cannot be released: the check is fail-closed rather than advisory.</li>
             <li>The baseline value signal in GREEN18 is derived from realized regular-season fantasy production rather than from a forecast of future production.</li>
             <li>Season-varying player facts such as team, roster status, retirement and bye week are overlaid onto the realized production record without altering that record.</li>
-            <li>Determinism in GREEN18 is a repaired property rather than an aspiration: a real ordering defect was found, fixed by pinning an explicit sort order, and held in place by a regression test.</li>
+            <li>Determinism in GREEN18 is a tested property rather than an aspiration: it was found to be broken during development, repaired, and is now held in place by an automated test that fails if it is ever lost again.</li>
             <li>A league-format effect is reported as moving the draft board only when the measured median displacement across the player population exceeds one full draft slot.</li>
           </ul>
         </div>
@@ -285,8 +285,8 @@
           <h2>What Is a Score Actually Made Of?</h2>
           
           <p class="beat">Named parts, each one bounded.</p>
-        <p class="beat">A GREEN18 player score is not a single opaque number arrived at by mixing weights. Every contribution to it is a discrete component that carries three things: an owner — the part of the model entitled to produce it — a correlation group, so that components measuring the same underlying effect cannot silently stack, and its own explicit bound on how far it is allowed to move the score.</p>
-        <p class="beat">Nothing in the score is a free-floating weight, and nothing can quietly dominate it. The components themselves are listed on <a href="/how-green18-ranks-fantasy-players">how GREEN18 values a player</a>; the specific weighting of them stays proprietary.</p>
+        <p class="beat">A GREEN18 player score is not a single opaque number arrived at by mixing weights. Every contribution to it is a discrete, named component with a limit on how far it is allowed to move the score, and two inputs that measure the same underlying effect are not permitted to stack on top of each other.</p>
+        <p class="beat">The practical consequence is that no single input can quietly dominate a score, and an effect counted twice cannot be paid for twice. The components themselves are listed on <a href="/how-green18-ranks-fantasy-players">how GREEN18 values a player</a>; the specific weighting of them stays proprietary.</p>
           
           
           
@@ -298,8 +298,8 @@
           <h2>Is Determinism Real, or Just Claimed?</h2>
           
           <p class="beat">It is real because it was broken once and then repaired.</p>
-        <p class="beat">During development the draft store was found to produce a result that depended on the iteration order of an internal dictionary — the kind of defect that shows up as a board that is subtly different on a replay and identical almost every other time.</p>
-        <p class="beat">The fix was not a note in a document. The ordering was pinned explicitly — ascending live draft position, with the player identifier breaking ties — and a regression test now fails if that ordering is ever removed.</p>
+        <p class="beat">During development the model was found to produce a board that could differ subtly on a replay — identical almost every other time, which is the hardest version of the defect to notice.</p>
+        <p class="beat">The fix was not a note in a document. An automated test now replays a board and fails if identical inputs ever stop producing an identical result.</p>
         <p class="beat">That is the honest version of the claim: determinism here is a property that was tested for, found missing, restored, and is now held in place mechanically.</p>
           <blockquote class="pull"><p>A property nothing tests for is a property you do not have.</p></blockquote>
           
@@ -338,8 +338,8 @@
           <h2>How Is the Data Provenance Enforced?</h2>
           
           <p class="beat">Field by field, and the build fails rather than the app shipping.</p>
-        <p class="beat">Every top-level field of every data bundle shipped inside GREEN18 is registered against the licence it came from. It is not a bundle-level assertion that a file is fine; it is a per-field record of where that field is entitled to come from.</p>
-        <p class="beat">Alongside it, a byte-level scan runs over the shipped data looking for markers of datasets that are not approved for use. If an unapproved source ever reaches the bundle, the build fails.</p>
+        <p class="beat">Every data field GREEN18 ships is tied to an approved source and the licence it came from. It is not a blanket assertion that a file is fine; each field has to be individually accounted for.</p>
+        <p class="beat">The shipped data is also checked for the presence of datasets that are not approved for use. If one ever reaches the app, the release fails.</p>
         <p class="beat">The failure mode matters more than the mechanism. A provenance check that merely warns lets an unlicensed field ship on a busy day. This one is fail-closed: the release does not happen.</p>
           
           
@@ -459,8 +459,8 @@
             <details><summary>Can GREEN18 predict injuries or forecast the season?</summary><div><p>No. GREEN18 does not predict injuries and does not forecast season outcomes. Its scope is the value of the players still available in the draft in front of the user, and it guarantees no result.</p></div></details>
             <details><summary>Do a user’s preferences affect other users or the objective values?</summary><div><p>No. Preferences affect only that user’s own personal ranking. The objective values the model computes for the market are not moved by any user’s preferences, and the two are shown side by side rather than merged.</p></div></details>
             <details><summary>Is the baseline player value in GREEN18 a projection?</summary><div><p>No. The baseline value signal is derived from realized regular-season fantasy production rather than from a forecast. Season-varying facts such as team, roster status, retirement, rookie status and bye week are overlaid from current roster data without altering the underlying production record.</p></div></details>
-            <details><summary>How does GREEN18 control where its data comes from?</summary><div><p>Every top-level field of every shipped data bundle is registered against the licence it came from, and a byte-level scan checks the shipped data for markers of datasets that are not approved. The check is fail-closed: an unapproved source fails the build rather than shipping quietly.</p></div></details>
-            <details><summary>What is inside a GREEN18 player score?</summary><div><p>Named components. Every contribution to a score has an identified owner, a correlation group so that components measuring the same effect cannot stack silently, and its own explicit bound on how far it may move the score. No part of a score is a free-floating weight.</p></div></details>
+            <details><summary>How does GREEN18 control where its data comes from?</summary><div><p>Every data field the app ships is tied to an approved source and the licence it came from, and the shipped data is checked for datasets that are not approved for use. The check is fail-closed: an unapproved source stops the release rather than shipping quietly.</p></div></details>
+            <details><summary>What is inside a GREEN18 player score?</summary><div><p>Named components, each one bounded. Every contribution to a score is limited in how far it may move that score, and two inputs measuring the same underlying effect are not permitted to stack, so no single input can quietly dominate a player’s value and no effect is paid for twice.</p></div></details>
             <details><summary>When does GREEN18 treat a league setting as actually changing the board?</summary><div><p>Only when the effect is measured, position by position, across the real player population and the median player is displaced by more than one full draft slot. A median displacement below one slot is reported as not moving the board, however elegant the underlying mathematics.</p></div></details>
             <details><summary>Why does GREEN18 require picks to be entered manually?</summary><div><p>GREEN18 has no connection to any fantasy platform, so it cannot import or sync a draft in progress. Picks are recorded by the user, which is also why the app works in a draft that has no online platform behind it at all.</p></div></details>
           </div>
@@ -496,7 +496,7 @@
     <div class="wrap">
       <div class="foot-top">
         <div class="foot-brand">
-          <a class="wordmark" href="/" aria-label="GREEN18 — home"><img src="/assets/icon.png" alt="" width="28" height="28" decoding="async"></a>
+          <a class="wordmark" href="/" aria-label="GREEN18 — home"><img src="/assets/mark.png" alt="" width="36" height="36" decoding="async"></a>
           <p>Live fantasy football draft intelligence for iPhone.</p>
         </div>
         <div class="foot-cols">

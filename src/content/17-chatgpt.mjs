@@ -23,7 +23,7 @@ export default {
   claims: [
     'A general chatbot is genuinely good at explaining fantasy football concepts, formats and terminology, and has no view of the live draft board unless the manager types every pick in on the clock.',
     'GREEN18 does not write the reason shown beside a recommendation. That text is extracted from the components of the calculation that actually moved, so no sentence is generated and no template is filled.',
-    'GREEN18 cannot show a contradictory card: a player very likely to still be available cannot read as an urgent take on board movement alone, because availability is resolved on its own thresholds before movement is allowed to break a tie.',
+    'GREEN18 cannot show a contradictory card: a player it reports as very likely to still be available is not simultaneously presented as an urgent take.',
     'Where the evidence is genuinely middling, GREEN18 reports neutral for a non-elite player instead of producing a confident-sounding call.',
   ],
 
@@ -66,7 +66,7 @@ export default {
 
     { type: 'prose', h2: 'A Model Can Be Forbidden to Contradict Itself.', body: [
       'GREEN18 carries an explicit rule against a specific failure: a card must never urge you to take a player now while also reporting that he is very likely to last until your next turn.',
-      'Survival to your pick is settled on its own thresholds first; board movement and model rank only break a genuinely middling tie. And where it stays middling for a non-elite player, the answer is neutral rather than a confident call invented to fill the space.',
+      'Those two signals cannot appear together, whatever the board is doing. And where the evidence stays genuinely middling for a player who is not elite, the answer is neutral rather than a confident call invented to fill the space.',
       'Nothing about a text generator can offer that guarantee — not because it is careless, but because it is not comparing the sentence to anything.',
     ]},
 

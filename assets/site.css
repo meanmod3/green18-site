@@ -514,6 +514,19 @@ ul.keypoints li::before {
 /* ------------------------------------------- demo video pause control -- */
 /* WCAG 2.2.2. Deliberately quiet — it must be reachable and obvious once
    found, without competing with the CTA beside it. */
+/* Hidden until wanted. WCAG 2.2.2 requires a 30-second autoplaying loop to be
+   stoppable, so the control cannot simply be deleted — but it does not need to
+   sit there permanently either. On pointer devices it fades in on hover or
+   keyboard focus; on touch, where hover does not exist, it stays visible. */
+@media (hover: hover) and (pointer: fine) {
+  .vid-toggle { opacity: 0; transition: opacity .18s ease; }
+  .phone-wrap:hover .vid-toggle,
+  .vid-toggle:focus-visible { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vid-toggle { transition: none; }
+}
+
 .vid-toggle {
   display: inline-flex; align-items: center; gap: .4rem;
   background: transparent; border: 1px solid var(--border-2);
@@ -552,7 +565,9 @@ ul.keypoints li::before {
    image itself is decorative (alt="") and must not be announced twice. */
 .wordmark { display: inline-flex; align-items: center; line-height: 0; }
 .wordmark img {
-  display: block; width: 30px; height: 30px;
-  border-radius: 7px; /* matches the mark's own corner */
+  display: block; width: 40px; height: 40px;
+  /* The mark is pre-trimmed with transparent corners (assets/mark.png), so it
+     needs no radius of its own — the tile's own rounding is in the artwork. */
 }
-footer.site .wordmark img { width: 28px; height: 28px; }
+footer.site .wordmark img { width: 36px; height: 36px; }
+@media (max-width: 520px) { .wordmark img { width: 34px; height: 34px; } }

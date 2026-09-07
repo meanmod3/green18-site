@@ -121,7 +121,7 @@
           "name": "Can GREEN18 show an urgent recommendation next to a high availability figure?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. Availability is decided first on its own thresholds, and market movement and model rank only break a middling tie, so a player very likely to still be there at your next pick is never presented as an urgent take on movement alone. In an ambiguous case for a non-elite player the model returns neutral rather than a confident call it cannot support."
+            "text": "No. The model is built so those two signals cannot contradict each other on the same card, so a player it reports as very likely to still be there at your next pick is never presented as an urgent take. In an ambiguous case for a non-elite player the model returns neutral rather than a confident call it cannot support."
           }
         },
         {
@@ -168,7 +168,7 @@
 
   <header class="site">
     <div class="wrap">
-      <a class="wordmark" href="/" aria-label="GREEN18 — home"><img src="/assets/icon.png" alt="" width="30" height="30" decoding="async"></a>
+      <a class="wordmark" href="/" aria-label="GREEN18 — home"><img src="/assets/mark.png" alt="" width="40" height="40" decoding="async"></a>
       <nav aria-label="Primary">
         <a href="/how-green18-ranks-fantasy-players">How It Works</a>
           <a href="/draft-science/">Draft Science</a>
@@ -225,8 +225,8 @@
             <li>A deterministic valuation model produces the same board from the same league settings and the same sequence of recorded picks, which makes each recommendation reproducible and auditable.</li>
             <li>The reason GREEN18 shows for a recommendation is extracted from the model components that actually moved the value, so the explanation is a readout of the computation rather than prose written about it.</li>
             <li>GREEN18 uses no prose template and no generated text to explain a recommendation, because the explanation is composed from the named terms that produced the number.</li>
-            <li>A player who is very likely to still be available at the manager’s next pick is never shown as an urgent take on live draft-position movement alone, because that would place an urgent call beside a high availability figure and contradict itself on the same card.</li>
-            <li>Availability is decided first on its own thresholds, and market movement and model rank only break a middling tie, which prevents a confident recommendation from being manufactured out of an ambiguous case.</li>
+            <li>A player who is very likely to still be available at the manager’s next pick is never shown as an urgent take, because that would place an urgent call beside a high availability figure and contradict itself on the same card.</li>
+            <li>An ambiguous case does not produce a confident recommendation in GREEN18; the model reports that it is unsure rather than manufacturing certainty it cannot support.</li>
             <li>A non-elite player in an ambiguous case is reported as neutral rather than being given a confident call the model cannot support.</li>
           </ul>
         </div>
@@ -337,8 +337,8 @@
           <h2>Can the Board Contradict Itself?</h2>
           
           <p class="beat">It is explicitly prevented from doing so.</p>
-        <p class="beat">Consider a player the model believes is very likely to still be there at your next pick. If a burst of draft-position movement were allowed to trigger an urgent take on its own, the card would show an urgent call sitting directly beside a high availability figure — a recommendation arguing with itself in the same glance.</p>
-        <p class="beat">So the order of decision is fixed. Availability is settled first, on its own thresholds. Only once a case is genuinely middling do market movement and model rank get to break the tie.</p>
+        <p class="beat">Consider a player the model believes is very likely to still be there at your next pick. If a burst of board movement could trigger an urgent take on its own, the card would show an urgent call sitting directly beside a high availability figure — a recommendation arguing with itself in the same glance.</p>
+        <p class="beat">GREEN18 is built so that card cannot reach the screen. The two signals it shows you are made to agree with each other before either is displayed.</p>
         <p class="beat">And when a case stays ambiguous for a player who is not elite, the model returns neutral. It does not manufacture a confident call it cannot support, because a tool that always sounds sure is a tool whose certainty carries no information.</p>
           <blockquote class="pull"><p>A recommendation that contradicts the number beside it is worse than no recommendation.</p></blockquote>
           
@@ -405,7 +405,7 @@
             <details><summary>What is Draft-State Valuation?</summary><div><p>Draft-State Valuation is a method of valuing a fantasy football player according to the current state of a specific draft, rather than treating preseason rank or ADP as a fixed measure of player value. It recomputes each available player's worth after every selection, because each selection changes the alternatives that remain.</p></div></details>
             <details><summary>Why does GREEN18 disagree with a published ranking?</summary><div><p>A published ranking is computed once, before any pick exists, and is identical for every manager in every league. A situational draft value is computed for one league's scoring, one manager's roster, and one specific position in the draft order, so the two answer different questions and will frequently differ.</p></div></details>
             <details><summary>Where does the reason shown with a recommendation come from?</summary><div><p>It is extracted from the model components that actually moved the player’s value at that pick. There is no prose template and no generated text: the explanation is assembled from the named terms that produced the number, so it cannot drift away from the value it explains.</p></div></details>
-            <details><summary>Can GREEN18 show an urgent recommendation next to a high availability figure?</summary><div><p>No. Availability is decided first on its own thresholds, and market movement and model rank only break a middling tie, so a player very likely to still be there at your next pick is never presented as an urgent take on movement alone. In an ambiguous case for a non-elite player the model returns neutral rather than a confident call it cannot support.</p></div></details>
+            <details><summary>Can GREEN18 show an urgent recommendation next to a high availability figure?</summary><div><p>No. The model is built so those two signals cannot contradict each other on the same card, so a player it reports as very likely to still be there at your next pick is never presented as an urgent take. In an ambiguous case for a non-elite player the model returns neutral rather than a confident call it cannot support.</p></div></details>
             <details><summary>Does GREEN18 publish the weights in its model?</summary><div><p>No. The structure of the model is public — baseline value, league scoring adjustment, positional scarcity, availability pressure, roster fit, pick-horizon risk, market movement, and user preference — but the specific weighting of those components is proprietary.</p></div></details>
             <details><summary>Can a player become more valuable without his projection changing?</summary><div><p>Yes. When comparable players at his position are drafted, the quality of the best available substitute falls, which raises the cost of passing on him. His projected production is unchanged; the value of having him rather than the alternative has increased.</p></div></details>
           </div>
@@ -439,7 +439,7 @@
     <div class="wrap">
       <div class="foot-top">
         <div class="foot-brand">
-          <a class="wordmark" href="/" aria-label="GREEN18 — home"><img src="/assets/icon.png" alt="" width="28" height="28" decoding="async"></a>
+          <a class="wordmark" href="/" aria-label="GREEN18 — home"><img src="/assets/mark.png" alt="" width="36" height="36" decoding="async"></a>
           <p>Live fantasy football draft intelligence for iPhone.</p>
         </div>
         <div class="foot-cols">

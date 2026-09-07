@@ -105,7 +105,7 @@
           "name": "Does GREEN18 adjust rankings for your league format?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No — it does not adjust a shared ranking at all. GREEN18 ships twenty-four separately compiled draft markets, covering every combination of two quarterback formats, four scoring rules and three league sizes, and selects the market matching your league. Choosing PPR over standard loads a different market rather than applying a correction to a common board."
+            "text": "No — it does not adjust a shared ranking at all. The board is built under your quarterback format, scoring rules and league size from the start, so choosing PPR over standard changes the ordering of the board itself rather than applying a correction to a common ranking."
           }
         },
         {
@@ -152,7 +152,7 @@
 
   <header class="site">
     <div class="wrap">
-      <a class="wordmark" href="/" aria-label="GREEN18 — home"><img src="/assets/icon.png" alt="" width="30" height="30" decoding="async"></a>
+      <a class="wordmark" href="/" aria-label="GREEN18 — home"><img src="/assets/mark.png" alt="" width="40" height="40" decoding="async"></a>
       <nav aria-label="Primary">
         <a href="/how-green18-ranks-fantasy-players">How It Works</a>
           <a href="/draft-science/">Draft Science</a>
@@ -202,8 +202,8 @@
             <li>Scoring rules reorder players within a position by rewarding a specific kind of production, rather than raising every player at that position equally.</li>
             <li>Roster requirements set the depth of the replacement baseline, so the same scoring rules produce different player values in leagues of different sizes or starting configurations.</li>
             <li>A format that changes only how many quarterbacks may be started can move quarterback value more than any scoring rule, because it changes demand rather than points.</li>
-            <li>GREEN18 ships twenty-four separately compiled draft markets — every combination of two quarterback formats, four scoring rules and three league sizes — and selects one rather than adjusting a shared board.</li>
-            <li>Selecting a scoring rule in GREEN18 loads a different precompiled market rather than applying a correction to a single underlying ranking.</li>
+            <li>The format a user configures in GREEN18 produces a board built for that format from the start, rather than a shared board with a format correction applied to it.</li>
+            <li>Changing a scoring rule in GREEN18 changes the ordering of the board itself, so no downstream step has to remember to correct for the format the user plays under.</li>
             <li>Between a single-quarterback league and a Superflex one, quarterbacks move a median of 19 draft slots while the next-largest position moves 6.</li>
             <li>GREEN18 measures how far each format axis moves the board across the real player population, and reports an axis whose median movement is under one full draft slot as not moving the board.</li>
           </ul>
@@ -237,11 +237,11 @@
 
       <section>
         <div class="wrap measure">
-          <h2>Twenty-four markets, not one board with settings</h2>
+          <h2>A board built for your format, not adjusted into it</h2>
           
-          <p class="beat"><strong>GREEN18 does not apply your format as an adjustment. It ships twenty-four separately compiled draft markets and selects the one your league plays under.</strong></p>
-        <p class="beat">The twenty-four are every combination of the three things that decide what a player is worth: two quarterback formats (single-quarterback and Superflex), four scoring rules (standard, half-PPR, full PPR and TE-premium), and three league sizes (ten, twelve and fourteen teams).</p>
-        <p class="beat">That is what &quot;format is an input&quot; means in practice. Choosing PPR over standard does not nudge a shared board — it loads a different market, compiled from the start under the rules you actually play. Nothing downstream has to remember to correct for your format, because nothing upstream ever assumed a different one.</p>
+          <p class="beat"><strong>GREEN18 does not apply your format as an adjustment. The board you draft from was built under your quarterback format, your scoring rules and your league size from the start.</strong></p>
+        <p class="beat">Those three things are what decide what a player is worth, and they are settled before any player is valued rather than corrected for afterwards.</p>
+        <p class="beat">That is what &quot;format is an input&quot; means in practice. Choosing PPR over standard does not nudge a shared board — it changes the order of the board itself. Nothing downstream has to remember to correct for your format, because nothing upstream ever assumed a different one.</p>
         <p class="beat">This is the same mechanism described in <a href="/draft-science/draft-state-valuation">draft-state valuation</a>, applied at the level of the board rather than the pick.</p>
           
           
@@ -253,7 +253,7 @@
         <div class="wrap measure">
           <h2>The bright line we hold ourselves to</h2>
           
-          <p class="beat">Compiling a separate market per format is only worth doing if format actually moves the board. So GREEN18 measures it.</p>
+          <p class="beat">Building a board per format is only worth doing if format actually moves the board. So GREEN18 measures it.</p>
         <p class="beat">Each format axis is tested across the real player population to see how far it displaces players, position by position. The threshold is fixed in advance and deliberately unforgiving: <strong>if the median displacement along an axis is less than one full draft slot, that axis is reported as not moving the board</strong> — however elegant the underlying math.</p>
         <p class="beat">A test that can only confirm what you hoped is not a test. This one can return a verdict we would not like, which is the point of stating it publicly.</p>
           <blockquote class="pull"><p>Under one draft slot of median movement is reported as no movement, however elegant the underlying math.</p></blockquote>
@@ -304,7 +304,7 @@
           <div class="faq mt-md">
             <details><summary>What is a fantasy football league format?</summary><div><p>A league format is the combination of scoring rules and roster requirements a league plays under. Scoring determines how on-field production converts into fantasy points; roster requirements determine how many players at each position each team must start. Together they decide what any given player is worth in that league.</p></div></details>
             <details><summary>Does league format change fantasy rankings?</summary><div><p>Yes. Scoring rules change which players clear the replacement baseline at their position, and roster requirements change how deep that baseline sits. Both effects reorder a board rather than scaling every value equally, so a ranking built for one format can be materially wrong in another.</p></div></details>
-            <details><summary>Does GREEN18 adjust rankings for your league format?</summary><div><p>No — it does not adjust a shared ranking at all. GREEN18 ships twenty-four separately compiled draft markets, covering every combination of two quarterback formats, four scoring rules and three league sizes, and selects the market matching your league. Choosing PPR over standard loads a different market rather than applying a correction to a common board.</p></div></details>
+            <details><summary>Does GREEN18 adjust rankings for your league format?</summary><div><p>No — it does not adjust a shared ranking at all. The board is built under your quarterback format, scoring rules and league size from the start, so choosing PPR over standard changes the ordering of the board itself rather than applying a correction to a common ranking.</p></div></details>
             <details><summary>How do you know league format actually moves a draft board?</summary><div><p>Each format axis is measured across the real player population to see how far it displaces players by position, against a threshold fixed in advance: if the median displacement along an axis is less than one full draft slot, that axis is reported as not moving the board, however elegant the underlying math. The test is able to return a negative result.</p></div></details>
             <details><summary>Which format setting changes player value the most?</summary><div><p>The quarterback configuration usually has the largest single effect. A Superflex or 2QB league changes how many quarterbacks must be started rather than how many points they score, and demand that exceeds the supply of clearly startable quarterbacks moves the position further than most scoring rules move any position.</p></div></details>
           </div>
@@ -338,7 +338,7 @@
     <div class="wrap">
       <div class="foot-top">
         <div class="foot-brand">
-          <a class="wordmark" href="/" aria-label="GREEN18 — home"><img src="/assets/icon.png" alt="" width="28" height="28" decoding="async"></a>
+          <a class="wordmark" href="/" aria-label="GREEN18 — home"><img src="/assets/mark.png" alt="" width="36" height="36" decoding="async"></a>
           <p>Live fantasy football draft intelligence for iPhone.</p>
         </div>
         <div class="foot-cols">

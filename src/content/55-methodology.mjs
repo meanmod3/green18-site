@@ -32,11 +32,11 @@ export default {
     'Draft picks are recorded by the user rather than imported, because GREEN18 has no connection to any fantasy platform and cannot read a draft in progress from an external service.',
     'GREEN18 contains no machine-learning model, no language model and no chat interface, so every displayed value is a named computed component rather than generated prose.',
     'Predicting injuries and forecasting full-season outcomes are outside what GREEN18 attempts, and no result the model produces is a guarantee of fantasy performance.',
-    'Every contribution to a GREEN18 player score is a named component with an identified owner, a correlation group and its own explicit bound, so no part of a score is a free-floating weight.',
-    'GREEN18 registers every top-level field of every shipped data bundle against the licence it came from, and an unapproved source fails the build rather than shipping quietly.',
+    'Every contribution to a GREEN18 player score is bounded in how far it can move that score, and inputs that measure the same underlying effect are not permitted to stack on top of each other.',
+    'Every data field GREEN18 ships is tied to an approved source, and data from an unapproved source cannot be released: the check is fail-closed rather than advisory.',
     'The baseline value signal in GREEN18 is derived from realized regular-season fantasy production rather than from a forecast of future production.',
     'Season-varying player facts such as team, roster status, retirement and bye week are overlaid onto the realized production record without altering that record.',
-    'Determinism in GREEN18 is a repaired property rather than an aspiration: a real ordering defect was found, fixed by pinning an explicit sort order, and held in place by a regression test.',
+    'Determinism in GREEN18 is a tested property rather than an aspiration: it was found to be broken during development, repaired, and is now held in place by an automated test that fails if it is ever lost again.',
     'A league-format effect is reported as moving the draft board only when the measured median displacement across the player population exceeds one full draft slot.',
   ],
 
@@ -50,14 +50,14 @@ export default {
 
     { type: 'prose', h2: 'What Is a Score Actually Made Of?', body: [
       'Named parts, each one bounded.',
-      'A GREEN18 player score is not a single opaque number arrived at by mixing weights. Every contribution to it is a discrete component that carries three things: an owner — the part of the model entitled to produce it — a correlation group, so that components measuring the same underlying effect cannot silently stack, and its own explicit bound on how far it is allowed to move the score.',
-      'Nothing in the score is a free-floating weight, and nothing can quietly dominate it. The components themselves are listed on [how GREEN18 values a player](/how-green18-ranks-fantasy-players); the specific weighting of them stays proprietary.',
+      'A GREEN18 player score is not a single opaque number arrived at by mixing weights. Every contribution to it is a discrete, named component with a limit on how far it is allowed to move the score, and two inputs that measure the same underlying effect are not permitted to stack on top of each other.',
+      'The practical consequence is that no single input can quietly dominate a score, and an effect counted twice cannot be paid for twice. The components themselves are listed on [how GREEN18 values a player](/how-green18-ranks-fantasy-players); the specific weighting of them stays proprietary.',
     ]},
 
     { type: 'prose', h2: 'Is Determinism Real, or Just Claimed?', body: [
       'It is real because it was broken once and then repaired.',
-      'During development the draft store was found to produce a result that depended on the iteration order of an internal dictionary — the kind of defect that shows up as a board that is subtly different on a replay and identical almost every other time.',
-      'The fix was not a note in a document. The ordering was pinned explicitly — ascending live draft position, with the player identifier breaking ties — and a regression test now fails if that ordering is ever removed.',
+      'During development the model was found to produce a board that could differ subtly on a replay — identical almost every other time, which is the hardest version of the defect to notice.',
+      'The fix was not a note in a document. An automated test now replays a board and fails if identical inputs ever stop producing an identical result.',
       'That is the honest version of the claim: determinism here is a property that was tested for, found missing, restored, and is now held in place mechanically.',
     ], quote: 'A property nothing tests for is a property you do not have.' },
 
@@ -84,8 +84,8 @@ export default {
 
     { type: 'prose', h2: 'How Is the Data Provenance Enforced?', body: [
       'Field by field, and the build fails rather than the app shipping.',
-      'Every top-level field of every data bundle shipped inside GREEN18 is registered against the licence it came from. It is not a bundle-level assertion that a file is fine; it is a per-field record of where that field is entitled to come from.',
-      'Alongside it, a byte-level scan runs over the shipped data looking for markers of datasets that are not approved for use. If an unapproved source ever reaches the bundle, the build fails.',
+      'Every data field GREEN18 ships is tied to an approved source and the licence it came from. It is not a blanket assertion that a file is fine; each field has to be individually accounted for.',
+      'The shipped data is also checked for the presence of datasets that are not approved for use. If one ever reaches the app, the release fails.',
       'The failure mode matters more than the mechanism. A provenance check that merely warns lets an unlicensed field ship on a busy day. This one is fail-closed: the release does not happen.',
     ]},
 
@@ -159,8 +159,8 @@ export default {
     { q: 'Can GREEN18 predict injuries or forecast the season?', a: 'No. GREEN18 does not predict injuries and does not forecast season outcomes. Its scope is the value of the players still available in the draft in front of the user, and it guarantees no result.' },
     { q: 'Do a user’s preferences affect other users or the objective values?', a: 'No. Preferences affect only that user’s own personal ranking. The objective values the model computes for the market are not moved by any user’s preferences, and the two are shown side by side rather than merged.' },
     { q: 'Is the baseline player value in GREEN18 a projection?', a: 'No. The baseline value signal is derived from realized regular-season fantasy production rather than from a forecast. Season-varying facts such as team, roster status, retirement, rookie status and bye week are overlaid from current roster data without altering the underlying production record.' },
-    { q: 'How does GREEN18 control where its data comes from?', a: 'Every top-level field of every shipped data bundle is registered against the licence it came from, and a byte-level scan checks the shipped data for markers of datasets that are not approved. The check is fail-closed: an unapproved source fails the build rather than shipping quietly.' },
-    { q: 'What is inside a GREEN18 player score?', a: 'Named components. Every contribution to a score has an identified owner, a correlation group so that components measuring the same effect cannot stack silently, and its own explicit bound on how far it may move the score. No part of a score is a free-floating weight.' },
+    { q: 'How does GREEN18 control where its data comes from?', a: 'Every data field the app ships is tied to an approved source and the licence it came from, and the shipped data is checked for datasets that are not approved for use. The check is fail-closed: an unapproved source stops the release rather than shipping quietly.' },
+    { q: 'What is inside a GREEN18 player score?', a: 'Named components, each one bounded. Every contribution to a score is limited in how far it may move that score, and two inputs measuring the same underlying effect are not permitted to stack, so no single input can quietly dominate a player’s value and no effect is paid for twice.' },
     { q: 'When does GREEN18 treat a league setting as actually changing the board?', a: 'Only when the effect is measured, position by position, across the real player population and the median player is displaced by more than one full draft slot. A median displacement below one slot is reported as not moving the board, however elegant the underlying mathematics.' },
     { q: 'Why does GREEN18 require picks to be entered manually?', a: 'GREEN18 has no connection to any fantasy platform, so it cannot import or sync a draft in progress. Picks are recorded by the user, which is also why the app works in a draft that has no online platform behind it at all.' },
   ],

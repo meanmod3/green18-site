@@ -21,9 +21,9 @@ export default {
 
   claims: [
     'GREEN18 does not write its explanations. The reason shown beside a recommendation is extracted from the components of the calculation that actually moved, so there is no prose template and no generated sentence anywhere in the path.',
-    'GREEN18 is built so it cannot contradict itself: a player who is very likely to still be available cannot be shown as an urgent take on board movement alone, because availability is decided on its own thresholds before movement is allowed to break a tie.',
+    'GREEN18 is built so it cannot show two signals that contradict each other on the same card: a player it reports as very likely to still be available is not simultaneously presented as an urgent take.',
     'When the evidence is genuinely middling, GREEN18 stays neutral for a non-elite player rather than manufacturing a confident call — a text generator has no equivalent way to decline.',
-    'Determinism in GREEN18 is an enforced property rather than an aspiration: a real source of run-to-run variation was found and removed, and the resulting ordering is pinned by an automated regression test so it cannot silently return.',
+    'Determinism in GREEN18 is an enforced property rather than an aspiration: it was found to be broken during development, repaired, and is now held in place by an automated test that fails if run-to-run variation ever returns.',
   ],
 
   blocks: [
@@ -57,15 +57,15 @@ export default {
 
     { type: 'prose', h2: 'It Is Built So It Cannot Contradict Itself.', body: [
       'Consider the failure a draft tool must never ship: a card that shouts **take him now** while, an inch below, reporting that he is very likely to still be there at your next turn.',
-      'GREEN18 forbids that case explicitly. How likely a player is to survive to your pick is decided on its own thresholds **first**. Only when that answer is genuinely middling are board movement and model rank allowed to break the tie — and never to overturn it.',
-      'And when the case stays middling for a non-elite player, the board says neutral rather than fabricating a confident call.',
+      'GREEN18 is built so that case cannot reach the screen. A player it reports as very likely to survive to your next turn will not also be presented as an urgent take, whatever the board is doing.',
+      'And when the evidence is genuinely middling for a player who is not elite, the board says neutral rather than fabricating a confident call.',
       'A model can be built with a rule like that. A sentence-writer cannot promise one, because nothing in it is checking the sentence against anything else.',
     ]},
 
     { type: 'prose', h2: 'Determinism Was Repaired, Then Pinned.', body: [
       'Determinism is easy to claim and easy to lose. GREEN18 lost it once.',
-      'A real source of run-to-run variation was found in how one internal collection was walked, fixed, and the resulting order specified exactly — ascending live draft position, with a stable tie-break so equal players never swap.',
-      'That order is now held by an automated regression test, so the defect cannot return quietly. **Same board in, same answer out** is a property the build checks, not a promise the copy makes.',
+      'A real source of run-to-run variation was found during development and removed. It was not a note in a document: an automated test now replays a board and fails if the same inputs ever stop producing the same output.',
+      'So the defect cannot return quietly. **Same board in, same answer out** is a property the build checks, not a promise the copy makes.',
     ]},
 
     { type: 'steps', h2: 'How GREEN18 Works', steps: [
@@ -101,7 +101,7 @@ export default {
     { q: 'What does deterministic mean for a fantasy draft assistant?', a: 'Deterministic means identical inputs always produce identical results. In GREEN18, if you replay the same league settings and the same sequence of recorded picks, you get exactly the same recommendation every time. A text-generating assistant can return a different answer to the same question on different attempts.' },
     { q: 'Why does repeatability matter during a live draft?', a: 'Because a recommendation you cannot reproduce is a recommendation you cannot check. With a deterministic model, the reason a player moved up or down is traceable to a change in the board or in your league settings, rather than to variation in how an answer happened to be written that time.' },
     { q: 'Where does the reason beside a recommendation come from?', a: 'It is extracted from the calculation itself — the specific components that moved. GREEN18 does not fill a phrase template and does not generate text at any point in that path, so the explanation cannot drift away from the numbers it is reporting.' },
-    { q: 'Can GREEN18 tell you to take a player it also says is likely to be available?', a: 'No. That case is forbidden explicitly. How likely a player is to survive to your next pick is resolved on its own thresholds first, and board movement is only allowed to break a genuinely middling tie. Where the case stays middling for a non-elite player, GREEN18 reports neutral rather than producing a confident call.' },
+    { q: 'Can GREEN18 tell you to take a player it also says is likely to be available?', a: 'No. The model is built so those two signals cannot appear together on the same card. Where the evidence is genuinely middling for a player who is not elite, GREEN18 reports neutral rather than producing a confident call it cannot support.' },
     { q: 'Can GREEN18 answer questions in a chat window?', a: 'No. GREEN18 has no chat interface and does not converse. It presents a live player board that reorganizes as you record the picks in your draft, and shows the components behind each player’s current value.' },
     { q: 'Does GREEN18 predict what will happen in the NFL season?', a: 'No. GREEN18 makes no forecast about the season, and makes no injury predictions. It values the players still available to you right now, based on your league’s settings and the picks that have already happened in your draft.' },
   ],
