@@ -73,6 +73,7 @@ export default {
 
   faq: [
     { q: 'Who makes GREEN18?', a: 'GREEN18 is published by Interplore, which holds the copyright in the app and the green18.app website. Interplore is independent and is not affiliated with, endorsed by or sponsored by the NFL, the NFL Players Association, any NFL club, or any fantasy platform.' },
+    { q: 'How much does GREEN18 cost?', a: 'GREEN18 is a paid app. It is a one-time purchase of US$9.99 on the App Store. There is no subscription, no free tier, no trial and no in-app purchases: the single purchase covers the whole app, and the price shown in other countries is the local App Store equivalent.' },
     { q: 'Is GREEN18 available on Android or the web?', a: 'No. GREEN18 is an iPhone app only. There is no Android build and no browser version.' },
     { q: 'Does GREEN18 require an account?', a: 'No. GREEN18 has no accounts, no sign-in and no profile. The app can be used immediately after installation, and nothing needs to be created or verified.' },
     { q: 'Does GREEN18 connect to ESPN, Yahoo or Sleeper?', a: 'No. GREEN18 has no connection to any fantasy platform and cannot sync or import a draft. Picks are recorded by the user, which is why the app works for in-person drafts as well as online ones.' },

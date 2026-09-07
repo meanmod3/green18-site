@@ -22,6 +22,9 @@ makes the pick themselves.
 
 iPhone only. Not currently available on Android.
 
+GREEN18 is a paid app: a one-time purchase of US$9.99 on the App Store.
+There is no subscription, no free tier, and no in-app purchases.
+
 ## Product
 
 - [Fantasy Football Draft Assistant for 2026 | GREEN18](https://green18.app/fantasy-football-draft-assistant): GREEN18 is a live fantasy football draft assistant for iPhone that adjusts your player board as your real draft unfolds.

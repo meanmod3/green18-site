@@ -338,7 +338,16 @@ function structuredData(page, url) {
     url: ORIGIN + '/',
     installUrl: APP_STORE_URL,
     description: CANON,
-    // No aggregateRating, no reviewCount, no price: fabricating them is banned.
+    // Price is a one-time purchase, confirmed by the operator 2026-09-07.
+    // No aggregateRating and no reviewCount: the app has no ratings yet, and
+    // fabricating them is banned.
+    offers: {
+      '@type': 'Offer',
+      price: '9.99',
+      priceCurrency: 'USD',
+      category: 'Paid',
+      url: APP_STORE_URL,
+    },
     publisher: { '@id': ORIGIN + '/#org' },
   });
 

@@ -447,6 +447,9 @@ makes the pick themselves.
 
 iPhone only. Not currently available on Android.
 
+GREEN18 is a paid app: a one-time purchase of US$9.99 on the App Store.
+There is no subscription, no free tier, and no in-app purchases.
+
 ## Product
 
 ${pages.filter((p) => p.slug && !p.slug.includes('/') && (p.pageType === 'product' || !p.pageType)).map((p) => `- [${p.title}](${ORIGIN}/${p.slug}): ${p.description}`).join('\n')}
