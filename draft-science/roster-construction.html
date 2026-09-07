@@ -21,12 +21,14 @@
   <meta property="og:url" content="https://green18.app/draft-science/roster-construction">
   <meta property="og:title" content="Roster Construction and Fantasy Draft Value | GREEN18">
   <meta property="og:description" content="How the players you already drafted change what the next player is worth to you — positional balance, flexibility, and why two managers should not share one board.">
-  <meta property="og:image" content="https://green18.app/assets/green18-card.png">
-  <meta property="og:image:alt" content="GREEN18 — live fantasy football draft intelligence for iPhone.">
+  <meta property="og:image" content="https://green18.app/assets/og/draft-science.png">
+  <meta property="og:image:alt" content="GREEN18 — Draft Science.">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Roster Construction and Fantasy Draft Value | GREEN18">
   <meta name="twitter:description" content="How the players you already drafted change what the next player is worth to you — positional balance, flexibility, and why two managers should not share one board.">
-  <meta name="twitter:image" content="https://green18.app/assets/green18-card.png">
+  <meta name="twitter:image" content="https://green18.app/assets/og/draft-science.png">
   <link rel="icon" href="/assets/icon.png" type="image/png">
   <link rel="apple-touch-icon" href="/assets/icon.png">
   <link rel="stylesheet" href="/assets/site.css">
@@ -234,9 +236,11 @@
         <div class="wrap">
           <h2>How Much Does the Same Player Add?</h2>
           <p class="lede measure">One wide receiver, four different rosters, in a league that starts two receivers plus a flex.</p>
-          <div class="table-scroll mt-md">
+          <div class="table-scroll mt-md" tabindex="0" role="region"
+               aria-label="How Much Does the Same Player Add?">
             <table>
-              <thead><tr><th>Roster already holds</th><th>Slot he fills</th><th>Production he adds to the lineup</th><th>Effect on his value to you</th></tr></thead>
+              <caption class="visually-hidden">How Much Does the Same Player Add?</caption>
+              <thead><tr><th scope="col">Roster already holds</th><th scope="col">Slot he fills</th><th scope="col">Production he adds to the lineup</th><th scope="col">Effect on his value to you</th></tr></thead>
               <tbody><tr><td>No receivers</td><td>Required starter</td><td>All of it</td><td>Highest</td></tr><tr><td>One receiver</td><td>Required starter</td><td>All of it</td><td>High</td></tr><tr><td>Two receivers</td><td>Flex, if he beats the alternative</td><td>Only the margin over your flex option</td><td>Reduced</td></tr><tr><td>Three receivers</td><td>Bench</td><td>None, until someone is unavailable</td><td>Lowest</td></tr></tbody>
             </table>
           </div>

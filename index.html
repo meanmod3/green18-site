@@ -23,6 +23,8 @@
   <meta property="og:description" content="GREEN18 is an iPhone fantasy football live draft assistant that continuously recalculates player valuations from your league, your roster and the live draft.">
   <meta property="og:image" content="https://green18.app/assets/green18-card.png">
   <meta property="og:image:alt" content="GREEN18 — live fantasy football draft intelligence for iPhone.">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="GREEN18 — Live Fantasy Football Draft Assistant for iPhone">
   <meta name="twitter:description" content="GREEN18 is an iPhone fantasy football live draft assistant that continuously recalculates player valuations from your league, your roster and the live draft.">
@@ -98,13 +100,23 @@
             <div class="phone" role="img" aria-label="The GREEN18 live draft board on iPhone, reordering as picks are recorded.">
               <div class="phone-screen">
                 <video autoplay muted loop playsinline preload="metadata"
-                       poster="/assets/green18-draft-demo-poster.jpg">
+                       poster="/assets/green18-draft-demo-poster.jpg" tabindex="-1">
                   <source src="/assets/green18-draft-demo.webm" type="video/webm">
                   <source src="/assets/green18-draft-demo.mp4" type="video/mp4">
                 </video>
               </div>
             </div>
-            <p class="phone-cap"><strong>Pick made. Board recalculated.</strong> Real footage — each pick is recorded, and the remaining board re-ranks around it.</p>
+            <p class="phone-cap">
+              <!-- A changing label ("Pause demo" / "Play demo") already states the
+                   next action, so this must NOT also carry aria-pressed: a screen
+                   reader would announce "Play demo, toggle button, pressed", which
+                   mixes two different patterns and reads as a contradiction. -->
+              <button type="button" class="vid-toggle" data-video-toggle>
+                <span class="vid-icon" aria-hidden="true"></span>
+                <span data-video-toggle-label>Pause demo</span>
+              </button>
+              <strong>Pick made. Board recalculated.</strong> Real footage — each pick is recorded, and the remaining board re-ranks around it.
+            </p>
           </div>
           </div>
         </div>

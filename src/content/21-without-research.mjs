@@ -58,7 +58,7 @@ export default {
       'Sometimes you don’t want fantasy football to become a second job.',
       'You just want to join your friends, draft a competent team, understand what you’re doing, and avoid the pick everyone talks about for the next three years.',
       'That’s a completely reasonable goal, and GREEN18 is built for that person too.',
-      'If it’s your first season, [start here](/fantasy-football-for-beginners). If the draft is in a few hours, [start here instead](/last-minute-fantasy-football-draft). If it’s a friends-and-family league, [here](/home-league-draft-assistant) — and if it’s the [office league](/office-fantasy-football-draft), the stakes are social and the board still does the work.',
+      'If it’s your first season, [start here](/fantasy-football-for-beginners). If the draft is in a few hours, [start here instead](/last-minute-fantasy-football-draft). If it’s a friends-and-family league, [a long-running friends-and-family league](/home-league-draft-assistant) — and if it’s the [office league](/office-fantasy-football-draft), the stakes are social and the board still does the work.',
     ]},
 
     { type: 'prose', h2: 'And If You Do Get Into It.', body: [

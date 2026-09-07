@@ -42,7 +42,14 @@ function wire(section) {
     if (params.toString()) run(false);
   } catch (e) { /* ignore */ }
 
-  form.addEventListener('input', function () { run(true); });
+  // The result region is aria-live. Recomputing on every keystroke made a
+  // screen reader re-read a ~60-word explanation per digit typed, so the
+  // announcement is debounced to one settled result.
+  var pending;
+  form.addEventListener('input', function () {
+    clearTimeout(pending);
+    pending = setTimeout(function () { run(true); }, 400);
+  });
   form.addEventListener('submit', function (e) { e.preventDefault(); run(true); });
 }
 
