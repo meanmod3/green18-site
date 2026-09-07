@@ -61,7 +61,6 @@ export default {
         'Your league is different.',
         'Your roster is different.',
         'Your draft is different.',
-        '**Download GREEN18 for iPhone.**',
       ],
       label: 'Download GREEN18', sub: 'Take a live draft board into your next fantasy football draft.' },
   ],

@@ -101,7 +101,6 @@ export default {
       body: [
         'Scarcity is straightforward to define and genuinely hard to compute on a ninety-second clock across every position at once, after every pick, in a league whose settings are not the ones the rankings assumed.',
         'For every player still on the board GREEN18 computes the chance he survives to your next turn, and it tracks how fast each position is being consumed — so you can see which position is thinning under you.',
-        '**Download GREEN18 and stop guessing at the slope.**',
       ],
       label: 'Download GREEN18', sub: 'Available for iPhone. Player data from open football sources; nflverse credited under CC-BY.' },
   ],

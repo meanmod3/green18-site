@@ -92,7 +92,7 @@ export default {
     ]},
 
     { type: 'convert', h2: 'One Extra Eligible Position. A Different Draft.',
-      body: ['Superflex does not need a new set of rankings. It needs a board that knows how many quarterbacks your league can start.', '**Download GREEN18 for iPhone and set the format before the first pick.**'],
+      body: ['Superflex does not need a new set of rankings. It needs a board that knows how many quarterbacks your league can start.'],
       label: 'Download GREEN18', sub: 'Available for iPhone. Player data from open football sources; nflverse credited under CC-BY.' },
   ],
 

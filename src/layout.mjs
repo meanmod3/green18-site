@@ -14,11 +14,18 @@ const inline = (s) => esc(s)
 // A run of short declarative lines, each its own <p class="beat">.
 const beats = (lines) => lines.map((l) => `<p class="beat">${inline(l)}</p>`).join('\n        ');
 
-const ctaGroup = (label, sub, { large = true, secondary = null } = {}) => `
-        <div class="cta-group">
-          <a class="btn${large ? ' btn-lg' : ''}" href="${APP_STORE_URL}">${esc(label)}</a>
-          ${secondary ? `<a class="btn btn-ghost" href="${esc(secondary.href)}">${esc(secondary.label)}</a>` : ''}
-        </div>
+// The download CTA lives in the sticky header and persists on every screen,
+// so repeating it in the hero and again at the foot of each page was three
+// buttons doing one button's job (operator ruling, 2026-09-07). The App Store
+// link now appears ONCE per page, in the header — plus `installUrl` in the
+// schema, which is metadata rather than a visible call to action.
+//
+// The supporting line and any SECONDARY (internal, non-download) link are
+// kept: they carry information and navigation, not a repeated ask.
+const ctaGroup = (label, sub, { secondary = null } = {}) => `
+        ${secondary ? `<div class="cta-group">
+          <a class="btn btn-ghost" href="${esc(secondary.href)}">${esc(secondary.label)}</a>
+        </div>` : ''}
         ${sub ? `<p class="cta-sub">${inline(sub)}</p>` : ''}`;
 
 // ------------------------------------------------------------------ blocks --
@@ -184,11 +191,13 @@ function block(b) {
       </section>`;
 
     case 'convert':
+      // Kept as the page's closing statement. Its button is gone with the rest
+      // of the repeated CTAs; the header carries the ask.
       return `      <section class="convert">
         <div class="wrap measure">
           <h2>${inline(b.h2)}</h2>
           ${b.body ? beats(b.body) : ''}
-          ${ctaGroup(b.label || 'Download GREEN18', b.sub)}
+          ${b.sub ? `<p class="cta-sub">${inline(b.sub)}</p>` : ''}
         </div>
       </section>`;
 
@@ -487,7 +496,7 @@ ${structuredData(page, url)}
 
   <header class="site">
     <div class="wrap">
-      <a class="wordmark" href="/">GREEN<b>18</b></a>
+      <a class="wordmark" href="/" aria-label="GREEN18 — home"><img src="/assets/icon.png" alt="" width="30" height="30" decoding="async"></a>
       <nav aria-label="Primary">
         ${nav}
       </nav>
@@ -545,7 +554,7 @@ ${disclaimer}
     <div class="wrap">
       <div class="foot-top">
         <div class="foot-brand">
-          <a class="wordmark" href="/">GREEN<b>18</b></a>
+          <a class="wordmark" href="/" aria-label="GREEN18 — home"><img src="/assets/icon.png" alt="" width="28" height="28" decoding="async"></a>
           <p>Live fantasy football draft intelligence for iPhone.</p>
         </div>
         <div class="foot-cols">

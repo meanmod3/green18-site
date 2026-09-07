@@ -95,7 +95,7 @@ export default {
     ]},
 
     { type: 'convert', h2: 'A Point per Catch Reorders the Board.',
-      body: ['Reception scoring is a rule about which production counts. A board that applies it after the fact is answering the wrong question.', '**Download GREEN18 for iPhone and set your scoring before the first pick.**'],
+      body: ['Reception scoring is a rule about which production counts. A board that applies it after the fact is answering the wrong question.'],
       label: 'Download GREEN18', sub: 'Available for iPhone. Player data from open football sources; nflverse credited under CC-BY.' },
   ],
 

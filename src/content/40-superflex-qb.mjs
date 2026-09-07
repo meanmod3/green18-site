@@ -94,7 +94,7 @@ export default {
     ]},
 
     { type: 'convert', h2: 'Superflex Is an Arithmetic Problem Before It Is a Strategy.',
-      body: ['Two dozen slots, thirty-two quarterbacks, and twelve managers all doing the math at the same time.', '**Download GREEN18 for iPhone and draft Superflex against the supply that is actually left.**'],
+      body: ['Two dozen slots, thirty-two quarterbacks, and twelve managers all doing the math at the same time.'],
       label: 'Download GREEN18', sub: 'Available for iPhone. Player data from open football sources; nflverse credited under CC-BY.' },
   ],
 

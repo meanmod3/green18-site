@@ -56,7 +56,7 @@ export default {
     ]},
 
     { type: 'convert', h2: 'Not a Question — Just Want the App?',
-      body: ['GREEN18 is a draft-day assistant for iPhone, with no account to create before you use it.', '**Download GREEN18 for iPhone.**'],
+      body: ['GREEN18 is a draft-day assistant for iPhone, with no account to create before you use it.'],
       label: 'Download GREEN18', sub: 'Available for iPhone. Questions: manager@green18.app' },
   ],
 

@@ -64,7 +64,7 @@ export default {
     ]},
 
     { type: 'convert', h2: 'Runs Are Loud. Replacement Level Is Not.',
-      body: ['GREEN18 recomputes the remaining board after every pick, so the gap behind each available player — and the gap behind his alternative — is on screen while the run is still happening.', '**Download GREEN18 for iPhone and answer the question the run actually asked.**'],
+      body: ['GREEN18 recomputes the remaining board after every pick, so the gap behind each available player — and the gap behind his alternative — is on screen while the run is still happening.'],
       label: 'Download GREEN18', sub: 'Available for iPhone. Player data from open football sources; nflverse credited under CC-BY.' },
   ],
 

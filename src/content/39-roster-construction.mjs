@@ -93,7 +93,7 @@ export default {
     ]},
 
     { type: 'convert', h2: 'Your Board Should Know Your Team.',
-      body: ['A consensus ranking was computed before your roster existed. By round six it is answering someone else\'s question.', '**Download GREEN18 for iPhone and draft against a board that knows what you already have.**'],
+      body: ['A consensus ranking was computed before your roster existed. By round six it is answering someone else\'s question.'],
       label: 'Download GREEN18', sub: 'Available for iPhone. Player data from open football sources; nflverse credited under CC-BY.' },
   ],
 

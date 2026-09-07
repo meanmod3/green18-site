@@ -66,7 +66,7 @@ export default {
     ]},
 
     { type: 'convert', h2: 'One Quantity Settles Both Questions.',
-      body: ['GREEN18 recalculates, after every pick, how thin each position has become under your league’s scoring — how fast quality is leaving it, how close the next tier cliff is, how much of it the room has already taken, and the chance each player survives to your next turn — so the ranking and your roster are read against one board.', '**Download GREEN18 for iPhone and stop choosing between two proxies.**'],
+      body: ['GREEN18 recalculates, after every pick, how thin each position has become under your league’s scoring — how fast quality is leaving it, how close the next tier cliff is, how much of it the room has already taken, and the chance each player survives to your next turn — so the ranking and your roster are read against one board.'],
       label: 'Download GREEN18', sub: 'Available for iPhone. Player data from open football sources; nflverse credited under CC-BY.' },
   ],
 

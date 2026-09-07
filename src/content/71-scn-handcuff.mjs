@@ -71,7 +71,7 @@ export default {
     ]},
 
     { type: 'convert', h2: 'Price the Insurance. Then Decide.',
-      body: ['GREEN18 values every available player against the slot he would occupy and the alternative you would otherwise hold, so a hedge shows up with its price attached rather than as a reflex.', '**Download GREEN18 for iPhone and see what your insurance actually costs.**'],
+      body: ['GREEN18 values every available player against the slot he would occupy and the alternative you would otherwise hold, so a hedge shows up with its price attached rather than as a reflex.'],
       label: 'Download GREEN18', sub: 'Available for iPhone. Player data from open football sources; nflverse credited under CC-BY.' },
   ],
 

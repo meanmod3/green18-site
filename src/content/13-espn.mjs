@@ -55,7 +55,6 @@ export default {
     { type: 'convert', h2: 'Don’t Change Platforms. Change the Way You Draft.',
       body: [
         'Your league can stay exactly where it is.',
-        '**Download GREEN18 for iPhone and keep a live board beside your draft.**',
       ],
       label: 'Download GREEN18', sub: 'Available for iPhone. Built for the 2026 fantasy football draft.' },
   ],

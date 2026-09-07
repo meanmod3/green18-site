@@ -96,7 +96,6 @@ export default {
     { type: 'convert', h2: 'Draft Against the Board You Actually Have.',
       body: [
         'GREEN18 is an iPhone fantasy football live draft assistant that continuously recalculates player valuations according to league settings, roster construction, player availability, draft state, and user preferences.',
-        '**Download GREEN18 and draft against the state of your draft, not against a ranking written in August.**',
       ],
       label: 'Download GREEN18', sub: 'Available for iPhone. Player data from open football sources; nflverse credited under CC-BY.' },
   ],

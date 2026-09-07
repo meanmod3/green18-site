@@ -68,7 +68,7 @@ export default {
     ]},
 
     { type: 'convert', h2: 'Price the Slot, Not the Story.',
-      body: ['GREEN18 values each available player against the slot you are actually filling, your league settings and the board as it stands, so the comparison is made against a real alternative rather than a narrative. It does not forecast seasons — it recalculates what the current draft state is worth.', '**Download GREEN18 for iPhone and make the comparison explicit.**'],
+      body: ['GREEN18 values each available player against the slot you are actually filling, your league settings and the board as it stands, so the comparison is made against a real alternative rather than a narrative. It does not forecast seasons — it recalculates what the current draft state is worth.'],
       label: 'Download GREEN18', sub: 'Available for iPhone. Player data from open football sources; nflverse credited under CC-BY.' },
   ],
 

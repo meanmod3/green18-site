@@ -64,7 +64,7 @@ export default {
     ]},
 
     { type: 'convert', h2: 'A Discount Is Only a Discount If You Need It.',
-      body: ['GREEN18 values every remaining quarterback against your roster, your format and your next pick, so a fall shows up as a number rather than as a feeling that you might be missing out.', '**Download GREEN18 for iPhone and price the correction before it happens.**'],
+      body: ['GREEN18 values every remaining quarterback against your roster, your format and your next pick, so a fall shows up as a number rather than as a feeling that you might be missing out.'],
       label: 'Download GREEN18', sub: 'Available for iPhone. Player data from open football sources; nflverse credited under CC-BY.' },
   ],
 

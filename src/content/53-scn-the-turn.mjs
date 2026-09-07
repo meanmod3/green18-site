@@ -64,7 +64,7 @@ export default {
     ]},
 
     { type: 'convert', h2: 'Plan the Pair, Not the Pick.',
-      body: ['GREEN18 recalculates the board against your roster and the distance to your next turn, which is what makes a two-pick plan checkable rather than hopeful.', '**Download GREEN18 for iPhone and take both sides of the boundary.**'],
+      body: ['GREEN18 recalculates the board against your roster and the distance to your next turn, which is what makes a two-pick plan checkable rather than hopeful.'],
       label: 'Download GREEN18', sub: 'Available for iPhone. Player data from open football sources; nflverse credited under CC-BY.' },
   ],
 

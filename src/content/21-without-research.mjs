@@ -68,7 +68,7 @@ export default {
     ]},
 
     { type: 'convert', h2: 'Join the League. Keep Your Dignity.',
-      body: ['You don’t have to have done the reading to draft a good team.', '**Download GREEN18 for iPhone and walk into tonight’s draft with a board that keeps up.**'],
+      body: ['You don’t have to have done the reading to draft a good team.'],
       label: 'Download GREEN18', sub: 'Available for iPhone. No account required — your league stays on your device.' },
   ],
 

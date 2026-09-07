@@ -67,7 +67,7 @@ export default {
     ]},
 
     { type: 'convert', h2: 'Use It on Draft Day.',
-      body: ['GREEN18 is built for the ninety seconds you actually have on the clock.', '**Download GREEN18 for iPhone.**'],
+      body: ['GREEN18 is built for the ninety seconds you actually have on the clock.'],
       label: 'Download GREEN18', sub: 'Available for iPhone. Published by Interplore. Not affiliated with the NFL, the NFLPA, any club, or any fantasy platform.' },
   ],
 

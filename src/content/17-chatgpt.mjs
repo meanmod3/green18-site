@@ -84,7 +84,7 @@ export default {
     ]},
 
     { type: 'convert', h2: 'Take a Live Board Into the Draft.',
-      body: ['Learn the concepts anywhere. Draft with something that can see your board.', '**Download GREEN18 for iPhone.**'],
+      body: ['Learn the concepts anywhere. Draft with something that can see your board.'],
       label: 'Download GREEN18', sub: 'Available for iPhone. Independent of any fantasy platform.' },
   ],
 

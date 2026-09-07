@@ -17,7 +17,6 @@ export default {
       '**Bring GREEN18.**',
     ],
     cta: 'Beat Your Coworkers',
-    micro: 'Download GREEN18 for iPhone.',
     secondary: { label: 'See How GREEN18 Works', href: '#how-it-works' },
   },
 
@@ -101,7 +100,7 @@ export default {
     ]},
 
     { type: 'convert', h2: 'Be Humble Tomorrow. Draft Ruthlessly Tonight.',
-      body: ['**Download GREEN18 before your office draft.**'],
+      body: [],
       label: 'Download GREEN18', sub: 'Available for iPhone. Built for the 2026 fantasy football draft.' },
   ],
 

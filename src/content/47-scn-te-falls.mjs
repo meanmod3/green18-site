@@ -64,7 +64,7 @@ export default {
     ]},
 
     { type: 'convert', h2: 'Edges Are Measured Against Your Alternative.',
-      body: ['GREEN18 values every available player against the player you would realistically hold instead, given your roster, your scoring and your next pick — which is what turns a fall into a decision instead of a temptation.', '**Download GREEN18 for iPhone and price the edge, not the discount.**'],
+      body: ['GREEN18 values every available player against the player you would realistically hold instead, given your roster, your scoring and your next pick — which is what turns a fall into a decision instead of a temptation.'],
       label: 'Download GREEN18', sub: 'Available for iPhone. Player data from open football sources; nflverse credited under CC-BY.' },
   ],
 

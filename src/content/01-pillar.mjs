@@ -59,7 +59,7 @@ export default {
       ] },
 
     { type: 'convert', h2: 'Download GREEN18.',
-      body: ['Stop treating a live draft like a static spreadsheet.', '**Download GREEN18 for iPhone and bring a responsive player board into your next draft.**'],
+      body: ['Stop treating a live draft like a static spreadsheet.'],
       label: 'Download GREEN18', sub: 'Available for iPhone. Built for the 2026 fantasy football draft.' },
   ],
 

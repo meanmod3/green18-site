@@ -95,7 +95,7 @@ export default {
     ]},
 
     { type: 'convert', h2: 'The Cliff Is at the End of the Tier.',
-      body: ['A printed cheat sheet shows you rank 7. It cannot show you that rank 7 is the last one before the drop.', '**Download GREEN18 for iPhone and see the tier as it empties.**'],
+      body: ['A printed cheat sheet shows you rank 7. It cannot show you that rank 7 is the last one before the drop.'],
       label: 'Download GREEN18', sub: 'Available for iPhone. Player data from open football sources; nflverse credited under CC-BY.' },
   ],
 

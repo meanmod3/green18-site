@@ -55,7 +55,7 @@ export default {
     ]},
 
     { type: 'convert', h2: 'Draft With the Room.',
-      body: ['Not against a preseason PDF.', '**Download GREEN18 for iPhone.**'],
+      body: ['Not against a preseason PDF.'],
       label: 'Download GREEN18', sub: 'Available for iPhone. Built for the 2026 fantasy football draft.' },
   ],
 

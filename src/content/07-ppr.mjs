@@ -69,7 +69,7 @@ export default {
     ]},
 
     { type: 'convert', h2: 'Draft the League You Joined.',
-      body: ['Reception scoring is your league’s rule. Your board should know it.', '**Download GREEN18 for iPhone.**'],
+      body: ['Reception scoring is your league’s rule. Your board should know it.'],
       label: 'Download GREEN18', sub: 'Available for iPhone. Built for the 2026 fantasy football draft.' },
   ],
 

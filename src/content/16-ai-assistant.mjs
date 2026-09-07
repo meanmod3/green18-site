@@ -92,7 +92,7 @@ export default {
     ]},
 
     { type: 'convert', h2: 'Bring a Model, Not a Guess.',
-      body: ['Stop asking for a fresh opinion every time the board changes.', '**Download GREEN18 and take a computed board into your next draft.**'],
+      body: ['Stop asking for a fresh opinion every time the board changes.'],
       label: 'Download GREEN18', sub: 'Available for iPhone. Built for the 2026 fantasy football draft.' },
   ],
 

@@ -65,7 +65,7 @@ export default {
     ]},
 
     { type: 'convert', h2: 'The Answer Is a Count, Not a Round.',
-      body: ['GREEN18 tracks the remaining pool against your league’s demand and the distance to your next pick, so “can I still wait” is answered with the board in front of you rather than with a rule of thumb.', '**Download GREEN18 for iPhone and wait on purpose.**'],
+      body: ['GREEN18 tracks the remaining pool against your league’s demand and the distance to your next pick, so “can I still wait” is answered with the board in front of you rather than with a rule of thumb.'],
       label: 'Download GREEN18', sub: 'Available for iPhone. Player data from open football sources; nflverse credited under CC-BY.' },
   ],
 

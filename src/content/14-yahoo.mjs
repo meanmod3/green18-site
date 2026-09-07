@@ -50,7 +50,6 @@ export default {
     { type: 'convert', h2: 'Same League. Better Draft Setup.',
       body: [
         'Your league is different. Your roster is different. Your draft is different.',
-        '**Download GREEN18 for iPhone and take a live board into the room.**',
       ],
       label: 'Download GREEN18', sub: 'Available for iPhone. Take a live draft board into your next fantasy football draft.' },
   ],

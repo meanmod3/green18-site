@@ -545,3 +545,14 @@ ul.keypoints li::before {
 
 /* The scroll region is focusable now, so it needs a visible ring. */
 .table-scroll:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* ------------------------------------------------------------ the mark -- */
+/* The logo is the 18 mark (operator ruling, 2026-09-07) — the wordmark text
+   is retired. The anchor carries the accessible name via aria-label, so the
+   image itself is decorative (alt="") and must not be announced twice. */
+.wordmark { display: inline-flex; align-items: center; line-height: 0; }
+.wordmark img {
+  display: block; width: 30px; height: 30px;
+  border-radius: 7px; /* matches the mark's own corner */
+}
+footer.site .wordmark img { width: 28px; height: 28px; }

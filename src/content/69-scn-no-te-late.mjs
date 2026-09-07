@@ -67,7 +67,7 @@ export default {
     ]},
 
     { type: 'convert', h2: 'Fill Slots Where the Board Is Flat. Spend Picks Where It Is Not.',
-      body: ['GREEN18 recalculates the remaining pool at every position after every pick, so a slot that only looks urgent is visible as flat instead of frightening.', '**Download GREEN18 for iPhone and price your empty slots instead of fearing them.**'],
+      body: ['GREEN18 recalculates the remaining pool at every position after every pick, so a slot that only looks urgent is visible as flat instead of frightening.'],
       label: 'Download GREEN18', sub: 'Available for iPhone. Player data from open football sources; nflverse credited under CC-BY.' },
   ],
 

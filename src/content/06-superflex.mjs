@@ -55,7 +55,7 @@ export default {
     ], quote: 'How many viable starters are actually left?' },
 
     { type: 'convert', h2: 'Superflex Requires a Live Board.',
-      body: ['Quarterback scarcity moves faster than a printed ranking.', '**Download GREEN18 for iPhone and draft your Superflex league in context.**'],
+      body: ['Quarterback scarcity moves faster than a printed ranking.'],
       label: 'Download GREEN18', sub: 'Available for iPhone. Built for the 2026 fantasy football draft.' },
   ],
 

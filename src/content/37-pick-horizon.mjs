@@ -93,7 +93,6 @@ export default {
       body: [
         'Your horizon is knowable before the draft starts and decisive at every pick — and it is the input generic rankings structurally cannot carry.',
         'GREEN18 recalculates the board against your actual pick position, the selections between you and your next turn, and what those teams still need.',
-        '**Download GREEN18 and price the wait before you take it.**',
       ],
       label: 'Download GREEN18', sub: 'Available for iPhone. Player data from open football sources; nflverse credited under CC-BY.' },
   ],

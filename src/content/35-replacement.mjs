@@ -92,7 +92,6 @@ export default {
       body: [
         'Estimating who survives twenty picks, at five positions, in your scoring, after every selection, is arithmetic — and it is more arithmetic than the clock allows.',
         'GREEN18 continuously recalculates each remaining player against the replacement you would realistically still get, and orders the board by the difference.',
-        '**Download GREEN18 and see the gap the ranking cannot show you.**',
       ],
       label: 'Download GREEN18', sub: 'Available for iPhone. Player data from open football sources; nflverse credited under CC-BY.' },
   ],

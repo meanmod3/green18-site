@@ -64,7 +64,7 @@ export default {
     ]},
 
     { type: 'convert', h2: 'Walk Into the Draft Prepared.',
-      body: ['Even if you started preparing five minutes ago — which is exactly what a [last-minute draft](/last-minute-fantasy-football-draft) looks like.', '**Download GREEN18 for iPhone.**'],
+      body: ['Even if you started preparing five minutes ago — which is exactly what a [last-minute draft](/last-minute-fantasy-football-draft) looks like.'],
       label: 'Download GREEN18', sub: 'Available for iPhone. Built for the 2026 fantasy football draft.' },
   ],
 

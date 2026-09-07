@@ -66,7 +66,7 @@ export default {
     ]},
 
     { type: 'convert', h2: 'A Discount Is Only Worth What You Can Spend.',
-      body: ['GREEN18 re-prices every remaining player against your roster and your league’s scoring after each pick, so a fallen player is valued by the slot he would fill rather than by the expectation he missed.', '**Download GREEN18 for iPhone and take the falls that actually improve your lineup.**'],
+      body: ['GREEN18 re-prices every remaining player against your roster and your league’s scoring after each pick, so a fallen player is valued by the slot he would fill rather than by the expectation he missed.'],
       label: 'Download GREEN18', sub: 'Available for iPhone. Player data from open football sources; nflverse credited under CC-BY.' },
   ],
 

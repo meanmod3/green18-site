@@ -50,7 +50,6 @@ export default {
     { type: 'convert', h2: 'Add the Layer Your Draft Room Doesn’t Have.',
       body: [
         'Keep the league exactly where it is.',
-        '**Download GREEN18 for iPhone and draft from a board that keeps moving.**',
       ],
       label: 'Download GREEN18', sub: 'Available for iPhone. Built for the 2026 fantasy football draft.' },
   ],

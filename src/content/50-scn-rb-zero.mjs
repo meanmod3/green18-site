@@ -65,7 +65,7 @@ export default {
     ]},
 
     { type: 'convert', h2: 'Strategies Expire. Boards Do Not Announce It.',
-      body: ['GREEN18 recalculates the remaining pool after every pick, so the moment a deferred position stops being safe to defer shows up on the board rather than in hindsight.', '**Download GREEN18 for iPhone and hold your plan to its own conditions.**'],
+      body: ['GREEN18 recalculates the remaining pool after every pick, so the moment a deferred position stops being safe to defer shows up on the board rather than in hindsight.'],
       label: 'Download GREEN18', sub: 'Available for iPhone. Player data from open football sources; nflverse credited under CC-BY.' },
   ],
 

@@ -63,7 +63,7 @@ export default {
     ]},
 
     { type: 'convert', h2: 'Real Boundaries Are Worth a Lot. Imagined Ones Cost You.',
-      body: ['GREEN18 recomputes the separation between remaining players under your league’s scoring after every pick, so a boundary is something you can see rather than something you have to trust.', '**Download GREEN18 for iPhone and cross the cheap boundaries on purpose.**'],
+      body: ['GREEN18 recomputes the separation between remaining players under your league’s scoring after every pick, so a boundary is something you can see rather than something you have to trust.'],
       label: 'Download GREEN18', sub: 'Available for iPhone. Player data from open football sources; nflverse credited under CC-BY.' },
   ],
 

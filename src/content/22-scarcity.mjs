@@ -72,7 +72,7 @@ export default {
     ]},
 
     { type: 'convert', h2: 'Every Selection Creates a New Draft.',
-      body: ['A static sheet can tell you who was best in August. It cannot tell you what waiting costs tonight.', '**Download GREEN18 for iPhone and draft against the board as it actually is.**'],
+      body: ['A static sheet can tell you who was best in August. It cannot tell you what waiting costs tonight.'],
       label: 'Download GREEN18', sub: 'Available for iPhone. Player data from open football sources; nflverse credited under CC-BY.' },
   ],
 

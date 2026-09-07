@@ -63,7 +63,7 @@ export default {
     ]},
 
     { type: 'convert', h2: 'Consensus Tells You the Price. Your Draft Tells You the Opportunity.',
-      body: ['**Download GREEN18 for iPhone.**'],
+      body: [],
       label: 'Download GREEN18', sub: 'Take a live draft board into your next fantasy football draft.' },
   ],
 

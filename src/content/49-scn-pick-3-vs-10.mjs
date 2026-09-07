@@ -63,7 +63,7 @@ export default {
     ]},
 
     { type: 'convert', h2: 'Play the Board You Have From the Seat You Drew.',
-      body: ['GREEN18 accounts for where your next pick actually falls, so the cost of waiting is priced into every recommendation instead of being left to intuition.', '**Download GREEN18 for iPhone and turn your slot into a plan.**'],
+      body: ['GREEN18 accounts for where your next pick actually falls, so the cost of waiting is priced into every recommendation instead of being left to intuition.'],
       label: 'Download GREEN18', sub: 'Available for iPhone. Player data from open football sources; nflverse credited under CC-BY.' },
   ],
 

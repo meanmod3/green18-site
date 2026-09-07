@@ -63,7 +63,7 @@ export default {
     ]},
 
     { type: 'convert', h2: 'Don’t Draft the Average League.',
-      body: ['Draft yours.', '**Download GREEN18 for iPhone.**'],
+      body: ['Draft yours.'],
       label: 'Download GREEN18', sub: 'Available for iPhone. Built for the 2026 fantasy football draft.' },
   ],
 

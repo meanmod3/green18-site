@@ -147,7 +147,7 @@ export default {
     ]},
 
     { type: 'convert', h2: 'Watch the Method Run.',
-      body: ['A methodology page is only worth as much as the board it produces.', '**Download GREEN18 for iPhone and see the board recompute after every pick.**'],
+      body: ['A methodology page is only worth as much as the board it produces.'],
       label: 'Download GREEN18', sub: 'Available for iPhone. Player facts from open football data; nflverse credited under CC-BY.' },
   ],
 

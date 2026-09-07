@@ -65,7 +65,7 @@ export default {
     ]},
 
     { type: 'convert', h2: 'The Run Is Loud. The Math Is Quiet.',
-      body: ['GREEN18 recalculates the remaining board after every pick, so the question "is the drop behind this quarterback steeper than the drop behind my alternative" is answered while you are still on the clock.', '**Download GREEN18 for iPhone and draft the board, not the room.**'],
+      body: ['GREEN18 recalculates the remaining board after every pick, so the question "is the drop behind this quarterback steeper than the drop behind my alternative" is answered while you are still on the clock.'],
       label: 'Download GREEN18', sub: 'Available for iPhone. Player data from open football sources; nflverse credited under CC-BY.' },
   ],
 

@@ -121,7 +121,7 @@ export default {
     ], quote: 'The best available player is a moving target.' },
 
     { type: 'convert', h2: 'See the Model Run.',
-      body: ['The methodology is only useful in a draft.', '**Download GREEN18 for iPhone and watch the board recompute pick by pick.**'],
+      body: ['The methodology is only useful in a draft.'],
       label: 'Download GREEN18', sub: 'Available for iPhone. Player data from open football sources; nflverse credited under CC-BY.' },
   ],
 

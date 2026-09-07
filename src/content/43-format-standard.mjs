@@ -96,7 +96,7 @@ export default {
     ]},
 
     { type: 'convert', h2: 'No Points for the Catch Changes More Than the Catch.',
-      body: ['Standard scoring moves value toward the production a player\'s role guarantees. Your board should be built from your scoring, not adjusted toward it.', '**Download GREEN18 for iPhone and draft the league you actually joined.**'],
+      body: ['Standard scoring moves value toward the production a player\'s role guarantees. Your board should be built from your scoring, not adjusted toward it.'],
       label: 'Download GREEN18', sub: 'Available for iPhone. Player data from open football sources; nflverse credited under CC-BY.' },
   ],
 

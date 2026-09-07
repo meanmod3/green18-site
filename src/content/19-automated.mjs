@@ -61,7 +61,7 @@ export default {
     ]},
 
     { type: 'convert', h2: 'Automate the Math.',
-      body: ['Let the recalculation happen on its own. Keep the decision.', '**Download GREEN18 for iPhone.**'],
+      body: ['Let the recalculation happen on its own. Keep the decision.'],
       label: 'Download GREEN18', sub: 'Available for iPhone. Independent of any fantasy platform.' },
   ],
 

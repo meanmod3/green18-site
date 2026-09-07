@@ -90,7 +90,6 @@ export default {
       body: [
         'Most of a pick’s cost is invisible on a ranked list, because a list has no roster, no format and no next turn.',
         'GREEN18 continuously recalculates what each available player costs you given your league settings, your roster, the board as it actually stands, and how far away you pick again.',
-        '**Download GREEN18 and pick by cost, not by rank.**',
       ],
       label: 'Download GREEN18', sub: 'Available for iPhone. Player data from open football sources; nflverse credited under CC-BY.' },
   ],

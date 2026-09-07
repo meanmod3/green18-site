@@ -66,7 +66,7 @@ export default {
     ]},
 
     { type: 'convert', h2: 'Ties Are Broken by the Board, Not the Names.',
-      body: ['GREEN18 shows the drop behind each available player and the likelihood he survives to your next pick, recalculated after every selection — which is exactly the information a tie needs.', '**Download GREEN18 for iPhone and turn coin flips into sequencing.**'],
+      body: ['GREEN18 shows the drop behind each available player and the likelihood he survives to your next pick, recalculated after every selection — which is exactly the information a tie needs.'],
       label: 'Download GREEN18', sub: 'Available for iPhone. Player data from open football sources; nflverse credited under CC-BY.' },
   ],
 

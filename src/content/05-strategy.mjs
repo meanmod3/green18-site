@@ -50,7 +50,7 @@ export default {
     ]},
 
     { type: 'convert', h2: 'Bring a Strategy That Can Adapt.',
-      body: ['A plan is only as good as the board it meets.', '**Download GREEN18 for iPhone.**'],
+      body: ['A plan is only as good as the board it meets.'],
       label: 'Download GREEN18', sub: 'Available for iPhone. Built for the 2026 fantasy football draft.' },
   ],
 

@@ -69,7 +69,7 @@ export default {
     ]},
 
     { type: 'convert', h2: 'Make the Cheap Rounds the Ones You Win.',
-      body: ['GREEN18 keeps measuring every remaining player against your roster, your league settings and the current board, so the late rounds stay a decision instead of becoming a list you read down. Every pick is still yours to make.', '**Download GREEN18 for iPhone and draft the endgame on purpose.**'],
+      body: ['GREEN18 keeps measuring every remaining player against your roster, your league settings and the current board, so the late rounds stay a decision instead of becoming a list you read down. Every pick is still yours to make.'],
       label: 'Download GREEN18', sub: 'Available for iPhone. Player data from open football sources; nflverse credited under CC-BY.' },
   ],
 

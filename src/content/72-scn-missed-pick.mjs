@@ -67,7 +67,7 @@ export default {
     ]},
 
     { type: 'convert', h2: 'Restart From the Board In Front of You.',
-      body: ['GREEN18 values every remaining player against the roster you actually hold and the board as it actually stands, so an interrupted plan does not become a second bad pick. You make every selection yourself; GREEN18 shows you what the current state is worth.', '**Download GREEN18 for iPhone and recover the draft you are still in.**'],
+      body: ['GREEN18 values every remaining player against the roster you actually hold and the board as it actually stands, so an interrupted plan does not become a second bad pick. You make every selection yourself; GREEN18 shows you what the current state is worth.'],
       label: 'Download GREEN18', sub: 'Available for iPhone. Player data from open football sources; nflverse credited under CC-BY.' },
   ],
 

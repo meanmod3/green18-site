@@ -65,7 +65,7 @@ export default {
     ]},
 
     { type: 'convert', h2: 'Balance Is a Result, Not a Rule.',
-      body: ['GREEN18 values every available player against the slot he would actually occupy on your roster, in your format, so the third player at a position is priced rather than dismissed.', '**Download GREEN18 for iPhone and draft slots instead of quotas.**'],
+      body: ['GREEN18 values every available player against the slot he would actually occupy on your roster, in your format, so the third player at a position is priced rather than dismissed.'],
       label: 'Download GREEN18', sub: 'Available for iPhone. Player data from open football sources; nflverse credited under CC-BY.' },
   ],
 

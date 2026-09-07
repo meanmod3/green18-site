@@ -68,7 +68,7 @@ export default {
     ]},
 
     { type: 'convert', h2: 'Small Costs Deserve Small Weights.',
-      body: ['GREEN18 values players against the slot they would fill and the alternative you would realistically hold, so a one-week scheduling quirk stays a tie-breaker instead of quietly reordering your board.', '**Download GREEN18 for iPhone and keep small factors small.**'],
+      body: ['GREEN18 values players against the slot they would fill and the alternative you would realistically hold, so a one-week scheduling quirk stays a tie-breaker instead of quietly reordering your board.'],
       label: 'Download GREEN18', sub: 'Available for iPhone. Player data from open football sources; nflverse credited under CC-BY.' },
   ],
 

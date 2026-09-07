@@ -98,7 +98,7 @@ export default {
     ]},
 
     { type: 'convert', h2: 'Your Draft Creates the Final Ranking.',
-      body: ['A ranking built before your draft can’t know your draft.', '**Download GREEN18 for iPhone and build the board for the league you’re actually in.**'],
+      body: ['A ranking built before your draft can’t know your draft.'],
       label: 'Download GREEN18', sub: 'Available for iPhone. Player data from open football sources; nflverse credited under CC-BY.' },
   ],
 

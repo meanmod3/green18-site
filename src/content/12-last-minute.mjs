@@ -56,7 +56,6 @@ export default {
     { type: 'convert', h2: 'Draft the Board That’s Actually in Front of You.',
       body: [
         'Not the one someone ranked three weeks ago.',
-        '**Download GREEN18 for iPhone and take it with you.**',
       ],
       label: 'Download GREEN18', sub: 'Available for iPhone. Built for the 2026 fantasy football draft.' },
   ],

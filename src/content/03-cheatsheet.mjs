@@ -92,7 +92,7 @@ export default {
     ]},
 
     { type: 'convert', h2: 'Upgrade the Cheat Sheet.',
-      body: ['Stop drafting from a page that can’t change.', '**Download GREEN18 for iPhone.**'],
+      body: ['Stop drafting from a page that can’t change.'],
       label: 'Get the GREEN18 Cheat-Sheet Edge', sub: 'Available for iPhone. Built for the 2026 fantasy football draft.' },
   ],
 
