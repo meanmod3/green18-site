@@ -71,6 +71,19 @@ for (const p of pages) {
     if (!ls.some((l) => !l.includes('/'))) problems.push(`${id}: draft-science page links no product page`);
   }
 
+  // Inline links in body copy were NOT validated until now — only the `links`
+  // field was. The hub pages carry most of the site's cross-linking inline, so
+  // an unchecked [text](/slug) is how a silent 404 reaches production.
+  {
+    const text = JSON.stringify(p);
+    const inlineTargets = [...text.matchAll(/\]\((\/[^)"\s]*)\)/g)].map((m) => m[1]);
+    for (const t of new Set(inlineTargets)) {
+      const path = t.split('#')[0].replace(/\/$/, '').replace(/^\//, '');
+      if (path === '') continue;                       // link to the homepage
+      if (!slugs.has(path)) problems.push(`${id}: inline link to unknown page "${t}"`);
+    }
+  }
+
   // forbidden brand renderings (§1)
   const text = JSON.stringify(p);
   for (const bad of ['Green 18', 'Draft Buddy', 'DraftBuddy', 'Green18 ']) {
