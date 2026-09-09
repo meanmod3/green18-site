@@ -2,6 +2,19 @@
   "trailingSlash": "auto",
   "routes": [
     {
+      "route": "/internal/*",
+      "allowedRoles": [
+        "operator"
+      ]
+    },
+    {
+      "route": "/.auth/login/github",
+      "allowedRoles": [
+        "anonymous",
+        "authenticated"
+      ]
+    },
+    {
       "route": "/beat-your-coworkers-fantasy-football",
       "redirect": "/office-fantasy-football-draft",
       "statusCode": 301
@@ -288,6 +301,14 @@
     }
   ],
   "responseOverrides": {
+    "401": {
+      "redirect": "/.auth/login/github?post_login_redirect_uri=.referrer",
+      "statusCode": 302
+    },
+    "403": {
+      "rewrite": "/404.html",
+      "statusCode": 404
+    },
     "404": {
       "rewrite": "/404.html",
       "statusCode": 404

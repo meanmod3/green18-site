@@ -568,11 +568,34 @@ const routes = [
 
 const swa = {
   trailingSlash: 'auto',
-  routes,
+  routes: [
+    // ---- the gated operator surface (SSO) ---------------------------------
+    // /internal/* is served ONLY to a principal holding the `operator` role,
+    // which is granted by invitation (az staticwebapp users invite) — NOT to
+    // any signed-in GitHub user, which `authenticated` would allow. An
+    // unauthenticated request gets 302'd to the login page rather than a bare
+    // 401, so the surface is usable rather than merely closed.
+    //
+    // This is real access control, unlike the robots/noindex/obscurity layer
+    // that also applies. It works because Azure terminates the request; the
+    // same files must therefore NEVER live on the GitHub Pages branch, which
+    // has no auth layer and would serve them to anyone. See
+    // docs/model-console.md and .github/workflows/azure-swa.yml.
+    { route: '/internal/*', allowedRoles: ['operator'] },
+    { route: '/.auth/login/github', allowedRoles: ['anonymous', 'authenticated'] },
+    ...routes,
+  ],
   // No navigationFallback: this is a multi-page static site, not a SPA. A
   // fallback rewrite would serve 404.html with a 200 (a soft 404), which
   // search engines treat as a duplicate page rather than a missing one.
-  responseOverrides: { 404: { rewrite: '/404.html', statusCode: 404 } },
+  responseOverrides: {
+    404: { rewrite: '/404.html', statusCode: 404 },
+    // Send an unauthenticated visitor to the identity provider instead of
+    // a dead 401 page; 403 (signed in, wrong role) is a plain 404 so the
+    // surface does not confirm its own existence to a stranger.
+    401: { redirect: '/.auth/login/github?post_login_redirect_uri=.referrer', statusCode: 302 },
+    403: { rewrite: '/404.html', statusCode: 404 },
+  },
   globalHeaders: {
     // No analytics, no third-party resources: the CSP states that as policy,
     // not just as current fact (privacy handoff §4).
