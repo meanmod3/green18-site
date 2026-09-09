@@ -513,6 +513,116 @@ function tierNumbers(sortedDescendingValues) {
   return tiers;
 }
 
+
+// ---- live market displacement -------------------------------------------
+// LiveMarketState + PositionVelocity, transcribed. This is what makes the
+// board MOVE during a draft: as a position goes faster or slower than the
+// market expected, every remaining player at that position shifts.
+//
+// Only the positionVelocity component is wired, because the app supplies only
+// that one (interveningTeamDemand and poolDepletion are deliberately omitted
+// there). recentRunMultiplier is likewise never passed.
+
+const Velocity = {
+  defaultMinimumObservedPicks: 24.0,
+  defaultMaximumMultiplier: 3.0,
+  minimumExpectedFloor: 0.05,
+  runThreshold: 1.15,
+  droughtThreshold: 0.85,
+  minimumChronicScale: 1.0 / 6.0,
+};
+const LiveShift = {
+  velocityComponentWeight: 0.65,
+  movementThreshold: 0.02,
+  maximumLiveShift: 0.25,      // model.shrinkage.maximumLiveShift, as shipped
+};
+
+/** LeaguePrior.credibilityWeight */
+function credibilityWeight(n, k) {
+  if (!(n > 0) || !(k >= 0)) return 0;
+  const denominator = n + k;
+  if (!(denominator > 0)) return 1;
+  const value = n / denominator;
+  return Number.isFinite(value) ? clamp(value, 0, 1) : 0;
+}
+
+/** PositionVelocity.expectedCount — how many at this position the market
+ *  expected to be gone by now, summed over every prior's CDF. */
+function expectedCount(pick, priors) {
+  let total = 0;
+  for (const d of priors) total += probabilitySelectedBy(pick, d);
+  return Number.isFinite(total) ? Math.max(0, total) : 0;
+}
+
+/** PositionVelocity.compute */
+function positionVelocity({ picksElapsed, actualCount, priors, chronicDemandScale = 1.0, rosterPseudoCount = 0 }) {
+  const priorExpected = expectedCount(picksElapsed, priors);
+  const safeM = Number.isFinite(rosterPseudoCount) ? Math.max(0, rosterPseudoCount) : 0;
+
+  let rawMultiplier;
+  if (actualCount === 0 && priorExpected <= Velocity.minimumExpectedFloor) {
+    rawMultiplier = 1.0;                       // the market has nothing to say yet
+  } else {
+    const denominator = Math.max(priorExpected + safeM, Velocity.minimumExpectedFloor);
+    rawMultiplier = (actualCount + safeM) / denominator;
+  }
+  const safeRaw = Number.isFinite(rawMultiplier) ? Math.max(0, rawMultiplier) : 1.0;
+
+  const safeScale = Number.isFinite(chronicDemandScale)
+    ? clamp(chronicDemandScale, Velocity.minimumChronicScale, 1.0) : 1.0;
+  const scaledMinimumObserved = Velocity.defaultMinimumObservedPicks / safeScale;
+  const scaledMaximumMultiplier = 1.0 + (Velocity.defaultMaximumMultiplier - 1.0) * safeScale;
+
+  const credibility = credibilityWeight(Math.max(0, picksElapsed), scaledMinimumObserved);
+  const shrunk = 1.0 + credibility * (safeRaw - 1.0);
+  const boundedMultiplier = Number.isFinite(shrunk)
+    ? clamp(shrunk, 1.0 / scaledMaximumMultiplier, scaledMaximumMultiplier) : 1.0;
+
+  return {
+    picksElapsed, expectedCount: priorExpected, actualCount,
+    rawMultiplier: safeRaw, boundedMultiplier,
+    isRun: boundedMultiplier > Velocity.runThreshold,
+    isDrought: boundedMultiplier < Velocity.droughtThreshold,
+  };
+}
+
+/** LiveMarketState.saturatedShift — tanh, so the shift approaches the bound
+ *  asymptotically and never exceeds it. */
+function saturatedShift(raw, bound) {
+  if (!(bound > 0) || !Number.isFinite(raw)) return 0;
+  return bound * Math.tanh(raw / bound);
+}
+
+/** The shift fraction from position velocity alone: a position going FASTER
+ *  than expected (multiplier > 1) produces a NEGATIVE shift, pulling every
+ *  remaining player at it EARLIER. */
+function liveShiftFraction(boundedMultiplier) {
+  const raw = -(boundedMultiplier - 1.0) * LiveShift.velocityComponentWeight;
+  return saturatedShift(raw, LiveShift.maximumLiveShift);
+}
+
+/** Every pick-valued field scaled by (1 + shift), floored at 1.0. */
+function liveDistribution(dist, shiftFraction) {
+  if (!dist) return null;
+  const factor = 1.0 + shiftFraction;
+  const scale = v => {
+    const shifted = v * factor;
+    return Number.isFinite(shifted) ? Math.max(1.0, shifted) : v;
+  };
+  return { min: scale(dist.min), p10: scale(dist.p10), p25: scale(dist.p25),
+           p50: scale(dist.p50), p75: scale(dist.p75), p90: scale(dist.p90), max: scale(dist.max) };
+}
+
+/** adpMovementDirection — 0.5-pick dead band against the pre-draft baseline. */
+const ADP_MOVEMENT_DEAD_BAND = 0.5;
+function adpMovementDirection(livePick, baselinePick) {
+  if (livePick == null || baselinePick == null) return null;
+  const delta = livePick - baselinePick;
+  if (delta <= -ADP_MOVEMENT_DEAD_BAND) return 'earlier';
+  if (delta >= ADP_MOVEMENT_DEAD_BAND) return 'later';
+  return 'stable';
+}
+
   window.G18 = {
   Bounds, EngineeringDefaultBounds,
   clampDial, makeEnvelope, envelopePoints,
@@ -524,5 +634,7 @@ function tierNumbers(sortedDescendingValues) {
   projectedSeasonPoints, scoreStatLine, projectedStatLine, augmentedStatLine,
   probabilitySelectedBy, probabilityAvailableAt, selectionHazard, survivalToNextPick,
   marketDecision, computeModelTag, tierNumbers, Survival, MarketRec, TagBounds,
+  credibilityWeight, expectedCount, positionVelocity, saturatedShift,
+  liveShiftFraction, liveDistribution, adpMovementDirection, Velocity, LiveShift,
 };
 })();

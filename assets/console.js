@@ -66,35 +66,83 @@ const WEIGHT_AXES = [
   { id: 'positionalAggression',  title: 'Positional aggression',    low: 'Balanced',        high: 'Attack needs' },
 ];
 
-// Scoring rules use the SHIPPED stat keys (players.bundle statSubstrate), not
-// invented ones, so ScoringEngine's "skip any stat the line does not carry"
-// behaves the way it does in the app. A subset of CurrentLeaguePreset's 31.
-const DEFAULT_SCORING = () => [
-  { label:'Per reception',      statKey:'reception',        mode:'perUnit', pointsPerUnit:1.0,  unitSize:1, step:0.5 },
-  { label:'Receiving yards',    statKey:'receiving_yards',  mode:'perUnit', pointsPerUnit:0.1,  unitSize:1, step:0.01 },
-  { label:'Receiving TD',       statKey:'receiving_td',     mode:'event',   points:6,    step:1 },
-  { label:'Rushing yards',      statKey:'rushing_yards',    mode:'perUnit', pointsPerUnit:0.1,  unitSize:1, step:0.01 },
-  { label:'Rushing TD',         statKey:'rushing_td',       mode:'event',   points:6,    step:1 },
-  { label:'Passing yards',      statKey:'passing_yards',    mode:'perUnit', pointsPerUnit:0.04, unitSize:1, step:0.01 },
-  { label:'Passing TD',         statKey:'passing_td',       mode:'event',   points:4,    step:1 },
-  { label:'Interception',       statKey:'interception',     mode:'event',   points:-1,   step:1 },
-  { label:'Fumble lost',        statKey:'fumble_lost',      mode:'event',   points:-2,   step:1 },
-  { label:'TE premium',         statKey:'te_reception',     mode:'event',   points:0,    step:0.25 },
-  { label:'D/ST sack',          statKey:'dst_sack',         mode:'event',   points:1,    step:1 },
-  { label:'D/ST interception',  statKey:'dst_interception', mode:'event',   points:2,    step:1 },
-  { label:'D/ST fumble rec.',   statKey:'dst_fumble_recovery', mode:'event', points:2,  step:1 },
-  { label:'D/ST safety',        statKey:'dst_safety',       mode:'event',   points:2,    step:1 },
-  { label:'D/ST touchdown',     statKey:'dst_td',           mode:'event',   points:6,    step:1 },
+// The COMPLETE shipped rule set (CurrentLeaguePreset), grouped for a compact
+// two-column layout. `reception` is an EVENT rule in the app, not perUnit.
+const SCORING_GROUPS = [
+  { group: 'Passing', rules: [
+    { label:'Yards',        statKey:'passing_yards', mode:'perUnit', pointsPerUnit:0.04, unitSize:1, step:0.01 },
+    { label:'TD',           statKey:'passing_td',    mode:'event', points:4,  step:1 },
+    { label:'2-pt',         statKey:'passing_2pt',   mode:'event', points:2,  step:1 },
+    { label:'Interception', statKey:'interception',  mode:'event', points:-1, step:1 },
+  ]},
+  { group: 'Rushing', rules: [
+    { label:'Yards', statKey:'rushing_yards', mode:'perUnit', pointsPerUnit:0.1, unitSize:1, step:0.01 },
+    { label:'TD',    statKey:'rushing_td',    mode:'event', points:6, step:1 },
+    { label:'2-pt',  statKey:'rushing_2pt',   mode:'event', points:2, step:1 },
+  ]},
+  { group: 'Receiving', rules: [
+    { label:'Reception', statKey:'reception',       mode:'event', points:1, step:0.5 },
+    { label:'Yards',     statKey:'receiving_yards', mode:'perUnit', pointsPerUnit:0.1, unitSize:1, step:0.01 },
+    { label:'TD',        statKey:'receiving_td',    mode:'event', points:6, step:1 },
+    { label:'2-pt',      statKey:'receiving_2pt',   mode:'event', points:2, step:1 },
+    { label:'TE premium', statKey:'te_reception',   mode:'event', points:0, step:0.25 },
+  ]},
+  { group: 'Kicking', rules: [
+    { label:'PAT made',   statKey:'pat_made',   mode:'event', points:1,  step:1 },
+    { label:'PAT missed', statKey:'pat_missed', mode:'event', points:-1, step:1 },
+    { label:'FG missed',  statKey:'fg_missed',  mode:'event', points:-1, step:1 },
+  ]},
+  { group: 'Fumbles', rules: [
+    { label:'Lost',       statKey:'fumble_lost',        mode:'event', points:-2, step:1 },
+    { label:'Recovery TD', statKey:'fumble_recovery_td', mode:'event', points:6, step:1 },
+  ]},
+  { group: 'Defense / ST', rules: [
+    { label:'Touchdown',    statKey:'dst_td',                  mode:'event', points:6, step:1 },
+    { label:'Sack',         statKey:'dst_sack',                mode:'event', points:1, step:1 },
+    { label:'Interception', statKey:'dst_interception',        mode:'event', points:2, step:1 },
+    { label:'Fumble rec.',  statKey:'dst_fumble_recovery',     mode:'event', points:2, step:1 },
+    { label:'Safety',       statKey:'dst_safety',              mode:'event', points:2, step:1 },
+    { label:'Forced fumble', statKey:'dst_forced_fumble',      mode:'event', points:1, step:1 },
+    { label:'Blocked kick', statKey:'dst_blocked_kick',        mode:'event', points:2, step:1 },
+    { label:'XP returned',  statKey:'dst_extra_point_returned', mode:'event', points:2, step:1 },
+  ]},
+  { group: 'Special teams', rules: [
+    { label:'Def TD',        statKey:'st_def_td',                mode:'event', points:6, step:1 },
+    { label:'Def forced fum', statKey:'st_def_forced_fumble',    mode:'event', points:1, step:1 },
+    { label:'Def fum rec.',  statKey:'st_def_fumble_recovery',   mode:'event', points:1, step:1 },
+    { label:'Player TD',     statKey:'st_player_td',             mode:'event', points:6, step:1 },
+    { label:'Player forced fum', statKey:'st_player_forced_fumble', mode:'event', points:1, step:1 },
+    { label:'Player fum rec.', statKey:'st_player_fumble_recovery', mode:'event', points:1, step:1 },
+  ]},
 ];
+
+// Two range tables ship as tables, not single values: FG distance and D/ST
+// points allowed. They are shown read-only rather than edited as if they were
+// one number, which would misrepresent them.
+const RANGE_TABLES = [
+  { label: 'FG made, by distance', statKey: 'fg_made_distance',
+    ranges: [[0,19,3],[20,29,3],[30,39,3],[40,49,4],[50,null,5]] },
+  { label: 'D/ST points allowed', statKey: 'dst_points_allowed',
+    ranges: [[0,0,10],[1,6,7],[7,13,4],[14,20,1],[21,27,0],[28,34,-1],[35,null,-4]] },
+];
+
+const DEFAULT_SCORING = () => {
+  const flat = SCORING_GROUPS.flatMap(g => g.rules.map(r => ({ ...r, group: g.group })));
+  for (const t of RANGE_TABLES) {
+    flat.push({ label: t.label, statKey: t.statKey, mode: 'rangeTable', group: 'Tables',
+      ranges: t.ranges.map(([min, max, points]) => ({ min, max, points })) });
+  }
+  return flat;
+};
 
 /** The reception rule is perUnit, so its value lives in pointsPerUnit — not
  *  `points`, which only event rules carry. */
 function receptionPoints() {
-  return state.scoring.find(r => r.statKey === 'reception')?.pointsPerUnit ?? 1;
+  return state.scoring.find(r => r.statKey === 'reception')?.points ?? 1;
 }
 function setReceptionPoints(v) {
   const r = state.scoring.find(x => x.statKey === 'reception');
-  if (r) r.pointsPerUnit = v;
+  if (r) r.points = v;
 }
 function setTePremium(v) {
   const r = state.scoring.find(x => x.statKey === 'te_reception');
@@ -198,6 +246,28 @@ function positionNeeds() {
 function evaluate() {
   const pool = live();
   const teams = state.league?.teams ?? 12;
+  const picksElapsed = state.pick - 1;
+
+  // Live market displacement. For each position: how many are actually gone
+  // versus how many the market expected by now, turned into a shift that moves
+  // every remaining player at that position. This is what makes the board move
+  // DURING a draft rather than only between settings changes.
+  const roster = state.league?.roster ?? ROSTER_DEFAULT();
+  const maxDemand = Math.max(1, ...Object.values(roster));
+  const shiftByPos = {};
+  for (const pos of new Set(POOL.map(p => p.pos))) {
+    const priors = POOL.filter(p => p.pos === pos && p.dist).map(p => p.dist);
+    if (!priors.length) { shiftByPos[pos] = 0; continue; }
+    const actualCount = [...state.drafted.keys()]
+      .filter(id => POOL.find(p => p.id === id)?.pos === pos).length;
+    // PositionChronicDemand.scale: this position's per-team demand over the
+    // most-demanded position's, floored at 1/6.
+    const chronic = Math.max(1 / 6, Math.min(1, (roster[pos] ?? 0) / maxDemand));
+    const v = G18.positionVelocity({ picksElapsed, actualCount, priors, chronicDemandScale: chronic });
+    shiftByPos[pos] = state.league?.launched ? G18.liveShiftFraction(v.boundedMultiplier) : 0;
+  }
+  const liveDist = new Map(pool.map(p => [p.id, G18.liveDistribution(p.dist, shiftByPos[p.pos] ?? 0)]));
+  const livePick = id => liveDist.get(id) ? liveDist.get(id).p50 : null;
 
   // Projected points drive the position curve and the tier tables, the way the
   // app builds them (baselines, then TiersSurvival's 4.0-point gap rule).
@@ -209,13 +279,13 @@ function evaluate() {
   // beats every real player's negative pick) in the first eighty rows, which
   // pushed everyone else ~79 ranks below their market rank and made almost the
   // whole board read OVERPRICED.
-  const byBase = pool.filter(p => p.p50 != null)
+  const byBase = pool.filter(p => livePick(p.id) != null)
     .sort((a, b) => baseValue(b) - baseValue(a) || a.id.localeCompare(b.id))
-    .concat(pool.filter(p => p.p50 == null)
+    .concat(pool.filter(p => livePick(p.id) == null)
       .sort((a, b) => (proj.get(b.id) ?? -Infinity) - (proj.get(a.id) ?? -Infinity) || a.id.localeCompare(b.id)));
   const modelRank = new Map(byBase.map((p, i) => [p.id, i + 1]));
 
-  const withMkt = pool.filter(p => p.p50 != null).sort((a, b) => a.p50 - b.p50 || a.id.localeCompare(b.id));
+  const withMkt = pool.filter(p => p.p50 != null).sort((a, b) => a.p50 - b.p50 || a.id.localeCompare(b.id));  // market rank stays the PRE-draft ordinal
   const marketRank = new Map(withMkt.map((p, i) => [p.id, i + 1]));
 
   const needs = positionNeeds();
@@ -254,9 +324,9 @@ function evaluate() {
 
   const rows = pool.map(p => {
     const sig = {
-      entityId: p.id, baseValue: baseValue(p),
-      outcomeBand: p.dist ? { p10: p.dist.p10, p90: p.dist.p90 } : null,
-      marketPickRank: p.p50 == null ? null : Math.max(1, Math.round(p.p50)),
+      entityId: p.id, baseValue: livePick(p.id) == null ? 0 : -livePick(p.id),
+      outcomeBand: liveDist.get(p.id) ? { p10: liveDist.get(p.id).p10, p90: liveDist.get(p.id).p90 } : null,
+      marketPickRank: livePick(p.id) == null ? null : Math.max(1, Math.round(livePick(p.id))),
       modelRank: modelRank.get(p.id), leagueTeamCount: teams,
       ageAtSeasonStart: p.age, yearsExperience: p.yrs ?? null,
       positionNeed: needs[p.pos] ?? 0,
@@ -267,19 +337,20 @@ function evaluate() {
     const rem = remainingInTier.get(p.id);
     const tierPressure = rem == null ? 0 : (rem <= 1 ? 1.0 : rem <= 2 ? 0.5 : 0.0);
     const surv = launched
-      ? G18.survivalToNextPick({ dist: p.dist, fromPickExclusive: from, toPick: to,
+      ? G18.survivalToNextPick({ dist: liveDist.get(p.id), fromPickExclusive: from, toPick: to,
           tierPressure, confidence: conf, drafted: false })
       : null;
 
     const decision = G18.marketDecision({
-      modelRank: sig.modelRank, survival: surv ? surv.probabilityAvailable : null, movement: 'stable',
+      modelRank: sig.modelRank, survival: surv ? surv.probabilityAvailable : null,
+      movement: G18.adpMovementDirection(livePick(p.id), p.p50) ?? 'stable',
     });
 
     const tag = G18.computeModelTag({
       decision,
       survivalToNextPick: surv ? surv.probabilityAvailable : null,
       tierNumber: tierOf.get(p.id) ?? null,
-      movement: null,                    // needs the live displacement, not ported
+      movement: G18.adpMovementDirection(livePick(p.id), p.p50),
       modelRank: sig.modelRank ?? 0,
       marketAdpRank: marketRank.get(p.id) ?? 0,
       picksPerRound: teams,
@@ -288,8 +359,8 @@ function evaluate() {
       isRookieNoProduction: !!p.dcp,
       hasPostInjuryDiscount: false,      // injury bundle not shipped to the console
       injuryRiskTier: null,
-      distributionWidth: p.dist ? (p.dist.p90 - p.dist.p10) : null,
-      p10Pick: p.dist ? p.dist.p10 : null,
+      distributionWidth: liveDist.get(p.id) ? (liveDist.get(p.id).p90 - liveDist.get(p.id).p10) : null,
+      p10Pick: liveDist.get(p.id) ? liveDist.get(p.id).p10 : null,
       tierMedianPick: tierMedian.get(p.id) ?? null,
       gamesProjected: null,              // needs the injury model
     });
@@ -298,6 +369,8 @@ function evaluate() {
       p, base: sig.baseValue, proj: proj.get(p.id), dialDelta: pv.total - pv.baseValue,
       contributions: pv.contributions, queueAdj: qAdj, total: pv.total + qAdj,
       tier: tierOf.get(p.id) ?? null, survival: surv, decision, tag,
+      livePick: livePick(p.id), movement: G18.adpMovementDirection(livePick(p.id), p.p50),
+      shift: shiftByPos[p.pos] ?? 0,
     };
   });
 
@@ -305,9 +378,9 @@ function evaluate() {
   // first), then everyone without, ordered by baseline projection. Without
   // this, a player with no market evidence has baseValue 0 — which outranks
   // every real player, whose value is a NEGATIVE pick number.
-  const withAdp = rows.filter(r => r.p.p50 != null)
+  const withAdp = rows.filter(r => r.livePick != null)
     .sort((a, b) => b.total - a.total || a.p.id.localeCompare(b.p.id));
-  const withoutAdp = rows.filter(r => r.p.p50 == null)
+  const withoutAdp = rows.filter(r => r.livePick == null)
     .sort((a, b) => (b.proj ?? -Infinity) - (a.proj ?? -Infinity) || a.p.id.localeCompare(b.p.id));
   const ordered = withAdp.concat(withoutAdp);
   ordered.forEach((r, i) => { r.rank = i + 1; });
@@ -510,8 +583,7 @@ function renderBoard() {
 
     tbody.append(tr);
   }
-  document.getElementById('remaining').textContent =
-    `${rows.length} shown · ${live().length} available`;
+
 }
 
 // ---- tabs --------------------------------------------------------------
@@ -624,12 +696,12 @@ function renderPlayer() {
 }
 
 function renderRoster() {
-  const host = document.getElementById('tab-roster');
+  const host = document.getElementById('roster-footer');
   host.textContent = '';
   const roster = state.league?.roster ?? ROSTER_DEFAULT();
   const mine = myPicks();
 
-  host.append(el('p', 'section-label', 'Starters'));
+  host.append(el('p', 'group-label', 'Your roster'));
   const used = new Set();
   for (const [pos, total] of Object.entries(roster)) {
     const have = mine.filter(r => r.p.pos === pos);
@@ -649,7 +721,7 @@ function renderRoster() {
   }
 
   const bench = mine.filter(r => !used.has(r.p.id));
-  host.append(el('p', 'section-label', `Bench (${bench.length})`));
+  host.append(el('p', 'group-label', `Bench (${bench.length})`));
   if (!bench.length) host.append(el('p', 'hint', 'No bench players yet.'));
   for (const r of bench) {
     const row = el('div', 'qrow');
@@ -659,16 +731,6 @@ function renderRoster() {
     host.append(row);
   }
 
-  host.append(el('p', 'section-label', 'Positional need'));
-  for (const [pos, n] of Object.entries(positionNeeds())) {
-    const row = el('div', 'prow');
-    row.append(el('span', 'pk', pos));
-    const bar = el('span', 'pbar'); const fill = el('i');
-    fill.style.left = '0'; fill.style.width = (n * 100) + '%';
-    bar.append(fill); row.append(bar, el('span', 'pv', n.toFixed(2)));
-    host.append(row);
-  }
-  host.append(el('p', 'hint', 'Need feeds the positional-aggression dial: 1.00 is an entirely unfilled position, 0.00 a filled one.'));
 }
 
 function dialRow(spec, value, onInput, verdict) {
@@ -776,39 +838,54 @@ function buildLeagueFields(host) {
   const L = state.league;
   const t = document.createElement('input');
   t.type = 'text'; t.value = L.name;
-  t.addEventListener('input', () => { L.name = t.value; save(); renderLeagueMenu(); renderStepper(); });
+  t.addEventListener('input', () => { L.name = t.value; save(); renderLeagueMenu(); });
   const f = el('div', 'field'); f.append(el('label', null, 'League name'), t); host.append(f);
 
-  host.append(numberField('Teams', L.teams, 1, 4, 20, v => {
-    L.teams = Math.max(4, Math.min(20, v || 12));
-    L.slot = Math.min(L.slot, L.teams);
-    save(); refresh();
-  }));
-  host.append(numberField('Your seat', L.slot, 1, 1, L.teams, v => {
-    L.slot = Math.max(1, Math.min(L.teams, v || 1)); save(); refresh();
-  }));
-  host.append(numberField('Rounds', L.rounds, 1, 1, 30, v => { L.rounds = v || 15; save(); refresh(); }));
-
-  const mk = (label, key, opts) => {
-    const sel = document.createElement('select');
+  // Compact pairs, the way the iOS panels group them, instead of one tall
+  // column of full-width rows.
+  const grid = el('div', 'sgrid');
+  const cell = (label, node) => { const c = el('label', 'scell'); c.append(el('span', 'sk', label), node); grid.append(c); };
+  const num = (key, min, max, obj = L) => {
+    const i = document.createElement('input');
+    i.type = 'number'; i.value = obj[key]; i.min = min; i.max = max;
+    i.addEventListener('change', () => {
+      obj[key] = Math.max(min, Math.min(max, parseInt(i.value, 10) || min));
+      if (key === 'teams') L.slot = Math.min(L.slot, L.teams);
+      save(); refresh();
+    });
+    return i;
+  };
+  const sel = (key, opts) => {
+    const x = document.createElement('select');
     for (const [v, txt] of opts) {
       const o = document.createElement('option'); o.value = v; o.textContent = txt;
-      if (L[key] === v) o.selected = true; sel.append(o);
+      if (L[key] === v) o.selected = true; x.append(o);
     }
-    sel.addEventListener('change', () => { L[key] = sel.value; save(); refresh(); });
-    const fl = el('div', 'field'); fl.append(el('label', null, label), sel); host.append(fl);
+    x.addEventListener('change', () => { L[key] = x.value; save(); refresh(); });
+    return x;
   };
-  mk('QB format', 'qbFormat', [['SINGLE', 'Single QB'], ['SUPERFLEX', 'Superflex'], ['TWO_QB', 'Two QB']]);
-  mk('Draft type', 'draftType', [['SNAKE', 'Snake'], ['LINEAR', 'Linear']]);
+  cell('Teams', num('teams', 4, 20));
+  cell('Your slot', num('slot', 1, 20));
+  cell('Rounds', num('rounds', 1, 30));
+  cell('Draft type', sel('draftType', [['SNAKE', 'Snake'], ['LINEAR', 'Linear']]));
+  cell('QB format', sel('qbFormat', [['SINGLE', '1 QB'], ['SUPERFLEX', 'Superflex'], ['TWO_QB', '2 QB']]));
+  host.append(grid);
 }
 
 function buildRosterFields(host) {
   const L = state.league;
+  const grid = el('div', 'sgrid');
   for (const pos of Object.keys(L.roster)) {
-    host.append(numberField(pos, L.roster[pos], 1, 0, 6, v => {
-      L.roster[pos] = Math.max(0, v || 0); save(); refresh();
-    }));
+    const c = el('label', 'scell');
+    c.append(el('span', 'sk', pos));
+    const i = document.createElement('input');
+    i.type = 'number'; i.value = L.roster[pos]; i.min = 0; i.max = 6;
+    i.addEventListener('change', () => {
+      L.roster[pos] = Math.max(0, parseInt(i.value, 10) || 0); save(); refresh();
+    });
+    c.append(i); grid.append(c);
   }
+  host.append(grid);
 }
 
 function buildScoringFields(host, markTouched) {
@@ -825,18 +902,45 @@ function buildScoringFields(host, markTouched) {
     row.append(b);
   }
   host.append(row);
-  host.append(numberField('TE premium (pts / reception)', L.tePremium, 0.25, 0, 2, v => {
-    L.tePremium = Math.max(0, v || 0); setTePremium(L.tePremium);
-    if (markTouched) L.touchedScoring = true; save(); refresh();
-  }));
-  for (const rule of state.scoring) {
-    const cur = rule.mode === 'perUnit' ? rule.pointsPerUnit : rule.points;
-    host.append(numberField(rule.label, cur, rule.step, undefined, undefined, v => {
-      const val = Number.isFinite(v) ? v : 0;
-      if (rule.mode === 'perUnit') rule.pointsPerUnit = val; else rule.points = val;
-      if (markTouched) L.touchedScoring = true;
-      save(); refresh();
-    }));
+
+  const byGroup = {};
+  for (const r of state.scoring) (byGroup[r.group] ||= []).push(r);
+
+  for (const [group, rules] of Object.entries(byGroup)) {
+    if (group === 'Tables') continue;
+    host.append(el('p', 'group-label', group));
+    const grid = el('div', 'sgrid');
+    for (const rule of rules) {
+      const cell = el('label', 'scell');
+      cell.append(el('span', 'sk', rule.label));
+      const i = document.createElement('input');
+      i.type = 'number'; i.step = String(rule.step);
+      i.value = String(rule.mode === 'perUnit' ? rule.pointsPerUnit : rule.points);
+      i.addEventListener('change', () => {
+        const v = parseFloat(i.value);
+        const val = Number.isFinite(v) ? v : 0;
+        if (rule.mode === 'perUnit') rule.pointsPerUnit = val; else rule.points = val;
+        if (rule.statKey === 'te_reception') L.tePremium = val;
+        if (markTouched) L.touchedScoring = true;
+        save(); renderBoard();
+      });
+      cell.append(i);
+      grid.append(cell);
+    }
+    host.append(grid);
+  }
+
+  // The two range tables are tables, not single numbers.
+  for (const rule of (byGroup['Tables'] || [])) {
+    host.append(el('p', 'group-label', rule.label));
+    const t = el('div', 'rtable');
+    for (const r of rule.ranges) {
+      const band = el('span', 'rband');
+      band.append(el('span', 'rr', r.max == null ? `${r.min}+` : (r.min === r.max ? `${r.min}` : `${r.min}–${r.max}`)));
+      band.append(el('span', 'rp', (r.points > 0 ? '+' : '') + r.points));
+      t.append(band);
+    }
+    host.append(t);
   }
 }
 
@@ -859,24 +963,13 @@ function refresh() {
 function renderSettings() {
   const host = document.getElementById('tab-settings');
   host.textContent = '';
-  const L = state.league;
-  if (!L) return;
-  host.append(el('p', 'section-label', L.name));
-  host.append(numberField('Teams', L.teams, 1, 4, 20, v => { L.teams = Math.max(4, Math.min(20, v || 12)); save(); renderAll(); }));
-  host.append(numberField('Your seat', L.slot, 1, 1, L.teams, v => { L.slot = Math.max(1, Math.min(L.teams, v || 1)); save(); renderAll(); }));
-  host.append(numberField('Rounds', L.rounds, 1, 1, 30, v => { L.rounds = v || 15; save(); }));
-  host.append(numberField('TE premium (pts / reception)', L.tePremium, 0.25, 0, 2, v => {
-    L.tePremium = Math.max(0, v || 0); setTePremium(L.tePremium); save(); renderBoard();
-  }));
+  if (!state.league) return;
+  host.append(el('p', 'group-label', 'League'));
+  buildLeagueFields(host);
+  host.append(el('p', 'group-label', 'Starting roster'));
+  buildRosterFields(host);
 
-  host.append(el('p', 'section-label', 'Starting roster'));
-  for (const pos of Object.keys(L.roster)) {
-    host.append(numberField(pos, L.roster[pos], 1, 0, 6, v => {
-      L.roster[pos] = Math.max(0, v || 0); save(); renderAll();
-    }));
-  }
-
-  host.append(el('p', 'section-label', 'Danger zone'));
+  host.append(el('p', 'group-label', 'Danger zone'));
   const row = el('div', 'row');
   const reset = el('button', 'pill', 'Reset draft');
   reset.type = 'button';
@@ -885,7 +978,9 @@ function renderSettings() {
   nuke.type = 'button';
   nuke.addEventListener('click', () => {
     if (!confirm('Delete this league and everything recorded in it?')) return;
-    state.league = null; state.drafted = new Map(); state.pick = 1; state.status = {};
+    state.leagues = state.leagues.filter(l => l.id !== state.leagueId);
+    state.league = null; state.leagueId = null;
+    state.drafted = new Map(); state.pick = 1; state.status = {};
     save(); boot();
   });
   row.append(reset, nuke); host.append(row);
@@ -894,27 +989,8 @@ function renderSettings() {
 function renderScoring() {
   const host = document.getElementById('tab-scoring');
   host.textContent = '';
-  host.append(el('p', 'section-label', 'Scoring rules'));
-  host.append(el('p', 'hint', 'Reception and passing rules move the market-derived base, so a format change re-ranks the board.'));
-  for (const rule of state.scoring) {
-    const cur = rule.mode === 'perUnit' ? rule.pointsPerUnit : rule.points;
-    host.append(numberField(rule.label, cur, rule.step, undefined, undefined, v => {
-      const val = Number.isFinite(v) ? v : 0;
-      if (rule.mode === 'perUnit') rule.pointsPerUnit = val; else rule.points = val;
-      save(); renderBoard();
-    }));
-  }
-  host.append(el('p', 'section-label', 'Presets'));
-  const row = el('div', 'row');
-  for (const [name, rec] of [['Standard', 0], ['Half PPR', 0.5], ['Full PPR', 1]]) {
-    const b = el('button', 'pill', name); b.type = 'button';
-    b.addEventListener('click', () => {
-      setReceptionPoints(rec);
-      save(); renderScoring(); renderBoard();
-    });
-    row.append(b);
-  }
-  host.append(row);
+  host.append(el('p', 'hint', 'Every shipped scoring rule. Changes re-rank the board immediately.'));
+  buildScoringFields(host, false);
 }
 
 function selectTab(name) {
@@ -1061,8 +1137,9 @@ function renderStepper() {
 }
 
 function renderClock() {
-  const { round, seat, mine } = onClock();
   const c = document.getElementById('clock');
+  if (!c || !state.league) return;
+  const { round, seat, mine } = onClock();
   c.textContent = '';
   if (!state.league.launched) {
     c.append(el('b', null, 'Not started'),
@@ -1074,12 +1151,14 @@ function renderClock() {
 }
 
 function renderAll() {
-  renderLeagueMenu(); renderClock(); renderBoard(); renderQueue(); renderRoster(); renderSettings(); renderPlayer();
+  renderFilters(); renderLeagueMenu(); renderClock(); renderBoard(); renderQueue(); renderRoster(); renderSettings(); renderPlayer();
 }
 
 function renderFilters() {
   const host = document.getElementById('filters');
   host.textContent = '';
+  const lm = el('span', 'leaguemenu'); lm.id = 'leaguemenu';
+  host.append(lm);
   const q = document.createElement('input');
   q.type = 'search'; q.placeholder = 'Search player or team'; q.value = state.filter.q;
   q.setAttribute('aria-label', 'Search players');
@@ -1113,17 +1192,21 @@ function boot() {
   document.getElementById('tabs-pane').hidden = !launched;
   if (!launched) {
     if (!state.openStep) state.openStep = 'league';
-    renderLeagueMenu(); renderStepper(); renderFilters(); renderBoard(); renderClock();
+    renderFilters(); renderLeagueMenu(); renderStepper(); renderBoard(); renderClock();
     return;
   }
   renderFilters();
+  renderLeagueMenu();
   renderPreferences();
   renderScoring();
   renderAll();
+  renderRoster();
   for (const b of document.querySelectorAll('.tabs button')) b.onclick = () => selectTab(b.dataset.tab);
   selectTab(state.tab);
-  document.getElementById('undo').hidden = false;
-  document.getElementById('undo').onclick = () => {
+  const undo = document.getElementById('undo');
+  if (!undo) return;
+  undo.hidden = false;
+  undo.onclick = () => {
     if (state.pick <= 1) return;
     let lastId = null, lastPick = 0;
     for (const [id, v] of state.drafted) if (v.pick > lastPick) { lastPick = v.pick; lastId = id; }
@@ -1139,9 +1222,9 @@ async function init() {
     const d = await r.json();
     POOL = d.players.filter(p => p.pos && p.pos !== 'NA');
     POOL_META = d;
-    document.getElementById('poolmeta').textContent = `${POOL.length} players · season ${d.season}`;
+
   } catch {
-    document.getElementById('poolmeta').textContent = 'player pool failed to load';
+    document.body.textContent = 'Player pool failed to load.';
     return;
   }
   boot();

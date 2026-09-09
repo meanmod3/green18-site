@@ -419,3 +419,52 @@ body.predraft .board tbody tr:hover { background: transparent; }
   .stepper { padding-bottom: 3rem; }
   .setup-card { margin: 1.2rem 0 3rem; padding: 1.2rem 1rem 1.4rem; }
 }
+
+/* ---- condensed panels --------------------------------------------------- */
+.group-label {
+  font-size: .56rem; text-transform: uppercase; letter-spacing: .13em;
+  color: var(--ink-3); font-weight: 700; margin: 1rem 0 .4rem;
+}
+.group-label:first-child { margin-top: 0; }
+.sgrid { display: grid; grid-template-columns: 1fr 1fr; gap: .3rem .5rem; }
+.scell {
+  display: flex; align-items: center; justify-content: space-between; gap: .4rem;
+  background: var(--bg-3); border-radius: 7px; padding: .28rem .3rem .28rem .5rem;
+}
+.scell .sk { font-size: .7rem; color: var(--ink-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.scell input, .scell select {
+  width: 4.1rem; flex: none; text-align: right; font-size: .74rem;
+  background: transparent; border: 1px solid var(--line); border-radius: 5px; padding: .1rem .3rem;
+}
+.scell select { width: 5.6rem; text-align: left; }
+
+.rtable { display: flex; flex-wrap: wrap; gap: .25rem; }
+.rband {
+  display: inline-flex; gap: .3rem; align-items: baseline;
+  background: var(--bg-3); border-radius: 6px; padding: .18rem .4rem;
+  font-family: var(--mono); font-size: .64rem;
+}
+.rband .rr { color: var(--ink-3); }
+.rband .rp { color: var(--accent); font-weight: 700; }
+
+/* ---- roster footer under the board -------------------------------------- */
+.roster-footer {
+  flex: none; max-height: 8.5rem; overflow-y: auto;
+  border-top: 1px solid var(--line); background: var(--bg-2);
+  padding: .55rem .95rem .7rem;
+}
+/* A horizontal strip of slot chips, not a stacked list: the roster is a
+   glance, and the board is what needs the height. */
+.roster-footer .qrow {
+  display: inline-flex; width: auto; gap: .35rem; align-items: baseline;
+  background: var(--bg-3); border-radius: 999px;
+  padding: .22rem .55rem; margin: 0 .3rem .3rem 0;
+  max-width: 13rem;
+}
+.roster-footer .qrow .qn { font-size: .72rem; }
+.roster-footer .group-label { margin: .5rem 0 .35rem; }
+.roster-footer .group-label:first-child { margin-top: 0; }
+.roster-footer .hint { margin: 0; }
+
+/* the league menu now sits inside the draft filter bar */
+.filters .leaguemenu select { max-width: 11rem; font-size: .78rem; }
