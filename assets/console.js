@@ -736,7 +736,8 @@ function renderRoster() {
   const roster = state.league?.roster ?? ROSTER_DEFAULT();
   const mine = myPicks();
 
-  host.append(el('p', 'group-label', 'Your roster'));
+  host.append(el('p', 'group-label',
+    state.league?.launched ? 'Your roster' : 'Your roster — empty until the draft starts'));
   const used = new Set();
   for (const [pos, total] of Object.entries(roster)) {
     const have = mine.filter(r => r.p.pos === pos);
@@ -1192,25 +1193,59 @@ function renderAll() {
 function renderFilters() {
   const host = document.getElementById('filters');
   host.textContent = '';
+
   const lm = el('span', 'leaguemenu'); lm.id = 'leaguemenu';
   host.append(lm);
-  const q = document.createElement('input');
-  q.type = 'search'; q.placeholder = 'Search player or team'; q.value = state.filter.q;
-  q.setAttribute('aria-label', 'Search players');
-  q.addEventListener('input', () => { state.filter.q = q.value; renderBoard(); });
-  host.append(q);
+
+  // Position filters are the primary control; search is a magnifier that
+  // overlays them, so the row stays one line at any width.
+  const chips = el('div', 'chips');
   for (const pos of ['ALL', ...POSITIONS]) {
     const b = el('button', 'fbtn', pos);
     b.type = 'button';
     b.setAttribute('aria-pressed', String(state.filter.pos === pos));
     b.addEventListener('click', () => { state.filter.pos = pos; renderFilters(); renderBoard(); });
-    host.append(b);
+    chips.append(b);
   }
   const qb = el('button', 'fbtn', 'Queued');
   qb.type = 'button';
   qb.setAttribute('aria-pressed', String(state.filter.queuedOnly));
   qb.addEventListener('click', () => { state.filter.queuedOnly = !state.filter.queuedOnly; renderFilters(); renderBoard(); });
-  host.append(qb);
+  chips.append(qb);
+  host.append(chips);
+
+  const searchBtn = el('button', 'iconbtn', '⌕');
+  searchBtn.type = 'button';
+  searchBtn.title = 'Search players';
+  searchBtn.setAttribute('aria-label', 'Search players');
+  searchBtn.setAttribute('aria-expanded', 'false');
+  host.append(searchBtn);
+
+  const overlay = el('div', 'searchbar');
+  overlay.hidden = true;
+  const q = document.createElement('input');
+  q.type = 'search'; q.placeholder = 'Search player or team'; q.value = state.filter.q;
+  q.setAttribute('aria-label', 'Search players');
+  q.addEventListener('input', () => { state.filter.q = q.value; renderBoard(); });
+  q.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+  const clear = el('button', 'iconbtn', '×');
+  clear.type = 'button'; clear.title = 'Close search'; clear.setAttribute('aria-label', 'Close search');
+  function close() {
+    overlay.hidden = true;
+    searchBtn.setAttribute('aria-expanded', 'false');
+    if (state.filter.q) { state.filter.q = ''; renderBoard(); }
+    searchBtn.focus();
+  }
+  clear.addEventListener('click', close);
+  overlay.append(q, clear);
+  host.append(overlay);
+
+  searchBtn.addEventListener('click', () => {
+    overlay.hidden = !overlay.hidden;
+    searchBtn.setAttribute('aria-expanded', String(!overlay.hidden));
+    if (!overlay.hidden) q.focus();
+  });
+  if (state.filter.q) { overlay.hidden = false; searchBtn.setAttribute('aria-expanded', 'true'); }
 }
 
 function boot() {
@@ -1227,7 +1262,7 @@ function boot() {
   document.getElementById('tabs-pane').hidden = !launched;
   if (!launched) {
     if (!state.openStep) state.openStep = 'league';
-    renderFilters(); renderLeagueMenu(); renderStepper(); renderBoard(); renderClock();
+    renderFilters(); renderLeagueMenu(); renderStepper(); renderBoard(); renderClock(); renderRoster();
     return;
   }
   renderFilters();
