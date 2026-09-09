@@ -125,6 +125,9 @@ export const FOOTER = [
     ['Support', '/support'],
     ['Contact', '/contact'],
   ]},
+  { heading: 'Operators', links: [
+    ['Operator sign-in', '/login'],
+  ]},
 ];
 
 export const FOOTER_DISCLAIMER =

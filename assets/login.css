@@ -1,0 +1,13 @@
+/* Operator sign-in — small, self-contained, no inline styles (the site's CSP
+   allows neither inline style nor inline script). */
+.login-wrap { max-width: 36rem; padding: 3rem 0 5rem; }
+.login-wrap h1 { font-size: clamp(1.6rem, 3.4vw, 2.1rem); margin: 0 0 1rem; }
+.login-wrap .row { display: flex; flex-wrap: wrap; gap: .6rem; margin: 1.1rem 0; }
+.login-wrap .btn { display: inline-block; }
+.login-wrap .btn.ghost { background: transparent; border: 1px solid currentColor; }
+.login-wrap .kv { display: grid; grid-template-columns: auto 1fr; gap: .3rem 1rem; margin: 0 0 1rem; }
+.login-wrap .kv dt { opacity: .72; }
+.login-wrap .kv dd { margin: 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+.login-wrap .ok { border-left: 3px solid #75dc49; padding-left: .7rem; }
+.login-wrap .warn { border-left: 3px solid #ff9e2e; padding-left: .7rem; }
+.login-wrap .muted { opacity: .72; font-size: .92rem; }

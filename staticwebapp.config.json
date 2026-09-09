@@ -8,6 +8,20 @@
       ]
     },
     {
+      "route": "/login",
+      "allowedRoles": [
+        "anonymous",
+        "authenticated"
+      ]
+    },
+    {
+      "route": "/.auth/*",
+      "allowedRoles": [
+        "anonymous",
+        "authenticated"
+      ]
+    },
+    {
       "route": "/.auth/login/aad",
       "allowedRoles": [
         "anonymous",

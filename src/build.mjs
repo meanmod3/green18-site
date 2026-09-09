@@ -582,6 +582,10 @@ const swa = {
     // has no auth layer and would serve them to anyone. See
     // docs/model-console.md and .github/workflows/azure-swa.yml.
     { route: '/internal/*', allowedRoles: ['operator'] },
+    // The sign-in page itself must be anonymous, or a signed-out operator
+    // has no way back in except a hand-issued invitation URL.
+    { route: '/login', allowedRoles: ['anonymous', 'authenticated'] },
+    { route: '/.auth/*', allowedRoles: ['anonymous', 'authenticated'] },
     { route: '/.auth/login/aad', allowedRoles: ['anonymous', 'authenticated'] },
     { route: '/.auth/login/github', allowedRoles: ['anonymous', 'authenticated'] },
     ...routes,
