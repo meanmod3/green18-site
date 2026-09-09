@@ -4,10 +4,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Model Console — GREEN18 (internal)</title>
-<!-- Gated operator surface: served only to a principal holding the `operator`
-     role (Entra), plus noindex/robots as defence in depth. Lives on the
-     internal-console branch, never on a branch a static host publishes
-     unauthenticated. See docs/model-console.md. -->
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
 <meta name="referrer" content="no-referrer">
 <link rel="stylesheet" href="/assets/console.css">
@@ -20,29 +16,38 @@
   <span class="tag">Internal</span>
   <span class="clock" id="clock"></span>
   <span class="spacer"></span>
+  <span class="clock" id="poolmeta">loading…</span>
   <button class="qbtn" type="button" id="undo">Undo pick</button>
 </div>
 
-<div class="shell">
+<section id="setup" class="setup" hidden>
+  <div class="setup-card">
+    <h2>New league</h2>
+    <p class="hint">Everything is stored in this browser only — the same local-first posture as the app.</p>
+    <div id="setup-form"></div>
+  </div>
+</section>
+
+<div class="shell" id="app" hidden>
 
   <section class="pane">
     <header>
       <span>Live draft room</span>
       <span class="spacer" style="flex:1"></span>
-      <span class="roster" id="roster"></span>
       <span class="clock" id="remaining"></span>
     </header>
+    <div class="filters" id="filters"></div>
     <div class="scroll">
       <table class="board">
         <thead>
           <tr>
             <th style="width:3ch">#</th>
             <th>Player</th>
-            <th style="text-align:right">Base</th>
+            <th style="text-align:right">Base<span class="sub">market</span></th>
             <th style="text-align:right">Dials</th>
             <th style="text-align:right">Queue</th>
             <th style="text-align:right">Value</th>
-            <th style="text-align:right">ADP</th>
+            <th style="text-align:right">Mkt</th>
             <th style="width:3ch"></th>
             <th style="width:5ch"></th>
           </tr>
@@ -55,13 +60,17 @@
   <section class="pane">
     <header>
       <div class="tabs" role="tablist">
-        <button type="button" role="tab" data-tab="preferences" aria-selected="true">Preferences</button>
-        <button type="button" role="tab" data-tab="settings" aria-selected="false">Settings</button>
+        <button type="button" role="tab" data-tab="queue" aria-selected="true">Queue</button>
+        <button type="button" role="tab" data-tab="roster" aria-selected="false">Roster</button>
+        <button type="button" role="tab" data-tab="preferences" aria-selected="false">Prefs</button>
+        <button type="button" role="tab" data-tab="settings" aria-selected="false">League</button>
         <button type="button" role="tab" data-tab="scoring" aria-selected="false">Scoring</button>
       </div>
     </header>
     <div class="scroll">
-      <div class="tabpanel" id="tab-preferences" role="tabpanel"></div>
+      <div class="tabpanel" id="tab-queue" role="tabpanel"></div>
+      <div class="tabpanel" id="tab-roster" role="tabpanel" hidden></div>
+      <div class="tabpanel" id="tab-preferences" role="tabpanel" hidden></div>
       <div class="tabpanel" id="tab-settings" role="tabpanel" hidden></div>
       <div class="tabpanel" id="tab-scoring" role="tabpanel" hidden></div>
     </div>
