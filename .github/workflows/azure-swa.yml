@@ -54,9 +54,13 @@ jobs:
       - name: Inject the gated console
         run: |
           git fetch --depth=1 origin internal-console
-          git --work-tree=_artifact checkout FETCH_HEAD -- internal assets/console.css assets/console.js
+          # Whole directories, not a hand-listed file set: naming files
+          # individually silently dropped assets/engine.js when it was added,
+          # and the page died on a missing global rather than 404ing visibly.
+          git --work-tree=_artifact checkout FETCH_HEAD -- internal assets
           git reset -q
           test -f _artifact/assets/console.js
+          test -f _artifact/assets/engine.js
           test -n "$(find _artifact/internal -name index.html -print -quit)"
 
       - name: Deploy
