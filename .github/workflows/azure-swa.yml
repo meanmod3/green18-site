@@ -48,6 +48,17 @@ jobs:
           test -f _artifact/staticwebapp.config.json
           test -f _artifact/llms.txt
 
+      # The console lives on the `internal-console` branch, never on main:
+      # GitHub Pages publishes main with no auth layer, so a gated surface
+      # cannot live there. Azure serves it behind the `operator` role.
+      - name: Inject the gated console
+        run: |
+          git fetch --depth=1 origin internal-console
+          git --work-tree=_artifact checkout FETCH_HEAD -- internal assets/console.css assets/console.js
+          git reset -q
+          test -f _artifact/assets/console.js
+          test -n "$(find _artifact/internal -name index.html -print -quit)"
+
       - name: Deploy
         uses: Azure/static-web-apps-deploy@v1
         with:
