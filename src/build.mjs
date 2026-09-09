@@ -585,9 +585,10 @@ const swa = {
     // The sign-in page itself must be anonymous, or a signed-out operator
     // has no way back in except a hand-issued invitation URL.
     { route: '/login', allowedRoles: ['anonymous', 'authenticated'] },
+    // One wildcard, not a wildcard plus the specific login paths: SWA rejects
+    // a config where a wildcard shadows a later route, and this one covers
+    // /.auth/login/aad, /.auth/login/github, /.auth/me and /.auth/logout.
     { route: '/.auth/*', allowedRoles: ['anonymous', 'authenticated'] },
-    { route: '/.auth/login/aad', allowedRoles: ['anonymous', 'authenticated'] },
-    { route: '/.auth/login/github', allowedRoles: ['anonymous', 'authenticated'] },
     ...routes,
   ],
   // No navigationFallback: this is a multi-page static site, not a SPA. A

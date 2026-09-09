@@ -22,20 +22,6 @@
       ]
     },
     {
-      "route": "/.auth/login/aad",
-      "allowedRoles": [
-        "anonymous",
-        "authenticated"
-      ]
-    },
-    {
-      "route": "/.auth/login/github",
-      "allowedRoles": [
-        "anonymous",
-        "authenticated"
-      ]
-    },
-    {
       "route": "/beat-your-coworkers-fantasy-football",
       "redirect": "/office-fantasy-football-draft",
       "statusCode": 301
