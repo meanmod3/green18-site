@@ -149,7 +149,24 @@ function setTePremium(v) {
   if (r) r.points = v;
 }
 
-const ROSTER_DEFAULT = () => ({ QB: 1, RB: 2, WR: 3, TE: 1, DST: 1, K: 1 });
+// The roster slot catalogue, transcribed from DraftEngine/League/RosterSlots.
+// FLEX and SUPERFLEX are MULTI-eligible: their demand is shared 1/n across the
+// positions they accept, which is what ReplacementValue.demandShare does, and
+// bench demand counts half.
+const SLOT_TYPES = [
+  { id: 'QB',        label: 'QB',  eligible: ['QB'],  starter: true },
+  { id: 'RB',        label: 'RB',  eligible: ['RB'],  starter: true },
+  { id: 'WR',        label: 'WR',  eligible: ['WR'],  starter: true },
+  { id: 'TE',        label: 'TE',  eligible: ['TE'],  starter: true },
+  { id: 'FLEX',      label: 'F',   eligible: ['RB', 'WR', 'TE'], starter: true, title: 'Flex — W/R/T' },
+  { id: 'SUPERFLEX', label: 'SF',  eligible: ['QB', 'RB', 'WR', 'TE'], starter: true, title: 'Superflex — W/R/T/Q' },
+  { id: 'DST',       label: 'DST', eligible: ['DST'], starter: true },
+  { id: 'K',         label: 'K',   eligible: ['K'],   starter: true },
+  { id: 'BN',        label: 'BN',  eligible: ['QB', 'RB', 'WR', 'TE', 'K', 'DST'], starter: false, bench: true, title: 'Bench' },
+];
+const BENCH_DEMAND_MULTIPLIER = 0.5;
+
+const ROSTER_DEFAULT = () => ({ QB: 1, RB: 2, WR: 3, TE: 1, FLEX: 1, SUPERFLEX: 0, DST: 1, K: 1, BN: 6 });
 
 // ---- state -------------------------------------------------------------
 
@@ -253,15 +270,53 @@ function myPicks() {
     .filter(r => r.p);
 }
 
+/** ReplacementValue.demandShare: a multi-eligible slot contributes 1/n to each
+ *  position it accepts, halved for bench slots. */
+function demandShare(slot, position) {
+  if (!slot.eligible.includes(position)) return 0;
+  const share = 1 / slot.eligible.length;
+  return slot.bench ? share * BENCH_DEMAND_MULTIPLIER : share;
+}
+
+/** Capacity at a position across the whole roster framework. */
+function positionCapacity(position, roster) {
+  let total = 0;
+  for (const slot of SLOT_TYPES) total += demandShare(slot, position) * (roster[slot.id] ?? 0);
+  return total;
+}
+
 function positionNeeds() {
-  const needs = {};
   const roster = state.league?.roster ?? ROSTER_DEFAULT();
   const mine = myPicks();
-  for (const [pos, total] of Object.entries(roster)) {
+  const needs = {};
+  for (const pos of POSITIONS) {
+    const capacity = positionCapacity(pos, roster);
     const filled = mine.filter(r => r.p.pos === pos).length;
-    needs[pos] = total === 0 ? 0 : Math.max(0, (total - filled) / total);
+    needs[pos] = capacity === 0 ? 0 : Math.max(0, (capacity - filled) / capacity);
   }
   return needs;
+}
+
+/** Assign each of my picks to the first slot that accepts it, starters before
+ *  bench — the same ordering the roster panel shows. */
+function slotAssignments() {
+  const roster = state.league?.roster ?? ROSTER_DEFAULT();
+  const filled = {};
+  for (const slot of SLOT_TYPES) filled[slot.id] = [];
+  const unassigned = [];
+  for (const pick of myPicks()) {
+    let placed = false;
+    for (const slot of SLOT_TYPES) {
+      const cap = roster[slot.id] ?? 0;
+      if (!cap || filled[slot.id].length >= cap) continue;
+      if (!slot.eligible.includes(pick.p.pos)) continue;
+      filled[slot.id].push(pick);
+      placed = true;
+      break;
+    }
+    if (!placed) unassigned.push(pick);
+  }
+  return { filled, unassigned };
 }
 
 function evaluate() {
@@ -570,7 +625,7 @@ function renderBoard() {
       ev.stopPropagation();
       if (!state.league.launched) return;
       state.status[p.id] = STATUSES[(STATUSES.indexOf(st) + 1) % STATUSES.length];
-      save(); renderBoard(); renderQueue();
+      save(); renderBoard(); renderQueue(); renderRoster();
     });
     tdQ.append(qb); tr.append(tdQ);
 
@@ -730,43 +785,92 @@ function renderPlayer() {
   host.append(row3);
 }
 
+/** The roster framework AND the live roster, in one component.
+ *
+ *  One column per slot type. The header carries the count control — this is
+ *  now the only place roster size is set, so the framework and what fills it
+ *  are never two different screens. Each column then shows the picks that
+ *  actually landed in those slots, and below them the queued players eligible
+ *  for that column. */
 function renderRoster() {
   const host = document.getElementById('roster-footer');
+  if (!host) return;
   host.textContent = '';
   const roster = state.league?.roster ?? ROSTER_DEFAULT();
-  const mine = myPicks();
+  const { filled, unassigned } = slotAssignments();
+  const launched = !!state.league?.launched;
 
-  host.append(el('p', 'group-label',
-    state.league?.launched ? 'Your roster' : 'Your roster — empty until the draft starts'));
-  const used = new Set();
-  for (const [pos, total] of Object.entries(roster)) {
-    const have = mine.filter(r => r.p.pos === pos);
-    for (let i = 0; i < total; i++) {
-      const row = el('div', 'qrow');
-      row.append(el('span', `pos ${pos}`, pos));
-      if (have[i]) {
-        used.add(have[i].p.id);
-        row.append(el('span', 'qn', have[i].p.n));
-        row.append(el('span', 'qa', `#${have[i].pick}`));
-      } else {
-        row.append(el('span', 'qn', '—'));
-        row.classList.add('empty');
-      }
-      host.append(row);
+  const queuedByPos = {};
+  for (const p of POOL) {
+    const st = state.status[p.id] || 'NEUTRAL';
+    if (st === 'NEUTRAL' || st === 'AVOID' || state.drafted.has(p.id)) continue;
+    (queuedByPos[p.pos] ||= []).push({ p, st });
+  }
+
+  const grid = el('div', 'rgrid');
+  for (const slot of SLOT_TYPES) {
+    const count = roster[slot.id] ?? 0;
+    const col = el('div', 'rcol');
+    if (!count) col.classList.add('off');
+
+    const head = el('div', 'rhead');
+    const badge = el('span', `pos ${slot.eligible.length === 1 ? slot.eligible[0] : 'MULTI'}`, slot.label);
+    if (slot.title) badge.title = slot.title;
+    head.append(badge);
+
+    // The count control: this is the roster-size setting.
+    const sel = document.createElement('select');
+    sel.setAttribute('aria-label', `${slot.title || slot.label} slots`);
+    for (let i = 0; i <= (slot.bench ? 12 : 6); i++) {
+      const o = document.createElement('option');
+      o.value = String(i); o.textContent = String(i);
+      if (i === count) o.selected = true;
+      sel.append(o);
     }
-  }
+    sel.addEventListener('change', () => {
+      state.league.roster[slot.id] = parseInt(sel.value, 10) || 0;
+      save(); refresh();
+    });
+    head.append(sel);
+    col.append(head);
 
-  const bench = mine.filter(r => !used.has(r.p.id));
-  host.append(el('p', 'group-label', `Bench (${bench.length})`));
-  if (!bench.length) host.append(el('p', 'hint', 'No bench players yet.'));
-  for (const r of bench) {
-    const row = el('div', 'qrow');
-    row.append(el('span', `pos ${r.p.pos}`, r.p.pos));
-    row.append(el('span', 'qn', r.p.n));
-    row.append(el('span', 'qa', `#${r.pick}`));
-    host.append(row);
-  }
+    const body = el('div', 'rbody');
+    for (let i = 0; i < count; i++) {
+      const pick = filled[slot.id][i];
+      const cell = el('div', 'rslot' + (pick ? ' taken' : ''));
+      if (pick) {
+        cell.append(el('span', 'rn', pick.p.n));
+        cell.append(el('span', 'rp', '#' + pick.pick));
+      } else {
+        cell.append(el('span', 'rn dim', launched ? 'open' : '—'));
+      }
+      body.append(cell);
+    }
 
+    // Queued players eligible for this column, so the queue reads by position.
+    const q = (slot.eligible.flatMap(pos => queuedByPos[pos] || []))
+      .sort((a, b) => (a.p.p50 ?? 999) - (b.p.p50 ?? 999));
+    if (count && q.length) {
+      body.append(el('div', 'rqhead', `Queued (${q.length})`));
+      for (const { p, st } of q.slice(0, 4)) {
+        const cell = el('div', 'rslot queued');
+        cell.append(el('span', 'rn', p.n));
+        cell.append(el('span', 'rp', st === 'FAVORITE' ? '★' : '·'));
+        cell.title = `${p.n} — ${st}`;
+        body.append(cell);
+      }
+    }
+    col.append(body);
+    grid.append(col);
+  }
+  host.append(grid);
+
+  if (unassigned.length) {
+    const extra = el('p', 'hint',
+      `${unassigned.length} pick${unassigned.length > 1 ? 's' : ''} with no open slot: `
+      + unassigned.map(r => r.p.n).join(', '));
+    host.append(extra);
+  }
 }
 
 function dialRow(spec, value, onInput, verdict) {
@@ -908,20 +1012,24 @@ function buildLeagueFields(host) {
   host.append(grid);
 }
 
+/** Roster size is set in the strip under the board — the one component that
+ *  owns the framework — so this step summarises rather than duplicating it. */
 function buildRosterFields(host) {
-  const L = state.league;
-  const grid = el('div', 'sgrid');
-  for (const pos of Object.keys(L.roster)) {
-    const c = el('label', 'scell');
-    c.append(el('span', 'sk', pos));
-    const i = document.createElement('input');
-    i.type = 'number'; i.value = L.roster[pos]; i.min = 0; i.max = 6;
-    i.addEventListener('change', () => {
-      L.roster[pos] = Math.max(0, parseInt(i.value, 10) || 0); save(); refresh();
-    });
-    c.append(i); grid.append(c);
+  const roster = state.league.roster;
+  const total = Object.values(roster).reduce((a, b) => a + b, 0);
+  const starters = SLOT_TYPES.filter(s => s.starter).reduce((a, s) => a + (roster[s.id] ?? 0), 0);
+  host.append(el('p', 'hint',
+    `${starters} starting slots and ${roster.BN ?? 0} bench, ${total} rounds' worth. `
+    + 'Set the counts in the roster strip beneath the draft board.'));
+  const sum = el('div', 'rgrid summary');
+  for (const slot of SLOT_TYPES) {
+    if (!(roster[slot.id] ?? 0)) continue;
+    const chip = el('div', 'rchip');
+    chip.append(el('span', `pos ${slot.eligible.length === 1 ? slot.eligible[0] : 'MULTI'}`, slot.label));
+    chip.append(el('span', 'rp', String(roster[slot.id])));
+    sum.append(chip);
   }
-  host.append(grid);
+  host.append(sum);
 }
 
 function buildScoringFields(host, markTouched) {
@@ -1002,7 +1110,7 @@ function renderSettings() {
   if (!state.league) return;
   host.append(el('p', 'group-label', 'League'));
   buildLeagueFields(host);
-  host.append(el('p', 'group-label', 'Starting roster'));
+  host.append(el('p', 'group-label', 'Roster'));
   buildRosterFields(host);
 
   host.append(el('p', 'group-label', 'Danger zone'));

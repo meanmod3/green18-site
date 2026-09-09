@@ -509,3 +509,50 @@ body.predraft .board tbody tr:hover { background: transparent; }
 .step-body .hint { margin: 0 0 .55rem; }
 .step-chev { margin-left: auto; }
 .launch { padding: .7rem 1rem; font-size: .78rem; }
+
+/* ---- roster framework strip -------------------------------------------- */
+.rgrid {
+  display: grid; grid-template-columns: repeat(9, minmax(0, 1fr));
+  gap: .4rem; align-items: start;
+}
+.rcol { min-width: 0; background: var(--bg-3); border-radius: 9px; padding: .35rem .35rem .4rem; }
+.rcol.off { opacity: .4; }
+.rhead { display: flex; align-items: center; justify-content: space-between; gap: .25rem; margin-bottom: .3rem; }
+.rhead select {
+  font: inherit; font-size: .68rem; font-family: var(--mono);
+  background: transparent; color: var(--ink-2);
+  border: 1px solid var(--line); border-radius: 5px; padding: 0 .15rem;
+  appearance: none; text-align: center; width: 2.1rem; cursor: pointer;
+}
+.rhead select:hover { color: var(--ink); border-color: color-mix(in srgb, var(--accent) 45%, transparent); }
+.pos.MULTI { background: linear-gradient(100deg, var(--rb), var(--wr) 55%, var(--te)); }
+
+.rbody { display: flex; flex-direction: column; gap: .18rem; }
+.rslot {
+  display: flex; align-items: baseline; justify-content: space-between; gap: .25rem;
+  font-size: .66rem; padding: .16rem .3rem; border-radius: 5px;
+  background: color-mix(in srgb, var(--ink) 4%, transparent);
+  border: 1px dashed var(--line);
+}
+.rslot.taken { border-style: solid; border-color: transparent; background: var(--pill-fill); }
+.rslot.taken .rn { color: var(--pill-label); font-weight: 600; }
+.rslot.queued { background: transparent; border-style: dotted; opacity: .8; }
+.rslot .rn { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rslot .rn.dim { color: var(--ink-3); }
+.rslot .rp { font-family: var(--mono); font-size: .58rem; color: var(--ink-3); flex: none; }
+.rqhead {
+  font-size: .52rem; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink-3); margin: .3rem 0 .1rem;
+}
+
+/* the League step's read-only summary of the same framework */
+.rgrid.summary { grid-template-columns: repeat(auto-fill, minmax(3.2rem, 1fr)); }
+.rchip {
+  display: flex; align-items: center; justify-content: space-between; gap: .3rem;
+  background: var(--bg-3); border-radius: 7px; padding: .22rem .4rem;
+}
+
+.roster-footer { max-height: 15rem; }
+
+@media (max-width: 1280px) { .rgrid { grid-template-columns: repeat(5, minmax(0,1fr)); } }
+@media (max-width: 860px)  { .rgrid { grid-template-columns: repeat(3, minmax(0,1fr)); } }
