@@ -220,7 +220,28 @@ function baseValue(p) {
 /** Projected season points — a genuinely separate number from baseValue, and
  *  the one the scoring rules move. Null where no stat line ships. */
 function projPoints(p) {
-  return G18.projectedSeasonPoints(p, state.scoring);
+  return G18.projectedSeasonPoints(p, state.scoring, availMult(p));
+}
+
+/** The injury model's availability multiplier for this player, from the
+ *  shipped historyDelta and seasons observed. 1.0 when nothing ships. */
+function availMult(p) {
+  if (!p.inj) return null;
+  return G18.availabilityMultiplier(p.inj.hd, p.inj.so, POOL_META.injuryScaleGames ?? 17);
+}
+
+/** Tier cuts, computed once per position over the whole pool — the app cuts
+ *  them over the same population, not over whoever is still available. */
+let INJURY_THRESHOLDS = null;
+function injuryThresholds() {
+  if (INJURY_THRESHOLDS) return INJURY_THRESHOLDS;
+  const byPos = {};
+  for (const p of POOL) {
+    if (!p.inj || p.inj.egm == null) continue;
+    (byPos[p.pos] ||= []).push(p.inj.egm);
+  }
+  INJURY_THRESHOLDS = G18.injuryTierThresholds(byPos);
+  return INJURY_THRESHOLDS;
 }
 
 function live() { return POOL.filter(p => !state.drafted.has(p.id)); }
@@ -357,12 +378,12 @@ function evaluate() {
       positionNeedOfOnClockTeam: needs[p.pos] ?? 0,
       isBestAvailableAtPosition: bestAt.get(p.pos) === p.id,
       isRookieNoProduction: !!p.dcp,
-      hasPostInjuryDiscount: false,      // injury bundle not shipped to the console
-      injuryRiskTier: null,
+      hasPostInjuryDiscount: (p.burden != null && p.burden > 0) || !!(p.inj && p.inj.pid_),
+      injuryRiskTier: p.inj ? G18.injuryTier(p.inj.egm, p.pos, injuryThresholds()) : null,
       distributionWidth: liveDist.get(p.id) ? (liveDist.get(p.id).p90 - liveDist.get(p.id).p10) : null,
       p10Pick: liveDist.get(p.id) ? liveDist.get(p.id).p10 : null,
       tierMedianPick: tierMedian.get(p.id) ?? null,
-      gamesProjected: null,              // needs the injury model
+      gamesProjected: G18.gamesProjected(p, availMult(p)),
     });
 
     return {
@@ -644,9 +665,15 @@ function renderPlayer() {
     ['Age at season start', p.age ?? 'not shipped'],
     ['Rookie', p.rookie ? 'yes' : 'no'],
     ['Status', p.status || '—'],
-    ['Market p10 / p50 / p90', p.band ? `${p.band.p10} / ${p.p50} / ${p.band.p90}` : 'no market evidence'],
-    ['Outcome band width', p.band ? (p.band.p90 - p.band.p10) + ' picks' : '—'],
+    ['Market p10 / p50 / p90', p.dist
+      ? `${p.dist.p10.toFixed(1)} / ${p.dist.p50.toFixed(1)} / ${p.dist.p90.toFixed(1)}` : 'no market evidence'],
+    ['Outcome band width', p.dist ? (p.dist.p90 - p.dist.p10).toFixed(1) + ' picks' : '—'],
   ];
+  if (row.livePick != null) {
+    facts.push(['Live ADP pick', row.livePick.toFixed(1)]);
+    if (row.movement) facts.push(['Movement vs pre-draft', row.movement]);
+    if (row.shift) facts.push(['Position shift', (row.shift * 100).toFixed(1) + '%']);
+  }
   if (row.tier != null) facts.push(['Tier', '#' + row.tier]);
   if (row.survival) {
     facts.push(['Survives to your next pick', Math.round(row.survival.probabilityAvailable * 100) + '%']);
@@ -654,6 +681,14 @@ function renderPlayer() {
     facts.push(['Market decision', row.decision.toUpperCase()]);
   }
   if (row.proj != null) facts.push(['Projected season points', row.proj.toFixed(1)]);
+  if (p.inj) {
+    facts.push(['Injury risk tier', G18.injuryTier(p.inj.egm, p.pos, injuryThresholds()) ?? '—']);
+    facts.push(['Expected games missed', p.inj.egm == null ? '—' : p.inj.egm.toFixed(2)]);
+    facts.push(['Availability multiplier', (availMult(p) ?? 1).toFixed(3)]);
+    const g = G18.gamesProjected(p, availMult(p));
+    facts.push(['Games projected', g == null ? '—' : g.toFixed(1)]);
+    if (p.inj.pid_) facts.push(['Post-injury discount', 'yes']);
+  }
   if (row.base != null) {
     facts.push(['Base (market)', row.base.toFixed(1)]);
     facts.push(['Board rank', '#' + row.rank]);

@@ -366,9 +366,9 @@ function scoreStatLine(line, rules) {
 
 /** LeagueProjections.projectedSeasonPoints. Returns null where the Swift
  *  returns nil: no stat line means no number, never a zero. */
-function projectedSeasonPoints(player, rules) {
+function projectedSeasonPoints(player, rules, availMultiplier = null) {
   if (!player.st) return null;
-  const line = projectedStatLine(player.st, player.pos, player.gp, player.yrs, null);
+  const line = projectedStatLine(player.st, player.pos, player.gp, player.yrs, availMultiplier);
   return scoreStatLine(augmentedStatLine(line, player.pos), rules);
 }
 
@@ -623,6 +623,76 @@ function adpMovementDirection(livePick, baselinePick) {
   return 'stable';
 }
 
+
+// ---- injury risk --------------------------------------------------------
+// InjuryRiskProfile, transcribed. The bundle ships expectedGamesMissed and
+// historyDelta already computed by the same linear model the app runs, so
+// those are read rather than refitted — identical numbers, no re-derivation.
+
+const Injury = {
+  historyShrinkageM: 1.0,
+  maximumAvailabilityHaircut: 0.25,
+  defaultSeasonScale: 17.0,
+  lowTierQuantile: 0.40,
+  moderateTierQuantile: 0.70,
+  elevatedTierQuantile: 0.90,
+};
+
+/** shrunkDelta: credibility on seasons observed, k/(k+m). */
+function shrunkDelta(historyDelta, seasonsObserved, m = Injury.historyShrinkageM) {
+  const k = Math.max(0, seasonsObserved || 0);
+  if (!(k > 0)) return 0;
+  return historyDelta * k / (k + m);
+}
+
+/** availabilityMultiplier — how much of a full season this player is expected
+ *  to be available for, relative to the population. postInjuryYear1Discount is
+ *  never passed at runtime, so the simple branch is the one that runs. */
+function availabilityMultiplier(historyDelta, seasonsObserved, scale = Injury.defaultSeasonScale) {
+  if (!(scale > 0) || historyDelta == null || !Number.isFinite(historyDelta)) return 1.0;
+  const haircut = shrunkDelta(historyDelta, seasonsObserved) / scale;
+  const cap = Injury.maximumAvailabilityHaircut;
+  return 1 - clamp(haircut, -cap, cap);
+}
+
+/** InjuryRiskProfile.quantile — ceil-rank, not interpolated. */
+function injuryQuantile(sorted, q) {
+  if (!sorted.length) return 0;
+  const rank = Math.ceil(q * sorted.length);
+  return sorted[clamp(rank - 1, 0, sorted.length - 1)];
+}
+
+/** Tier cuts are computed PER POSITION over the pool's own expected-games-
+ *  missed values, so "high risk" means high relative to that position. */
+function injuryTierThresholds(entriesByPosition) {
+  const out = {};
+  for (const [pos, values] of Object.entries(entriesByPosition)) {
+    const sorted = values.slice().sort((a, b) => a - b);
+    out[pos] = {
+      low: injuryQuantile(sorted, Injury.lowTierQuantile),
+      moderate: injuryQuantile(sorted, Injury.moderateTierQuantile),
+      elevated: injuryQuantile(sorted, Injury.elevatedTierQuantile),
+      n: sorted.length,
+    };
+  }
+  return out;
+}
+
+function injuryTier(expectedGamesMissed, position, thresholds) {
+  const cuts = thresholds[position];
+  if (!cuts || expectedGamesMissed == null) return null;
+  if (expectedGamesMissed <= cuts.low) return 'low';
+  if (expectedGamesMissed <= cuts.moderate) return 'moderate';
+  if (expectedGamesMissed <= cuts.elevated) return 'elevated';
+  return 'high';
+}
+
+/** DraftSessionStore.gamesProjected — the availability estimate in games. */
+function gamesProjected(player, availMultiplier) {
+  if (player.gp == null) return null;
+  return expectedGames(player.pos, player.gp, player.yrs, availMultiplier);
+}
+
   window.G18 = {
   Bounds, EngineeringDefaultBounds,
   clampDial, makeEnvelope, envelopePoints,
@@ -636,5 +706,7 @@ function adpMovementDirection(livePick, baselinePick) {
   marketDecision, computeModelTag, tierNumbers, Survival, MarketRec, TagBounds,
   credibilityWeight, expectedCount, positionVelocity, saturatedShift,
   liveShiftFraction, liveDistribution, adpMovementDirection, Velocity, LiveShift,
+  shrunkDelta, availabilityMultiplier, injuryQuantile, injuryTierThresholds,
+  injuryTier, gamesProjected, Injury,
 };
 })();
