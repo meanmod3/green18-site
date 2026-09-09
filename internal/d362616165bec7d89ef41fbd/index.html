@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Model Console — GREEN18 (internal)</title>
+<!-- Gated operator surface. Not linked from anywhere, absent from every
+     sitemap and llms.txt, disallowed in robots.txt, and noindex here. That is
+     obscurity plus a crawl directive, NOT access control: anyone with the URL
+     can load it. See docs/model-console.md. -->
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="referrer" content="no-referrer">
+<link rel="stylesheet" href="/assets/console.css">
+</head>
+<body>
+
+<div class="bar">
+  <span class="mark">18</span>
+  <h1>Model Console</h1>
+  <span class="tag">Internal</span>
+  <span class="spacer"></span>
+  <button id="reset" class="pill" type="button">Reset to neutral</button>
+</div>
+
+<main>
+
+  <section class="panel">
+    <h2>Draft philosophy — onboarding cards</h2>
+    <div class="body">
+      <p class="note">The five questions the app asks during onboarding. Each is a
+        &minus;1&hellip;1 axis; the verdict text under each slider is the app&rsquo;s own copy.</p>
+      <div id="philosophy"></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Preference weights — the five dials</h2>
+    <div class="body">
+      <p class="note"><code>PreferenceWeights</code>, clamped to &minus;1&hellip;1 on
+        construction. All five at 0 is the explicit &ldquo;no preference set&rdquo; state,
+        which reproduces the base value byte-identically.</p>
+      <div id="weights"></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Queue &amp; availability pressure</h2>
+    <div class="body">
+      <p class="note">Explicit queue preference is a first-class deterministic input.
+        Pressure scales the adjustment inside the fixed bound; it can never introduce
+        or remove evidence on its own.</p>
+
+      <div class="dial">
+        <div class="head">
+          <span class="title">Pressure magnitude</span>
+          <span class="val" id="pressure-mag-val">0.00</span>
+        </div>
+        <input type="range" id="pressure-mag" min="0" max="1" step="0.01" value="0"
+               aria-label="Availability pressure magnitude">
+        <div class="ends"><span>No pressure</span><span>Tier collapsing</span></div>
+        <p class="prompt" style="margin-top:.5rem">
+          <label><input type="checkbox" id="pressure-has"> Ledger reports pressure evidence</label>
+        </p>
+      </div>
+
+      <table>
+        <thead>
+          <tr><th>Player</th><th>Status</th><th style="text-align:right">Strength</th><th style="text-align:right">Adj.</th></tr>
+        </thead>
+        <tbody id="queue-body"></tbody>
+      </table>
+
+      <div id="reasons" style="margin-top:.7rem"></div>
+    </div>
+  </section>
+
+  <section class="panel" style="grid-column: 1 / -1">
+    <h2>Computed state</h2>
+    <div class="body">
+      <div id="readout"></div>
+    </div>
+  </section>
+
+  <footer>
+    Values and formulas are transcribed from the iOS sources
+    (<code>PreferenceWeights.swift</code>, <code>QueuePreferenceMapping.swift</code>,
+    <code>PreferenceSteps.swift</code>, <code>DraftModelArtifact.swift</code>).
+    The philosophy&rarr;weights derivation is engine internals and is deliberately
+    not reproduced here, so the two columns are independent inputs rather than a
+    guessed mapping. Nothing on this page is sent anywhere; it computes in the browser.
+  </footer>
+
+</main>
+
+<script src="/assets/console.js"></script>
+</body>
+</html>
