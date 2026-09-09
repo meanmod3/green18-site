@@ -590,11 +590,15 @@ const swa = {
   // search engines treat as a duplicate page rather than a missing one.
   responseOverrides: {
     404: { rewrite: '/404.html', statusCode: 404 },
-    // Send an unauthenticated visitor to the identity provider instead of
-    // a dead 401 page; 403 (signed in, wrong role) is a plain 404 so the
-    // surface does not confirm its own existence to a stranger.
+    // Send an unauthenticated visitor to the identity provider instead of a
+    // dead 401 page.
     401: { redirect: '/.auth/login/github?post_login_redirect_uri=.referrer', statusCode: 302 },
-    403: { rewrite: '/404.html', statusCode: 404 },
+    // 403 = signed in, but without the `operator` role. The BODY stays the
+    // generic 404 page so the surface does not describe itself to a stranger,
+    // but the STATUS stays 403: rewriting it to 404 as well made a
+    // permissions failure indistinguishable from a dead link, which cost real
+    // debugging time (2026-09-08). Body hides, status tells.
+    403: { rewrite: '/404.html', statusCode: 403 },
   },
   globalHeaders: {
     // No analytics, no third-party resources: the CSP states that as policy,

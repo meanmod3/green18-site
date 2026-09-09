@@ -307,7 +307,7 @@
     },
     "403": {
       "rewrite": "/404.html",
-      "statusCode": 404
+      "statusCode": 403
     },
     "404": {
       "rewrite": "/404.html",
