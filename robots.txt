@@ -1,53 +1,70 @@
 User-agent: *
 Allow: /
+Disallow: /internal/
 
 User-agent: Googlebot
 Allow: /
+Disallow: /internal/
 
 User-agent: Bingbot
 Allow: /
+Disallow: /internal/
 
 User-agent: OAI-SearchBot
 Allow: /
+Disallow: /internal/
 
 User-agent: PerplexityBot
 Allow: /
+Disallow: /internal/
 
 User-agent: Claude-SearchBot
 Allow: /
+Disallow: /internal/
 
 User-agent: Applebot
 Allow: /
+Disallow: /internal/
 
 User-agent: DuckAssistBot
 Allow: /
+Disallow: /internal/
 
 User-agent: ChatGPT-User
 Allow: /
+Disallow: /internal/
 
 User-agent: Perplexity-User
 Allow: /
+Disallow: /internal/
 
 User-agent: Claude-User
 Allow: /
+Disallow: /internal/
 
 User-agent: GPTBot
 Allow: /
+Disallow: /internal/
 
 User-agent: ClaudeBot
 Allow: /
+Disallow: /internal/
 
 User-agent: Google-Extended
 Allow: /
+Disallow: /internal/
 
 User-agent: Applebot-Extended
 Allow: /
+Disallow: /internal/
 
 User-agent: CCBot
 Allow: /
+Disallow: /internal/
 
 User-agent: anthropic-ai
 Allow: /
+Disallow: /internal/
 
 Sitemap: https://green18.app/sitemap.xml
 Sitemap: https://green18.app/sitemap-pages.xml

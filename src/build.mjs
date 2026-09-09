@@ -462,8 +462,12 @@ const AI_AGENTS = [
   'anthropic-ai',
 ];
 await writeFile(join(root, 'robots.txt'),
-  `User-agent: *\nAllow: /\n\n`
-  + AI_AGENTS.map((a) => `User-agent: ${a}\nAllow: /\n`).join('\n')
+  // /internal/ holds the gated model console: an operator surface, not
+  // publishable content. Disallowed for every agent, absent from every
+  // sitemap and from llms.txt. This is obscurity plus a crawl directive,
+  // NOT access control — see docs/model-console.md.
+  `User-agent: *\nAllow: /\nDisallow: /internal/\n\n`
+  + AI_AGENTS.map((a) => `User-agent: ${a}\nAllow: /\nDisallow: /internal/\n`).join('\n')
   + `\n` + [`sitemap.xml`, ...sitemapFiles].map((f) => `Sitemap: ${ORIGIN}/${f}`).join('\n') + `\n`, 'utf8');
 
 
