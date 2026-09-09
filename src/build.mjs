@@ -582,6 +582,7 @@ const swa = {
     // has no auth layer and would serve them to anyone. See
     // docs/model-console.md and .github/workflows/azure-swa.yml.
     { route: '/internal/*', allowedRoles: ['operator'] },
+    { route: '/.auth/login/aad', allowedRoles: ['anonymous', 'authenticated'] },
     { route: '/.auth/login/github', allowedRoles: ['anonymous', 'authenticated'] },
     ...routes,
   ],
@@ -592,7 +593,10 @@ const swa = {
     404: { rewrite: '/404.html', statusCode: 404 },
     // Send an unauthenticated visitor to the identity provider instead of a
     // dead 401 page.
-    401: { redirect: '/.auth/login/github?post_login_redirect_uri=.referrer', statusCode: 302 },
+    // Entra ID, not GitHub: the operator identity is manager@green18.app,
+    // the Microsoft account that already owns this subscription — one
+    // identity for the resource and its gated surface, no second account.
+    401: { redirect: '/.auth/login/aad?post_login_redirect_uri=.referrer', statusCode: 302 },
     // 403 = signed in, but without the `operator` role. The BODY stays the
     // generic 404 page so the surface does not describe itself to a stranger,
     // but the STATUS stays 403: rewriting it to 404 as well made a
