@@ -6,19 +6,33 @@
 <title>Model Console — GREEN18 (internal)</title>
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
 <meta name="referrer" content="no-referrer">
+<link rel="stylesheet" href="/assets/site.css">
 <link rel="stylesheet" href="/assets/console.css">
 </head>
 <body>
 
+<header class="site">
+  <div class="wrap">
+    <a class="wordmark" href="/" aria-label="GREEN18 — home"><img src="/assets/mark.png" alt="" width="28" height="18" decoding="async"></a>
+    <nav aria-label="Primary">
+      <a href="/how-green18-ranks-fantasy-players">How It Works</a>
+      <a href="/draft-science/">Draft Science</a>
+      <a href="/scenarios/">Scenarios</a>
+      <a href="/tools/">Tools</a>
+      <a href="/glossary">Glossary</a>
+    </nav>
+    <a class="btn" href="https://apps.apple.com/us/app/id6805706417">iOS App</a>
+  </div>
+</header>
+
 <div class="bar">
-  <span class="mark">18</span>
   <h1>Model Console</h1>
   <span class="tag">Internal</span>
   <span class="leaguemenu" id="leaguemenu"></span>
   <span class="clock" id="clock"></span>
   <span class="spacer"></span>
   <span class="clock" id="poolmeta">loading…</span>
-  <button class="qbtn" type="button" id="undo">Undo pick</button>
+  <button class="ghost" type="button" id="undo">Undo pick</button>
 </div>
 
 <section id="setup" class="setup" hidden>

@@ -1,0 +1,6 @@
+# Local preview copies only. site.css and mark.png belong to `main` and are
+# deployed from there; the deploy workflow copies this branch's whole assets
+# directory, so committing copies here would SHADOW the real ones and let them
+# go stale behind the site's own.
+assets/site.css
+assets/mark.png
