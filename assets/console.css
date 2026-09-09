@@ -190,3 +190,27 @@ select:focus-visible, input:focus-visible, button:focus-visible { outline: 2px s
   margin: .8rem 0 .3rem; padding-top: .5rem; border-top: 1px solid var(--divider);
 }
 .section-label:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
+
+/* dial breakdown under a player's name: which dials fired, and by how much */
+.board .why {
+  font-family: var(--mono); font-size: .62rem; color: var(--on-surface-2);
+  margin-top: .1rem; letter-spacing: -.01em;
+}
+.board td.tot { font-weight: 700; color: var(--accent); }
+
+/* roster chips in the draft-room header */
+.roster { display: inline-flex; gap: .3rem; align-items: center; }
+.roster .chip {
+  font-family: var(--mono); font-size: .62rem; color: var(--on-surface-2);
+  border: 1px solid var(--divider); border-radius: 3px; padding: .05rem .25rem;
+  display: inline-flex; gap: .2rem; align-items: center;
+}
+.roster .chip.done { border-color: var(--accent); color: var(--accent); }
+
+/* derived philosophy profile: twelve dimensions from five answers */
+.profile .prow { display: grid; grid-template-columns: 1fr 60px 3.6ch; gap: .4rem; align-items: center; padding: .1rem 0; }
+.profile .pk { font-size: .68rem; color: var(--on-surface-2); }
+.profile .pv { font-family: var(--mono); font-size: .66rem; color: var(--accent); text-align: right; }
+.profile .pbar { position: relative; height: 5px; background: var(--surface-2); border-radius: 3px; overflow: hidden; }
+.profile .pbar i { position: absolute; top: 0; bottom: 0; background: var(--accent); }
+.profile .pbar i.neg { background: var(--caution); }

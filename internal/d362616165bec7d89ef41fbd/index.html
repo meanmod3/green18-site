@@ -29,6 +29,7 @@
     <header>
       <span>Live draft room</span>
       <span class="spacer" style="flex:1"></span>
+      <span class="roster" id="roster"></span>
       <span class="clock" id="remaining"></span>
     </header>
     <div class="scroll">
@@ -37,9 +38,11 @@
           <tr>
             <th style="width:3ch">#</th>
             <th>Player</th>
-            <th style="text-align:right">Proj</th>
-            <th style="text-align:right">ADP</th>
+            <th style="text-align:right">Base</th>
+            <th style="text-align:right">Dials</th>
             <th style="text-align:right">Queue</th>
+            <th style="text-align:right">Value</th>
+            <th style="text-align:right">ADP</th>
             <th style="width:3ch"></th>
             <th style="width:5ch"></th>
           </tr>
@@ -66,6 +69,7 @@
 
 </div>
 
+<script src="/assets/engine.js"></script>
 <script src="/assets/console.js"></script>
 </body>
 </html>

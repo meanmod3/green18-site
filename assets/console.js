@@ -11,42 +11,17 @@
  *   +/-2.5 and +/-6.0 bounds      -> DraftEngine/Contracts/DraftModelArtifact.swift
  *   league + scoring shape        -> DraftEngine/Contracts/LeagueConfig.swift, ScoringRule.swift
  *
- * Projected points ARE computed here, from each player's stat line times the
- * scoring rules in the Scoring tab — that is ordinary fantasy scoring
- * arithmetic and is honest to compute. The philosophy->weights derivation in
- * PhilosophyDerivation.swift is NOT reproduced: guessing it would move the
- * board by a rule the app does not use. The dials therefore hold and display
- * operator intent; they do not silently reorder the board.
+ * The model is REAL, not a mock: assets/engine.js is a line-for-line
+ * transcription of PersonalizedBoard, PersonalizedBoardBounds, the season
+ * points envelope, PhilosophyDerivation and the queue layer. Projections are
+ * computed from each player's stat line through the Scoring tab, the position
+ * curve is rebuilt from those projections, and the five dials move the board
+ * through the engine's own contribution functions and its ±30% cap.
  */
 
 'use strict';
 
-const BOUNDS = { queue: 2.5, total: 6.0 };
-
-// ---- engine functions, transcribed ------------------------------------
-
-function clampDial(raw) {
-  if (!Number.isFinite(raw)) return 0;
-  return Math.min(1, Math.max(-1, raw));
-}
-
-function explicitPreferenceStrength(status) {
-  switch (status) {
-    case 'FAVORITE': return 1.0;
-    case 'PREFER':   return 0.5;
-    case 'NEUTRAL':  return 0.0;
-    case 'AVOID':    return -1.0;
-    default:         return 0.0;
-  }
-}
-
-function queueAdjustment(status, pressure) {
-  if (status === 'NEUTRAL') return 0;
-  const strength = explicitPreferenceStrength(status);
-  const blend = pressure.hasEvidence ? (0.5 + 0.5 * pressure.magnitude) : 0.5;
-  const b = BOUNDS.queue;
-  return Math.min(b, Math.max(-b, strength * blend * b));
-}
+const { clampDial, queueAdjustment, personalizedValue } = window.G18;
 
 // ---- specs -------------------------------------------------------------
 
@@ -99,22 +74,22 @@ const STATUSES = ['NEUTRAL', 'FAVORITE', 'PREFER', 'AVOID'];
 // the board.
 
 const POOL = [
-  { id:'p01', n:'J. Chase',    pos:'WR', tm:'CIN', adp:1.2,  st:{ rec:105, recYd:1420, recTD:12, rushYd:40,  rushTD:0 } },
-  { id:'p02', n:'B. Robinson', pos:'RB', tm:'ATL', adp:2.4,  st:{ rec:52,  recYd:420,  recTD:3,  rushYd:1380,rushTD:12 } },
-  { id:'p03', n:'C. Lamb',     pos:'WR', tm:'DAL', adp:3.1,  st:{ rec:98,  recYd:1340, recTD:10, rushYd:30,  rushTD:0 } },
-  { id:'p04', n:'J. Gibbs',    pos:'RB', tm:'DET', adp:4.0,  st:{ rec:60,  recYd:500,  recTD:2,  rushYd:1180,rushTD:11 } },
-  { id:'p05', n:'A. St. Brown',pos:'WR', tm:'DET', adp:6.5,  st:{ rec:112, recYd:1250, recTD:9,  rushYd:10,  rushTD:0 } },
-  { id:'p06', n:'S. LaPorta',  pos:'TE', tm:'DET', adp:14.2, st:{ rec:86,  recYd:940,  recTD:8,  rushYd:0,   rushTD:0 } },
-  { id:'p07', n:'T. McBride',  pos:'TE', tm:'ARI', adp:18.9, st:{ rec:92,  recYd:900,  recTD:6,  rushYd:0,   rushTD:0 } },
-  { id:'p08', n:'J. Allen',    pos:'QB', tm:'BUF', adp:22.0, st:{ passYd:4100, passTD:31, int:11, rushYd:560, rushTD:12 } },
-  { id:'p09', n:'J. Daniels',  pos:'QB', tm:'WAS', adp:24.6, st:{ passYd:3900, passTD:27, int:9,  rushYd:820, rushTD:8 } },
-  { id:'p10', n:'D. Achane',   pos:'RB', tm:'MIA', adp:9.8,  st:{ rec:74,  recYd:620,  recTD:4,  rushYd:960, rushTD:8 } },
-  { id:'p11', n:'N. Collins',  pos:'WR', tm:'HOU', adp:12.4, st:{ rec:84,  recYd:1180, recTD:8,  rushYd:0,   rushTD:0 } },
-  { id:'p12', n:'B. Bowers',   pos:'TE', tm:'LV',  adp:20.5, st:{ rec:95,  recYd:1030, recTD:6,  rushYd:20,  rushTD:0 } },
-  { id:'p13', n:'K. Walker',   pos:'RB', tm:'SEA', adp:26.1, st:{ rec:46,  recYd:340,  recTD:2,  rushYd:1010,rushTD:9 } },
-  { id:'p14', n:'B. Purdy',    pos:'QB', tm:'SF',  adp:38.4, st:{ passYd:4050, passTD:29, int:12, rushYd:280, rushTD:4 } },
-  { id:'p15', n:'Ravens D/ST', pos:'DST',tm:'BAL', adp:96.0, st:{ dstSack:48, dstInt:16, dstTD:4 } },
-  { id:'p16', n:'H. Butker',   pos:'K',  tm:'KC',  adp:132.0,st:{ fg:31, xp:44 } },
+  { id:'p01', n:'J. Chase',    pos:'WR', tm:'CIN', adp:1.2,  age:25, band:{p10:1,  p90:6},   st:{ rec:105, recYd:1420, recTD:12, rushYd:40,  rushTD:0 } },
+  { id:'p02', n:'B. Robinson', pos:'RB', tm:'ATL', adp:2.4,  age:26, band:{p10:1,  p90:8},   st:{ rec:52,  recYd:420,  recTD:3,  rushYd:1380,rushTD:12 } },
+  { id:'p03', n:'C. Lamb',     pos:'WR', tm:'DAL', adp:3.1,  age:26, band:{p10:1,  p90:9},   st:{ rec:98,  recYd:1340, recTD:10, rushYd:30,  rushTD:0 } },
+  { id:'p04', n:'J. Gibbs',    pos:'RB', tm:'DET', adp:4.0,  age:24, band:{p10:2,  p90:12},  st:{ rec:60,  recYd:500,  recTD:2,  rushYd:1180,rushTD:11 } },
+  { id:'p05', n:'A. St. Brown',pos:'WR', tm:'DET', adp:6.5,  age:26, band:{p10:3,  p90:14},  st:{ rec:112, recYd:1250, recTD:9,  rushYd:10,  rushTD:0 } },
+  { id:'p06', n:'S. LaPorta',  pos:'TE', tm:'DET', adp:14.2, age:24, band:{p10:8,  p90:30},  st:{ rec:86,  recYd:940,  recTD:8,  rushYd:0,   rushTD:0 } },
+  { id:'p07', n:'T. McBride',  pos:'TE', tm:'ARI', adp:18.9, age:26, band:{p10:11, p90:34},  st:{ rec:92,  recYd:900,  recTD:6,  rushYd:0,   rushTD:0 } },
+  { id:'p08', n:'J. Allen',    pos:'QB', tm:'BUF', adp:22.0, age:29, band:{p10:12, p90:40},  st:{ passYd:4100, passTD:31, int:11, rushYd:560, rushTD:12 } },
+  { id:'p09', n:'J. Daniels',  pos:'QB', tm:'WAS', adp:24.6, age:24, band:{p10:14, p90:46},  st:{ passYd:3900, passTD:27, int:9,  rushYd:820, rushTD:8 } },
+  { id:'p10', n:'D. Achane',   pos:'RB', tm:'MIA', adp:9.8,  age:24, band:{p10:4,  p90:24},  st:{ rec:74,  recYd:620,  recTD:4,  rushYd:960, rushTD:8 } },
+  { id:'p11', n:'N. Collins',  pos:'WR', tm:'HOU', adp:12.4, age:26, band:{p10:7,  p90:26},  st:{ rec:84,  recYd:1180, recTD:8,  rushYd:0,   rushTD:0 } },
+  { id:'p12', n:'B. Bowers',   pos:'TE', tm:'LV',  adp:20.5, age:23, band:{p10:12, p90:38},  st:{ rec:95,  recYd:1030, recTD:6,  rushYd:20,  rushTD:0 } },
+  { id:'p13', n:'K. Walker',   pos:'RB', tm:'SEA', adp:26.1, age:25, band:{p10:16, p90:44},  st:{ rec:46,  recYd:340,  recTD:2,  rushYd:1010,rushTD:9 } },
+  { id:'p14', n:'B. Purdy',    pos:'QB', tm:'SF',  adp:38.4, age:26, band:{p10:26, p90:62},  st:{ passYd:4050, passTD:29, int:12, rushYd:280, rushTD:4 } },
+  { id:'p15', n:'Ravens D/ST', pos:'DST',tm:'BAL', adp:96.0, age:null,band:{p10:80, p90:120},st:{ dstSack:48, dstInt:16, dstTD:4 } },
+  { id:'p16', n:'H. Butker',   pos:'K',  tm:'KC',  adp:132.0,age:30, band:{p10:120,p90:160}, st:{ fg:31, xp:44 } },
 ];
 
 // ---- scoring -----------------------------------------------------------
@@ -141,6 +116,9 @@ const state = {
   weights: Object.fromEntries(WEIGHT_AXES.map(a => [a.id, 0])),
   scoring: DEFAULT_SCORING.map(r => ({ ...r })),
   league: { teams: 12, qbFormat: 'SINGLE', tePremium: 0, draftType: 'SNAKE', slot: 6, rounds: 15 },
+  // Starting slots, which drive positionNeed for the positional-aggression dial.
+  roster: { QB: 1, RB: 2, WR: 3, TE: 1, DST: 1, K: 1 },
+  myTeam: new Set(),
   pressure: { magnitude: 0, hasEvidence: false },
   status: {},                   // playerId -> queue status
   drafted: new Set(),
@@ -169,10 +147,77 @@ function projectedPoints(player) {
   return total;
 }
 
-/** What the board is ordered by: the computed projection plus the queue
- *  layer's real adjustment. Nothing else is invented. */
-function boardValue(player) {
-  return projectedPoints(player) + queueAdjustment(state.status[player.id], state.pressure);
+/** Signals for one player, in the shape PlayerSignals carries them.
+ *  positionCurve is built from THIS pool's own projections, so it moves with
+ *  the scoring rules rather than being a frozen table. */
+function signalsFor(player, ranks, needs) {
+  return {
+    entityId: player.id,
+    baseValue: projectedPoints(player),
+    outcomeBand: player.band,
+    marketPickRank: Math.max(1, Math.round(player.adp)),
+    modelRank: ranks.overall.get(player.id),
+    leagueTeamCount: state.league.teams,
+    ageAtSeasonStart: player.age,
+    yearsExperience: null,
+    positionNeed: needs[player.pos] ?? 0,
+  };
+}
+
+/** Position curve: rank within position -> projected points, isotonic. */
+function envelopeFor(pos, live) {
+  const known = live
+    .filter(p => p.pos === pos)
+    .map(p => projectedPoints(p))
+    .sort((a, b) => b - a)
+    .map((points, i) => ({ rank: i + 1, points }));
+  return G18.makeEnvelope(known);
+}
+
+/** How badly the roster still needs this position: unfilled starting slots
+ *  at that position over its total, 0...1. */
+function positionNeeds() {
+  const needs = {};
+  for (const [pos, total] of Object.entries(state.roster)) {
+    const filled = [...state.myTeam].filter(id => POOL.find(p => p.id === id)?.pos === pos).length;
+    needs[pos] = total === 0 ? 0 : Math.max(0, (total - filled) / total);
+  }
+  return needs;
+}
+
+/** The full valuation: base projection, the five dials through
+ *  PersonalizedBoard, then the queue layer. */
+function evaluate() {
+  const live = POOL.filter(p => !state.drafted.has(p.id));
+
+  // modelRank is the ordering by base value alone, before any dial fires.
+  const byBase = [...live].sort((a, b) =>
+    projectedPoints(b) - projectedPoints(a) || a.id.localeCompare(b.id));
+  const overall = new Map(byBase.map((p, i) => [p.id, i + 1]));
+
+  const needs = positionNeeds();
+  const envs = {};
+  for (const pos of new Set(live.map(p => p.pos))) envs[pos] = envelopeFor(pos, live);
+
+  const rows = live.map(p => {
+    const sig = signalsFor(p, { overall }, needs);
+    const pv = G18.personalizedValue(sig, state.weights, envs[p.pos]);
+    const qAdj = G18.queueAdjustment(state.status[p.id], state.pressure);
+    return {
+      player: p,
+      base: sig.baseValue,
+      personalized: pv.total,
+      dialDelta: pv.total - pv.baseValue,
+      contributions: pv.contributions,
+      queueAdj: qAdj,
+      total: pv.total + qAdj,
+      modelRank: sig.modelRank,
+      need: needs[p.pos] ?? 0,
+    };
+  });
+
+  rows.sort((a, b) => b.total - a.total || a.player.id.localeCompare(b.player.id));
+  return rows;
 }
 
 function orderedPool() {
@@ -213,12 +258,19 @@ function renderClock() {
   );
 }
 
+const DIAL_ABBR = {
+  riskTolerance: 'risk', floorVsUpside: 'floor/up', consensusVsContrarian: 'cons/con',
+  youthVsVeterans: 'youth/vet', positionalAggression: 'pos',
+};
+
 function renderBoard() {
   const tbody = document.getElementById('board-body');
   tbody.textContent = '';
-  const rows = orderedPool();
+  const rows = evaluate();
+  const { mine } = onClock();
 
-  for (const [i, p] of rows.entries()) {
+  for (const [i, r] of rows.entries()) {
+    const p = r.player;
     const tr = document.createElement('tr');
 
     tr.append(el('td', 'num', String(i + 1)));
@@ -227,36 +279,51 @@ function renderBoard() {
     tdN.append(el('span', `pos ${p.pos}`, p.pos), document.createTextNode(' '));
     tdN.append(el('span', 'nm', p.n), document.createTextNode(' '));
     tdN.append(el('span', 'team', p.tm));
+    // Which dials actually fired, and by how much — the engine's own
+    // contribution list, not a re-derivation.
+    if (r.contributions.length) {
+      const why = r.contributions
+        .slice().sort((a, b) => Math.abs(b.adjustment) - Math.abs(a.adjustment))
+        .map(c => `${DIAL_ABBR[c.dial] || c.dial} ${fmt(c.adjustment)}`).join('  ');
+      tdN.append(el('div', 'why', why));
+    }
     tr.append(tdN);
 
-    tr.append(el('td', 'num', projectedPoints(p).toFixed(1)));
-    tr.append(el('td', 'num', p.adp.toFixed(1)));
+    tr.append(el('td', 'num', r.base.toFixed(1)));
 
-    const adj = queueAdjustment(state.status[p.id], state.pressure);
-    tr.append(el('td', `num delta ${adj > 0 ? 'up' : adj < 0 ? 'down' : 'flat'}`, adj === 0 ? '—' : fmt(adj)));
+    const dd = r.dialDelta;
+    tr.append(el('td', `num delta ${dd > 0.005 ? 'up' : dd < -0.005 ? 'down' : 'flat'}`,
+      Math.abs(dd) < 0.005 ? '—' : fmt(dd)));
+
+    const qa = r.queueAdj;
+    tr.append(el('td', `num delta ${qa > 0 ? 'up' : qa < 0 ? 'down' : 'flat'}`, qa === 0 ? '—' : fmt(qa)));
+
+    tr.append(el('td', 'num tot', r.total.toFixed(1)));
+    tr.append(el('td', 'num', p.adp.toFixed(1)));
 
     const tdQ = document.createElement('td');
     const b = el('button', 'qbtn', state.status[p.id] === 'NEUTRAL' ? '·' : state.status[p.id][0]);
     b.type = 'button';
     b.dataset.on = state.status[p.id];
-    b.title = `Queue: ${state.status[p.id]} — click to cycle`;
+    b.title = G18.queueReason(state.status[p.id], state.pressure);
     b.setAttribute('aria-label', `Queue preference for ${p.n}: ${state.status[p.id]}`);
     b.addEventListener('click', () => {
-      const next = STATUSES[(STATUSES.indexOf(state.status[p.id]) + 1) % STATUSES.length];
-      state.status[p.id] = next;
+      state.status[p.id] = STATUSES[(STATUSES.indexOf(state.status[p.id]) + 1) % STATUSES.length];
       renderBoard();
     });
     tdQ.append(b);
     tr.append(tdQ);
 
     const tdD = document.createElement('td');
-    const d = el('button', 'qbtn', 'Draft');
+    const d = el('button', 'qbtn', mine ? 'Take' : 'Off');
     d.type = 'button';
+    d.title = mine ? 'Record as your pick' : 'Record as another team’s pick';
     d.setAttribute('aria-label', `Record ${p.n} as drafted`);
     d.addEventListener('click', () => {
       state.drafted.add(p.id);
+      if (onClock().mine) state.myTeam.add(p.id);
       state.pick += 1;
-      renderClock(); renderBoard();
+      renderClock(); renderBoard(); renderRoster();
     });
     tdD.append(d);
     tr.append(tdD);
@@ -264,6 +331,22 @@ function renderBoard() {
     tbody.append(tr);
   }
   document.getElementById('remaining').textContent = `${rows.length} available`;
+}
+
+/** Your roster so far, and therefore what positionNeed is reading. */
+function renderRoster() {
+  const host = document.getElementById('roster');
+  if (!host) return;
+  host.textContent = '';
+  const needs = positionNeeds();
+  for (const [pos, total] of Object.entries(state.roster)) {
+    const filled = [...state.myTeam].filter(id => POOL.find(p => p.id === id)?.pos === pos).length;
+    const chip = el('span', 'chip');
+    chip.append(el('span', `pos ${pos}`, pos));
+    chip.append(document.createTextNode(` ${filled}/${total}`));
+    if (needs[pos] === 0) chip.classList.add('done');
+    host.append(chip);
+  }
 }
 
 // ---- tabs --------------------------------------------------------------
@@ -303,12 +386,20 @@ function renderPreferences() {
 
   host.append(el('p', 'section-label', 'Draft philosophy'));
   for (const c of PHILOSOPHY_CARDS) {
-    host.append(dialRow(c, state.philosophy[c.id], v => { state.philosophy[c.id] = v; }, c.verdict));
+    host.append(dialRow(c, state.philosophy[c.id], v => {
+      state.philosophy[c.id] = v; renderProfile();
+    }, c.verdict));
   }
+  // The five answers fan out to twelve profile dimensions, exactly as
+  // PhilosophyDerivation does it — including the superflex gate.
+  host.append(el('p', 'section-label', 'Derived profile'));
+  const prof = el('div', 'profile'); prof.id = 'profile';
+  host.append(prof);
 
   host.append(el('p', 'section-label', 'Preference weights'));
   for (const a of WEIGHT_AXES) {
-    host.append(dialRow(a, state.weights[a.id], v => { state.weights[a.id] = v; }));
+    // These five ARE the model's dials: each one re-runs PersonalizedBoard.
+    host.append(dialRow(a, state.weights[a.id], v => { state.weights[a.id] = v; renderBoard(); }));
   }
 
   host.append(el('p', 'section-label', 'Availability pressure'));
@@ -338,6 +429,29 @@ function renderPreferences() {
   lab.append(cb, document.createTextNode(' Ledger reports pressure evidence'));
   pr.append(lab);
   host.append(pr);
+}
+
+function renderProfile() {
+  const host = document.getElementById('profile');
+  if (!host) return;
+  host.textContent = '';
+  const prof = G18.deriveProfile(state.philosophy, state.league.qbFormat);
+  const conf = G18.computeConfidence(
+    Object.values(state.philosophy).filter(v => v !== 0).length,
+    Object.values(state.weights).filter(v => v !== 0).length);
+  for (const [k, v] of Object.entries(prof)) {
+    const row = el('div', 'prow');
+    row.append(el('span', 'pk', k.replace(/([A-Z])/g, ' $1').toLowerCase()));
+    const bar = el('span', 'pbar');
+    const fill = el('i');
+    fill.style.width = (Math.abs(v) * 50) + '%';
+    fill.style.left = v >= 0 ? '50%' : (50 - Math.abs(v) * 50) + '%';
+    if (v < 0) fill.classList.add('neg');
+    bar.append(fill);
+    row.append(bar, el('span', 'pv', (v >= 0 ? '+' : '') + v.toFixed(2)));
+    host.append(row);
+  }
+  host.append(el('p', 'hint', `Profile confidence ${(conf.overall * 100).toFixed(0)}% — ${conf.answeredCards}/5 cards answered, ${conf.advancedOverrides} overrides.`));
 }
 
 function numberField(label, value, step, min, max, onChange, hint) {
@@ -453,10 +567,12 @@ function selectTab(name) {
 
 function init() {
   renderPreferences();
+  renderProfile();
   renderSettings();
   renderScoring();
   renderClock();
   renderBoard();
+  renderRoster();
 
   for (const b of document.querySelectorAll('.tabs button')) {
     b.addEventListener('click', () => selectTab(b.dataset.tab));
@@ -467,7 +583,7 @@ function init() {
     if (state.pick > 1) { state.pick -= 1; }
     const last = [...state.drafted].pop();
     if (last) state.drafted.delete(last);
-    renderClock(); renderBoard();
+    renderClock(); renderBoard(); renderRoster();
   });
 }
 
