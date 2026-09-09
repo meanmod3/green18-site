@@ -84,7 +84,11 @@ const ROSTER_DEFAULT = () => ({ QB: 1, RB: 2, WR: 3, TE: 1, DST: 1, K: 1 });
 let POOL = [];
 
 const state = {
-  league: null,
+  leagues: [],                  // every league on this device
+  leagueId: null,
+  league: null,                 // the active one (a member of `leagues`)
+  armed: null,                  // row armed for DRAFT confirmation
+  profileId: null,              // player whose attributes panel is open
   philosophy: Object.fromEntries(PHILOSOPHY_CARDS.map(c => [c.id, 0])),
   weights: Object.fromEntries(WEIGHT_AXES.map(a => [a.id, 0])),
   scoring: DEFAULT_SCORING(),
@@ -101,7 +105,7 @@ const LS_KEY = 'g18.console.v2';
 function save() {
   try {
     localStorage.setItem(LS_KEY, JSON.stringify({
-      league: state.league, philosophy: state.philosophy, weights: state.weights,
+      leagues: state.leagues, leagueId: state.leagueId, philosophy: state.philosophy, weights: state.weights,
       scoring: state.scoring, pressure: state.pressure, status: state.status,
       drafted: [...state.drafted], pick: state.pick,
     }));
@@ -113,7 +117,10 @@ function restore() {
     const raw = localStorage.getItem(LS_KEY);
     if (!raw) return;
     const d = JSON.parse(raw);
-    state.league = d.league ?? null;
+    state.leagues = d.leagues ?? (d.league ? [d.league] : []);
+    state.leagueId = d.leagueId ?? (state.leagues[0]?.id ?? null);
+    state.league = state.leagues.find(l => l.id === state.leagueId) ?? state.leagues[0] ?? null;
+    if (state.league) state.leagueId = state.league.id;
     state.philosophy = d.philosophy ?? state.philosophy;
     state.weights = d.weights ?? state.weights;
     state.scoring = d.scoring ?? state.scoring;
@@ -200,7 +207,55 @@ function evaluate() {
   });
 
   rows.sort((a, b) => b.total - a.total || a.p.id.localeCompare(b.p.id));
+
+  // Attributes need board context: this row's rank, the best player left at
+  // each position, and the on-the-clock team's top need.
+  const bestAtPos = new Map();
+  for (const r of rows) if (!bestAtPos.has(r.p.pos)) bestAtPos.set(r.p.pos, r.p.id);
+  const topNeed = Object.entries(needs).sort((a, b) => b[1] - a[1])[0];
+  rows.forEach((r, i) => {
+    r.rank = i + 1;
+    r.tag = modelTag(r, { rank: i + 1, bestAtPos, topNeed: topNeed && topNeed[1] > 0 ? topNeed[0] : null });
+  });
   return rows;
+}
+
+// ---- attributes (ModelTag vocabulary) ----------------------------------
+//
+// The app's ModelTag.compute is an ORDERED rule list whose first two rules
+// (Priority, Wait) need a survival-to-next-pick curve and a market decision
+// that are not transcribed here. The rules below are the ones this build can
+// actually satisfy, evaluated in the app's own order and using its own
+// vocabulary; where the evidence is absent the tag simply does not fire,
+// rather than being guessed.
+function modelTag(r, ctx) {
+  const p = r.p;
+  const band = p.band ? (p.band.p90 - p.band.p10) : null;
+  const mkt = p.p50;
+
+  // Fit — this position is the on-the-clock team's top need AND this player
+  // is the best available there.
+  if (ctx.topNeed && p.pos === ctx.topNeed && ctx.bestAtPos.get(p.pos) === p.id) return 'Fit';
+  // Elite — top of the board outright.
+  if (ctx.rank <= 5) return 'Elite';
+  // Value / Overpriced — the model's own rank against the market's.
+  if (mkt != null) {
+    const gap = mkt - ctx.rank;               // + == model likes him better than market
+    if (gap >= 12) return 'Value';
+    if (gap <= -12) return 'Overpriced';
+  }
+  // Emerging — a rookie the market has not settled on.
+  if (p.rookie) return 'Emerging';
+  // Outcome-band shape.
+  if (band != null) {
+    if (band >= 60) return 'Volatile';
+    if (band >= 40) return 'Risky';
+    if (band <= 12) return 'Reliable';
+    if (band <= 20) return 'Safe';
+  }
+  if (ctx.rank <= 24) return 'Strong';
+  if (ctx.rank <= 60) return 'Solid';
+  return 'Upside';
 }
 
 // ---- helpers -----------------------------------------------------------
@@ -287,6 +342,10 @@ function renderSetup() {
   create.type = 'button';
   create.addEventListener('click', () => {
     draft.slot = Math.min(draft.slot, draft.teams);
+    draft.id = 'lg_' + Date.now().toString(36);
+    draft.drafted = []; draft.pick = 1; draft.status = {};
+    state.leagues.push(draft);
+    state.leagueId = draft.id;
     state.league = draft;
     state.scoring = DEFAULT_SCORING();
     state.scoring.find(r => r.statKey === 'rec').points =
@@ -346,27 +405,45 @@ function renderBoard() {
     tr.append(el('td', 'num tot', r.total.toFixed(1)));
     tr.append(el('td', 'num', p.p50 == null ? '—' : p.p50.toFixed(0)));
 
+    // QUEUE / QUEUED — membership, exactly as the app's pill reads it:
+    // tapping a queued player removes it.
     const tdQ = document.createElement('td');
-    const b = el('button', 'qbtn', st === 'NEUTRAL' ? '·' : st[0]);
-    b.type = 'button'; b.dataset.on = st;
-    b.title = G18.queueReason(st, state.pressure);
-    b.setAttribute('aria-label', `Queue preference for ${p.n}: ${st}`);
-    b.addEventListener('click', () => {
+    const qb = el('button', 'pill-q', st === 'NEUTRAL' ? 'QUEUE' : (st === 'AVOID' ? 'AVOID' : 'QUEUED'));
+    qb.type = 'button'; qb.dataset.on = st;
+    qb.title = G18.queueReason(st, state.pressure);
+    qb.setAttribute('aria-label', `Queue preference for ${p.n}: ${st}`);
+    qb.addEventListener('click', ev => {
+      ev.stopPropagation();
       state.status[p.id] = STATUSES[(STATUSES.indexOf(st) + 1) % STATUSES.length];
       save(); renderBoard(); renderQueue();
     });
-    tdQ.append(b); tr.append(tdQ);
+    tdQ.append(qb); tr.append(tdQ);
 
+    // The dynamic pill. Unarmed it shows this player's ATTRIBUTE; a first tap
+    // ARMS the row and the tag morphs into DRAFT without touching draft state;
+    // a second tap confirms. Arming a different row simply re-arms.
     const tdD = document.createElement('td');
-    const d = el('button', 'qbtn', mine ? 'Take' : 'Off');
-    d.type = 'button';
-    d.title = mine ? 'Record as your pick' : 'Record as another team’s pick';
-    d.addEventListener('click', () => {
+    const armed = state.armed === p.id;
+    const pill = el('button', 'pill-d', armed ? 'DRAFT' : r.tag.toUpperCase());
+    pill.type = 'button';
+    if (armed) pill.classList.add('armed');
+    pill.title = armed
+      ? `Confirm ${p.n} at pick ${state.pick}`
+      : `${r.tag} — tap to arm, tap again to draft`;
+    pill.setAttribute('aria-label', armed
+      ? `Draft ${p.n}, double tap to confirm`
+      : `${r.tag}. Draft ${p.n}.`);
+    pill.addEventListener('click', ev => {
+      ev.stopPropagation();
+      if (!armed) { state.armed = p.id; renderBoard(); return; }
       state.drafted.set(p.id, { pick: state.pick, mine: onClock().mine });
-      state.pick += 1;
+      state.pick += 1; state.armed = null;
       save(); renderAll();
     });
-    tdD.append(d); tr.append(tdD);
+    tdD.append(pill); tr.append(tdD);
+
+    // The row itself opens the attributes panel, the app's profile route.
+    tr.addEventListener('click', () => { state.profileId = p.id; selectTab('player'); renderPlayer(); });
 
     tbody.append(tr);
   }
@@ -401,6 +478,79 @@ function renderQueue() {
     host.append(row);
     host.append(el('p', 'qreason', G18.queueReason(st, state.pressure)));
   }
+}
+
+/** Attributes / profile for one player — what the app's profile route shows,
+ *  plus the engine's own per-dial contribution breakdown for this board. */
+function renderPlayer() {
+  const host = document.getElementById('tab-player');
+  host.textContent = '';
+  if (!state.profileId) {
+    host.append(el('p', 'hint', 'Select any row to see that player’s attributes.'));
+    return;
+  }
+  const row = evaluate().find(r => r.p.id === state.profileId)
+    || { p: POOL.find(x => x.id === state.profileId) };
+  const p = row.p;
+  if (!p) { host.append(el('p', 'hint', 'That player is no longer available.')); return; }
+
+  const head = el('div', 'phead');
+  head.append(el('span', `pos ${p.pos}`, p.pos));
+  head.append(el('span', 'pname', p.n));
+  host.append(head);
+  if (row.tag) {
+    const t = el('span', 'pill-d tagline', row.tag.toUpperCase());
+    host.append(t);
+  }
+
+  const facts = [
+    ['Team', p.tm || '—'],
+    ['Bye week', p.bye ?? '—'],
+    ['Age at season start', p.age ?? 'not shipped'],
+    ['Rookie', p.rookie ? 'yes' : 'no'],
+    ['Status', p.status || '—'],
+    ['Market p10 / p50 / p90', p.band ? `${p.band.p10} / ${p.p50} / ${p.band.p90}` : 'no market evidence'],
+    ['Outcome band width', p.band ? (p.band.p90 - p.band.p10) + ' picks' : '—'],
+  ];
+  if (row.base != null) {
+    facts.push(['Base (market)', row.base.toFixed(1)]);
+    facts.push(['Board rank', '#' + row.rank]);
+    facts.push(['Value', row.total.toFixed(1)]);
+  }
+  const dl = el('dl', 'kv');
+  for (const [k, v] of facts) { dl.append(el('dt', null, k), el('dd', null, String(v))); }
+  host.append(dl);
+
+  host.append(el('p', 'section-label', 'Dial contributions'));
+  if (!row.contributions || !row.contributions.length) {
+    host.append(el('p', 'hint', 'No dial fires on this player: every weight is neutral, or the evidence each dial reads is not shipped for him.'));
+  } else {
+    for (const c of row.contributions.slice().sort((a, b) => Math.abs(b.adjustment) - Math.abs(a.adjustment))) {
+      const r2 = el('div', 'prow');
+      r2.append(el('span', 'pk', c.dial.replace(/([A-Z])/g, ' $1').toLowerCase()));
+      const bar = el('span', 'pbar'); const fill = el('i');
+      const mag = Math.min(1, Math.abs(c.adjustment) / (0.3 * Math.abs(row.base || 1)));
+      fill.style.width = (mag * 50) + '%';
+      fill.style.left = c.adjustment >= 0 ? '50%' : (50 - mag * 50) + '%';
+      if (c.adjustment < 0) fill.classList.add('neg');
+      bar.append(fill);
+      r2.append(bar, el('span', 'pv', fmt(c.adjustment)));
+      host.append(r2);
+    }
+  }
+
+  host.append(el('p', 'section-label', 'Queue'));
+  const st = state.status[p.id] || 'NEUTRAL';
+  host.append(el('p', 'qreason', G18.queueReason(st, state.pressure)));
+  const row3 = el('div', 'row');
+  for (const s2 of STATUSES) {
+    const b = el('button', 'pill', s2);
+    b.type = 'button';
+    if (s2 === st) b.classList.add('on');
+    b.addEventListener('click', () => { state.status[p.id] = s2; save(); renderBoard(); renderQueue(); renderPlayer(); });
+    row3.append(b);
+  }
+  host.append(row3);
 }
 
 function renderRoster() {
@@ -618,16 +768,66 @@ function selectTab(name) {
 
 // ---- shell -------------------------------------------------------------
 
+/** Each league owns its own draft. Persist the active one back into the list
+ *  before switching, so leagues do not share a board. */
+function stashLeagueState() {
+  if (!state.league) return;
+  state.league.drafted = [...state.drafted];
+  state.league.pick = state.pick;
+  state.league.status = state.status;
+}
+
+function activateLeague(id) {
+  stashLeagueState();
+  const L = state.leagues.find(l => l.id === id);
+  if (!L) return;
+  state.leagueId = id;
+  state.league = L;
+  state.drafted = new Map(L.drafted ?? []);
+  state.pick = L.pick ?? 1;
+  state.status = L.status ?? {};
+  state.armed = null; state.profileId = null;
+  save(); boot();
+}
+
+function renderLeagueMenu() {
+  const host = document.getElementById('leaguemenu');
+  if (!host) return;
+  host.textContent = '';
+  const sel = document.createElement('select');
+  sel.setAttribute('aria-label', 'Active league');
+  for (const L of state.leagues) {
+    const o = document.createElement('option');
+    o.value = L.id; o.textContent = L.name;
+    if (L.id === state.leagueId) o.selected = true;
+    sel.append(o);
+  }
+  const nw = document.createElement('option');
+  nw.value = '__new'; nw.textContent = '＋ New league…';
+  sel.append(nw);
+  sel.addEventListener('change', () => {
+    if (sel.value === '__new') {
+      stashLeagueState(); save();
+      state.league = null; state.leagueId = null;
+      state.drafted = new Map(); state.pick = 1; state.status = {};
+      boot();
+      return;
+    }
+    activateLeague(sel.value);
+  });
+  host.append(sel);
+}
+
 function renderClock() {
   const { round, seat, mine } = onClock();
   const c = document.getElementById('clock');
   c.textContent = '';
-  c.append(document.createTextNode(`${state.league.name}  ·  Pick `), el('b', null, String(state.pick)),
+  c.append(document.createTextNode(`Pick `), el('b', null, String(state.pick)),
     document.createTextNode(`  ·  R${round}  ·  Seat ${seat}${mine ? ' (you)' : ''}`));
 }
 
 function renderAll() {
-  renderClock(); renderBoard(); renderQueue(); renderRoster(); renderSettings();
+  renderLeagueMenu(); renderClock(); renderBoard(); renderQueue(); renderRoster(); renderSettings(); renderPlayer();
 }
 
 function renderFilters() {

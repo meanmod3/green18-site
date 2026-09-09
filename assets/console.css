@@ -253,3 +253,36 @@ select:focus-visible, input:focus-visible, button:focus-visible { outline: 2px s
    `[hidden] { display:none }`, which left the setup screen painted on top of a
    live draft board while its `hidden` attribute read true. */
 [hidden] { display: none !important; }
+
+/* ---- league menu in the bar -------------------------------------------- */
+.leaguemenu select {
+  font: inherit; font-size: .78rem; font-weight: 700;
+  background: var(--surface); color: var(--on-surface);
+  border: 1px solid var(--divider); border-radius: 4px; padding: .1rem .3rem; max-width: 14rem;
+}
+.leaguemenu select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* ---- the app's two row pills ------------------------------------------- */
+.pill-q, .pill-d {
+  font: inherit; font-family: var(--mono); font-size: .6rem; font-weight: 700;
+  letter-spacing: .04em; line-height: 1; cursor: pointer; white-space: nowrap;
+  border-radius: 999px; padding: .22rem .45rem; border: 1px solid var(--divider);
+  background: transparent; color: var(--on-surface-2);
+}
+.pill-q[data-on="FAVORITE"], .pill-q[data-on="PREFER"] {
+  background: var(--pill-fill); color: var(--pill-label); border-color: transparent;
+}
+.pill-q[data-on="AVOID"] { border-color: var(--danger); color: var(--danger); }
+.pill-d { min-width: 7.5ch; text-align: center; }
+.pill-d.armed { background: var(--accent); color: var(--surface); border-color: transparent; }
+.pill-q:focus-visible, .pill-d:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.board tbody tr { cursor: pointer; }
+
+/* ---- player attributes panel ------------------------------------------- */
+.phead { display: flex; align-items: center; gap: .4rem; margin-bottom: .3rem; }
+.phead .pname { font-weight: 700; font-size: .95rem; }
+.tagline { display: inline-block; margin-bottom: .6rem; }
+.tabpanel .kv { display: grid; grid-template-columns: 1fr auto; gap: .18rem .6rem; font-size: .76rem; }
+.tabpanel .kv dt { color: var(--on-surface-2); }
+.tabpanel .kv dd { margin: 0; font-family: var(--mono); text-align: right; }
+button.pill.on { outline: 2px solid var(--accent); }
