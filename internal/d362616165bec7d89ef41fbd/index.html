@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Model Console — GREEN18 (internal)</title>
-<!-- Gated operator surface. Not linked from anywhere, absent from every
-     sitemap and llms.txt, disallowed in robots.txt, and noindex here. That is
-     obscurity plus a crawl directive, NOT access control: anyone with the URL
-     can load it. See docs/model-console.md. -->
+<!-- Gated operator surface: served only to a principal holding the `operator`
+     role (Entra), plus noindex/robots as defence in depth. Lives on the
+     internal-console branch, never on a branch a static host publishes
+     unauthenticated. See docs/model-console.md. -->
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
 <meta name="referrer" content="no-referrer">
 <link rel="stylesheet" href="/assets/console.css">
@@ -18,79 +18,53 @@
   <span class="mark">18</span>
   <h1>Model Console</h1>
   <span class="tag">Internal</span>
+  <span class="clock" id="clock"></span>
   <span class="spacer"></span>
-  <button id="reset" class="pill" type="button">Reset to neutral</button>
+  <button class="qbtn" type="button" id="undo">Undo pick</button>
 </div>
 
-<main>
+<div class="shell">
 
-  <section class="panel">
-    <h2>Draft philosophy — onboarding cards</h2>
-    <div class="body">
-      <p class="note">The five questions the app asks during onboarding. Each is a
-        &minus;1&hellip;1 axis; the verdict text under each slider is the app&rsquo;s own copy.</p>
-      <div id="philosophy"></div>
-    </div>
-  </section>
-
-  <section class="panel">
-    <h2>Preference weights — the five dials</h2>
-    <div class="body">
-      <p class="note"><code>PreferenceWeights</code>, clamped to &minus;1&hellip;1 on
-        construction. All five at 0 is the explicit &ldquo;no preference set&rdquo; state,
-        which reproduces the base value byte-identically.</p>
-      <div id="weights"></div>
-    </div>
-  </section>
-
-  <section class="panel">
-    <h2>Queue &amp; availability pressure</h2>
-    <div class="body">
-      <p class="note">Explicit queue preference is a first-class deterministic input.
-        Pressure scales the adjustment inside the fixed bound; it can never introduce
-        or remove evidence on its own.</p>
-
-      <div class="dial">
-        <div class="head">
-          <span class="title">Pressure magnitude</span>
-          <span class="val" id="pressure-mag-val">0.00</span>
-        </div>
-        <input type="range" id="pressure-mag" min="0" max="1" step="0.01" value="0"
-               aria-label="Availability pressure magnitude">
-        <div class="ends"><span>No pressure</span><span>Tier collapsing</span></div>
-        <p class="prompt" style="margin-top:.5rem">
-          <label><input type="checkbox" id="pressure-has"> Ledger reports pressure evidence</label>
-        </p>
-      </div>
-
-      <table>
+  <section class="pane">
+    <header>
+      <span>Live draft room</span>
+      <span class="spacer" style="flex:1"></span>
+      <span class="clock" id="remaining"></span>
+    </header>
+    <div class="scroll">
+      <table class="board">
         <thead>
-          <tr><th>Player</th><th>Status</th><th style="text-align:right">Strength</th><th style="text-align:right">Adj.</th></tr>
+          <tr>
+            <th style="width:3ch">#</th>
+            <th>Player</th>
+            <th style="text-align:right">Proj</th>
+            <th style="text-align:right">ADP</th>
+            <th style="text-align:right">Queue</th>
+            <th style="width:3ch"></th>
+            <th style="width:5ch"></th>
+          </tr>
         </thead>
-        <tbody id="queue-body"></tbody>
+        <tbody id="board-body"></tbody>
       </table>
-
-      <div id="reasons" style="margin-top:.7rem"></div>
     </div>
   </section>
 
-  <section class="panel" style="grid-column: 1 / -1">
-    <h2>Computed state</h2>
-    <div class="body">
-      <div id="readout"></div>
+  <section class="pane">
+    <header>
+      <div class="tabs" role="tablist">
+        <button type="button" role="tab" data-tab="preferences" aria-selected="true">Preferences</button>
+        <button type="button" role="tab" data-tab="settings" aria-selected="false">Settings</button>
+        <button type="button" role="tab" data-tab="scoring" aria-selected="false">Scoring</button>
+      </div>
+    </header>
+    <div class="scroll">
+      <div class="tabpanel" id="tab-preferences" role="tabpanel"></div>
+      <div class="tabpanel" id="tab-settings" role="tabpanel" hidden></div>
+      <div class="tabpanel" id="tab-scoring" role="tabpanel" hidden></div>
     </div>
   </section>
 
-  <footer>
-    Values and formulas are transcribed from the iOS sources
-    (<code>PreferenceWeights.swift</code>, <code>QueuePreferenceMapping.swift</code>,
-    <code>PreferenceSteps.swift</code>, <code>DraftModelArtifact.swift</code>).
-    The philosophy&rarr;weights derivation is engine internals and is deliberately
-    not reproduced here, so the two columns are independent inputs rather than a
-    guessed mapping. Nothing on this page is sent anywhere; it computes in the browser.
-  </footer>
-
-</main>
+</div>
 
 <script src="/assets/console.js"></script>
 </body>

@@ -1,169 +1,192 @@
 /* GREEN18 model console — desktop operator surface.
-   Colours are the iOS app's DesignTokens, converted from sRGB 0–1 to hex:
-   surfacePrimaryDark (0.016,0.075,0.027), accentDark (0.459,0.863,0.286),
-   white (0.961,0.949,0.890), the tinted grey ramp tinted(w) =
-   rgb(w*0.88, w, w*0.85), and the six position hues. Not re-picked by eye. */
+   Colours are the iOS app's DesignTokens converted from sRGB 0–1 to hex:
+   surfacePrimaryDark, accentDark, white, the tinted grey ramp
+   tinted(w) = rgb(w*0.88, w, w*0.85), and the six position hues.
+
+   The page itself never scrolls: it is a fixed-viewport app shell. Only the
+   two inner panes scroll, so the draft room and the controls stay on screen
+   together the way they do on a real second monitor. */
 
 :root {
-  --surface: #041307;          /* surfacePrimaryDark */
-  --surface-2: #161a16;        /* gray900 */
+  --surface: #041307;
+  --surface-2: #161a16;
   --panel: #0a1f0e;
-  --on-surface: #f5f2e3;       /* white */
-  --on-surface-2: #a8bfa3;     /* gray300 */
-  --divider: #485245;          /* gray700 */
-  --accent: #75dc49;           /* accentDark */
-  --pill-fill: #0e3017;        /* actionPillFill */
-  --pill-label: #88fa68;       /* actionPillLabel */
+  --on-surface: #f5f2e3;
+  --on-surface-2: #a8bfa3;
+  --divider: #485245;
+  --accent: #75dc49;
+  --pill-fill: #0e3017;
+  --pill-label: #88fa68;
   --qb: #fa8c8c; --rb: #99e699; --wr: #8cbffa;
   --te: #f2d973; --dst: #66d9d4; --k: #c7a6f2;
-  --caution: #ff9e2e;          /* statusCaution */
-  --danger: #f54d4d;           /* statusUnavailable */
-  --rookie: #b375fa;           /* statusRookie */
+  --caution: #ff9e2e;
+  --danger: #f54d4d;
+  --rookie: #b375fa;
   --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
   --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --bar-h: 44px;
 }
 
 * { box-sizing: border-box; }
 
-body {
+html, body {
+  height: 100%;
   margin: 0;
+  overflow: hidden;              /* the page does not scroll */
+}
+body {
   background: var(--surface);
   color: var(--on-surface);
   font-family: var(--sans);
   font-size: 14px;
-  line-height: 1.45;
+  line-height: 1.4;
 }
 
-/* ---- chrome ---------------------------------------------------------- */
+/* ---- shell ------------------------------------------------------------ */
 
 .bar {
-  display: flex; align-items: center; gap: .75rem;
-  padding: .7rem 1.25rem;
+  height: var(--bar-h);
+  display: flex; align-items: center; gap: .7rem;
+  padding: 0 1rem;
   border-bottom: 1px solid var(--divider);
   background: var(--surface-2);
-  position: sticky; top: 0; z-index: 10;
 }
-.bar h1 { font-size: .95rem; font-weight: 700; margin: 0; letter-spacing: .01em; }
+.bar h1 { font-size: .9rem; font-weight: 700; margin: 0; }
 .bar .mark {
-  font-family: var(--mono); font-weight: 700; font-size: .95rem;
+  font-family: var(--mono); font-weight: 700; font-size: .9rem;
   color: var(--surface); background: var(--accent);
-  padding: .1rem .4rem; border-radius: 3px;
+  padding: .05rem .35rem; border-radius: 3px;
 }
 .bar .spacer { flex: 1; }
 .tag {
-  font-family: var(--mono); font-size: .68rem; letter-spacing: .06em;
-  text-transform: uppercase; padding: .18rem .45rem; border-radius: 3px;
+  font-family: var(--mono); font-size: .64rem; letter-spacing: .06em;
+  text-transform: uppercase; padding: .12rem .4rem; border-radius: 3px;
   border: 1px solid var(--caution); color: var(--caution);
 }
+.clock {
+  font-family: var(--mono); font-size: .75rem; color: var(--on-surface-2);
+}
+.clock b { color: var(--accent); font-weight: 700; }
 
-main {
+.shell {
+  height: calc(100% - var(--bar-h));
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
-  padding: 1rem 1.25rem 3rem;
-  max-width: 1680px;
-  margin: 0 auto;
-  align-items: start;
+  grid-template-columns: minmax(0, 1fr) 420px;
+  gap: 0;
 }
-/* The console is a desktop surface by intent, but must not become
-   unusable when the window is narrow. */
-@media (max-width: 1180px) { main { grid-template-columns: repeat(2, minmax(0,1fr)); } }
-@media (max-width: 780px)  { main { grid-template-columns: minmax(0,1fr); } }
+@media (max-width: 1080px) { .shell { grid-template-columns: minmax(0,1fr) 340px; } }
 
-.panel {
-  background: var(--panel);
-  border: 1px solid var(--divider);
-  border-radius: 6px;
-  overflow: hidden;
-}
-.panel > h2 {
-  margin: 0; padding: .55rem .8rem;
-  font-size: .72rem; font-weight: 700;
+.pane { min-height: 0; display: flex; flex-direction: column; }
+.pane + .pane { border-left: 1px solid var(--divider); }
+.pane > header {
+  flex: none;
+  display: flex; align-items: center; gap: .5rem;
+  padding: .4rem .7rem;
+  font-size: .68rem; font-weight: 700;
   letter-spacing: .08em; text-transform: uppercase;
   color: var(--on-surface-2);
   border-bottom: 1px solid var(--divider);
-  background: var(--surface-2);
+  background: var(--panel);
 }
-.panel .body { padding: .8rem; }
-.panel .body > p.note {
-  margin: 0 0 .8rem; color: var(--on-surface-2); font-size: .8rem;
-}
+.pane > .scroll { flex: 1; min-height: 0; overflow-y: auto; }
 
-/* ---- dials ----------------------------------------------------------- */
+/* ---- draft room ------------------------------------------------------- */
 
-.dial + .dial { border-top: 1px solid var(--divider); margin-top: .7rem; padding-top: .7rem; }
-.dial .head { display: flex; align-items: baseline; gap: .5rem; }
-.dial .title { font-weight: 700; font-size: .82rem; }
-.dial .val {
-  margin-left: auto; font-family: var(--mono); font-size: .78rem;
-  color: var(--accent); min-width: 3.6ch; text-align: right;
+.board { width: 100%; border-collapse: collapse; font-size: .8rem; }
+.board th {
+  position: sticky; top: 0; z-index: 2;
+  background: var(--panel);
+  text-align: left; padding: .3rem .5rem;
+  font-size: .64rem; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--on-surface-2); font-weight: 600;
+  border-bottom: 1px solid var(--divider);
 }
-.dial .prompt { margin: .15rem 0 .45rem; color: var(--on-surface-2); font-size: .78rem; }
-.dial .ends {
-  display: flex; justify-content: space-between;
-  font-size: .68rem; color: var(--on-surface-2); margin-top: .2rem;
-}
-.dial .verdict {
-  margin-top: .35rem; font-size: .75rem; color: var(--on-surface);
-  background: var(--surface-2); border-left: 2px solid var(--accent);
-  padding: .3rem .5rem; border-radius: 0 3px 3px 0;
-}
-
-input[type=range] {
-  width: 100%; margin: .1rem 0; accent-color: var(--accent);
-  background: transparent;
-}
-input[type=range]:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-
-/* ---- queue ----------------------------------------------------------- */
-
-table { width: 100%; border-collapse: collapse; font-size: .8rem; }
-th, td { text-align: left; padding: .35rem .4rem; border-bottom: 1px solid var(--divider); }
-th { font-size: .68rem; text-transform: uppercase; letter-spacing: .06em; color: var(--on-surface-2); font-weight: 600; }
-td.num { font-family: var(--mono); text-align: right; }
-tbody tr:nth-child(even) { background: rgba(245,242,227,.045); }  /* zebraWash */
+.board td { padding: .3rem .5rem; border-bottom: 1px solid rgba(72,82,69,.5); }
+.board tbody tr:nth-child(even) { background: rgba(245,242,227,.045); }
+.board tbody tr:hover { background: rgba(117,220,73,.10); }
+.board tbody tr.gone { opacity: .32; }
+.board tbody tr.gone .nm { text-decoration: line-through; }
+.board td.num { font-family: var(--mono); text-align: right; white-space: nowrap; }
+.board .nm { font-weight: 600; }
+.board .team { color: var(--on-surface-2); font-size: .7rem; font-family: var(--mono); }
 
 .pos {
-  display: inline-block; min-width: 2.6ch; text-align: center;
-  font-family: var(--mono); font-size: .68rem; font-weight: 700;
-  padding: .05rem .3rem; border-radius: 3px; color: #041307;
+  display: inline-block; min-width: 2.7ch; text-align: center;
+  font-family: var(--mono); font-size: .64rem; font-weight: 700;
+  padding: .05rem .28rem; border-radius: 3px; color: #041307;
 }
 .pos.QB { background: var(--qb); } .pos.RB { background: var(--rb); }
 .pos.WR { background: var(--wr); } .pos.TE { background: var(--te); }
 .pos.DST { background: var(--dst); } .pos.K { background: var(--k); }
 
-select, button {
-  font: inherit; font-size: .78rem;
+.qbtn {
+  font: inherit; font-size: .7rem; line-height: 1;
+  background: transparent; border: 1px solid var(--divider);
+  color: var(--on-surface-2); border-radius: 3px;
+  padding: .15rem .3rem; cursor: pointer;
+}
+.qbtn[data-on="FAVORITE"] { border-color: var(--accent); color: var(--accent); }
+.qbtn[data-on="PREFER"]   { border-color: var(--pill-label); color: var(--pill-label); }
+.qbtn[data-on="AVOID"]    { border-color: var(--danger); color: var(--danger); }
+
+.delta.up { color: var(--accent); } .delta.down { color: var(--danger); }
+.delta.flat { color: var(--on-surface-2); }
+
+/* ---- tabs ------------------------------------------------------------- */
+
+.tabs { display: flex; gap: .25rem; }
+.tabs button {
+  font: inherit; font-size: .68rem; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase;
+  background: transparent; color: var(--on-surface-2);
+  border: 0; border-bottom: 2px solid transparent;
+  padding: .25rem .45rem; cursor: pointer;
+}
+.tabs button[aria-selected="true"] { color: var(--accent); border-bottom-color: var(--accent); }
+.tabs button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.tabpanel { padding: .7rem; }
+.tabpanel[hidden] { display: none; }
+
+/* ---- dials ------------------------------------------------------------ */
+
+.dial + .dial { border-top: 1px solid var(--divider); margin-top: .6rem; padding-top: .6rem; }
+.dial .head { display: flex; align-items: baseline; gap: .4rem; }
+.dial .title { font-weight: 700; font-size: .78rem; }
+.dial .val {
+  margin-left: auto; font-family: var(--mono); font-size: .74rem;
+  color: var(--accent); min-width: 3.6ch; text-align: right;
+}
+.dial .prompt { margin: .1rem 0 .35rem; color: var(--on-surface-2); font-size: .74rem; }
+.dial .ends { display: flex; justify-content: space-between; font-size: .64rem; color: var(--on-surface-2); }
+.dial .verdict {
+  margin-top: .3rem; font-size: .71rem; color: var(--on-surface);
+  background: var(--surface-2); border-left: 2px solid var(--accent);
+  padding: .25rem .45rem; border-radius: 0 3px 3px 0;
+}
+
+input[type=range] { width: 100%; margin: .1rem 0; accent-color: var(--accent); background: transparent; }
+input[type=range]:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* ---- forms ------------------------------------------------------------ */
+
+.field { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: .4rem; padding: .28rem 0; }
+.field + .field { border-top: 1px solid rgba(72,82,69,.45); }
+.field label { font-size: .78rem; }
+.field .hint { grid-column: 1 / -1; font-size: .68rem; color: var(--on-surface-2); margin: 0; }
+
+select, input[type=number], button.pill {
+  font: inherit; font-size: .75rem;
   background: var(--surface-2); color: var(--on-surface);
-  border: 1px solid var(--divider); border-radius: 4px;
-  padding: .2rem .35rem;
+  border: 1px solid var(--divider); border-radius: 4px; padding: .15rem .3rem;
 }
-button { cursor: pointer; }
-button.pill { background: var(--pill-fill); color: var(--pill-label); border-color: transparent; font-weight: 600; }
-button:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+input[type=number] { width: 5.5rem; text-align: right; font-family: var(--mono); }
+button.pill { background: var(--pill-fill); color: var(--pill-label); border-color: transparent; font-weight: 600; cursor: pointer; }
+select:focus-visible, input:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-.up { color: var(--accent); } .down { color: var(--danger); } .flat { color: var(--on-surface-2); }
-
-/* ---- readouts -------------------------------------------------------- */
-
-.kv { display: grid; grid-template-columns: 1fr auto; gap: .25rem .6rem; font-size: .8rem; }
-.kv dt { color: var(--on-surface-2); }
-.kv dd { margin: 0; font-family: var(--mono); text-align: right; }
-
-pre.json {
-  margin: .5rem 0 0; padding: .6rem; overflow-x: auto;
-  background: var(--surface-2); border: 1px solid var(--divider);
-  border-radius: 4px; font-family: var(--mono); font-size: .72rem;
-  color: var(--on-surface-2);
+.section-label {
+  font-size: .64rem; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--on-surface-2); font-weight: 700;
+  margin: .8rem 0 .3rem; padding-top: .5rem; border-top: 1px solid var(--divider);
 }
-
-.bound { height: 6px; background: var(--surface-2); border-radius: 3px; position: relative; overflow: hidden; margin-top: .3rem; }
-.bound i { position: absolute; top: 0; bottom: 0; background: var(--accent); }
-.bound i.neg { background: var(--danger); }
-
-footer {
-  grid-column: 1 / -1;
-  color: var(--on-surface-2); font-size: .74rem;
-  border-top: 1px solid var(--divider); padding-top: .7rem;
-}
-footer code { font-family: var(--mono); color: var(--on-surface); }
+.section-label:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
