@@ -270,6 +270,249 @@ function computeConfidence(answeredCards, advancedOverrides) {
   return { answeredCards, advancedOverrides, overall: Math.min(1.0, base + overrideBump) };
 }
 
+
+// ---- Chain A: projected season points ----------------------------------
+// GamesActiveProjection + LeagueProjections + ScoringEngine, transcribed.
+// The app always takes the fallback branch (no calibration table ships) and
+// never passes ageHazard, so agePrior is 1.0 — reproduced, not guessed.
+
+const GamesActive = {
+  regularSeasonGameCount: 17,
+  minimumGamesForRateProjection: 3,
+  rbExperienceHaircutStartYear: 6,
+  rbExperienceHaircutPerYear: 0.02,
+  rbExperienceMaximumHaircut: 0.15,
+};
+
+function experienceAdjustment(position, yearsExperience) {
+  if (position !== 'RB' || yearsExperience == null
+      || yearsExperience <= GamesActive.rbExperienceHaircutStartYear) return 1.0;
+  const extraYears = yearsExperience - GamesActive.rbExperienceHaircutStartYear;
+  const haircut = Math.min(GamesActive.rbExperienceMaximumHaircut,
+    GamesActive.rbExperienceHaircutPerYear * extraYears);
+  return 1.0 - haircut;
+}
+
+/** AvailabilityModel.estimate — fallback branch only, which is the branch the
+ *  shipped app always takes. availabilityMultiplier is the injury model's
+ *  output; absent, it is 1.0. */
+function expectedGames(position, actualGamesPlayed, yearsExperience, availabilityMultiplier) {
+  const experiencePrior = experienceAdjustment(position, yearsExperience);
+  const agePrior = 1.0;                       // ageHazard is never passed at runtime
+  const injuryRiskPrior = (availabilityMultiplier != null
+    && Number.isFinite(availabilityMultiplier) && availabilityMultiplier > 0)
+    ? availabilityMultiplier : 1.0;
+  const adjustment = experiencePrior * agePrior * injuryRiskPrior;
+  const fullSeason = GamesActive.regularSeasonGameCount;
+  const shortfall = Math.max(0, fullSeason - actualGamesPlayed);
+  const halfCredited = fullSeason - 0.5 * shortfall;
+  return Math.min(fullSeason, Math.min(fullSeason, Math.max(8, halfCredited)) * adjustment);
+}
+
+/** GamesActiveProjection.projectedStatLine — returns the ACTUAL line
+ *  unprojected when games are missing or under 3 (every D/ST, and anyone with
+ *  two games or fewer). */
+function projectedStatLine(actual, position, gamesPlayed, yearsExperience, availabilityMultiplier) {
+  if (gamesPlayed == null || gamesPlayed < GamesActive.minimumGamesForRateProjection) return actual;
+  const est = expectedGames(position, gamesPlayed, yearsExperience, availabilityMultiplier);
+  const factor = est / gamesPlayed;
+  if (!Number.isFinite(factor) || factor <= 0) return actual;
+  const out = {};
+  for (const [k, v] of Object.entries(actual)) out[k] = v * factor;
+  return out;
+}
+
+/** TePremiumScoring.augmentedStatLine */
+function augmentedStatLine(line, position) {
+  if (position !== 'TE' || line.reception === undefined) return line;
+  return { ...line, te_reception: line.reception };
+}
+
+/** ScoringEngine.score — iterates the RULES in order, skipping any stat the
+ *  line does not carry. Order matters for float reproducibility. */
+function scoreStatLine(line, rules) {
+  let total = 0;
+  for (const rule of rules) {
+    const v = line[rule.statKey];
+    if (v === undefined) continue;
+    switch (rule.mode) {
+      case 'perUnit': {
+        const unit = rule.unitSize ?? 1;
+        if (unit === 0) break;
+        total += (v / unit) * rule.pointsPerUnit;
+        break;
+      }
+      case 'rangeTable': {
+        for (const r of rule.ranges) {
+          const lo = r.min == null || v >= r.min;
+          const hi = r.max == null || v <= r.max;
+          if (lo && hi) { total += r.points; break; }
+        }
+        break;
+      }
+      case 'thresholdBonus': {
+        if (rule.comparison === 'LTE') { if (v <= rule.threshold) total += rule.points; break; }
+        if (v < rule.threshold) break;
+        if (rule.threshold === 0) { total += rule.points; break; }
+        total += rule.stackable ? Math.trunc(v / rule.threshold) * rule.points : rule.points;
+        break;
+      }
+      default:  // event
+        total += v * rule.points;
+    }
+  }
+  return total;
+}
+
+/** LeagueProjections.projectedSeasonPoints. Returns null where the Swift
+ *  returns nil: no stat line means no number, never a zero. */
+function projectedSeasonPoints(player, rules) {
+  if (!player.st) return null;
+  const line = projectedStatLine(player.st, player.pos, player.gp, player.yrs, null);
+  return scoreStatLine(augmentedStatLine(line, player.pos), rules);
+}
+
+// ---- survival to next pick ---------------------------------------------
+// DistributionCDF + SelectionHazard + SurvivalProbability, transcribed.
+
+const Hazard = {
+  interveningTeamDemandWeight: 0.35,
+  tierPressureWeight: 0.25,
+  recentRunWeight: 0.20,
+};
+const Survival = { lowThreshold: 0.65, mediumThreshold: 0.35, highThreshold: 0.15 };
+
+/** DistributionCDF.probabilitySelectedBy — piecewise-linear over the seven
+ *  percentile points, sorted by pick. */
+function probabilitySelectedBy(pick, d) {
+  const points = [[d.min, 0.0], [d.p10, 0.10], [d.p25, 0.25], [d.p50, 0.50],
+                  [d.p75, 0.75], [d.p90, 0.90], [d.max, 1.0]].sort((a, b) => a[0] - b[0]);
+  const first = points[0], last = points[points.length - 1];
+  if (pick < first[0]) return 0.0;
+  if (pick >= last[0]) return 1.0;
+  for (let i = 1; i < points.length; i++) {
+    const prev = points[i - 1], cur = points[i];
+    if (pick > cur[0]) continue;
+    if (cur[0] <= prev[0]) return cur[1];
+    const fraction = (pick - prev[0]) / (cur[0] - prev[0]);
+    const value = prev[1] + fraction * (cur[1] - prev[1]);
+    return Number.isFinite(value) ? clamp(value, 0, 1) : prev[1];
+  }
+  return 1.0;
+}
+const probabilityAvailableAt = (pick, d) => clamp(1 - probabilitySelectedBy(pick, d), 0, 1);
+
+/** SelectionHazard.hazard for one intervening pick. recentRunMultiplier is
+ *  always null in the shipped app (a deliberate double-count ruling), so it is
+ *  not wired here either. */
+function selectionHazard(pick, d, teamProbabilityWeight, tierPressure, confidence) {
+  const before = probabilityAvailableAt(pick - 1, d);
+  const at = probabilityAvailableAt(pick, d);
+  const rawBase = before > 1e-9 ? (before - at) / before : 0;
+  const baseHazard = Number.isFinite(rawBase) ? clamp(rawBase, 0, 1) : 0;
+  let adjusted = baseHazard;
+  if (teamProbabilityWeight != null) {
+    adjusted += (clamp(teamProbabilityWeight, 0, 1) - 0.5) * 2.0 * Hazard.interveningTeamDemandWeight * baseHazard;
+  }
+  if (tierPressure != null) {
+    adjusted += (clamp(tierPressure, 0, 1) - 0.5) * 2.0 * Hazard.tierPressureWeight * baseHazard;
+  }
+  const safeConfidence = Number.isFinite(confidence) ? clamp(confidence, 0, 1) : 0;
+  const blended = safeConfidence * adjusted + (1 - safeConfidence) * baseHazard;
+  return Number.isFinite(blended) ? clamp(blended, 0, 1) : baseHazard;
+}
+
+/** SurvivalProbability.estimate — the product of (1 - hazard) across every
+ *  intervening pick. Already drafted short-circuits to 0 available. */
+function survivalToNextPick({ dist, fromPickExclusive, toPick, teamWeights, tierPressure, confidence, drafted }) {
+  if (drafted) return { probabilityAvailable: 0, probabilitySelected: 1, band: 'critical' };
+  if (!dist) return null;
+  let survival = 1.0;
+  for (let pick = fromPickExclusive + 1; pick < toPick; pick++) {
+    const w = teamWeights ? teamWeights(pick) : null;
+    survival *= clamp(1 - selectionHazard(pick, dist, w, tierPressure, confidence), 0, 1);
+  }
+  const safe = Number.isFinite(survival) ? clamp(survival, 0, 1) : 0;
+  return {
+    probabilityAvailable: safe,
+    probabilitySelected: 1 - safe,
+    band: safe >= Survival.lowThreshold ? 'low'
+        : safe >= Survival.mediumThreshold ? 'medium'
+        : safe >= Survival.highThreshold ? 'high' : 'critical',
+  };
+}
+
+// ---- MarketRecommendation ----------------------------------------------
+
+const MarketRec = { takeSurvivalThreshold: 0.35, waitSurvivalThreshold: 0.60, strongModelRankThreshold: 24 };
+
+function marketDecision({ modelRank, survival, movement }) {
+  const eliteModelRank = modelRank > 0 && modelRank <= MarketRec.strongModelRankThreshold;
+  const withConviction = () => movement === 'earlier' ? 'take'
+    : movement === 'later' ? 'wait'
+    : (eliteModelRank ? 'take' : 'neutral');
+  if (survival != null) {
+    if (survival <= MarketRec.takeSurvivalThreshold) return 'take';
+    if (survival >= MarketRec.waitSurvivalThreshold) return 'wait';
+    return withConviction();
+  }
+  return movement === 'earlier' ? 'take' : movement === 'later' ? 'wait' : 'neutral';
+}
+
+// ---- ModelTag ----------------------------------------------------------
+
+const TagBounds = {
+  takeSurvivalGate: MarketRec.takeSurvivalThreshold,
+  positionNeedTopBand: 0.67,
+  eliteTierNumber: 1, strongTierNumber: 2, solidTierNumber: 3,
+  safeAvailabilityThreshold: Survival.lowThreshold,
+  narrowDistributionWidthPicks: 6.0,
+  wideDistributionWidthPicks: 18.0,
+  reliableMinimumGamesProjected: 16.0,
+};
+
+/** ModelTag.compute — the complete ordered rule list, first match wins.
+ *  A rule whose evidence is missing simply does not fire. */
+function computeModelTag(i) {
+  const B = TagBounds;
+  if (i.decision === 'take' && i.survivalToNextPick != null
+      && i.survivalToNextPick <= B.takeSurvivalGate) return 'Priority';
+  if (i.positionNeedOfOnClockTeam >= B.positionNeedTopBand && i.isBestAvailableAtPosition) return 'Fit';
+  if (i.tierNumber === B.eliteTierNumber) return 'Elite';
+  if (i.movement === 'later') return 'Falling';
+  if (i.movement === 'earlier') return 'Rising';
+  if (i.isRookieNoProduction) return 'Emerging';
+  if (i.modelRank > 0 && i.marketAdpRank > 0 && i.picksPerRound > 0
+      && i.modelRank - i.marketAdpRank >= i.picksPerRound) return 'Overpriced';
+  if (i.modelRank > 0 && i.marketAdpRank > 0 && i.picksPerRound > 0
+      && i.marketAdpRank - i.modelRank >= i.picksPerRound) return 'Value';
+  if ((i.hasPostInjuryDiscount || i.injuryRiskTier === 'high') && i.survivalToNextPick != null
+      && i.survivalToNextPick < B.safeAvailabilityThreshold) return 'Risky';
+  if (i.distributionWidth != null && i.distributionWidth > B.wideDistributionWidthPicks
+      && i.p10Pick != null && i.tierMedianPick != null && i.p10Pick < i.tierMedianPick) return 'Upside';
+  if (i.distributionWidth != null && i.distributionWidth > B.wideDistributionWidthPicks) return 'Volatile';
+  if (i.tierNumber === B.strongTierNumber) return 'Strong';
+  if (i.tierNumber === B.solidTierNumber) return 'Solid';
+  if (i.distributionWidth != null && i.distributionWidth < B.narrowDistributionWidthPicks
+      && i.survivalToNextPick != null && i.survivalToNextPick >= B.safeAvailabilityThreshold
+      && i.gamesProjected != null && i.gamesProjected >= B.reliableMinimumGamesProjected) return 'Reliable';
+  if (i.survivalToNextPick != null && i.survivalToNextPick >= B.safeAvailabilityThreshold) return 'Safe';
+  return 'Wait';
+}
+
+/** TiersSurvival: a new tier starts wherever the descending baseline values
+ *  gap by 4.0 or more. */
+const TIER_GAP_THRESHOLD = 4.0;
+function tierNumbers(sortedDescendingValues) {
+  const tiers = [];
+  let tier = 1;
+  for (let i = 0; i < sortedDescendingValues.length; i++) {
+    if (i > 0 && sortedDescendingValues[i - 1] - sortedDescendingValues[i] >= TIER_GAP_THRESHOLD) tier += 1;
+    tiers.push(tier);
+  }
+  return tiers;
+}
+
   window.G18 = {
   Bounds, EngineeringDefaultBounds,
   clampDial, makeEnvelope, envelopePoints,
@@ -278,5 +521,8 @@ function computeConfidence(answeredCards, advancedOverrides) {
   personalizedValue,
   explicitPreferenceStrength, queueAdjustment, queueReason,
   deriveProfile, computeConfidence,
+  projectedSeasonPoints, scoreStatLine, projectedStatLine, augmentedStatLine,
+  probabilitySelectedBy, probabilityAvailableAt, selectionHazard, survivalToNextPick,
+  marketDecision, computeModelTag, tierNumbers, Survival, MarketRec, TagBounds,
 };
 })();

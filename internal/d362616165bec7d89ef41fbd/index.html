@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
 <meta name="referrer" content="no-referrer">
 <link rel="stylesheet" href="/assets/site.css">
-<link rel="stylesheet" href="/assets/console.css">
+<link rel="stylesheet" href="/assets/console.css?v=1788930479">
 </head>
 <body>
 
@@ -32,7 +32,7 @@
   <span class="clock" id="clock"></span>
   <span class="spacer"></span>
   <span class="clock" id="poolmeta">loading…</span>
-  <button class="ghost" type="button" id="undo">Undo pick</button>
+  <button class="ghost" type="button" id="undo" hidden>Undo pick</button>
 </div>
 
 <section id="setup" class="setup" hidden>
@@ -58,11 +58,13 @@
           <tr>
             <th style="width:3ch">#</th>
             <th>Player</th>
-            <th style="text-align:right">Base<span class="sub">market</span></th>
+            <th style="text-align:right">Proj<span class="sub">points</span></th>
+            <th style="text-align:right">Base<span class="sub">-live ADP</span></th>
             <th style="text-align:right">Dials</th>
             <th style="text-align:right">Queue</th>
             <th style="text-align:right">Value</th>
             <th style="text-align:right">Mkt</th>
+            <th style="text-align:right">Surv</th>
             <th style="width:3ch"></th>
             <th style="width:5ch"></th>
           </tr>
@@ -72,7 +74,12 @@
     </div>
   </section>
 
-  <section class="pane">
+  <section class="pane" id="stepper-pane" hidden>
+    <header><span>Set up your draft</span></header>
+    <div class="scroll"><div id="stepper" class="stepper"></div></div>
+  </section>
+
+  <section class="pane" id="tabs-pane" hidden>
     <header>
       <div class="tabs" role="tablist">
         <button type="button" role="tab" data-tab="player" aria-selected="false">Player</button>
@@ -95,7 +102,7 @@
 
 </div>
 
-<script src="/assets/engine.js"></script>
-<script src="/assets/console.js"></script>
+<script src="/assets/engine.js?v=1788930479"></script>
+<script src="/assets/console.js?v=1788930479"></script>
 </body>
 </html>

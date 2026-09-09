@@ -337,3 +337,85 @@ button.pill.on { outline: 2px solid var(--accent); outline-offset: 1px; }
   border-radius: 14px; padding: 1.6rem 1.5rem 1.8rem;
 }
 .setup-card h2 { font-size: 1.35rem; margin: 0 0 .25rem; letter-spacing: -.015em; }
+
+/* ---- setup stepper ------------------------------------------------------ */
+
+.stepper { padding: .9rem .85rem 2rem; }
+.step {
+  border: 1px solid var(--line); border-radius: 12px;
+  margin-bottom: .55rem; overflow: hidden; background: var(--bg-3);
+  transition: border-color .15s ease;
+}
+.step.open { border-color: color-mix(in srgb, var(--accent) 45%, transparent); }
+.step-head {
+  width: 100%; display: flex; align-items: center; gap: .7rem;
+  background: transparent; border: 0; cursor: pointer;
+  padding: .7rem .8rem; text-align: left; color: inherit; font: inherit;
+}
+.step-head:hover { background: color-mix(in srgb, var(--ink) 4%, transparent); }
+.step-n {
+  flex: none; width: 1.5rem; height: 1.5rem; border-radius: 50%;
+  display: grid; place-items: center;
+  font-family: var(--mono); font-size: .7rem; font-weight: 700;
+  border: 1px solid var(--line); color: var(--ink-3);
+}
+.step.done .step-n { background: var(--accent); color: #041306; border-color: transparent; }
+.step-t { flex: 1; display: flex; flex-direction: column; gap: .05rem; }
+.step-title { font-size: .88rem; font-weight: 600; }
+.step-blurb { font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
+.step-chev { color: var(--ink-3); font-size: .8rem; }
+.step-body { padding: 0 .8rem .9rem; border-top: 1px solid var(--line); }
+.step-body .hint { margin-top: .6rem; }
+
+.launch-wrap { margin-top: 1.1rem; }
+.launch {
+  width: 100%; font: inherit; font-size: .82rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  background: var(--accent); color: #041306;
+  border: 0; border-radius: 999px; padding: .8rem 1rem; cursor: pointer;
+  transition: filter .12s ease;
+}
+.launch:hover:not(:disabled) { filter: brightness(1.08); }
+.launch:disabled {
+  background: transparent; color: var(--ink-3);
+  border: 1px dashed var(--line); cursor: not-allowed; letter-spacing: .07em;
+}
+
+/* pre-draft: the board is a preview, so its controls read as inert */
+body.predraft .pill-q, body.predraft .pill-d { opacity: .38; cursor: default; }
+body.predraft .board tbody tr { cursor: default; }
+body.predraft .board tbody tr:hover { background: transparent; }
+
+/* ---- mobile ------------------------------------------------------------- */
+
+@media (max-width: 860px) {
+  html, body { overflow: auto; height: auto; }
+  body { min-height: 100%; }
+  .shell { grid-template-columns: minmax(0, 1fr); }
+  .pane { min-height: auto; }
+  .pane + .pane { border-left: 0; border-top: 1px solid var(--line); }
+  /* The board scrolls sideways INSIDE its pane rather than overflowing the
+     page: at 375px the row cannot show every column, and a page that scrolls
+     both ways is worse than one that scrolls a table. */
+  .pane > .scroll { overflow: visible; }
+  .pane > .scroll:has(.board) { overflow-x: auto; }
+  .board { min-width: 32rem; font-size: .78rem; }
+  .board td, .board th { padding: .45rem .4rem; }
+  .board .nm { white-space: nowrap; }
+  .board .why { display: none; }
+  /* Base, dials and market are the columns a phone can lose and still be
+     useful: rank, player, value, and the two controls are what remain. */
+  .board th:nth-child(3), .board td:nth-child(3),
+  .board th:nth-child(4), .board td:nth-child(4),
+  .board th:nth-child(5), .board td:nth-child(5),
+  .board th:nth-child(7), .board td:nth-child(7) { display: none; }
+  .pill-q, .pill-d { font-size: .55rem; padding: .3rem .45rem; }
+  .pill-d { min-width: 6.5ch; }
+
+  .bar { flex-wrap: wrap; gap: .45rem .7rem; padding: .5rem .9rem; }
+  .filters { padding: .5rem .9rem; }
+  .tabs { flex-wrap: wrap; }
+  .tabpanel, .stepper { padding-left: .9rem; padding-right: .9rem; }
+  .stepper { padding-bottom: 3rem; }
+  .setup-card { margin: 1.2rem 0 3rem; padding: 1.2rem 1rem 1.4rem; }
+}
