@@ -854,3 +854,31 @@ button.rslot.queued:hover {
   box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 25%, transparent);
 }
 .tbtn.clock:not(.on) { color: var(--accent); }
+
+/* ---- custom scrollbars everywhere --------------------------------------- */
+/* The default Chrome grey is the one piece of platform chrome left on the
+   page; every scrollable surface uses the same thin, tinted thumb. */
+* { scrollbar-width: thin; scrollbar-color: color-mix(in srgb, var(--ink) 16%, transparent) transparent; }
+::-webkit-scrollbar { width: 9px; height: 9px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--ink) 15%, transparent);
+  border-radius: 999px; border: 3px solid transparent; background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover { background: color-mix(in srgb, var(--accent) 45%, transparent); background-clip: content-box; }
+::-webkit-scrollbar-corner { background: transparent; }
+
+/* ---- board strip -------------------------------------------------------- */
+.boardstrip { display: inline-flex; gap: .25rem; align-items: center; margin-left: auto; overflow: hidden; }
+.bs-chip {
+  display: inline-flex; align-items: center; gap: .22rem;
+  background: var(--bg-3); border: 1px solid var(--line); border-radius: 999px;
+  padding: .12rem .4rem; font-size: .6rem; white-space: nowrap;
+}
+.bs-chip.mine { border-color: color-mix(in srgb, var(--accent) 55%, transparent); }
+.bs-n { font-weight: 600; }
+.bs-p { font-family: var(--mono); font-size: .54rem; color: var(--ink-3); }
+.bs-empty { font-size: .62rem; color: var(--ink-3); }
+.filters .boardstrip { order: 4; }
+.filters .launch-slot { order: 5; margin-left: .4rem; }
+.filters .searchbar { order: 6; }

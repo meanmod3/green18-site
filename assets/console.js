@@ -451,8 +451,18 @@ function evaluate() {
       gamesProjected: G18.gamesProjected(p, availMult(p)),
     });
 
+    const fit = G18.pickFitScore({
+      starterNeed: needs[p.pos] ?? 0,
+      survivalToNextPick: surv ? surv.probabilityAvailable : null,
+      modelRank: sig.modelRank ?? 0,
+      marketAdpRank: marketRank.get(p.id) ?? 0,
+      picksPerRound: teams,
+      isOverpricedTag: tag === 'Overpriced',
+      benchOnly: (needs[p.pos] ?? 0) === 0,
+    });
+
     return {
-      p, base: sig.baseValue, proj: proj.get(p.id), dialDelta: pv.total - pv.baseValue,
+      p, fit, base: sig.baseValue, proj: proj.get(p.id), dialDelta: pv.total - pv.baseValue,
       contributions: pv.contributions, queueAdj: qAdj, total: pv.total + qAdj,
       tier: tierOf.get(p.id) ?? null, survival: surv, decision, tag,
       livePick: livePick(p.id), movement: G18.adpMovementDirection(livePick(p.id), p.p50),
@@ -670,43 +680,46 @@ function renderBoard() {
     tr.append(el('td', 'num', p.p50 == null ? '—' : p.p50.toFixed(0)));
     tr.append(el('td', 'num surv', r.survival ? Math.round(r.survival.probabilityAvailable * 100) + '%' : '—'));
 
-    // QUEUE / QUEUED — membership, exactly as the app's pill reads it:
-    // tapping a queued player removes it.
-    const tdQ = document.createElement('td');
-    const qb = el('button', 'pill-q', st === 'NEUTRAL' ? 'QUEUE' : (st === 'AVOID' ? 'AVOID' : 'QUEUED'));
-    qb.type = 'button'; qb.dataset.on = st;
-    qb.title = G18.queueReason(st, state.pressure);
-    qb.setAttribute('aria-label', `Queue preference for ${p.n}: ${st}`);
-    qb.addEventListener('click', ev => {
-      ev.stopPropagation();
-      // Queuing is a pre-draft activity: the whole point is to build the queue
-      // before the clock starts.
-      const next = STATUSES[(STATUSES.indexOf(st) + 1) % STATUSES.length];
-      state.status[p.id] = next;
-      // A plan is a queued player placed in a slot; un-queueing him drops it.
-      if (next === 'NEUTRAL' || next === 'AVOID') delete state.tentative[p.id];
-      save(); renderBoard(); renderRoster();
-    });
-    tdQ.append(qb); tr.append(tdQ);
-
-    // The dynamic pill. Unarmed it shows this player's ATTRIBUTE; a first tap
-    // ARMS the row and the tag morphs into DRAFT without touching draft state;
-    // a second tap confirms. Arming a different row simply re-arms.
+    // ONE pill, whose meaning switches with the draft's phase — the app's own
+    // rule: before the draft it is queue membership; once live it shows the
+    // player's attribute, arms to DRAFT on a first tap, and commits on a
+    // second. Queueing mid-draft moves to the player panel, as it is there.
     const tdD = document.createElement('td');
+    const launched = !!state.league.launched;
     const armed = state.armed === p.id;
-    const pill = el('button', 'pill-d', armed ? 'DRAFT' : r.tag.toUpperCase());
+    const label = !launched ? (st === 'NEUTRAL' ? 'QUEUE' : st === 'AVOID' ? 'AVOID' : 'QUEUED')
+      : (armed ? 'DRAFT' : r.tag.toUpperCase());
+    const pill = el('button', 'pill-d', label);
     pill.type = 'button';
+    if (!launched) pill.dataset.on = st;
     if (armed) pill.classList.add('armed');
-    pill.title = armed
-      ? `Confirm ${p.n} at pick ${state.pick}`
-      : `${r.tag} — tap to arm, tap again to draft`;
-    pill.setAttribute('aria-label', armed
-      ? `Draft ${p.n}, double tap to confirm`
-      : `${r.tag}. Draft ${p.n}.`);
-    if (!state.league.launched) pill.disabled = true;
+
+    // The spectrum tone: red through green by how well this player fits THIS
+    // pick. Only a live, unarmed pill carries it — exactly when the app shows
+    // it — so QUEUE and the armed DRAFT stay neutral.
+    if (launched && !armed) {
+      const tone = G18.spectrumColor(r.fit);
+      pill.style.color = tone;
+      pill.style.borderColor = tone;
+      pill.title = `${r.tag} — fit ${(r.fit * 100).toFixed(0)}%. Tap to arm, tap again to draft.`;
+    } else if (!launched) {
+      pill.title = G18.queueReason(st, state.pressure);
+    } else {
+      pill.title = `Confirm ${p.n} at pick ${state.pick}`;
+    }
+    pill.setAttribute('aria-label', !launched
+      ? `Queue preference for ${p.n}: ${st}`
+      : (armed ? `Draft ${p.n}, double tap to confirm` : `${r.tag}. Draft ${p.n}.`));
+
     pill.addEventListener('click', ev => {
       ev.stopPropagation();
-      if (!state.league.launched) return;
+      if (!launched) {
+        const next = STATUSES[(STATUSES.indexOf(st) + 1) % STATUSES.length];
+        state.status[p.id] = next;
+        if (next === 'NEUTRAL' || next === 'AVOID') delete state.tentative[p.id];
+        save(); renderBoard(); renderRoster();
+        return;
+      }
       if (!armed) { state.armed = p.id; renderBoard(); return; }
       state.drafted.set(p.id, { pick: state.pick, mine: onClock().mine });
       state.pick += 1; state.armed = null;
@@ -1146,9 +1159,6 @@ function numberField(label, value, step, min, max, onChange, hint) {
 function buildLeagueFields(host) {
   // Nothing to edit here any more: the name is renamed from its own pencil,
   // and everything else that shapes the draft lives in the strip.
-  host.append(el('p', 'hint',
-    'Rename this league with the pencil beside its name. Size, your pick, draft '
-    + 'format, length and roster structure are set in the strip beneath the board.'));
   return;
 
   // Compact pairs, the way the iOS panels group them, instead of one tall
@@ -1438,6 +1448,30 @@ function renderLaunch() {
 
 /** The draft state is no longer printed as a line of metrics. Whose turn it is
  *  reads off the team chips instead, which is where the teams already are. */
+/** The board strip: the picks just made, newest first, at the right of the
+ *  control row. It is the app's board tile in a line — during a draft the most
+ *  useful thing after your own board is what just came off it. */
+function renderBoardStrip() {
+  const host = document.getElementById('boardstrip');
+  if (!host) return;
+  host.textContent = '';
+  if (!state.league?.launched) return;
+  const recent = [...state.drafted.entries()]
+    .sort((a, b) => b[1].pick - a[1].pick)
+    .slice(0, 6)
+    .map(([id, v]) => ({ p: POOL.find(x => x.id === id), pick: v.pick, mine: v.mine }))
+    .filter(r => r.p);
+  if (!recent.length) { host.append(el('span', 'bs-empty', 'No picks yet')); return; }
+  for (const r of recent) {
+    const chip = el('span', 'bs-chip' + (r.mine ? ' mine' : ''));
+    chip.title = `Pick ${r.pick} — ${r.p.n}${r.mine ? ' (you)' : ''}`;
+    chip.append(el('span', `pos ${r.p.pos}`, r.p.pos));
+    chip.append(el('span', 'bs-n', r.p.n.split(' ').slice(-1)[0]));
+    chip.append(el('span', 'bs-p', '#' + r.pick));
+    host.append(chip);
+  }
+}
+
 function renderClock() { /* intentionally empty: see the on-clock chip */ }
 
 function renderAll() {
@@ -1501,9 +1535,13 @@ function renderFilters() {
   });
   if (state.filter.q) { overlay.hidden = false; searchBtn.setAttribute('aria-expanded', 'true'); }
 
+  const strip = el('span', 'boardstrip'); strip.id = 'boardstrip';
+  host.append(strip);
+
   const launch = el('span', 'launch-slot'); launch.id = 'launch-slot';
   host.append(launch);
   renderLaunch();
+  renderBoardStrip();
 }
 
 function boot() {

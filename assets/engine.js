@@ -693,6 +693,60 @@ function gamesProjected(player, availMultiplier) {
   return expectedGames(player.pos, player.gp, player.yrs, availMultiplier);
 }
 
+
+// ---- PickFitScore + the spectrum ----------------------------------------
+// How well this player fits THIS pick, and the hue that expresses it.
+
+const PickFit = {
+  needWeight: 0.45, urgencyWeight: 0.25, valueWeight: 0.20, archetypeSignWeight: 0.10,
+  benchOnlyCap: 0.40,
+};
+
+function pickFitScore({ starterNeed, survivalToNextPick, modelRank, marketAdpRank, picksPerRound, isOverpricedTag, benchOnly }) {
+  const need = clamp(starterNeed ?? 0, 0, 1);
+  // Missing survival is neither urgent nor calm: it resolves to the midpoint,
+  // never a fabricated extreme.
+  const urgency = survivalToNextPick == null ? 0.5 : clamp(1 - survivalToNextPick, 0, 1);
+  let value = 0.5;
+  if (modelRank > 0 && marketAdpRank > 0 && picksPerRound > 0) {
+    const rawRounds = (marketAdpRank - modelRank) / picksPerRound;
+    value = (clamp(rawRounds, -1, 1) + 1) / 2;
+  }
+  // Archetypes are not shipped to this build, so the sign sub-score carries
+  // only the one input that is: the overpriced tag.
+  const archetypeSign = (clamp(isOverpricedTag ? -1 : 0, -1, 1) + 1) / 2;
+
+  const raw = PickFit.needWeight * need + PickFit.urgencyWeight * urgency
+    + PickFit.valueWeight * value + PickFit.archetypeSignWeight * archetypeSign;
+  const clamped = clamp(raw, 0, 1);
+  return benchOnly ? Math.min(clamped, PickFit.benchOnlyCap) : clamped;
+}
+
+/** PickFitSpectrum: red at 0, orange at .33, yellow at .60, green at 1. */
+const SPECTRUM_STOPS = [
+  { score: 0.0, hue: 0 }, { score: 0.33, hue: 30 }, { score: 0.60, hue: 60 }, { score: 1.0, hue: 120 },
+];
+const SPECTRUM_SATURATION = 0.85;
+
+function spectrumHue(score) {
+  const c = clamp(score, 0, 1);
+  const first = SPECTRUM_STOPS[0], last = SPECTRUM_STOPS[SPECTRUM_STOPS.length - 1];
+  if (c <= first.score) return first.hue;
+  if (c >= last.score) return last.hue;
+  for (let i = 1; i < SPECTRUM_STOPS.length; i++) {
+    const lower = SPECTRUM_STOPS[i - 1], upper = SPECTRUM_STOPS[i];
+    if (c > upper.score) continue;
+    const span = upper.score - lower.score;
+    const t = span > 0 ? (c - lower.score) / span : 1;
+    return lower.hue + (upper.hue - lower.hue) * t;
+  }
+  return last.hue;
+}
+
+function spectrumColor(score) {
+  return `hsl(${spectrumHue(score).toFixed(1)} ${SPECTRUM_SATURATION * 100}% 55%)`;
+}
+
   window.G18 = {
   Bounds, EngineeringDefaultBounds,
   clampDial, makeEnvelope, envelopePoints,
@@ -708,5 +762,6 @@ function gamesProjected(player, availMultiplier) {
   liveShiftFraction, liveDistribution, adpMovementDirection, Velocity, LiveShift,
   shrunkDelta, availabilityMultiplier, injuryQuantile, injuryTierThresholds,
   injuryTier, gamesProjected, Injury,
+  pickFitScore, spectrumHue, spectrumColor, PickFit,
 };
 })();
