@@ -1427,6 +1427,11 @@ function renderFilters() {
   const host = document.getElementById('filters');
   host.textContent = '';
 
+  // The draft room's title row is gone; this row carries its state and its
+  // one action, so the clock and launch slot are rebuilt here.
+  const clock = el('span', 'clock'); clock.id = 'clock';
+  host.append(clock);
+
   const lm = el('span', 'leaguemenu'); lm.id = 'leaguemenu';
   host.append(lm);
 
@@ -1479,6 +1484,11 @@ function renderFilters() {
     if (!overlay.hidden) q.focus();
   });
   if (state.filter.q) { overlay.hidden = false; searchBtn.setAttribute('aria-expanded', 'true'); }
+
+  const launch = el('span', 'launch-slot'); launch.id = 'launch-slot';
+  host.append(launch);
+  renderLaunch();
+  renderClock();
 }
 
 function boot() {

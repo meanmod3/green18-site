@@ -751,8 +751,10 @@ button.rslot.queued:hover {
 /* ---- right pane starts a row lower, aligning with the board ------------- */
 /* The draft room header (47px) is the room's own title bar; the settings pane
    should begin where the board's controls do, not level with that title. */
-#tabs-pane { padding-top: 47px; }
-#tabs-pane > header { border-top: 1px solid var(--line); }
+/* With the draft room's title row deleted the panes align on their own; the
+   47px offset that used to compensate for it would now push the settings
+   pane a row too low. */
+#tabs-pane { padding-top: 0; }
 
 /* ---- launch, far right of the draft header ------------------------------ */
 .launch-slot { margin-left: auto; display: inline-flex; }
@@ -818,3 +820,20 @@ button.rslot.queued:hover {
 .undo-btn:disabled { opacity: .4; cursor: default; }
 .tchips { flex: 1; min-width: 0; overflow-x: auto; scrollbar-width: none; }
 .tchips::-webkit-scrollbar { display: none; }
+
+
+/* the filter row is now the draft room's only chrome */
+.filters .clock { flex: none; margin-right: .2rem; }
+.filters .launch-slot { margin-left: auto; }
+.filters .searchbar { padding-left: .95rem; }
+
+
+/* The filter row uses explicit flex order, so every child needs one: without
+   this the launch slot (default order 0) jumped ahead of the position chips
+   (order 1) regardless of where it sits in the DOM. */
+.filters .clock { order: 0; }
+.filters .leaguemenu { order: 1; }
+.filters .iconbtn { order: 2; }
+.filters .chips { order: 3; }
+.filters .launch-slot { order: 4; margin-left: auto; }
+.filters .searchbar { order: 5; }
