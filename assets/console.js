@@ -489,6 +489,46 @@ const DIAL_ABBR = {
 
 /** Which seat owns a given overall pick. Derived, not stored, so changing the
  *  league's size or draft type re-reads every past pick consistently. */
+/** A labelled dropdown in our own styling. `render` turns a value into the
+ *  button's text, so "12" can read "12 team" without the options repeating it. */
+function dropdown({ value, options, onChange, render, ariaLabel, cls = '' }) {
+  const wrap = el('span', 'dd ' + cls);
+  const btn = el('button', 'dd-btn');
+  btn.type = 'button';
+  btn.setAttribute('aria-haspopup', 'listbox');
+  btn.setAttribute('aria-expanded', 'false');
+  btn.setAttribute('aria-label', ariaLabel);
+  btn.append(el('span', 'dd-val', render ? render(value) : String(value)));
+  btn.append(el('span', 'dd-caret', '▾'));
+
+  const menu = el('div', 'dd-menu');
+  menu.setAttribute('role', 'listbox');
+  menu.hidden = true;
+  for (const o of options) {
+    const val = typeof o === 'object' ? o.value : o;
+    const txt = typeof o === 'object' ? o.label : String(o);
+    const opt = el('button', 'dd-opt' + (val === value ? ' on' : ''), txt);
+    opt.type = 'button';
+    opt.setAttribute('role', 'option');
+    opt.setAttribute('aria-selected', String(val === value));
+    opt.addEventListener('click', ev => { ev.stopPropagation(); onChange(val); });
+    menu.append(opt);
+  }
+  btn.addEventListener('click', ev => {
+    ev.stopPropagation();
+    const wasOpen = !menu.hidden;
+    closeAllMenus();
+    if (!wasOpen) { menu.hidden = false; btn.setAttribute('aria-expanded', 'true'); }
+  });
+  wrap.append(btn, menu);
+  return wrap;
+}
+
+function closeAllMenus() {
+  for (const m of document.querySelectorAll('.dd-menu, .rmenu')) m.hidden = true;
+  for (const b of document.querySelectorAll('.dd-btn, .rhead')) b.setAttribute('aria-expanded', 'false');
+}
+
 function seatForPick(pick) {
   const t = state.league?.teams ?? 12;
   const round = Math.floor((pick - 1) / t) + 1;
@@ -791,19 +831,40 @@ function renderRoster() {
   const { filled, unassigned } = slotAssignments(seat);
   const launched = !!L.launched;
 
-  // ---- team toggle row ----
+  // ---- team row: league size, your pick, then a chip per team ----
   const bar = el('div', 'rteams');
-  bar.setAttribute('role', 'tablist');
+  bar.append(dropdown({
+    value: L.teams ?? 12,
+    options: Array.from({ length: 17 }, (_, i) => i + 4),
+    render: v => `${v} team`,
+    ariaLabel: 'Teams in the league',
+    onChange: v => {
+      L.teams = v;
+      L.slot = Math.min(L.slot, v);      // your pick cannot exceed the league
+      save(); refresh();
+    },
+  }));
+  bar.append(dropdown({
+    value: L.slot ?? 1,
+    options: Array.from({ length: L.teams ?? 12 }, (_, i) => i + 1),
+    render: v => `Pick ${v}`,
+    ariaLabel: 'Your draft slot',
+    onChange: v => { L.slot = v; state.viewSeat = v; save(); refresh(); },
+  }));
+
+  const tabs = el('div', 'tchips');
+  tabs.setAttribute('role', 'tablist');
   for (let t = 1; t <= (L.teams ?? 12); t++) {
     const b = el('button', 'tbtn' + (t === seat ? ' on' : '') + (t === mySeat ? ' mine' : ''),
-      t === mySeat ? `You (${t})` : String(t));
+      t === mySeat ? 'You' : String(t));
     b.type = 'button';
     b.setAttribute('role', 'tab');
     b.setAttribute('aria-selected', String(t === seat));
-    b.title = t === mySeat ? `Your roster, seat ${t}` : `Seat ${t}'s roster`;
+    b.title = t === mySeat ? `Your roster, pick ${t}` : `Team ${t}'s roster`;
     b.addEventListener('click', () => { state.viewSeat = t; renderRoster(); });
-    bar.append(b);
+    tabs.append(b);
   }
+  bar.append(tabs);
   host.append(bar);
 
   const queuedByPos = {};
@@ -842,10 +903,7 @@ function renderRoster() {
       });
       menu.append(opt);
     }
-    const closeAll = () => {
-      for (const m of document.querySelectorAll('.rmenu')) m.hidden = true;
-      for (const h of document.querySelectorAll('.rhead')) h.setAttribute('aria-expanded', 'false');
-    };
+    const closeAll = closeAllMenus;
     head.addEventListener('click', ev => {
       ev.stopPropagation();
       const wasOpen = !menu.hidden;
@@ -1061,6 +1119,9 @@ function buildLeagueFields(host) {
   t.type = 'text'; t.value = L.name;
   t.addEventListener('input', () => { L.name = t.value; save(); renderLeagueMenu(); });
   const f = el('div', 'field'); f.append(el('label', null, 'League name'), t); host.append(f);
+  host.append(el('p', 'hint',
+    'Teams and your pick are set in the roster strip; rounds, draft type and QB format in the draft room header.'));
+  return;
 
   // Compact pairs, the way the iOS panels group them, instead of one tall
   // column of full-width rows.
@@ -1184,7 +1245,7 @@ function refresh() {
   // The roster strip owns the framework, so it must re-render whenever a
   // setting changes — including before the draft starts, where it was being
   // skipped and showing a stale count after its own dropdown was used.
-  if (state.league && !state.league.launched) { renderSettings(); renderBoard(); renderRoster(); return; }
+  if (state.league && !state.league.launched) { renderSettings(); renderDraftSettings(); renderBoard(); renderRoster(); return; }
   renderAll();
 }
 
@@ -1273,61 +1334,67 @@ function activateLeague(id) {
   save(); boot();
 }
 
+/** The launch gate. With the stepper gone this is the one requirement left:
+ *  a league must be named before it can be launched, so a draft is never
+ *  started against a preset the user never acknowledged. */
+function canLaunch() {
+  const L = state.league;
+  return !!(L && L.name && L.name.trim() && L.teams >= 4 && L.slot >= 1 && L.slot <= L.teams);
+}
+
 function renderLeagueMenu() {
   const host = document.getElementById('leaguemenu');
   if (!host) return;
   host.textContent = '';
-  const sel = document.createElement('select');
-  sel.setAttribute('aria-label', 'Active league');
-  for (const L of state.leagues) {
-    const o = document.createElement('option');
-    o.value = L.id; o.textContent = L.name;
-    if (L.id === state.leagueId) o.selected = true;
-    sel.append(o);
-  }
-  const nw = document.createElement('option');
-  nw.value = '__new'; nw.textContent = '＋ New league…';
-  sel.append(nw);
-  sel.addEventListener('change', () => {
-    if (sel.value === '__new') {
-      stashLeagueState(); save();
-      state.league = null; state.leagueId = null;
-      state.drafted = new Map(); state.pick = 1; state.status = {};
-      boot();
-      return;
-    }
-    activateLeague(sel.value);
-  });
-  host.append(sel);
+  const opts = state.leagues.map(l => ({ value: l.id, label: l.name }));
+  opts.push({ value: '__new', label: '＋ New league…' });
+  host.append(dropdown({
+    value: state.leagueId,
+    options: opts,
+    render: v => state.leagues.find(l => l.id === v)?.name ?? 'League',
+    ariaLabel: 'Active league',
+    cls: 'lg',
+    onChange: v => {
+      if (v === '__new') {
+        stashLeagueState(); save();
+        state.league = null; state.leagueId = null;
+        state.drafted = new Map(); state.pick = 1; state.status = {}; state.tentative = {};
+        boot();
+        return;
+      }
+      activateLeague(v);
+    },
+  }));
 }
 
-/** Pre-draft setup, as a stepper.
- *
- *  Mirrors the app's gate: a league is launchable only when setup has been
- *  explicitly completed, never merely because defaults exist. Steps 1 and 2
- *  are required and ship with working defaults; 3 and 4 are optional tuning
- *  the drafter can skip entirely. */
-const STEPS = [
-  { id: 'league',  n: 1, title: 'League',      required: true,
-    blurb: 'Size, your seat, and how the draft runs. Defaults are a standard 12-team snake.' },
-  { id: 'scoring', n: 2, title: 'Scoring',     required: false,
-    blurb: 'Optional. Full PPR unless you change it.' },
-  { id: 'prefs',   n: 3, title: 'Preferences', required: false,
-    blurb: 'Optional. Every dial sits at neutral, which reproduces the base board exactly.' },
-];
-
-function stepDone(id) {
+/** Rounds, draft type and QB format sit in the draft room's own header —
+ *  they describe the draft you are running, not the model. */
+function renderDraftSettings() {
+  const host = document.getElementById('draft-settings');
+  if (!host || !state.league) return;
   const L = state.league;
-  if (!L) return false;
-  if (id === 'league') return !!(L.name && L.name.trim()) && L.teams >= 4 && L.slot >= 1 && L.slot <= L.teams && L.rounds >= 1;
-  if (id === 'scoring') return L.touchedScoring === true;
-  if (id === 'prefs') return Object.values(state.philosophy).some(v => v !== 0)
-    || Object.values(state.weights).some(v => v !== 0);
-  return false;
-}
-
-function canLaunch() {
-  return STEPS.filter(s => s.required).every(s => stepDone(s.id));
+  host.textContent = '';
+  host.append(dropdown({
+    value: L.rounds ?? 15,
+    options: Array.from({ length: 30 }, (_, i) => i + 1),
+    render: v => `${v} rounds`,
+    ariaLabel: 'Rounds in the draft',
+    onChange: v => { L.rounds = v; save(); refresh(); },
+  }));
+  host.append(dropdown({
+    value: L.draftType ?? 'SNAKE',
+    options: [{ value: 'SNAKE', label: 'Snake' }, { value: 'LINEAR', label: 'Linear' }],
+    render: v => (v === 'SNAKE' ? 'Snake' : 'Linear'),
+    ariaLabel: 'Draft type',
+    onChange: v => { L.draftType = v; save(); refresh(); },
+  }));
+  host.append(dropdown({
+    value: L.qbFormat ?? 'SINGLE',
+    options: [{ value: 'SINGLE', label: '1 QB' }, { value: 'SUPERFLEX', label: 'Superflex' }, { value: 'TWO_QB', label: '2 QB' }],
+    render: v => ({ SINGLE: '1 QB', SUPERFLEX: 'Superflex', TWO_QB: '2 QB' }[v] || v),
+    ariaLabel: 'Quarterback format',
+    onChange: v => { L.qbFormat = v; save(); refresh(); },
+  }));
 }
 
 function renderClock() {
@@ -1345,7 +1412,7 @@ function renderClock() {
 }
 
 function renderAll() {
-  renderFilters(); renderLeagueMenu(); renderClock(); renderBoard(); renderRoster(); renderSettings(); renderPlayer();
+  renderFilters(); renderLeagueMenu(); renderDraftSettings(); renderClock(); renderBoard(); renderRoster(); renderSettings(); renderPlayer();
 }
 
 function renderFilters() {
@@ -1410,10 +1477,7 @@ function renderFilters() {
 // render, so re-rendering the strip does not stack listeners.
 if (!window.__g18MenuClose) {
   window.__g18MenuClose = true;
-  document.addEventListener('click', () => {
-    for (const m of document.querySelectorAll('.rmenu')) m.hidden = true;
-    for (const h of document.querySelectorAll('.rhead')) h.setAttribute('aria-expanded', 'false');
-  });
+  document.addEventListener('click', () => closeAllMenus());
 }
 
 function boot() {
