@@ -927,27 +927,46 @@ function renderRoster() {
   }
 }
 
+/** One dial.
+ *
+ *  In compact mode the title and the numeric value are omitted deliberately:
+ *  the two end labels ARE the label ("Stability … Ceiling"), and a dial's exact
+ *  decimal is not a number anyone acts on — the position of the thumb is. The
+ *  accessible name still carries the full title and both ends, so nothing is
+ *  lost to a screen reader. */
 function dialRow(spec, value, onInput, verdict, compact = false) {
   const wrap = el('div', 'dial' + (compact ? ' compact' : ''));
-  const head = el('div', 'head');
-  head.append(el('span', 'title', spec.title));
-  const val = el('span', 'val', fmt(value)); head.append(val);
-  wrap.append(head);
-  if (spec.prompt && !compact) wrap.append(el('p', 'prompt', spec.prompt));
-  if (spec.prompt && compact) wrap.title = spec.prompt;
+
+  if (!compact) {
+    const head = el('div', 'head');
+    head.append(el('span', 'title', spec.title));
+    const val = el('span', 'val', fmt(value));
+    head.append(val);
+    wrap.append(head);
+    wrap._val = val;
+    if (spec.prompt) wrap.append(el('p', 'prompt', spec.prompt));
+  } else if (spec.prompt) {
+    wrap.title = `${spec.title} — ${spec.prompt}`;
+  } else {
+    wrap.title = spec.title;
+  }
+
   const input = document.createElement('input');
   input.type = 'range'; input.min = '-1'; input.max = '1'; input.step = '0.01';
   input.value = String(value);
   input.setAttribute('aria-label', `${spec.title}: ${spec.low} to ${spec.high}`);
   input.addEventListener('input', () => {
     const v = clampDial(parseFloat(input.value));
-    val.textContent = fmt(v); onInput(v);
+    if (wrap._val) wrap._val.textContent = fmt(v);
+    onInput(v);
     if (wrap._v) wrap._v.textContent = verdict(v);
   });
   wrap.append(input);
+
   const ends = el('div', 'ends');
   ends.append(el('span', null, spec.low), el('span', null, spec.high));
   wrap.append(ends);
+
   if (verdict && !compact) { const v = el('p', 'verdict', verdict(value)); wrap.append(v); wrap._v = v; }
   return wrap;
 }
@@ -970,19 +989,19 @@ function renderPreferences() {
 
   host.append(el('p', 'group-label', 'Availability pressure'));
   const pr = el('div', 'dial compact');
-  const h = el('div', 'head');
-  h.append(el('span', 'title', 'Pressure magnitude'));
-  const pv = el('span', 'val', state.pressure.magnitude.toFixed(2)); h.append(pv); pr.append(h);
+  pr.title = 'Availability pressure magnitude';
   const inp = document.createElement('input');
   inp.type = 'range'; inp.min = '0'; inp.max = '1'; inp.step = '0.01';
   inp.value = String(state.pressure.magnitude);
-  inp.setAttribute('aria-label', 'Availability pressure magnitude');
+  inp.setAttribute('aria-label', 'Availability pressure magnitude: no pressure to tier collapsing');
   inp.addEventListener('input', () => {
     state.pressure.magnitude = Math.min(1, Math.max(0, parseFloat(inp.value)));
-    pv.textContent = state.pressure.magnitude.toFixed(2);
     save(); renderBoard(); renderRoster();
   });
   pr.append(inp);
+  const ends = el('div', 'ends');
+  ends.append(el('span', null, 'No pressure'), el('span', null, 'Tier collapsing'));
+  pr.append(ends);
   const lab = el('label', 'inline-check');
   const cb = document.createElement('input'); cb.type = 'checkbox'; cb.checked = state.pressure.hasEvidence;
   cb.addEventListener('change', () => { state.pressure.hasEvidence = cb.checked; save(); renderBoard(); renderRoster(); });

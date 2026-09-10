@@ -701,3 +701,12 @@ button.rslot.queued:hover {
 #tab-preferences .prof-details summary { padding: .18rem 0; font-size: .52rem; }
 #tab-preferences .dial.compact + .dial.compact { margin-top: .22rem; }
 #tab-preferences .group-label { margin: .4rem 0 .16rem; }
+
+/* With no title row, the end labels carry the meaning — give them a little
+   more presence and let the dials breathe instead of stacking tight. */
+#tab-preferences .dial.compact { padding: .1rem 0 .25rem; }
+#tab-preferences .dial.compact + .dial.compact {
+  margin-top: .45rem; padding-top: .45rem;
+  border-top: 1px solid var(--line-soft);
+}
+#tab-preferences .dial.compact .ends { font-size: .6rem; color: var(--ink-2); margin-top: .18rem; }
