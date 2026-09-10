@@ -4,6 +4,7 @@ export default {
   title: 'Fantasy Football Draft Assistant for 2026 | GREEN18',
   description: 'GREEN18 is a live fantasy football draft assistant for iPhone that adjusts your player board as your real draft unfolds.',
   breadcrumb: 'Fantasy Football Draft Assistant',
+  dateModified: '2026-09-07',
 
   hero: {
     eyebrow: 'Live Fantasy Draft Intelligence',

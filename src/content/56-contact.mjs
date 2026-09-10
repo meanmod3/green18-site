@@ -7,6 +7,7 @@ export default {
   title: 'Contact GREEN18',
   description: 'Reach GREEN18 at manager@green18.app — bug reports, data corrections and questions. What to include so a problem can be reproduced on the first reply.',
   breadcrumb: 'Contact',
+  dateModified: '2026-09-07',
 
   hero: {
     eyebrow: 'Contact',

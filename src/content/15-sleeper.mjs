@@ -4,6 +4,7 @@ export default {
   title: 'Sleeper Fantasy Football Draft Helper | GREEN18',
   description: 'Use GREEN18 alongside Sleeper to add a responsive player board to your fantasy football draft.',
   breadcrumb: 'Sleeper Draft Helper',
+  dateModified: '2026-09-07',
 
   hero: {
     eyebrow: 'Live Fantasy Draft Intelligence',

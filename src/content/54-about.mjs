@@ -6,6 +6,7 @@ export default {
   title: 'About GREEN18 | Who Makes It and What It Is',
   description: 'GREEN18 is an independent iPhone fantasy football live draft assistant published by Interplore. No accounts, no platform connection, nothing collected.',
   breadcrumb: 'About',
+  dateModified: '2026-09-07',
 
   hero: {
     eyebrow: 'About',

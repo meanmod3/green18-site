@@ -5,6 +5,7 @@ export default {
   title: 'How a Fantasy Football Draft Algorithm Works | GREEN18',
   description: 'The GREEN18 draft model in plain language: open football data, your league settings, recorded picks, survival odds, and take-now-or-wait.',
   breadcrumb: 'How the Draft Model Works',
+  dateModified: '2026-09-07',
 
   hero: {
     eyebrow: 'Methodology',

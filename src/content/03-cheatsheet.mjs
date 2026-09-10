@@ -4,6 +4,7 @@ export default {
   title: 'Fantasy Football Cheat Sheet App for 2026 | GREEN18',
   description: 'Replace the static fantasy football cheat sheet with a live iPhone draft board that changes as your draft unfolds.',
   breadcrumb: 'Cheat Sheet App',
+  dateModified: '2026-09-07',
 
   hero: {
     eyebrow: 'The Cheat Sheet, Rebuilt',

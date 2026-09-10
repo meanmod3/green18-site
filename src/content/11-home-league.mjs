@@ -4,6 +4,7 @@ export default {
   title: 'Fantasy Football Draft Assistant for Home Leagues | GREEN18',
   description: 'Give your long-running fantasy football league a smarter live draft board with GREEN18 for iPhone.',
   breadcrumb: 'Home Leagues',
+  dateModified: '2026-09-07',
 
   hero: {
     eyebrow: 'Live Fantasy Draft Intelligence',

@@ -4,6 +4,7 @@ export default {
   title: 'Dynamic Fantasy Football ADP for Live Drafts | GREEN18',
   description: 'GREEN18 treats ADP as a starting point, not the final answer. Watch player value adjust as your fantasy football draft develops.',
   breadcrumb: 'Dynamic ADP',
+  dateModified: '2026-09-07',
 
   hero: {
     eyebrow: 'Market Value, Live',

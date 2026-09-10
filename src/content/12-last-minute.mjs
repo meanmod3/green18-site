@@ -4,6 +4,7 @@ export default {
   title: 'Draft Tonight? Get Fantasy Football Help Fast | GREEN18',
   description: 'Have a fantasy football draft tonight? Set up GREEN18, configure your league and take a live player board into the draft.',
   breadcrumb: 'Last-Minute Drafts',
+  dateModified: '2026-09-07',
 
   hero: {
     eyebrow: 'Live Fantasy Draft Intelligence',

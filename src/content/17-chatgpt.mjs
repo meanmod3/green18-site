@@ -5,6 +5,7 @@ export default {
   title: 'Can ChatGPT Do Your Fantasy Football Draft? | GREEN18',
   description: 'A general chatbot is good at explaining fantasy football and blind to your live draft board. Here is the honest line, and what to use instead.',
   breadcrumb: 'ChatGPT and Your Draft',
+  dateModified: '2026-09-07',
   disclaimer: 'GREEN18 is an independent application. It is not affiliated with, endorsed by, or connected to OpenAI or ChatGPT. Product names are referenced descriptively only.',
 
   hero: {

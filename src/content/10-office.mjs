@@ -4,6 +4,7 @@ export default {
   title: 'Beat Your Coworkers at Fantasy Football | GREEN18',
   description: 'Drafting against your coworkers? Bring GREEN18 to the draft and use a live player board that adjusts as your league makes picks.',
   breadcrumb: 'Office Leagues',
+  dateModified: '2026-09-07',
 
   hero: {
     eyebrow: 'Live Fantasy Draft Intelligence',

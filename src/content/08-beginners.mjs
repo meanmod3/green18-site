@@ -5,6 +5,7 @@ export default {
   title: 'Fantasy Football Draft Help for Beginners | GREEN18',
   description: 'New to fantasy football? GREEN18 helps simplify your draft by keeping the best remaining options organized as picks happen.',
   breadcrumb: 'Fantasy Football for Beginners',
+  dateModified: '2026-09-07',
 
   hero: {
     eyebrow: 'Your First Draft',

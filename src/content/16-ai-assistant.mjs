@@ -5,6 +5,7 @@ export default {
   title: 'AI Fantasy Football Draft Assistant, Computed | GREEN18',
   description: 'Looking for an AI draft assistant? GREEN18 is a deterministic draft model for iPhone — the same board always produces the same answer.',
   breadcrumb: 'AI Draft Assistant',
+  dateModified: '2026-09-07',
 
   hero: {
     eyebrow: 'Computed, Not Generated',

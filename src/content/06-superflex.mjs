@@ -6,6 +6,7 @@ export default {
   title: 'Superflex Fantasy Football Draft Assistant | GREEN18',
   description: 'Draft quarterbacks and skill players in context with a live Superflex fantasy football draft board from GREEN18.',
   breadcrumb: 'Superflex Draft Assistant',
+  dateModified: '2026-09-07',
 
   hero: {
     eyebrow: 'Superflex Draft Format',

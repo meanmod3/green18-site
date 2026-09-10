@@ -13,6 +13,7 @@ export default {
   title: 'Page Not Found | GREEN18',
   description: 'That page does not exist. Here is where to find what you were probably looking for.',
   breadcrumb: 'Page not found',
+  dateModified: '2026-09-07',
 
   hero: {
     eyebrow: 'Error 404',

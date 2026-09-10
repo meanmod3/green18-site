@@ -10,6 +10,7 @@ export default {
   title: 'Drafting With Positional Scarcity | GREEN18',
   description: 'Scarcity is easy to understand and hard to track on the clock. How GREEN18 measures position velocity and survival odds at every position, after every pick.',
   breadcrumb: 'Drafting With Scarcity',
+  dateModified: '2026-09-07',
 
   hero: {
     eyebrow: 'Draft With the Slope, Not the List',

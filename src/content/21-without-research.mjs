@@ -6,6 +6,7 @@ export default {
   title: 'Fantasy Football Without Hours of Research | GREEN18',
   description: 'Joining a fantasy league without weeks of preparation? GREEN18 helps turn league settings and live draft context into a usable player board.',
   breadcrumb: 'Fantasy Football Without Research',
+  dateModified: '2026-09-07',
 
   hero: {
     eyebrow: 'For the Manager Who Didn’t Prepare',

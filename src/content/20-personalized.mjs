@@ -6,6 +6,7 @@ export default {
   title: 'Personalized Fantasy Football Rankings | GREEN18',
   description: 'GREEN18 creates a live player board calibrated to your league, roster, preferences, and the players still available.',
   breadcrumb: 'Personalized Rankings',
+  dateModified: '2026-09-07',
 
   hero: {
     eyebrow: 'Personalized Valuation',

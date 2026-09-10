@@ -4,6 +4,7 @@ export default {
   title: 'ESPN Fantasy Football Draft Helper | GREEN18',
   description: 'Use GREEN18 alongside your ESPN fantasy football draft for a live player board that responds as players are selected.',
   breadcrumb: 'ESPN Draft Helper',
+  dateModified: '2026-09-07',
 
   hero: {
     eyebrow: 'Live Fantasy Draft Intelligence',

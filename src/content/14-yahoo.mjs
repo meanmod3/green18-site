@@ -4,6 +4,7 @@ export default {
   title: 'Yahoo Fantasy Football Draft Helper | GREEN18',
   description: 'Use GREEN18 beside your Yahoo Fantasy Football draft and keep a live player board organized around your league.',
   breadcrumb: 'Yahoo Draft Helper',
+  dateModified: '2026-09-07',
 
   hero: {
     eyebrow: 'Live Fantasy Draft Intelligence',

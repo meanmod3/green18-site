@@ -413,9 +413,26 @@ for (const u of urls) {
   if (!bySection.has(k)) bySection.set(k, []);
   bySection.get(k).push(u);
 }
+// lastmod is each page's OWN dateModified, never the build date. Stamping
+// every URL with today on every deploy told crawlers all 71 pages had changed
+// whenever anything shipped, and a lastmod that is always "now" is one search
+// engines learn to discount — which costs exactly the crawl signalling this
+// build exists to earn. A page with no dateModified gets no lastmod at all
+// rather than a date it has not got.
+const modifiedFor = new Map();
+for (const p of pages) {
+  if (!p.dateModified) continue;
+  modifiedFor.set(p.slug ? `/${p.slug}${p.isSectionHub ? '/' : ''}` : '/', p.dateModified);
+}
+// The index reports the newest real page date, so it moves when content moves.
+const newestModified = [...modifiedFor.values()].sort().pop() || today;
+
 const urlset = (list) => `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${list.map((u) => `  <url><loc>${ORIGIN}${u}</loc><lastmod>${today}</lastmod></url>`).join('\n')}
+${list.map((u) => {
+    const mod = modifiedFor.get(u);
+    return `  <url><loc>${ORIGIN}${u}</loc>${mod ? `<lastmod>${mod}</lastmod>` : ''}</url>`;
+  }).join('\n')}
 </urlset>
 `;
 const sitemapFiles = [];
@@ -426,7 +443,7 @@ for (const [sec, list] of bySection) {
 }
 await writeFile(join(root, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${sitemapFiles.map((f) => `  <sitemap><loc>${ORIGIN}/${f}</loc><lastmod>${today}</lastmod></sitemap>`).join('\n')}
+${sitemapFiles.map((f) => `  <sitemap><loc>${ORIGIN}/${f}</loc><lastmod>${newestModified}</lastmod></sitemap>`).join('\n')}
 </sitemapindex>
 `, 'utf8');
 

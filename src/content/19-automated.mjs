@@ -5,6 +5,7 @@ export default {
   title: 'Automated Fantasy Football Draft Tool | GREEN18',
   description: 'GREEN18 automates the math, not the decision. It does not auto-draft or connect to any platform — you record picks and you make the call.',
   breadcrumb: 'Automated Draft Tool',
+  dateModified: '2026-09-07',
 
   hero: {
     eyebrow: 'Automate the Math, Not the Decision',

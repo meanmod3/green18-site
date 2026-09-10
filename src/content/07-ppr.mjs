@@ -6,6 +6,7 @@ export default {
   title: 'PPR Fantasy Football Draft Assistant | GREEN18',
   description: 'Draft for your PPR league using a live fantasy football player board that accounts for your league and changing draft.',
   breadcrumb: 'PPR Draft Assistant',
+  dateModified: '2026-09-07',
 
   hero: {
     eyebrow: 'PPR Scoring Format',

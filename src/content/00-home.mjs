@@ -4,6 +4,7 @@ export default {
   title: 'GREEN18 — Live Fantasy Football Draft Assistant for iPhone',
   description: 'GREEN18 is an iPhone fantasy football live draft assistant that continuously recalculates player valuations from your league, your roster and the live draft.',
   breadcrumb: 'Home',
+  dateModified: '2026-09-07',
 
   hero: {
     eyebrow: 'Draft-State Valuation',

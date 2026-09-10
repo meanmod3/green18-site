@@ -4,6 +4,7 @@ export default {
   title: 'Fantasy Football Draft Strategy App | GREEN18',
   description: 'Build your fantasy draft strategy around the players still available, your roster, league settings, and live draft conditions.',
   breadcrumb: 'Draft Strategy App',
+  dateModified: '2026-09-07',
 
   hero: {
     eyebrow: 'Strategy That Adapts',

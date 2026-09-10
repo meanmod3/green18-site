@@ -4,6 +4,7 @@ export default {
   title: 'Competitive Fantasy Football Draft Tool | GREEN18',
   description: 'Turn league context, player availability, roster construction and live draft movement into a more responsive fantasy football board.',
   breadcrumb: 'Competitive Drafts',
+  dateModified: '2026-09-07',
 
   hero: {
     eyebrow: 'Live Fantasy Draft Intelligence',

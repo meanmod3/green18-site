@@ -4,6 +4,7 @@ export default {
   title: 'Live Fantasy Football Draft Assistant | GREEN18',
   description: 'Use GREEN18 during your fantasy football draft and watch your player board adjust as picks come off the board.',
   breadcrumb: 'Live Draft Assistant',
+  dateModified: '2026-09-07',
 
   hero: {
     eyebrow: 'Live Fantasy Draft Intelligence',

@@ -6,6 +6,7 @@ export default {
   title: 'Fantasy Draft Glossary | GREEN18',
   description: 'Plain-language definitions of the fantasy draft terms that actually govern decisions: scarcity, replacement value, pick horizon, tiers, formats and more.',
   breadcrumb: 'Glossary',
+  dateModified: '2026-09-07',
 
   hero: {
     eyebrow: 'Reference',
