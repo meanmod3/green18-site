@@ -837,3 +837,20 @@ button.rslot.queued:hover {
 .filters .chips { order: 3; }
 .filters .launch-slot { order: 4; margin-left: auto; }
 .filters .searchbar { order: 5; }
+
+/* rename in place, beside the name */
+.filters .leaguemenu { display: inline-flex; align-items: center; gap: .2rem; }
+.iconbtn.pencil { width: 1.6rem; height: 1.6rem; font-size: .78rem; }
+.league-rename {
+  font: inherit; font-size: .78rem; font-weight: 700;
+  background: var(--bg-3); color: var(--ink);
+  border: 1px solid var(--accent); border-radius: 999px;
+  padding: .18rem .6rem; width: 11rem;
+}
+
+/* whose turn it is, on the team chip */
+.tbtn.clock {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 25%, transparent);
+}
+.tbtn.clock:not(.on) { color: var(--accent); }

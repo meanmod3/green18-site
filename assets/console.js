@@ -852,8 +852,10 @@ function renderRoster() {
   const tabs = el('div', 'tchips');
   tabs.setAttribute('role', 'tablist');
   for (let t = 1; t <= (L.teams ?? 12); t++) {
-    const b = el('button', 'tbtn' + (t === seat ? ' on' : '') + (t === mySeat ? ' mine' : ''),
-      t === mySeat ? 'You' : String(t));
+    const onClockSeat = launched ? onClock().seat : null;
+    const b = el('button', 'tbtn' + (t === seat ? ' on' : '') + (t === mySeat ? ' mine' : '')
+      + (t === onClockSeat ? ' clock' : ''), t === mySeat ? 'You' : String(t));
+    if (t === onClockSeat) b.title = `On the clock — pick ${state.pick}`;
     b.type = 'button';
     b.setAttribute('role', 'tab');
     b.setAttribute('aria-selected', String(t === seat));
@@ -1142,13 +1144,11 @@ function numberField(label, value, step, min, max, onChange, hint) {
 }
 
 function buildLeagueFields(host) {
-  const L = state.league;
-  const t = document.createElement('input');
-  t.type = 'text'; t.value = L.name;
-  t.addEventListener('input', () => { L.name = t.value; save(); renderLeagueMenu(); });
-  const f = el('div', 'field'); f.append(el('label', null, 'League name'), t); host.append(f);
+  // Nothing to edit here any more: the name is renamed from its own pencil,
+  // and everything else that shapes the draft lives in the strip.
   host.append(el('p', 'hint',
-    'League size, your pick, draft format, length and roster structure are all set in the strip beneath the board.'));
+    'Rename this league with the pencil beside its name. Size, your pick, draft '
+    + 'format, length and roster structure are set in the strip beneath the board.'));
   return;
 
   // Compact pairs, the way the iOS panels group them, instead of one tall
@@ -1381,6 +1381,37 @@ function renderLeagueMenu() {
       activateLeague(v);
     },
   }));
+
+  // Renaming happens where the name is shown. A pencil swaps the picker for an
+  // input; Enter or blur commits, Escape abandons.
+  const pencil = el('button', 'iconbtn pencil', '✎');
+  pencil.type = 'button';
+  pencil.title = 'Rename this league';
+  pencil.setAttribute('aria-label', 'Rename this league');
+  pencil.addEventListener('click', ev => {
+    ev.stopPropagation();
+    closeAllMenus();
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.className = 'league-rename';
+    input.value = state.league?.name ?? '';
+    input.setAttribute('aria-label', 'League name');
+    const commit = () => {
+      const v = input.value.trim();
+      if (v) { state.league.name = v; save(); }
+      renderLeagueMenu();
+    };
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter') { e.preventDefault(); commit(); }
+      if (e.key === 'Escape') { e.preventDefault(); renderLeagueMenu(); }
+    });
+    input.addEventListener('blur', commit);
+    host.textContent = '';
+    host.append(input);
+    input.focus();
+    input.select();
+  });
+  host.append(pencil);
 }
 
 /** The draft room header now carries only the launch action: the draft's
@@ -1405,19 +1436,9 @@ function renderLaunch() {
   host.append(btn);
 }
 
-function renderClock() {
-  const c = document.getElementById('clock');
-  if (!c || !state.league) return;
-  const { round, seat, mine } = onClock();
-  c.textContent = '';
-  if (!state.league.launched) {
-    c.append(el('b', null, 'Not started'),
-      document.createTextNode(`  ·  ${state.league.teams}-team ${state.league.draftType.toLowerCase()}  ·  seat ${state.league.slot}`));
-    return;
-  }
-  c.append(document.createTextNode(`Pick `), el('b', null, String(state.pick)),
-    document.createTextNode(`  ·  R${round}  ·  Seat ${seat}${mine ? ' (you)' : ''}`));
-}
+/** The draft state is no longer printed as a line of metrics. Whose turn it is
+ *  reads off the team chips instead, which is where the teams already are. */
+function renderClock() { /* intentionally empty: see the on-clock chip */ }
 
 function renderAll() {
   renderFilters(); renderLeagueMenu(); renderDraftSettings(); renderClock(); renderBoard(); renderRoster(); renderSettings(); renderPlayer();
@@ -1426,11 +1447,6 @@ function renderAll() {
 function renderFilters() {
   const host = document.getElementById('filters');
   host.textContent = '';
-
-  // The draft room's title row is gone; this row carries its state and its
-  // one action, so the clock and launch slot are rebuilt here.
-  const clock = el('span', 'clock'); clock.id = 'clock';
-  host.append(clock);
 
   const lm = el('span', 'leaguemenu'); lm.id = 'leaguemenu';
   host.append(lm);
@@ -1488,7 +1504,6 @@ function renderFilters() {
   const launch = el('span', 'launch-slot'); launch.id = 'launch-slot';
   host.append(launch);
   renderLaunch();
-  renderClock();
 }
 
 function boot() {
