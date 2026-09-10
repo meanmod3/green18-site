@@ -620,10 +620,10 @@ function renderBoard() {
     qb.type = 'button'; qb.dataset.on = st;
     qb.title = G18.queueReason(st, state.pressure);
     qb.setAttribute('aria-label', `Queue preference for ${p.n}: ${st}`);
-    if (!state.league.launched) qb.disabled = true;
     qb.addEventListener('click', ev => {
       ev.stopPropagation();
-      if (!state.league.launched) return;
+      // Queuing is a pre-draft activity: the whole point is to build the queue
+      // before the clock starts.
       state.status[p.id] = STATUSES[(STATUSES.indexOf(st) + 1) % STATUSES.length];
       save(); renderBoard(); renderQueue(); renderRoster();
     });
@@ -813,26 +813,47 @@ function renderRoster() {
     const col = el('div', 'rcol');
     if (!count) col.classList.add('off');
 
-    const head = el('div', 'rhead');
+    // The whole row is the control: chip and count are one button, and the
+    // menu is ours rather than the platform's, so it matches everything else.
+    const head = el('button', 'rhead');
+    head.type = 'button';
+    head.setAttribute('aria-haspopup', 'listbox');
+    head.setAttribute('aria-expanded', 'false');
+    head.setAttribute('aria-label', `${slot.title || slot.label} slots: ${count}`);
+    if (slot.title) head.title = slot.title;
     const badge = el('span', `pos ${slot.eligible.length === 1 ? slot.eligible[0] : 'MULTI'}`, slot.label);
-    if (slot.title) badge.title = slot.title;
     head.append(badge);
+    head.append(el('span', 'rcount', String(count)));
+    head.append(el('span', 'rcaret', '▾'));
 
-    // The count control: this is the roster-size setting.
-    const sel = document.createElement('select');
-    sel.setAttribute('aria-label', `${slot.title || slot.label} slots`);
-    for (let i = 0; i <= (slot.bench ? 12 : 6); i++) {
-      const o = document.createElement('option');
-      o.value = String(i); o.textContent = String(i);
-      if (i === count) o.selected = true;
-      sel.append(o);
+    const menu = el('div', 'rmenu');
+    menu.setAttribute('role', 'listbox');
+    menu.hidden = true;
+    const max = slot.bench ? 12 : 6;
+    for (let i = 0; i <= max; i++) {
+      const opt = el('button', 'ropt' + (i === count ? ' on' : ''), String(i));
+      opt.type = 'button';
+      opt.setAttribute('role', 'option');
+      opt.setAttribute('aria-selected', String(i === count));
+      opt.addEventListener('click', ev => {
+        ev.stopPropagation();
+        state.league.roster[slot.id] = i;
+        save(); refresh();
+      });
+      menu.append(opt);
     }
-    sel.addEventListener('change', () => {
-      state.league.roster[slot.id] = parseInt(sel.value, 10) || 0;
-      save(); refresh();
+    const closeAll = () => {
+      for (const m of document.querySelectorAll('.rmenu')) m.hidden = true;
+      for (const h of document.querySelectorAll('.rhead')) h.setAttribute('aria-expanded', 'false');
+    };
+    head.addEventListener('click', ev => {
+      ev.stopPropagation();
+      const wasOpen = !menu.hidden;
+      closeAll();
+      if (!wasOpen) { menu.hidden = false; head.setAttribute('aria-expanded', 'true'); }
     });
-    head.append(sel);
-    col.append(head);
+    head.addEventListener('keydown', ev => { if (ev.key === 'Escape') closeAll(); });
+    col.append(head, menu);
 
     const body = el('div', 'rbody');
     for (let i = 0; i < count; i++) {
@@ -1100,7 +1121,10 @@ function buildPrefFields(host) {
 /** One entry point so a field edit updates whichever surface is on screen. */
 function refresh() {
   renderLeagueMenu();
-  if (state.league && !state.league.launched) { renderStepper(); renderBoard(); return; }
+  // The roster strip owns the framework, so it must re-render whenever a
+  // setting changes — including before the draft starts, where it was being
+  // skipped and showing a stale count after its own dropdown was used.
+  if (state.league && !state.league.launched) { renderStepper(); renderBoard(); renderRoster(); return; }
   renderAll();
 }
 
@@ -1354,6 +1378,16 @@ function renderFilters() {
     if (!overlay.hidden) q.focus();
   });
   if (state.filter.q) { overlay.hidden = false; searchBtn.setAttribute('aria-expanded', 'true'); }
+}
+
+// A click anywhere else closes an open slot menu — registered once, not per
+// render, so re-rendering the strip does not stack listeners.
+if (!window.__g18MenuClose) {
+  window.__g18MenuClose = true;
+  document.addEventListener('click', () => {
+    for (const m of document.querySelectorAll('.rmenu')) m.hidden = true;
+    for (const h of document.querySelectorAll('.rhead')) h.setAttribute('aria-expanded', 'false');
+  });
 }
 
 function boot() {
