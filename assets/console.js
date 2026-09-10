@@ -737,7 +737,12 @@ function renderBoard() {
 
 // ---- tabs --------------------------------------------------------------
 
-/** Player attributes — opened over the right pane from a board row. */
+/** Player attributes — opened over the right pane from a board row.
+ *
+ *  Laid out as a grid of small stat cells rather than a single long list: 21
+ *  facts as full-width rows needed a scrollbar, and the same 21 in three
+ *  columns do not. Grouped so the eye can jump — who he is, what the market
+ *  says, what the model says, how durable he is. */
 function renderPlayer() {
   const host = document.getElementById('tab-player');
   if (!host) return;
@@ -750,70 +755,85 @@ function renderPlayer() {
   const head = el('div', 'phead');
   head.append(el('span', `pos ${p.pos}`, p.pos));
   head.append(el('span', 'pname', p.n));
-  host.append(head);
-  if (row.tag) host.append(el('span', 'pill-d tagline', row.tag.toUpperCase()));
-
-  const facts = [
-    ['Team', p.tm || '—'],
-    ['Bye week', p.bye ?? '—'],
-    ['Age at season start', p.age ?? 'not shipped'],
-    ['Rookie', p.rookie ? 'yes' : 'no'],
-    ['Status', p.status || '—'],
-    ['Market p10 / p50 / p90', p.dist
-      ? `${p.dist.p10.toFixed(1)} / ${p.dist.p50.toFixed(1)} / ${p.dist.p90.toFixed(1)}` : 'no market evidence'],
-    ['Outcome band width', p.dist ? (p.dist.p90 - p.dist.p10).toFixed(1) + ' picks' : '—'],
-  ];
-  if (row.livePick != null) {
-    facts.push(['Live ADP pick', row.livePick.toFixed(1)]);
-    if (row.movement) facts.push(['Movement vs pre-draft', row.movement]);
-    if (row.shift) facts.push(['Position shift', (row.shift * 100).toFixed(1) + '%']);
-  }
-  if (row.tier != null) facts.push(['Tier', '#' + row.tier]);
-  if (row.survival) {
-    facts.push(['Survives to your next pick', Math.round(row.survival.probabilityAvailable * 100) + '%']);
-    facts.push(['Risk band', row.survival.band]);
-    facts.push(['Market decision', row.decision.toUpperCase()]);
-  }
-  if (row.proj != null) facts.push(['Projected season points', row.proj.toFixed(1)]);
-  if (p.inj) {
-    facts.push(['Injury risk tier', G18.injuryTier(p.inj.egm, p.pos, injuryThresholds()) ?? '—']);
-    facts.push(['Expected games missed', p.inj.egm == null ? '—' : p.inj.egm.toFixed(2)]);
-    facts.push(['Availability multiplier', (availMult(p) ?? 1).toFixed(3)]);
-    const g = G18.gamesProjected(p, availMult(p));
-    facts.push(['Games projected', g == null ? '—' : g.toFixed(1)]);
-    if (p.inj.pid_) facts.push(['Post-injury discount', 'yes']);
-  }
-  if (row.base != null) {
-    facts.push(['Base (−live ADP)', row.base.toFixed(1)]);
-    facts.push(['Board rank', '#' + row.rank]);
-    facts.push(['Value', row.total.toFixed(1)]);
-  }
-  const dl = el('dl', 'kv');
-  for (const [k, v] of facts) { dl.append(el('dt', null, k), el('dd', null, String(v))); }
-  host.append(dl);
-
-  host.append(el('p', 'group-label', 'Dial contributions'));
-  if (!row.contributions || !row.contributions.length) {
-    host.append(el('p', 'hint', 'No dial fires on this player: every weight is neutral, or the evidence each dial reads is not shipped for him.'));
-  } else {
-    for (const c of row.contributions.slice().sort((a, b) => Math.abs(b.adjustment) - Math.abs(a.adjustment))) {
-      const r2 = el('div', 'prow');
-      r2.append(el('span', 'pk', c.dial.replace(/([A-Z])/g, ' $1').toLowerCase()));
-      const bar = el('span', 'pbar'); const fill = el('i');
-      const mag = Math.min(1, Math.abs(c.adjustment) / (0.3 * Math.abs(row.base || 1)));
-      fill.style.width = (mag * 50) + '%';
-      fill.style.left = c.adjustment >= 0 ? '50%' : (50 - mag * 50) + '%';
-      if (c.adjustment < 0) fill.classList.add('neg');
-      bar.append(fill);
-      r2.append(bar, el('span', 'pv', fmt(c.adjustment)));
-      host.append(r2);
+  if (row.tag) {
+    const t = el('span', 'pill-d tagline', row.tag.toUpperCase());
+    if (row.fit != null && state.league?.launched) {
+      const tone = G18.spectrumColor(row.fit);
+      t.style.color = tone; t.style.borderColor = tone;
     }
+    head.append(t);
+  }
+  host.append(head);
+
+  const group = (label, cells) => {
+    const shown = cells.filter(c => c[1] !== null && c[1] !== undefined);
+    if (!shown.length) return;
+    host.append(el('p', 'group-label', label));
+    const g = el('div', 'pgrid');
+    for (const [k, v, cls] of shown) {
+      const cell = el('div', 'pcell' + (cls ? ' ' + cls : ''));
+      cell.append(el('span', 'pk', k));
+      cell.append(el('span', 'pv', String(v)));
+      g.append(cell);
+    }
+    host.append(g);
+  };
+
+  group('Player', [
+    ['Team', p.tm || '—'],
+    ['Bye', p.bye ?? '—'],
+    ['Age', p.age ?? '—'],
+    ['Rookie', p.rookie ? 'yes' : 'no'],
+    ['Status', (p.status || '—').toLowerCase()],
+    ['Proj pts', row.proj == null ? null : row.proj.toFixed(1)],
+  ]);
+
+  group('Market', [
+    ['p10', p.dist ? p.dist.p10.toFixed(1) : null],
+    ['p50', p.dist ? p.dist.p50.toFixed(1) : null],
+    ['p90', p.dist ? p.dist.p90.toFixed(1) : null],
+    ['Band', p.dist ? (p.dist.p90 - p.dist.p10).toFixed(1) : null],
+    ['Live ADP', row.livePick == null ? null : row.livePick.toFixed(1)],
+    ['Movement', row.movement ?? null],
+  ]);
+
+  group('Model', [
+    ['Rank', row.rank == null ? null : '#' + row.rank],
+    ['Tier', row.tier == null ? null : '#' + row.tier],
+    ['Base', row.base == null ? null : row.base.toFixed(1)],
+    ['Value', row.total == null ? null : row.total.toFixed(1), 'accent'],
+    ['Survival', row.survival ? Math.round(row.survival.probabilityAvailable * 100) + '%' : null],
+    ['Decision', row.decision ? row.decision.toUpperCase() : null],
+  ]);
+
+  if (p.inj) {
+    group('Durability', [
+      ['Risk tier', G18.injuryTier(p.inj.egm, p.pos, injuryThresholds()) ?? '—'],
+      ['Games missed', p.inj.egm == null ? null : p.inj.egm.toFixed(2)],
+      ['Avail. mult', (availMult(p) ?? 1).toFixed(3)],
+      ['Games proj', (() => { const g = G18.gamesProjected(p, availMult(p)); return g == null ? null : g.toFixed(1); })()],
+      ['Post-injury', p.inj.pid_ ? 'yes' : null],
+    ]);
+  }
+
+  // Only the dials that actually fire; a wall of +0.00 says nothing.
+  const firing = (row.contributions || []).filter(c => Math.abs(c.adjustment) >= 0.005)
+    .sort((a, b) => Math.abs(b.adjustment) - Math.abs(a.adjustment));
+  if (firing.length) {
+    host.append(el('p', 'group-label', 'Dials'));
+    const g = el('div', 'pgrid');
+    for (const c of firing) {
+      const cell = el('div', 'pcell');
+      cell.append(el('span', 'pk', DIAL_ABBR[c.dial] || c.dial));
+      cell.append(el('span', 'pv ' + (c.adjustment >= 0 ? 'up' : 'down'), fmt(c.adjustment)));
+      g.append(cell);
+    }
+    host.append(g);
   }
 
   host.append(el('p', 'group-label', 'Queue'));
   const st = state.status[p.id] || 'NEUTRAL';
-  host.append(el('p', 'qreason', G18.queueReason(st, state.pressure)));
-  const row3 = el('div', 'row');
+  const row3 = el('div', 'row qrow-actions');
   for (const s2 of STATUSES) {
     const b = el('button', 'pill', s2);
     b.type = 'button';
@@ -826,6 +846,7 @@ function renderPlayer() {
     row3.append(b);
   }
   host.append(row3);
+  host.append(el('p', 'qreason', G18.queueReason(st, state.pressure)));
 }
 
 function renderRoster() {
