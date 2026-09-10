@@ -811,3 +811,10 @@ button.rslot.queued:hover {
 #tab-settings .group-label { margin: .3rem 0 .12rem; }
 #tab-settings .scell { padding: .12rem .16rem .14rem; }
 #tab-settings .hint { margin: .06rem 0 .22rem; }
+
+/* draft shape and undo at the right of the team row */
+.rteams { flex-wrap: nowrap; }
+.rteams-right { margin-left: auto; display: inline-flex; align-items: center; gap: .3rem; flex: none; }
+.undo-btn:disabled { opacity: .4; cursor: default; }
+.tchips { flex: 1; min-width: 0; overflow-x: auto; scrollbar-width: none; }
+.tchips::-webkit-scrollbar { display: none; }

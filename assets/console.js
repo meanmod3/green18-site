@@ -654,12 +654,9 @@ function renderBoard() {
     tdN.append(el('span', 'nm', p.n), document.createTextNode(' '));
     tdN.append(el('span', 'team', `${p.tm || '—'}${p.bye ? ' · bye ' + p.bye : ''}`));
     if (p.rookie) tdN.append(el('span', 'rk', ' R'));
-    if (r.contributions.length) {
-      const why = r.contributions.slice()
-        .sort((a, b) => Math.abs(b.adjustment) - Math.abs(a.adjustment))
-        .map(c => `${DIAL_ABBR[c.dial] || c.dial} ${fmt(c.adjustment)}`).join('  ');
-      tdN.append(el('div', 'why', why));
-    }
+    // The per-dial breakdown lives in the player panel, not under every name:
+    // on a 400-row board it was noise on every row for a number you only care
+    // about for the player you are actually weighing.
     tr.append(tdN);
 
     tr.append(el('td', 'num', r.proj == null ? '—' : r.proj.toFixed(1)));
@@ -865,6 +862,37 @@ function renderRoster() {
     tabs.append(b);
   }
   bar.append(tabs);
+
+  // Draft shape sits with the roster it shapes: format and length to the right
+  // of the team chips, undo at the far end of the same row.
+  const right = el('span', 'rteams-right');
+  right.append(dropdown({
+    value: L.draftType ?? 'SNAKE',
+    options: [{ value: 'SNAKE', label: 'Snake' }, { value: 'LINEAR', label: 'Linear' }],
+    render: v => (v === 'SNAKE' ? 'Snake' : 'Linear'),
+    ariaLabel: 'Draft type',
+    onChange: v => { L.draftType = v; save(); refresh(); },
+  }));
+  right.append(dropdown({
+    value: L.rounds ?? 15,
+    options: Array.from({ length: 30 }, (_, i) => i + 1),
+    render: v => `${v} rounds`,
+    ariaLabel: 'Rounds in the draft',
+    onChange: v => { L.rounds = v; save(); refresh(); },
+  }));
+
+  const undo = el('button', 'ghost undo-btn', 'Undo pick');
+  undo.type = 'button';
+  undo.disabled = !launched || state.pick <= 1;
+  undo.addEventListener('click', () => {
+    if (state.pick <= 1) return;
+    let lastId = null, lastPick = 0;
+    for (const [id, v] of state.drafted) if (v.pick > lastPick) { lastPick = v.pick; lastId = id; }
+    if (lastId) state.drafted.delete(lastId);
+    state.pick -= 1; save(); renderAll();
+  });
+  right.append(undo);
+  bar.append(right);
   host.append(bar);
 
   const queuedByPos = {};
@@ -1120,7 +1148,7 @@ function buildLeagueFields(host) {
   t.addEventListener('input', () => { L.name = t.value; save(); renderLeagueMenu(); });
   const f = el('div', 'field'); f.append(el('label', null, 'League name'), t); host.append(f);
   host.append(el('p', 'hint',
-    'Teams and your pick are set in the roster strip; rounds, draft type and QB format in the draft room header.'));
+    'League size, your pick, draft format, length and roster structure are all set in the strip beneath the board.'));
   return;
 
   // Compact pairs, the way the iOS panels group them, instead of one tall
@@ -1261,7 +1289,6 @@ function renderSettings() {
   buildScoringFields(host, true);
 
   host.append(el('p', 'group-label', 'League actions'));
-  host.append(el('p', 'hint', 'Roster structure is set in the strip beneath the board.'));
   const row = el('div', 'row');
   const reset = el('button', 'pill', 'Reset draft');
   reset.type = 'button';
@@ -1356,35 +1383,10 @@ function renderLeagueMenu() {
   }));
 }
 
-/** Rounds, draft type and QB format sit in the draft room's own header —
- *  they describe the draft you are running, not the model. */
+/** The draft room header now carries only the launch action: the draft's
+ *  shape (format, length, teams, your pick) lives with the roster it shapes. */
 function renderDraftSettings() {
-  const host = document.getElementById('draft-settings');
-  if (!host || !state.league) return;
-  const L = state.league;
-  host.textContent = '';
   renderLaunch();
-  host.append(dropdown({
-    value: L.rounds ?? 15,
-    options: Array.from({ length: 30 }, (_, i) => i + 1),
-    render: v => `${v} rounds`,
-    ariaLabel: 'Rounds in the draft',
-    onChange: v => { L.rounds = v; save(); refresh(); },
-  }));
-  host.append(dropdown({
-    value: L.draftType ?? 'SNAKE',
-    options: [{ value: 'SNAKE', label: 'Snake' }, { value: 'LINEAR', label: 'Linear' }],
-    render: v => (v === 'SNAKE' ? 'Snake' : 'Linear'),
-    ariaLabel: 'Draft type',
-    onChange: v => { L.draftType = v; save(); refresh(); },
-  }));
-  host.append(dropdown({
-    value: L.qbFormat ?? 'SINGLE',
-    options: [{ value: 'SINGLE', label: '1 QB' }, { value: 'SUPERFLEX', label: 'Superflex' }, { value: 'TWO_QB', label: '2 QB' }],
-    render: v => ({ SINGLE: '1 QB', SUPERFLEX: 'Superflex', TWO_QB: '2 QB' }[v] || v),
-    ariaLabel: 'Quarterback format',
-    onChange: v => { L.qbFormat = v; save(); refresh(); },
-  }));
 }
 
 /** Launch lives at the far right of the draft room header: it is an action ON
@@ -1499,16 +1501,7 @@ function boot() {
   selectTab(state.tab);
   const close = document.getElementById('player-close');
   if (close) close.onclick = closePlayer;
-  const undo = document.getElementById('undo');
-  if (!undo) return;
-  undo.hidden = false;
-  undo.onclick = () => {
-    if (state.pick <= 1) return;
-    let lastId = null, lastPick = 0;
-    for (const [id, v] of state.drafted) if (v.pick > lastPick) { lastPick = v.pick; lastId = id; }
-    if (lastId) state.drafted.delete(lastId);
-    state.pick -= 1; save(); renderAll();
-  };
+
 }
 
 async function init() {
