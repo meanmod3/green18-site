@@ -1319,7 +1319,11 @@ function renderSettings() {
 function selectTab(name) {
   state.tab = name;
   for (const b of document.querySelectorAll('.tabs button')) b.setAttribute('aria-selected', String(b.dataset.tab === name));
-  for (const p of document.querySelectorAll('.tabpanel')) p.hidden = (p.id !== 'tab-' + name);
+  // Only the two real tabs. The player overlay is not a tab and must not be
+  // swept up here — doing so is what left it blank on open.
+  for (const p of document.querySelectorAll('#tabs-pane > .scroll > .tabpanel')) {
+    p.hidden = (p.id !== 'tab-' + name);
+  }
 }
 
 /** Player attributes open over the right pane rather than as a third tab, so

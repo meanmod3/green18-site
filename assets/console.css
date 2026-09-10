@@ -319,12 +319,12 @@ button.pill.on { outline: 2px solid var(--accent); outline-offset: 1px; }
 .phead .pname { font-weight: 700; font-size: 1.05rem; letter-spacing: -.01em; }
 .tagline { display: inline-block; margin-bottom: .9rem; cursor: default; }
 
-.tabpanel .kv {
+.tabpanel .kv, .po-body .kv {
   display: grid; grid-template-columns: 1fr auto; gap: .3rem .8rem; font-size: .76rem;
   background: var(--bg-3); border-radius: var(--r); padding: .7rem .8rem;
 }
-.tabpanel .kv dt { color: var(--ink-3); }
-.tabpanel .kv dd { margin: 0; font-family: var(--mono); text-align: right; font-variant-numeric: tabular-nums; }
+.tabpanel .kv dt, .po-body .kv dt { color: var(--ink-3); }
+.tabpanel .kv dd, .po-body .kv dd { margin: 0; font-family: var(--mono); text-align: right; font-variant-numeric: tabular-nums; }
 
 .prow { display: grid; grid-template-columns: 1fr 64px 4ch; gap: .5rem; align-items: center; padding: .2rem 0; }
 .prow .pk { font-size: .7rem; color: var(--ink-3); }
@@ -882,3 +882,6 @@ button.rslot.queued:hover {
 .filters .boardstrip { order: 4; }
 .filters .launch-slot { order: 5; margin-left: .4rem; }
 .filters .searchbar { order: 6; }
+
+/* the overlay body scrolls on its own and is never hidden by tab switching */
+.po-body { flex: 1; min-height: 0; overflow-y: auto; padding: .8rem .9rem 1.2rem; }
