@@ -578,3 +578,35 @@ body.predraft .board tbody tr:hover { background: transparent; }
 
 @media (max-width: 1280px) { .rgrid { grid-template-columns: repeat(5, minmax(0,1fr)); } }
 @media (max-width: 860px)  { .rgrid { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+
+/* ---- team toggle row ---------------------------------------------------- */
+.rteams { display: flex; flex-wrap: wrap; gap: .2rem; margin-bottom: .5rem; }
+.tbtn {
+  font: inherit; font-family: var(--mono); font-size: .62rem; font-weight: 700;
+  background: transparent; color: var(--ink-3);
+  border: 1px solid var(--line); border-radius: 999px;
+  padding: .16rem .5rem; cursor: pointer; min-width: 1.9rem;
+}
+.tbtn:hover { color: var(--ink); border-color: color-mix(in srgb, var(--ink) 26%, transparent); }
+.tbtn.mine { border-color: color-mix(in srgb, var(--accent) 45%, transparent); color: var(--ink-2); }
+.tbtn.on { background: var(--accent); color: #041306; border-color: transparent; }
+
+/* ---- tentative placement ------------------------------------------------ */
+.rslot.planned {
+  border-style: solid;
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+.rslot.planned .rn { color: var(--accent); font-weight: 600; }
+.rx {
+  font: inherit; font-size: .6rem; line-height: 1; flex: none;
+  background: transparent; border: 0; color: var(--ink-3); cursor: pointer; padding: 0 .1rem;
+}
+.rx:hover { color: var(--danger); }
+button.rslot.queued { width: 100%; text-align: left; cursor: pointer; font: inherit; }
+button.rslot.queued:hover {
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+  background: color-mix(in srgb, var(--accent) 7%, transparent);
+}
+.board tbody tr.planned td:first-child { box-shadow: inset 2px 0 0 var(--pill-label); }
+.roster-footer { max-height: 17rem; }

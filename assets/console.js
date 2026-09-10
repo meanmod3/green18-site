@@ -187,6 +187,8 @@ const state = {
   drafted: new Map(),
   pick: 1,
   filter: { pos: 'ALL', q: '', queuedOnly: false },
+  viewSeat: null,               // which team's roster the footer shows
+  tentative: {},                // playerId -> slotId, a planned placement
   tab: 'queue',
 };
 
@@ -197,7 +199,7 @@ function save() {
     localStorage.setItem(LS_KEY, JSON.stringify({
       leagues: state.leagues, leagueId: state.leagueId, philosophy: state.philosophy, weights: state.weights,
       scoring: state.scoring, pressure: state.pressure, status: state.status,
-      drafted: [...state.drafted], pick: state.pick,
+      drafted: [...state.drafted], pick: state.pick, tentative: state.tentative,
     }));
   } catch { /* private window / blocked storage: the console still works */ }
 }
@@ -218,6 +220,7 @@ function restore() {
     state.status = d.status ?? {};
     state.drafted = new Map(d.drafted ?? []);
     state.pick = d.pick ?? 1;
+    state.tentative = d.tentative ?? {};
   } catch { /* corrupt: start clean rather than fail to load */ }
 }
 
@@ -263,6 +266,13 @@ function injuryThresholds() {
 
 function live() { return POOL.filter(p => !state.drafted.has(p.id)); }
 
+function picksForSeat(seat) {
+  return [...state.drafted.entries()].filter(([, v]) => seatForPick(v.pick) === seat)
+    .sort((a, b) => a[1].pick - b[1].pick)
+    .map(([id, v]) => ({ p: POOL.find(x => x.id === id), pick: v.pick }))
+    .filter(r => r.p);
+}
+
 function myPicks() {
   return [...state.drafted.entries()].filter(([, v]) => v.mine)
     .sort((a, b) => a[1].pick - b[1].pick)
@@ -299,12 +309,12 @@ function positionNeeds() {
 
 /** Assign each of my picks to the first slot that accepts it, starters before
  *  bench — the same ordering the roster panel shows. */
-function slotAssignments() {
+function slotAssignments(seat = state.viewSeat ?? state.league?.slot ?? 1) {
   const roster = state.league?.roster ?? ROSTER_DEFAULT();
   const filled = {};
   for (const slot of SLOT_TYPES) filled[slot.id] = [];
   const unassigned = [];
-  for (const pick of myPicks()) {
+  for (const pick of picksForSeat(seat)) {
     let placed = false;
     for (const slot of SLOT_TYPES) {
       const cap = roster[slot.id] ?? 0;
@@ -477,6 +487,15 @@ const DIAL_ABBR = {
   youthVsVeterans: 'youth/vet', positionalAggression: 'pos',
 };
 
+/** Which seat owns a given overall pick. Derived, not stored, so changing the
+ *  league's size or draft type re-reads every past pick consistently. */
+function seatForPick(pick) {
+  const t = state.league?.teams ?? 12;
+  const round = Math.floor((pick - 1) / t) + 1;
+  const idx = (pick - 1) % t;
+  return (state.league?.draftType === 'LINEAR') ? idx + 1 : (round % 2 === 1 ? idx + 1 : t - idx);
+}
+
 function onClock() {
   const t = state.league?.teams ?? 12;
   const round = Math.floor((state.pick - 1) / t) + 1;
@@ -587,6 +606,7 @@ function renderBoard() {
     const st = state.status[p.id] || 'NEUTRAL';
     const tr = document.createElement('tr');
     if (st !== 'NEUTRAL') tr.classList.add('queued');
+    if (state.tentative[p.id]) tr.classList.add('planned');
     tr.append(el('td', 'num', String(i + 1)));
 
     const tdN = document.createElement('td');
@@ -624,7 +644,10 @@ function renderBoard() {
       ev.stopPropagation();
       // Queuing is a pre-draft activity: the whole point is to build the queue
       // before the clock starts.
-      state.status[p.id] = STATUSES[(STATUSES.indexOf(st) + 1) % STATUSES.length];
+      const next = STATUSES[(STATUSES.indexOf(st) + 1) % STATUSES.length];
+      state.status[p.id] = next;
+      // A plan is a queued player placed in a slot; un-queueing him drops it.
+      if (next === 'NEUTRAL' || next === 'AVOID') delete state.tentative[p.id];
       save(); renderBoard(); renderQueue(); renderRoster();
     });
     tdQ.append(qb); tr.append(tdQ);
@@ -792,13 +815,35 @@ function renderPlayer() {
  *  are never two different screens. Each column then shows the picks that
  *  actually landed in those slots, and below them the queued players eligible
  *  for that column. */
+/** The roster framework, the live roster, the queue by position, and now any
+ *  team's roster — one component. */
 function renderRoster() {
   const host = document.getElementById('roster-footer');
   if (!host) return;
   host.textContent = '';
-  const roster = state.league?.roster ?? ROSTER_DEFAULT();
-  const { filled, unassigned } = slotAssignments();
-  const launched = !!state.league?.launched;
+  const L = state.league;
+  if (!L) return;
+  const mySeat = L.slot ?? 1;
+  if (state.viewSeat == null) state.viewSeat = mySeat;
+  const seat = state.viewSeat;
+  const roster = L.roster ?? ROSTER_DEFAULT();
+  const { filled, unassigned } = slotAssignments(seat);
+  const launched = !!L.launched;
+
+  // ---- team toggle row ----
+  const bar = el('div', 'rteams');
+  bar.setAttribute('role', 'tablist');
+  for (let t = 1; t <= (L.teams ?? 12); t++) {
+    const b = el('button', 'tbtn' + (t === seat ? ' on' : '') + (t === mySeat ? ' mine' : ''),
+      t === mySeat ? `You (${t})` : String(t));
+    b.type = 'button';
+    b.setAttribute('role', 'tab');
+    b.setAttribute('aria-selected', String(t === seat));
+    b.title = t === mySeat ? `Your roster, seat ${t}` : `Seat ${t}'s roster`;
+    b.addEventListener('click', () => { state.viewSeat = t; renderRoster(); });
+    bar.append(b);
+  }
+  host.append(bar);
 
   const queuedByPos = {};
   for (const p of POOL) {
@@ -813,32 +858,26 @@ function renderRoster() {
     const col = el('div', 'rcol');
     if (!count) col.classList.add('off');
 
-    // The whole row is the control: chip and count are one button, and the
-    // menu is ours rather than the platform's, so it matches everything else.
     const head = el('button', 'rhead');
     head.type = 'button';
     head.setAttribute('aria-haspopup', 'listbox');
     head.setAttribute('aria-expanded', 'false');
     head.setAttribute('aria-label', `${slot.title || slot.label} slots: ${count}`);
     if (slot.title) head.title = slot.title;
-    const badge = el('span', `pos ${slot.eligible.length === 1 ? slot.eligible[0] : 'MULTI'}`, slot.label);
-    head.append(badge);
+    head.append(el('span', `pos ${slot.eligible.length === 1 ? slot.eligible[0] : 'MULTI'}`, slot.label));
     head.append(el('span', 'rcount', String(count)));
     head.append(el('span', 'rcaret', '▾'));
 
     const menu = el('div', 'rmenu');
     menu.setAttribute('role', 'listbox');
     menu.hidden = true;
-    const max = slot.bench ? 12 : 6;
-    for (let i = 0; i <= max; i++) {
+    for (let i = 0; i <= (slot.bench ? 12 : 6); i++) {
       const opt = el('button', 'ropt' + (i === count ? ' on' : ''), String(i));
-      opt.type = 'button';
-      opt.setAttribute('role', 'option');
+      opt.type = 'button'; opt.setAttribute('role', 'option');
       opt.setAttribute('aria-selected', String(i === count));
       opt.addEventListener('click', ev => {
         ev.stopPropagation();
-        state.league.roster[slot.id] = i;
-        save(); refresh();
+        L.roster[slot.id] = i; save(); refresh();
       });
       menu.append(opt);
     }
@@ -852,32 +891,63 @@ function renderRoster() {
       closeAll();
       if (!wasOpen) { menu.hidden = false; head.setAttribute('aria-expanded', 'true'); }
     });
-    head.addEventListener('keydown', ev => { if (ev.key === 'Escape') closeAll(); });
     col.append(head, menu);
+
+    // Tentative placements only make sense on your own roster.
+    const tentativeHere = seat === mySeat
+      ? Object.entries(state.tentative)
+          .filter(([, sid]) => sid === slot.id)
+          .map(([pid]) => POOL.find(p => p.id === pid))
+          .filter(p => p && !state.drafted.has(p.id))
+      : [];
 
     const body = el('div', 'rbody');
     for (let i = 0; i < count; i++) {
       const pick = filled[slot.id][i];
-      const cell = el('div', 'rslot' + (pick ? ' taken' : ''));
       if (pick) {
+        const cell = el('div', 'rslot taken');
         cell.append(el('span', 'rn', pick.p.n));
         cell.append(el('span', 'rp', '#' + pick.pick));
+        body.append(cell);
+        continue;
+      }
+      // An open slot: show a tentative pick if one is planned here, else invite one.
+      const planned = tentativeHere[i - filled[slot.id].length];
+      const cell = el('div', 'rslot' + (planned ? ' planned' : ''));
+      if (planned) {
+        cell.append(el('span', 'rn', planned.n));
+        const x = el('button', 'rx', '×');
+        x.type = 'button'; x.title = `Unplan ${planned.n}`;
+        x.setAttribute('aria-label', `Remove ${planned.n} from this slot`);
+        x.addEventListener('click', ev => {
+          ev.stopPropagation();
+          delete state.tentative[planned.id]; save(); renderRoster(); renderBoard();
+        });
+        cell.append(x);
       } else {
         cell.append(el('span', 'rn dim', launched ? 'open' : '—'));
       }
       body.append(cell);
     }
 
-    // Queued players eligible for this column, so the queue reads by position.
-    const q = (slot.eligible.flatMap(pos => queuedByPos[pos] || []))
+    // Queued players eligible here — clicking one plans it into this column.
+    const q = slot.eligible.flatMap(pos => queuedByPos[pos] || [])
+      .filter(x => state.tentative[x.p.id] !== slot.id)
       .sort((a, b) => (a.p.p50 ?? 999) - (b.p.p50 ?? 999));
-    if (count && q.length) {
+    if (count && q.length && seat === mySeat) {
       body.append(el('div', 'rqhead', `Queued (${q.length})`));
       for (const { p, st } of q.slice(0, 4)) {
-        const cell = el('div', 'rslot queued');
+        const cell = el('button', 'rslot queued');
+        cell.type = 'button';
+        cell.title = `${p.n} — ${st}. Click to plan into ${slot.title || slot.label}.`;
+        cell.setAttribute('aria-label', `Plan ${p.n} into ${slot.title || slot.label}`);
         cell.append(el('span', 'rn', p.n));
         cell.append(el('span', 'rp', st === 'FAVORITE' ? '★' : '·'));
-        cell.title = `${p.n} — ${st}`;
+        cell.addEventListener('click', ev => {
+          ev.stopPropagation();
+          state.tentative[p.id] = slot.id;
+          save(); renderRoster(); renderBoard();
+        });
         body.append(cell);
       }
     }
@@ -887,10 +957,9 @@ function renderRoster() {
   host.append(grid);
 
   if (unassigned.length) {
-    const extra = el('p', 'hint',
+    host.append(el('p', 'hint',
       `${unassigned.length} pick${unassigned.length > 1 ? 's' : ''} with no open slot: `
-      + unassigned.map(r => r.p.n).join(', '));
-    host.append(extra);
+      + unassigned.map(r => r.p.n).join(', ')));
   }
 }
 
@@ -1135,7 +1204,7 @@ function renderSettings() {
   host.append(el('p', 'group-label', 'League'));
   buildLeagueFields(host);
   host.append(el('p', 'group-label', 'Roster'));
-  buildRosterFields(host);
+  host.append(el('p', 'hint', 'Roster structure is set in the strip beneath the draft board.'));
 
   host.append(el('p', 'group-label', 'Danger zone'));
   const row = el('div', 'row');
@@ -1228,11 +1297,9 @@ function renderLeagueMenu() {
 const STEPS = [
   { id: 'league',  n: 1, title: 'League',      required: true,
     blurb: 'Size, your seat, and how the draft runs. Defaults are a standard 12-team snake.' },
-  { id: 'roster',  n: 2, title: 'Roster',      required: true,
-    blurb: 'Starting slots. These drive positional need during the draft.' },
-  { id: 'scoring', n: 3, title: 'Scoring',     required: false,
+  { id: 'scoring', n: 2, title: 'Scoring',     required: false,
     blurb: 'Optional. Full PPR unless you change it.' },
-  { id: 'prefs',   n: 4, title: 'Preferences', required: false,
+  { id: 'prefs',   n: 3, title: 'Preferences', required: false,
     blurb: 'Optional. Every dial sits at neutral, which reproduces the base board exactly.' },
 ];
 
@@ -1240,7 +1307,6 @@ function stepDone(id) {
   const L = state.league;
   if (!L) return false;
   if (id === 'league') return !!(L.name && L.name.trim()) && L.teams >= 4 && L.slot >= 1 && L.slot <= L.teams && L.rounds >= 1;
-  if (id === 'roster') return Object.values(L.roster).reduce((a, b) => a + b, 0) > 0;
   if (id === 'scoring') return L.touchedScoring === true;
   if (id === 'prefs') return Object.values(state.philosophy).some(v => v !== 0)
     || Object.values(state.weights).some(v => v !== 0);
@@ -1281,7 +1347,6 @@ function renderStepper() {
       const body = el('div', 'step-body');
       body.append(el('p', 'hint', step.blurb));
       if (step.id === 'league') buildLeagueFields(body);
-      if (step.id === 'roster') buildRosterFields(body);
       if (step.id === 'scoring') buildScoringFields(body, true);
       if (step.id === 'prefs') buildPrefFields(body);
       card.append(body);
