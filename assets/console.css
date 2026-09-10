@@ -610,3 +610,94 @@ button.rslot.queued:hover {
 }
 .board tbody tr.planned td:first-child { box-shadow: inset 2px 0 0 var(--pill-label); }
 .roster-footer { max-height: 17rem; }
+
+/* ---- roster columns scroll individually --------------------------------- */
+.roster-footer { max-height: 15rem; overflow: hidden; display: flex; flex-direction: column; }
+.rgrid { flex: 1; min-height: 0; }
+.rcol { display: flex; flex-direction: column; min-height: 0; max-height: 100%; }
+/* Each column scrolls on its own, so a long bench does not drag the whole
+   strip and the other columns stay in place. */
+.rbody { overflow-y: auto; min-height: 0; scrollbar-width: thin; padding-right: 2px; }
+.rbody::-webkit-scrollbar { width: 6px; }
+.rbody::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--ink) 14%, transparent); border-radius: 999px;
+}
+
+/* names sit at the small end of the scale — these are chips, not headings */
+.rslot { font-size: .6rem; padding: .14rem .28rem; }
+.rslot .rn { font-size: .6rem; letter-spacing: -.01em; }
+.rslot .rp { font-size: .54rem; }
+.rqhead { font-size: .48rem; }
+
+/* ---- compact dials ------------------------------------------------------ */
+.dial.compact + .dial.compact { margin-top: .55rem; }
+.dial.compact .title { font-size: .74rem; font-weight: 600; }
+.dial.compact .val { font-size: .68rem; }
+.dial.compact .ends { font-size: .56rem; margin-top: .15rem; }
+.dial.compact input[type=range] { margin-top: .2rem; }
+.inline-check { display: block; margin-top: .4rem; font-size: .68rem; color: var(--ink-3); }
+.prof-details { margin-top: 1rem; }
+.prof-details summary {
+  cursor: pointer; font-size: .58rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink-3); font-weight: 700; padding: .3rem 0;
+}
+.prof-details[open] summary { color: var(--ink-2); }
+
+/* ---- player attributes overlay ------------------------------------------ */
+.player-overlay {
+  position: absolute; inset: 0; z-index: 12;
+  background: var(--bg-2); display: flex; flex-direction: column;
+}
+.po-head {
+  flex: none; display: flex; align-items: center; justify-content: space-between;
+  padding: .5rem .95rem; border-bottom: 1px solid var(--line);
+  font-size: .62rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); font-weight: 700;
+}
+.player-overlay .tabpanel { flex: 1; min-height: 0; overflow-y: auto; }
+#tabs-pane { position: relative; }
+
+/* the settings page is meant to fit — tighten its scoring grid */
+#tab-settings .sgrid { grid-template-columns: repeat(3, minmax(0,1fr)); gap: .22rem .3rem; }
+#tab-settings .scell { padding: .2rem .22rem .2rem .4rem; }
+#tab-settings .scell .sk { font-size: .62rem; }
+#tab-settings .scell input, #tab-settings .scell select { width: 3.3rem; font-size: .68rem; }
+#tab-settings .group-label { margin: .7rem 0 .3rem; }
+#tab-settings .rtable { gap: .18rem; }
+#tab-settings .rband { font-size: .58rem; padding: .14rem .32rem; }
+
+/* The Settings page is meant to fit the pane. Scoring is the bulk of it, so
+   it gets the tightest treatment: four columns, minimal chrome. */
+#tab-settings { padding: .7rem .8rem 1rem; }
+#tab-settings .sgrid { grid-template-columns: repeat(4, minmax(0,1fr)); gap: .18rem .24rem; }
+#tab-settings .scell { padding: .14rem .18rem .14rem .3rem; border-radius: 5px; }
+#tab-settings .scell .sk { font-size: .57rem; }
+#tab-settings .scell input, #tab-settings .scell select { width: 2.9rem; font-size: .62rem; padding: .05rem .2rem; }
+#tab-settings .group-label { margin: .55rem 0 .22rem; font-size: .52rem; }
+#tab-settings .field { padding: .22rem 0; }
+#tab-settings .field label { font-size: .7rem; }
+#tab-settings .hint { font-size: .64rem; margin: .1rem 0 .35rem; }
+#tab-settings .row { margin: .5rem 0 0; }
+#tab-settings button.pill { font-size: .66rem; padding: .3rem .7rem; }
+#tab-settings .rband { font-size: .54rem; padding: .1rem .28rem; }
+#tab-settings .launch-wrap { margin-top: .7rem; }
+#tab-settings .launch { padding: .6rem 1rem; font-size: .74rem; }
+/* League name is the only wide field it needs. */
+#tab-settings input[type=text] { min-width: 8rem; }
+
+/* Final fit pass: both pages must sit inside the pane at a normal desktop
+   height, so the dial stack loses its remaining slack. */
+#tab-preferences { padding: .6rem .8rem .8rem; }
+#tab-preferences .group-label { margin: .5rem 0 .2rem; font-size: .52rem; }
+#tab-preferences .dial.compact + .dial.compact { margin-top: .3rem; }
+#tab-preferences .dial.compact .title { font-size: .7rem; }
+#tab-preferences .dial.compact .val { font-size: .64rem; }
+#tab-preferences .dial.compact .ends { font-size: .52rem; margin-top: .05rem; }
+#tab-preferences .dial.compact input[type=range] { margin: .1rem 0 0; }
+#tab-preferences input[type=range]::-webkit-slider-thumb { width: 12px; height: 12px; margin-top: -5px; border-width: 2px; }
+#tab-preferences .inline-check { font-size: .62rem; margin-top: .25rem; }
+#tab-preferences .prof-details { margin-top: .5rem; }
+#tab-settings .group-label { margin: .45rem 0 .2rem; }
+#tab-settings .field { padding: .18rem 0; }
+#tab-preferences .prof-details summary { padding: .18rem 0; font-size: .52rem; }
+#tab-preferences .dial.compact + .dial.compact { margin-top: .22rem; }
+#tab-preferences .group-label { margin: .4rem 0 .16rem; }

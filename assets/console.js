@@ -189,7 +189,7 @@ const state = {
   filter: { pos: 'ALL', q: '', queuedOnly: false },
   viewSeat: null,               // which team's roster the footer shows
   tentative: {},                // playerId -> slotId, a planned placement
-  tab: 'queue',
+  tab: 'settings',
 };
 
 const LS_KEY = 'g18.console.v2';
@@ -648,7 +648,7 @@ function renderBoard() {
       state.status[p.id] = next;
       // A plan is a queued player placed in a slot; un-queueing him drops it.
       if (next === 'NEUTRAL' || next === 'AVOID') delete state.tentative[p.id];
-      save(); renderBoard(); renderQueue(); renderRoster();
+      save(); renderBoard(); renderRoster();
     });
     tdQ.append(qb); tr.append(tdQ);
 
@@ -678,7 +678,7 @@ function renderBoard() {
     tdD.append(pill); tr.append(tdD);
 
     // The row itself opens the attributes panel, the app's profile route.
-    tr.addEventListener('click', () => { state.profileId = p.id; selectTab('player'); renderPlayer(); });
+    tr.addEventListener('click', () => openPlayer(p.id));
 
     tbody.append(tr);
   }
@@ -687,44 +687,13 @@ function renderBoard() {
 
 // ---- tabs --------------------------------------------------------------
 
-function renderQueue() {
-  const host = document.getElementById('tab-queue');
-  host.textContent = '';
-  const queued = POOL.filter(p => (state.status[p.id] || 'NEUTRAL') !== 'NEUTRAL' && !state.drafted.has(p.id));
-  if (!queued.length) {
-    host.append(el('p', 'hint', 'Nothing queued. Use the queue button on any row to cycle a player through Favorite, Prefer and Avoid.'));
-    return;
-  }
-  const order = { FAVORITE: 0, PREFER: 1, AVOID: 2 };
-  queued.sort((a, b) => order[state.status[a.id]] - order[state.status[b.id]] || (a.p50 ?? 999) - (b.p50 ?? 999));
-  for (const p of queued) {
-    const st = state.status[p.id];
-    const row = el('div', 'qrow');
-    row.append(el('span', `pos ${p.pos}`, p.pos));
-    row.append(el('span', 'qn', p.n));
-    const adj = queueAdjustment(st, state.pressure);
-    row.append(el('span', `qa delta ${adj > 0 ? 'up' : adj < 0 ? 'down' : 'flat'}`, fmt(adj)));
-    const x = el('button', 'qbtn', '×');
-    x.type = 'button'; x.title = `Clear ${p.n} from the queue`;
-    x.setAttribute('aria-label', `Clear ${p.n} from the queue`);
-    x.addEventListener('click', () => { state.status[p.id] = 'NEUTRAL'; save(); renderBoard(); renderQueue(); });
-    row.append(x);
-    host.append(row);
-    host.append(el('p', 'qreason', G18.queueReason(st, state.pressure)));
-  }
-}
-
-/** Attributes / profile for one player — what the app's profile route shows,
- *  plus the engine's own per-dial contribution breakdown for this board. */
+/** Player attributes — opened over the right pane from a board row. */
 function renderPlayer() {
   const host = document.getElementById('tab-player');
+  if (!host) return;
   host.textContent = '';
-  if (!state.profileId) {
-    host.append(el('p', 'hint', 'Select any row to see that player’s attributes.'));
-    return;
-  }
-  const row = evaluate().find(r => r.p.id === state.profileId)
-    || { p: POOL.find(x => x.id === state.profileId) };
+  if (!state.profileId) { host.append(el('p', 'hint', 'Select any row to see that player’s attributes.')); return; }
+  const row = evaluate().find(r => r.p.id === state.profileId) || { p: POOL.find(x => x.id === state.profileId) };
   const p = row.p;
   if (!p) { host.append(el('p', 'hint', 'That player is no longer available.')); return; }
 
@@ -732,10 +701,7 @@ function renderPlayer() {
   head.append(el('span', `pos ${p.pos}`, p.pos));
   head.append(el('span', 'pname', p.n));
   host.append(head);
-  if (row.tag) {
-    const t = el('span', 'pill-d tagline', row.tag.toUpperCase());
-    host.append(t);
-  }
+  if (row.tag) host.append(el('span', 'pill-d tagline', row.tag.toUpperCase()));
 
   const facts = [
     ['Team', p.tm || '—'],
@@ -768,7 +734,7 @@ function renderPlayer() {
     if (p.inj.pid_) facts.push(['Post-injury discount', 'yes']);
   }
   if (row.base != null) {
-    facts.push(['Base (market)', row.base.toFixed(1)]);
+    facts.push(['Base (−live ADP)', row.base.toFixed(1)]);
     facts.push(['Board rank', '#' + row.rank]);
     facts.push(['Value', row.total.toFixed(1)]);
   }
@@ -776,7 +742,7 @@ function renderPlayer() {
   for (const [k, v] of facts) { dl.append(el('dt', null, k), el('dd', null, String(v))); }
   host.append(dl);
 
-  host.append(el('p', 'section-label', 'Dial contributions'));
+  host.append(el('p', 'group-label', 'Dial contributions'));
   if (!row.contributions || !row.contributions.length) {
     host.append(el('p', 'hint', 'No dial fires on this player: every weight is neutral, or the evidence each dial reads is not shipped for him.'));
   } else {
@@ -794,7 +760,7 @@ function renderPlayer() {
     }
   }
 
-  host.append(el('p', 'section-label', 'Queue'));
+  host.append(el('p', 'group-label', 'Queue'));
   const st = state.status[p.id] || 'NEUTRAL';
   host.append(el('p', 'qreason', G18.queueReason(st, state.pressure)));
   const row3 = el('div', 'row');
@@ -802,21 +768,16 @@ function renderPlayer() {
     const b = el('button', 'pill', s2);
     b.type = 'button';
     if (s2 === st) b.classList.add('on');
-    b.addEventListener('click', () => { state.status[p.id] = s2; save(); renderBoard(); renderQueue(); renderPlayer(); });
+    b.addEventListener('click', () => {
+      state.status[p.id] = s2;
+      if (s2 === 'NEUTRAL' || s2 === 'AVOID') delete state.tentative[p.id];
+      save(); renderBoard(); renderRoster(); renderPlayer();
+    });
     row3.append(b);
   }
   host.append(row3);
 }
 
-/** The roster framework AND the live roster, in one component.
- *
- *  One column per slot type. The header carries the count control — this is
- *  now the only place roster size is set, so the framework and what fills it
- *  are never two different screens. Each column then shows the picks that
- *  actually landed in those slots, and below them the queued players eligible
- *  for that column. */
-/** The roster framework, the live roster, the queue by position, and now any
- *  team's roster — one component. */
 function renderRoster() {
   const host = document.getElementById('roster-footer');
   if (!host) return;
@@ -934,7 +895,10 @@ function renderRoster() {
     const q = slot.eligible.flatMap(pos => queuedByPos[pos] || [])
       .filter(x => state.tentative[x.p.id] !== slot.id)
       .sort((a, b) => (a.p.p50 ?? 999) - (b.p.p50 ?? 999));
-    if (count && q.length && seat === mySeat) {
+    // Bench slots do not list the queue: a queue is a shortlist of players you
+    // want to start, and repeating it under BN made the same names appear
+    // in every column.
+    if (count && q.length && seat === mySeat && !slot.bench) {
       body.append(el('div', 'rqhead', `Queued (${q.length})`));
       for (const { p, st } of q.slice(0, 4)) {
         const cell = el('button', 'rslot queued');
@@ -963,13 +927,14 @@ function renderRoster() {
   }
 }
 
-function dialRow(spec, value, onInput, verdict) {
-  const wrap = el('div', 'dial');
+function dialRow(spec, value, onInput, verdict, compact = false) {
+  const wrap = el('div', 'dial' + (compact ? ' compact' : ''));
   const head = el('div', 'head');
   head.append(el('span', 'title', spec.title));
   const val = el('span', 'val', fmt(value)); head.append(val);
   wrap.append(head);
-  if (spec.prompt) wrap.append(el('p', 'prompt', spec.prompt));
+  if (spec.prompt && !compact) wrap.append(el('p', 'prompt', spec.prompt));
+  if (spec.prompt && compact) wrap.title = spec.prompt;
   const input = document.createElement('input');
   input.type = 'range'; input.min = '-1'; input.max = '1'; input.step = '0.01';
   input.value = String(value);
@@ -983,30 +948,30 @@ function dialRow(spec, value, onInput, verdict) {
   const ends = el('div', 'ends');
   ends.append(el('span', null, spec.low), el('span', null, spec.high));
   wrap.append(ends);
-  if (verdict) { const v = el('p', 'verdict', verdict(value)); wrap.append(v); wrap._v = v; }
+  if (verdict && !compact) { const v = el('p', 'verdict', verdict(value)); wrap.append(v); wrap._v = v; }
   return wrap;
 }
 
 function renderPreferences() {
   const host = document.getElementById('tab-preferences');
   host.textContent = '';
-  host.append(el('p', 'section-label', 'Draft philosophy'));
+
+  host.append(el('p', 'group-label', 'Draft philosophy'));
   for (const c of PHILOSOPHY_CARDS) {
     host.append(dialRow(c, state.philosophy[c.id], v => {
       state.philosophy[c.id] = v; save(); renderProfile();
-    }, c.verdict));
+    }, c.verdict, true));
   }
-  host.append(el('p', 'section-label', 'Derived profile'));
-  const prof = el('div', 'profile'); prof.id = 'profile'; host.append(prof);
 
-  host.append(el('p', 'section-label', 'Preference weights'));
+  host.append(el('p', 'group-label', 'Preference weights'));
   for (const a of WEIGHT_AXES) {
-    host.append(dialRow(a, state.weights[a.id], v => { state.weights[a.id] = v; save(); renderBoard(); }));
+    host.append(dialRow(a, state.weights[a.id], v => { state.weights[a.id] = v; save(); renderBoard(); }, null, true));
   }
 
-  host.append(el('p', 'section-label', 'Availability pressure'));
-  const pr = el('div', 'dial');
-  const h = el('div', 'head'); h.append(el('span', 'title', 'Pressure magnitude'));
+  host.append(el('p', 'group-label', 'Availability pressure'));
+  const pr = el('div', 'dial compact');
+  const h = el('div', 'head');
+  h.append(el('span', 'title', 'Pressure magnitude'));
   const pv = el('span', 'val', state.pressure.magnitude.toFixed(2)); h.append(pv); pr.append(h);
   const inp = document.createElement('input');
   inp.type = 'range'; inp.min = '0'; inp.max = '1'; inp.step = '0.01';
@@ -1015,17 +980,24 @@ function renderPreferences() {
   inp.addEventListener('input', () => {
     state.pressure.magnitude = Math.min(1, Math.max(0, parseFloat(inp.value)));
     pv.textContent = state.pressure.magnitude.toFixed(2);
-    save(); renderBoard(); renderQueue();
+    save(); renderBoard(); renderRoster();
   });
   pr.append(inp);
-  const ends = el('div', 'ends');
-  ends.append(el('span', null, 'No pressure'), el('span', null, 'Tier collapsing'));
-  pr.append(ends);
-  const lab = el('label', 'prompt');
+  const lab = el('label', 'inline-check');
   const cb = document.createElement('input'); cb.type = 'checkbox'; cb.checked = state.pressure.hasEvidence;
-  cb.addEventListener('change', () => { state.pressure.hasEvidence = cb.checked; save(); renderBoard(); renderQueue(); });
+  cb.addEventListener('change', () => { state.pressure.hasEvidence = cb.checked; save(); renderBoard(); renderRoster(); });
   lab.append(cb, document.createTextNode(' Ledger reports pressure evidence'));
   pr.append(lab); host.append(pr);
+
+  // The derived profile is diagnostic, not a control: it collapses.
+  const det = document.createElement('details');
+  det.className = 'prof-details';
+  const sum = document.createElement('summary');
+  sum.textContent = 'Derived profile (12 dimensions)';
+  det.append(sum);
+  const prof = el('div', 'profile'); prof.id = 'profile';
+  det.append(prof);
+  host.append(det);
   renderProfile();
 }
 
@@ -1193,7 +1165,7 @@ function refresh() {
   // The roster strip owns the framework, so it must re-render whenever a
   // setting changes — including before the draft starts, where it was being
   // skipped and showing a stale count after its own dropdown was used.
-  if (state.league && !state.league.launched) { renderStepper(); renderBoard(); renderRoster(); return; }
+  if (state.league && !state.league.launched) { renderSettings(); renderBoard(); renderRoster(); return; }
   renderAll();
 }
 
@@ -1201,12 +1173,15 @@ function renderSettings() {
   const host = document.getElementById('tab-settings');
   host.textContent = '';
   if (!state.league) return;
+
   host.append(el('p', 'group-label', 'League'));
   buildLeagueFields(host);
-  host.append(el('p', 'group-label', 'Roster'));
-  host.append(el('p', 'hint', 'Roster structure is set in the strip beneath the draft board.'));
 
-  host.append(el('p', 'group-label', 'Danger zone'));
+  host.append(el('p', 'group-label', 'Scoring'));
+  buildScoringFields(host, true);
+
+  host.append(el('p', 'group-label', 'League actions'));
+  host.append(el('p', 'hint', 'Roster structure is set in the strip beneath the board.'));
   const row = el('div', 'row');
   const reset = el('button', 'pill', 'Reset draft');
   reset.type = 'button';
@@ -1217,23 +1192,42 @@ function renderSettings() {
     if (!confirm('Delete this league and everything recorded in it?')) return;
     state.leagues = state.leagues.filter(l => l.id !== state.leagueId);
     state.league = null; state.leagueId = null;
-    state.drafted = new Map(); state.pick = 1; state.status = {};
+    state.drafted = new Map(); state.pick = 1; state.status = {}; state.tentative = {};
     save(); boot();
   });
   row.append(reset, nuke); host.append(row);
-}
 
-function renderScoring() {
-  const host = document.getElementById('tab-scoring');
-  host.textContent = '';
-  host.append(el('p', 'hint', 'Every shipped scoring rule. Changes re-rank the board immediately.'));
-  buildScoringFields(host, false);
+  if (!state.league.launched) {
+    const wrap = el('div', 'launch-wrap');
+    const btn = el('button', 'launch', canLaunch() ? 'LAUNCH DRAFT' : 'NAME YOUR LEAGUE TO LAUNCH');
+    btn.type = 'button';
+    btn.disabled = !canLaunch();
+    btn.addEventListener('click', () => {
+      state.league.launched = true; state.armed = null; save(); boot();
+    });
+    wrap.append(btn);
+    host.append(wrap);
+  }
 }
 
 function selectTab(name) {
   state.tab = name;
   for (const b of document.querySelectorAll('.tabs button')) b.setAttribute('aria-selected', String(b.dataset.tab === name));
   for (const p of document.querySelectorAll('.tabpanel')) p.hidden = (p.id !== 'tab-' + name);
+}
+
+/** Player attributes open over the right pane rather than as a third tab, so
+ *  the panel keeps exactly two destinations. */
+function openPlayer(id) {
+  state.profileId = id;
+  renderPlayer();
+  const ov = document.getElementById('player-overlay');
+  if (ov) ov.hidden = false;
+}
+function closePlayer() {
+  const ov = document.getElementById('player-overlay');
+  if (ov) ov.hidden = true;
+  state.profileId = null;
 }
 
 // ---- shell -------------------------------------------------------------
@@ -1317,58 +1311,6 @@ function canLaunch() {
   return STEPS.filter(s => s.required).every(s => stepDone(s.id));
 }
 
-function renderStepper() {
-  const host = document.getElementById('stepper');
-  host.textContent = '';
-  const L = state.league;
-
-  for (const step of STEPS) {
-    const done = stepDone(step.id);
-    const open = state.openStep === step.id;
-
-    const card = el('section', 'step' + (open ? ' open' : '') + (done ? ' done' : ''));
-    const head = el('button', 'step-head');
-    head.type = 'button';
-    head.setAttribute('aria-expanded', String(open));
-    const badge = el('span', 'step-n', done ? '✓' : String(step.n));
-    head.append(badge);
-    const t = el('span', 'step-t');
-    t.append(el('span', 'step-title', step.title));
-    t.append(el('span', 'step-blurb', step.required ? 'Required' : 'Optional'));
-    head.append(t);
-    head.append(el('span', 'step-chev', open ? '▾' : '▸'));
-    head.addEventListener('click', () => {
-      state.openStep = open ? null : step.id;
-      renderStepper();
-    });
-    card.append(head);
-
-    if (open) {
-      const body = el('div', 'step-body');
-      body.append(el('p', 'hint', step.blurb));
-      if (step.id === 'league') buildLeagueFields(body);
-      if (step.id === 'scoring') buildScoringFields(body, true);
-      if (step.id === 'prefs') buildPrefFields(body);
-      card.append(body);
-    }
-    host.append(card);
-  }
-
-  const foot = el('div', 'launch-wrap');
-  const btn = el('button', 'launch', canLaunch() ? 'LAUNCH DRAFT' : 'FINISH SETUP TO LAUNCH');
-  btn.type = 'button';
-  btn.disabled = !canLaunch();
-  btn.addEventListener('click', () => {
-    if (!canLaunch()) { state.openStep = STEPS.find(s => s.required && !stepDone(s.id)).id; renderStepper(); return; }
-    state.league.launched = true;
-    state.armed = null;
-    save(); boot();
-  });
-  foot.append(btn);
-  if (!canLaunch()) foot.append(el('p', 'hint', 'Complete the required steps above to launch.'));
-  host.append(foot);
-}
-
 function renderClock() {
   const c = document.getElementById('clock');
   if (!c || !state.league) return;
@@ -1384,7 +1326,7 @@ function renderClock() {
 }
 
 function renderAll() {
-  renderFilters(); renderLeagueMenu(); renderClock(); renderBoard(); renderQueue(); renderRoster(); renderSettings(); renderPlayer();
+  renderFilters(); renderLeagueMenu(); renderClock(); renderBoard(); renderRoster(); renderSettings(); renderPlayer();
 }
 
 function renderFilters() {
@@ -1465,21 +1407,16 @@ function boot() {
   // drafter can see the pool their settings actually produce before starting.
   const launched = !!state.league.launched;
   document.body.classList.toggle('predraft', !launched);
-  document.getElementById('stepper-pane').hidden = launched;
-  document.getElementById('tabs-pane').hidden = !launched;
-  if (!launched) {
-    if (!state.openStep) state.openStep = 'league';
-    renderFilters(); renderLeagueMenu(); renderStepper(); renderBoard(); renderClock(); renderRoster();
-    return;
-  }
   renderFilters();
   renderLeagueMenu();
   renderPreferences();
-  renderScoring();
   renderAll();
   renderRoster();
   for (const b of document.querySelectorAll('.tabs button')) b.onclick = () => selectTab(b.dataset.tab);
+  if (!['settings', 'preferences'].includes(state.tab)) state.tab = 'settings';
   selectTab(state.tab);
+  const close = document.getElementById('player-close');
+  if (close) close.onclick = closePlayer;
   const undo = document.getElementById('undo');
   if (!undo) return;
   undo.hidden = false;
