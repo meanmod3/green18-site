@@ -747,3 +747,67 @@ button.rslot.queued:hover {
 .tbtn.mine.on { background: var(--accent); color: #041306; }
 .dd.lg .dd-btn { font-size: .78rem; font-weight: 700; color: var(--ink); max-width: 12rem; }
 .dd.lg .dd-val { overflow: hidden; text-overflow: ellipsis; }
+
+/* ---- right pane starts a row lower, aligning with the board ------------- */
+/* The draft room header (47px) is the room's own title bar; the settings pane
+   should begin where the board's controls do, not level with that title. */
+#tabs-pane { padding-top: 47px; }
+#tabs-pane > header { border-top: 1px solid var(--line); }
+
+/* ---- launch, far right of the draft header ------------------------------ */
+.launch-slot { margin-left: auto; display: inline-flex; }
+.launch.small {
+  width: auto; padding: .34rem .9rem; font-size: .66rem; letter-spacing: .09em;
+  border-radius: 999px;
+}
+.launch.small:disabled { border-style: solid; }
+
+/* search now leads the filter row */
+.filters .iconbtn { order: 0; }
+.filters .chips { order: 1; }
+
+/* ---- settings fields carry a full tag line ------------------------------ */
+/* The four-column grid truncated labels to "Rece…" and "Inter…", which is
+   worse than a taller row: the label IS the meaning of the number. Stack it
+   above the input the way the roster slots stack name over detail. */
+#tab-settings .scell {
+  display: flex; flex-direction: column; align-items: stretch; gap: .1rem;
+  padding: .22rem .3rem .26rem;
+}
+#tab-settings .scell .sk {
+  font-size: .53rem; letter-spacing: .04em; text-transform: uppercase;
+  color: var(--ink-3); white-space: normal; overflow: visible; line-height: 1.15;
+}
+#tab-settings .scell input, #tab-settings .scell select {
+  width: 100%; text-align: center; font-size: .66rem; padding: .1rem .2rem;
+}
+
+/* Stacked labels cost height, so the scoring grid gains a column and loses
+   padding to stay inside the pane. */
+#tab-settings .sgrid { grid-template-columns: repeat(5, minmax(0,1fr)); gap: .14rem .18rem; }
+#tab-settings .scell { padding: .16rem .2rem .18rem; }
+#tab-settings .scell .sk { font-size: .48rem; letter-spacing: .02em; }
+#tab-settings .scell input { font-size: .62rem; padding: .06rem .15rem; }
+#tab-settings .group-label { margin: .38rem 0 .16rem; font-size: .5rem; }
+#tab-settings .field { padding: .14rem 0; }
+#tab-settings .field label { font-size: .66rem; }
+#tab-settings .hint { font-size: .6rem; margin: .08rem 0 .3rem; line-height: 1.35; }
+#tab-settings .rband { font-size: .5rem; padding: .08rem .24rem; }
+#tab-settings .row { margin: .35rem 0 0; }
+#tab-settings button.pill { font-size: .62rem; padding: .26rem .6rem; }
+
+/* Aligning the pane with the board cost it 47px of height, so the two pages
+   give that back rather than reintroducing a scrollbar. */
+#tab-preferences { padding: .45rem .75rem .6rem; }
+#tab-preferences .group-label { margin: .3rem 0 .12rem; }
+#tab-preferences .dial.compact { padding: .04rem 0 .16rem; }
+#tab-preferences .dial.compact + .dial.compact { margin-top: .28rem; padding-top: .28rem; }
+#tab-preferences .dial.compact .ends { font-size: .56rem; margin-top: .1rem; }
+#tab-preferences .dial.compact input[type=range] { margin: .06rem 0 0; }
+#tab-preferences .inline-check { margin-top: .18rem; font-size: .6rem; }
+#tab-preferences .prof-details { margin-top: .35rem; }
+
+#tab-settings { padding: .5rem .7rem .7rem; }
+#tab-settings .group-label { margin: .3rem 0 .12rem; }
+#tab-settings .scell { padding: .12rem .16rem .14rem; }
+#tab-settings .hint { margin: .06rem 0 .22rem; }

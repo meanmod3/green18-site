@@ -1277,17 +1277,6 @@ function renderSettings() {
   });
   row.append(reset, nuke); host.append(row);
 
-  if (!state.league.launched) {
-    const wrap = el('div', 'launch-wrap');
-    const btn = el('button', 'launch', canLaunch() ? 'LAUNCH DRAFT' : 'NAME YOUR LEAGUE TO LAUNCH');
-    btn.type = 'button';
-    btn.disabled = !canLaunch();
-    btn.addEventListener('click', () => {
-      state.league.launched = true; state.armed = null; save(); boot();
-    });
-    wrap.append(btn);
-    host.append(wrap);
-  }
 }
 
 function selectTab(name) {
@@ -1374,6 +1363,7 @@ function renderDraftSettings() {
   if (!host || !state.league) return;
   const L = state.league;
   host.textContent = '';
+  renderLaunch();
   host.append(dropdown({
     value: L.rounds ?? 15,
     options: Array.from({ length: 30 }, (_, i) => i + 1),
@@ -1395,6 +1385,22 @@ function renderDraftSettings() {
     ariaLabel: 'Quarterback format',
     onChange: v => { L.qbFormat = v; save(); refresh(); },
   }));
+}
+
+/** Launch lives at the far right of the draft room header: it is an action ON
+ *  the draft, so it belongs to the room rather than to a settings page. */
+function renderLaunch() {
+  const host = document.getElementById('launch-slot');
+  if (!host) return;
+  host.textContent = '';
+  if (!state.league || state.league.launched) return;
+  const btn = el('button', 'launch small', canLaunch() ? 'LAUNCH DRAFT' : 'NAME YOUR LEAGUE');
+  btn.type = 'button';
+  btn.disabled = !canLaunch();
+  btn.addEventListener('click', () => {
+    state.league.launched = true; state.armed = null; save(); boot();
+  });
+  host.append(btn);
 }
 
 function renderClock() {
@@ -1422,8 +1428,15 @@ function renderFilters() {
   const lm = el('span', 'leaguemenu'); lm.id = 'leaguemenu';
   host.append(lm);
 
-  // Position filters are the primary control; search is a magnifier that
-  // overlays them, so the row stays one line at any width.
+  // Search sits beside the league picker, at the start of the row, so the two
+  // navigation controls are together and the position chips read as one group.
+  const searchBtn = el('button', 'iconbtn', '⌕');
+  searchBtn.type = 'button';
+  searchBtn.title = 'Search players';
+  searchBtn.setAttribute('aria-label', 'Search players');
+  searchBtn.setAttribute('aria-expanded', 'false');
+  host.append(searchBtn);
+
   const chips = el('div', 'chips');
   for (const pos of ['ALL', ...POSITIONS]) {
     const b = el('button', 'fbtn', pos);
@@ -1438,13 +1451,6 @@ function renderFilters() {
   qb.addEventListener('click', () => { state.filter.queuedOnly = !state.filter.queuedOnly; renderFilters(); renderBoard(); });
   chips.append(qb);
   host.append(chips);
-
-  const searchBtn = el('button', 'iconbtn', '⌕');
-  searchBtn.type = 'button';
-  searchBtn.title = 'Search players';
-  searchBtn.setAttribute('aria-label', 'Search players');
-  searchBtn.setAttribute('aria-expanded', 'false');
-  host.append(searchBtn);
 
   const overlay = el('div', 'searchbar');
   overlay.hidden = true;
@@ -1471,13 +1477,6 @@ function renderFilters() {
     if (!overlay.hidden) q.focus();
   });
   if (state.filter.q) { overlay.hidden = false; searchBtn.setAttribute('aria-expanded', 'true'); }
-}
-
-// A click anywhere else closes an open slot menu — registered once, not per
-// render, so re-rendering the strip does not stack listeners.
-if (!window.__g18MenuClose) {
-  window.__g18MenuClose = true;
-  document.addEventListener('click', () => closeAllMenus());
 }
 
 function boot() {
